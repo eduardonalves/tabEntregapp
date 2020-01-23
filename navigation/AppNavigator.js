@@ -1,12 +1,64 @@
 import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+
+import {
+  Image,
+  TouchableOpacity,
+} from "react-native";
 
 import MainTabNavigator from './MainTabNavigator';
+import Dishes from '../src/components/Dishes';
+import Cart from '../src/components/Cart';
+import Billing from '../src/components/Billing';
+import Restaurants from '../src/components/Restaurants';
+import Color from '../constants/Colors'
+
+const Routes = createStackNavigator(
+  {
+    Dishes: { screen: Dishes },
+    Cart: {screen: Cart},
+    Billing: {screen: Billing},
+    Restaurants:{screen: Restaurants}
+  },
+  {
+    initialRouteName: "Dishes",
+    /*Transition config não é obrigatório, caso queira a animação padrão remova a linha abaixo*/
+    //transitionConfig: () => flipX(),
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor:Color.headerBar,
+      },
+      headerTintColor: Color.headerBarTitle,
+      headerTitleStyle: {
+        fontWeight: 'bold'
+      },
+      
+    },
+  }
+)
 
 export default createAppContainer(
-  createSwitchNavigator({
+  createSwitchNavigator(
+  {
     // You could add another route here for authentication.
     // Read more at https://reactnavigation.org/docs/en/auth-flow.html
     Main: MainTabNavigator,
-  })
+    Routes:Routes
+  },
+  {
+    initialRouteName: "Main",
+    /*Transition config não é obrigatório, caso queira a animação padrão remova a linha abaixo*/
+    //transitionConfig: () => flipX(),
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor:Color.headerBar,
+      },
+      headerTintColor: Color.headerBarTitle,
+      headerTitleStyle: {
+        fontWeight: 'bold'
+      },
+    },
+  }
+  )
 );

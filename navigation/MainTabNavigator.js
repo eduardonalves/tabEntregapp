@@ -4,9 +4,14 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+
+import Restaurants from '../src/components/Restaurants';
+
+import Color from '../constants/Colors';
+
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -15,13 +20,13 @@ const config = Platform.select({
 
 const HomeStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Home: Restaurants,
   },
   config
 );
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'Cardápio',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -30,6 +35,7 @@ HomeStack.navigationOptions = {
           ? `ios-information-circle${focused ? '' : '-outline'}`
           : 'md-information-circle'
       }
+     
     />
   ),
 };
@@ -44,8 +50,8 @@ const LinksStack = createStackNavigator(
 );
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
+  tabBarLabel: 'Meus Pedidos',
+  tabBarIcon: ({ focused, tintColor }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
   ),
 };
@@ -60,19 +66,43 @@ const SettingsStack = createStackNavigator(
 );
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+  tabBarLabel: 'Perfil',
+  tabBarIcon: ({ focused , tintColor }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}   />
   ),
+  
 };
-
+SettingsStack.tabBarOptions = {
+  inactiveTintColor: Color.tabInactive,
+    activeTintColor:Color.tabActive,
+}
 SettingsStack.path = '';
 
-const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
-});
+const tabNavigator = createBottomTabNavigator(
+  {
+    HomeStack,
+    LinksStack,
+    SettingsStack,
+  },
+  {
+    tabBarOptions: {
+      
+      //activeBackgroundColor:Color.tabActive,
+      inactiveTintColor: Color.tabInactive,
+      activeTintColor:Color.tabActive,
+      
+      style:{
+        backgroundColor:Color.tabBar,
+        tintColor:Color.tabActive
+      },
+      labelStyle: {
+        fontSize: 15,
+        
+      }
+    }
+    
+  }
+  );
 
 tabNavigator.path = '';
 
