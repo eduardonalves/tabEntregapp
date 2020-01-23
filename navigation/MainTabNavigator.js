@@ -9,6 +9,8 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 import Restaurants from '../src/components/Restaurants';
+import Orders from '../src/components/Orders';
+import Profile from '../src/components/Profile';
 
 import Color from '../constants/Colors';
 
@@ -31,9 +33,7 @@ HomeStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+        'list-alt'
       }
      
     />
@@ -44,7 +44,7 @@ HomeStack.path = '';
 
 const LinksStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Links: Orders,
   },
   config
 );
@@ -52,7 +52,7 @@ const LinksStack = createStackNavigator(
 LinksStack.navigationOptions = {
   tabBarLabel: 'Meus Pedidos',
   tabBarIcon: ({ focused, tintColor }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+    <TabBarIcon focused={focused} name={'shopping-cart'} />
   ),
 };
 
@@ -60,7 +60,7 @@ LinksStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Settings: Profile,
   },
   config
 );
@@ -68,7 +68,7 @@ const SettingsStack = createStackNavigator(
 SettingsStack.navigationOptions = {
   tabBarLabel: 'Perfil',
   tabBarIcon: ({ focused , tintColor }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}   />
+    <TabBarIcon focused={focused} name={'user'}   />
   ),
   
 };
