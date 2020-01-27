@@ -29,7 +29,26 @@ import {
     LIMPA_QTD_CARRINHO,
     LIMPA_TOTAL_CARRINHO,
     SHOW_LOADER_CATEGORIA,
-    SHOW_LOADER_PRODUTO
+    SHOW_LOADER_PRODUTO,
+    PEDIDO_CARREGADO_OK,
+    PEDIDO_CARREGADO_FALHA,
+    MEUS_PEDIDOS_CARREGADOS_OK,
+    MEUS_PEDIDOS_CARREGADOS_FALHA,
+    MODIFICA_EMAIL,
+    MODIFICA_SENHA,
+    MODIFICA_CONFIRMA_SENHA,
+    MODIFICA_NOME,
+    MODIFICA_CEP,
+    MODIFICA_ENDERECO,
+    MODIFICA_NUMERO,
+    MODIFICA_COMPLEMENTO,
+    MODIFICA_PONTO_REFERENCIA,
+    MODIFICA_ESTADO,
+    MODIFICA_CIDADE,
+    MODIFICA_BAIRRO,
+    MODIFICA_TELEFONE,
+    CADASTRO_USUARIO,
+    CONFIRMA_SENHA
 } from './ActionTypes';
 
 import {
@@ -41,6 +60,50 @@ import {
 } from '../Settings'
 
 
+
+export const pedidosViewFetch = (cliente, token, atendimento ) => {
+    return dispatch => {
+        dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
+        dispatch({ type: SHOW_LOADER, payload: true });
+        axios.get(`${APP_URL}/entregapp_sistema/RestAtendimentos/viewmobile.json?a=${atendimento}&fp=${FILIAL}&lj=${EMPRESA}&b=${cliente}&c=${token}&limit=20`)
+            .then(res => {
+
+                if (typeof res.data.resultados != 'undefined') {
+                    dispatch({ type: PEDIDO_CARREGADO_OK, payload: res.data.resultados });
+                } else {
+                    //  console.log('deu erro');
+                    dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: false });
+                }
+                dispatch({ type: SHOW_LOADER, payload: false });
+
+            }).catch(error => {
+                 dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: true });
+                 dispatch({ type: SHOW_LOADER, payload: false });
+            });
+    }
+}
+
+export const pedidosFetch = (cliente, token ) => {
+    return dispatch => {
+        dispatch({ type: MEUS_PEDIDOS_CARREGADOS_OK, payload: [] });
+        dispatch({ type: SHOW_LOADER, payload: true });
+        axios.get(`${APP_URL}/entregapp_sistema/RestAtendimentos/indexmobile.json?fp=${FILIAL}&lj=${EMPRESA}&clt=${cliente}&token=${token}&limit=20`)
+            .then(res => {
+                //console.log(res);
+                if (typeof res.data.resultados != 'undefined') {
+                    dispatch({ type: MEUS_PEDIDOS_CARREGADOS_OK, payload: res.data.resultados });
+                } else {
+                    //  console.log('deu erro');
+                    dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: false });
+                }
+                dispatch({ type: SHOW_LOADER, payload: false });
+
+            }).catch(error => {
+                 dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: true });
+                 dispatch({ type: SHOW_LOADER, payload: false });
+            });
+    }
+}
 
 export const categoriasFetch = () => {
     return dispatch => {
@@ -63,6 +126,7 @@ export const categoriasFetch = () => {
             });
     }
 }
+
 
 export const tiposPagamentoFetch = () => {
     return dispatch => {
@@ -88,7 +152,7 @@ export const tiposPagamentoFetch = () => {
 
 export const addToCart = (produto, carrinho) => {
     carrinho.push(produto);
-    total = updateCart(carrinho);
+    let total = updateCart(carrinho);
     return dispatch => {
         dispatch({ type: ADICIONA_PRODUTO, payload: carrinho })
         dispatch({ type: ATUALIZA_TOTAL_CARRINHO, payload: total })
@@ -126,7 +190,8 @@ export const updateCartQtd = (qtd) => {
 
 
 export const updateCart = (carrinho) => {
-    total = 0;
+    let total = 0;
+    
     carrinho.map((item) => {
         total += item.preco_venda * item.qtd;
 
@@ -285,6 +350,92 @@ export const limpaCarrinho = () => {
         dispatch({ type: LIMPA_CARRINHO, payload: [] });
         dispatch({ type: LIMPA_QTD_CARRINHO, payload: 0 });
         dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
+    }
+}
+
+export const modificaEmail = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_EMAIL, payload: texto });
+       
+    }
+}
+
+export const modificaSenha = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_SENHA, payload: texto });
+    }
+}
+
+export const modificaConfirmaSenha = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_CONFIRMA_SENHA, payload: texto });
+    }
+}
+export const modificaNome = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_NOME, payload: texto });
+    }
+}
+
+export const autenticarUsuario = () => {
+    return dispatch => {
+        dispatch({ type: LIMPA_CARRINHO, payload: [] });
+    }
+}
+
+
+
+export const modificaCep = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_CEP, payload: texto });
+    }
+}
+
+export const modificaEndereco = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_ENDERECO, payload: texto });
+    }
+}
+
+export const modificaNumero = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_NUMERO, payload: texto });
+    }
+}
+
+export const modificaComplemento = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_COMPLEMENTO, payload: texto });
+    }
+}
+
+export const modificaPontoReferencia = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_PONTO_REFERENCIA, payload: texto });
+    }
+}
+
+export const modificaEstado = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_ESTADO, payload: texto });
+    }
+}
+
+export const modificaCidade = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_CIDADE, payload: texto });
+    }
+}
+
+export const modificaBairro = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_BAIRRO, payload: texto });
+    }
+}
+
+export const modificaTelefone = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_TELEFONE, payload: texto });
     }
 }
 

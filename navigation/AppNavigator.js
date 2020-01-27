@@ -12,14 +12,18 @@ import Dishes from '../src/components/Dishes';
 import Cart from '../src/components/Cart';
 import Billing from '../src/components/Billing';
 import Restaurants from '../src/components/Restaurants';
-import Color from '../constants/Colors'
+import FormLogin from '../src/components/FormLogin';
+import FormCadastro from '../src/components/FormCadastro';
+import ViewOrder from '../src/components/ViewOrder';
+import Color from '../constants/Colors';
 
 const Routes = createStackNavigator(
   {
     Dishes: { screen: Dishes },
     Cart: {screen: Cart},
     Billing: {screen: Billing},
-    Restaurants:{screen: Restaurants}
+    Restaurants:{screen: Restaurants},
+    ViewOrder:{screen: ViewOrder},
   },
   {
     initialRouteName: "Dishes",
@@ -36,7 +40,30 @@ const Routes = createStackNavigator(
       
     },
   }
-)
+);
+
+const RoutesLogin = createStackNavigator(
+  {
+    FormLogin: { screen: FormLogin },
+    FormCadastro: { screen: FormCadastro }, 
+  },
+  {
+    initialRouteName: "FormLogin",
+    /*Transition config não é obrigatório, caso queira a animação padrão remova a linha abaixo*/
+    //transitionConfig: () => flipX(),
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor:Color.headerBar,
+      },
+      headerTintColor: Color.headerBarTitle,
+      headerTitle: "Entrar",
+      headerTitleStyle: {
+        fontWeight: 'bold'
+      },
+      
+    },
+  }
+);
 
 export default createAppContainer(
   createSwitchNavigator(
@@ -44,10 +71,11 @@ export default createAppContainer(
     // You could add another route here for authentication.
     // Read more at https://reactnavigation.org/docs/en/auth-flow.html
     Main: MainTabNavigator,
-    Routes:Routes
+    Routes:Routes,
+    RoutesLogin:RoutesLogin,
   },
   {
-    initialRouteName: "Main",
+    initialRouteName: "RoutesLogin",
     /*Transition config não é obrigatório, caso queira a animação padrão remova a linha abaixo*/
     //transitionConfig: () => flipX(),
     defaultNavigationOptions: {

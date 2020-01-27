@@ -1,6 +1,19 @@
 export const MODIFICA_EMAIL = 'modifica_email';
 export const MODIFICA_SENHA = 'modifica_senha';
 export const MODIFICA_NOME = 'modifica_nome';
+export const MODIFICA_CEP = 'modifica_cep';
+export const MODIFICA_ENDERECO = 'modifica_endereco';
+export const MODIFICA_NUMERO = 'modifica_numero';
+export const MODIFICA_COMPLEMENTO = 'modifica_complemento';
+export const MODIFICA_PONTO_REFERENCIA = 'modifica_ponto_referencia';
+export const MODIFICA_ESTADO ='modifica_estado';
+export const MODIFICA_CIDADE ='modifica_cidade';
+export const MODIFICA_BAIRRO ='modifica_bairro';
+export const MODIFICA_TELEFONE ='modifica_telefone';
+export const CADASTRO_USUARIO = 'cadastro_usuario';
+export const MODIFICA_CONFIRMA_SENHA = 'modifica_confirma_senha';
+
+
 export const CADASTRO_USUARIO_SUCESSO = 'cadastro_usuario_sucesso';
 export const CADASTRO_USUARIO_ERRO = 'cadastro_usuario_erro';
 export const CADASTRO_EM_ANDAMENTO = 'cadastro_em_andamento';
@@ -32,6 +45,15 @@ export const CARREGA_PRODUTOS = 'carrega_protutos';
 export const PRODUTO_CARREGADO_OK = 'produto_carregado_ok';
 export const PRODUTO_CARREGADO_FALHA = 'produto_carregado_falha';
 
+
+//produtos
+export const CARREGA_PEDIDOS = 'carrega_pedidos';
+export const PEDIDO_CARREGADO_OK = 'pedido_carregado_ok';
+export const PEDIDO_CARREGADO_FALHA = 'pedido_carregado_falha';
+export const MEUS_PEDIDOS_CARREGADOS_OK = 'meus_pedidos_carregados_ok';
+export const MEUS_PEDIDOS_CARREGADOS_FALHA = 'meus_pedidos_carregados_falha';
+
+
 //carrinho
 export const ADICIONA_PRODUTO ='adiciona_produto';
 export const REMOVE_PRODUTO = 'remove_produto';
@@ -62,3 +84,5 @@ export const CARREGA_INFO_MODAL =  'carrega_info_modal';
 export const SHOW_LOADER = 'show_loader';
 export const SHOW_LOADER_CATEGORIA ='show_loader_categoria';
 export const SHOW_LOADER_PRODUTO ='show_loader_produto';
+
+

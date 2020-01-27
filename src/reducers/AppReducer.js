@@ -21,7 +21,29 @@ const INITIAL_STATE = {
     show_loader: false,
     show_loader_categoria:false,
     show_loader_produto:false,
-    categoria_carregada_falha:false
+    categoria_carregada_falha:false,
+    meus_pedidos: [],
+    meus_pedidos_carregados_falha:false,
+    pedido:[],
+    pedido_carregado_falha:false,
+    produto_carregado_falha:false,
+    msgErroLogin: '',
+    loadingLogin: '',
+    nome: '',
+    email:'',
+    senha: '',
+    cep:'',
+    endereco:'',
+    numero:'',
+    complemento:'',
+    ponto_referencia:'',
+    estado:'',
+    cidade:'',
+    bairro:'',
+    telefone:'',
+    cadastro_usuario:'',
+    confirma_senha:'',
+    usuario:'',
 };
 
 import {
@@ -33,7 +55,6 @@ import {
     CATEGORIA_CARREGADA_OK,
     ADICIONA_PRODUTO,
     REMOVE_PRODUTO,
-    
     ATUALIZA_ITEM_ID,
     ATUALIZA_TOTAL_CARRINHO,
     ATUALIZA_QTD,
@@ -54,7 +75,27 @@ import {
     LIMPA_TOTAL_CARRINHO,
     SHOW_LOADER_CATEGORIA,
     SHOW_LOADER_PRODUTO,
-    CATEGORIA_CARREGADA_FALHA
+    CATEGORIA_CARREGADA_FALHA,
+    PEDIDO_CARREGADO_FALHA,
+    PEDIDO_CARREGADO_OK,
+    MEUS_PEDIDOS_CARREGADOS_OK,
+    MEUS_PEDIDOS_CARREGADOS_FALHA,
+    MODIFICA_NOME,
+    MODIFICA_EMAIL,
+    MODIFICA_CEP, 
+    MODIFICA_SENHA,
+    MODIFICA_ENDERECO,
+    MODIFICA_NUMERO,
+    MODIFICA_COMPLEMENTO,
+    MODIFICA_PONTO_REFERENCIA,
+    MODIFICA_ESTADO,
+    MODIFICA_CIDADE,
+    MODIFICA_BAIRRO,
+    MODIFICA_TELEFONE,
+    MODIFICA_CONFIRMA_SENHA,
+    CADASTRO_USUARIO,
+    CONFIRMA_SENHA,
+    MODIFICA_CONFIR
 
 } from '../actions/ActionTypes';
 
@@ -63,6 +104,14 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case MODIFICA_ADICIONA_CONTATO_EMAIL:
             return { ...state, adiciona_contato_email: action.payload };
+        case MEUS_PEDIDOS_CARREGADOS_OK:
+            return { ...state, meus_pedidos: action.payload };
+        case MEUS_PEDIDOS_CARREGADOS_FALHA:
+                return { ...state, meus_pedidos_carregados_falha: action.payload };
+        case PEDIDO_CARREGADO_OK:
+            return { ...state, pedido: action.payload };
+        case PEDIDO_CARREGADO_FALHA:
+                return { ...state, pedido_carregado_falha: action.payload };
         case CATEGORIA_CARREGADA_OK:
             return { ...state, categorias: action.payload };
         case CATEGORIA_CARREGADA_FALHA:
@@ -93,29 +142,19 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, forma_pagamento: action.payload };
         case ATUALIZA_OBS:
             return { ...state, obs_pedido: action.payload };
-            
         case STATUS_ENVIO_PEDIDO:
-            //console.log('passou reducer status envio pedido');
-            //console.log('action.payload');
-            //console.log(action.payload);
             return { ...state, status_envio_pedido: action.payload };
         case ATUALIZA_TROCO:
-            
             return { ...state, troco_pedido: action.payload };
         case PEDIDO_OK:
-            //console.log('passou reducer pedido ok');
             return { ...state, status_envio_pedido: true };
         case PEDIDO_NAO_OK:
-            //console.log('passou reducer pedido nao ok');
             return { ...state, status_envio_pedido: false };
         case LIMPA_CARRINHO:
-            //console.log('passou reducer limpa carrinho');
             return { ...state, carrinho: action.payload };
         case LIMPA_QTD_CARRINHO:
-                
                 return { ...state, qtd_carrinho: action.payload };
         case LIMPA_TOTAL_CARRINHO:
-                
                 return { ...state, total_carrinho: action.payload };      
         case CARREGA_TIPOS_PAGAMENTO_OK:
             return { ...state, tipos_pagamento: action.payload };
@@ -129,7 +168,40 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, show_loader_produto: action.payload }; 
         case PODE_ENVIAR_PEDIDO:
                 return { ...state, pode_enviar_pedido: action.payload };
+
+        case MODIFICA_NOME:
+                return { ...state, nome: action.payload };
+                
+        case MODIFICA_EMAIL:
+                return { ...state, email: action.payload };
+        case MODIFICA_CEP:
+                return { ...state, cep: action.payload };
+        case MODIFICA_CONFIRMA_SENHA:
+                return { ...state, confirma_senha: action.payload };
         
+         case MODIFICA_SENHA:
+                return { ...state, senha: action.payload };
+                
+        case MODIFICA_ENDERECO:
+                return { ...state, endereco: action.payload };
+        case MODIFICA_NUMERO:
+                return { ...state, numero: action.payload };
+        case MODIFICA_COMPLEMENTO:
+                return { ...state, complemento: action.payload };
+        case MODIFICA_PONTO_REFERENCIA:
+            return { ...state, ponto_referencia: action.payload };
+        case MODIFICA_ESTADO:
+            return { ...state, estado: action.payload };
+        case MODIFICA_CIDADE:
+            return { ...state, cidade: action.payload };
+        case MODIFICA_BAIRRO:
+            return { ...state, bairro: action.payload };
+        case MODIFICA_TELEFONE:
+            return { ...state, telefone: action.payload };
+        case CADASTRO_USUARIO:
+            return { ...state, usuario: action.payload };
+        case CONFIRMA_SENHA:
+            return { ...state, confirma_senha: action.payload };
         default:
             return state;
     }

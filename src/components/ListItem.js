@@ -41,7 +41,7 @@ class ListItem extends Component {
       qtd: this.state.qtd,
       item_id: this.props.item_id,
     }
-
+    
     this.props.addToCart(produto, this.props.carrinho);
     this.props.updateItemId(this.props.item_id);
     //this.props.updateCart(this.props.carrinho);

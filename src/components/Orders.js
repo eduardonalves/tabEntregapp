@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { categoriasFetch, showMyLoaderCategory } from '../actions/AppActions';
+import { pedidosFetch, showMyLoader } from '../actions/AppActions';
 import { AppLoading } from 'expo';
 
 
@@ -15,7 +15,7 @@ import {
   ActivityIndicator
 } from "react-native";
 
-import RestaurantItem from "./RestaurantItem";
+import ListOrder from "./ListOrder";
 import CartButton from "./common/CartButton";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Color from "../../constants/Colors";
@@ -23,8 +23,9 @@ import Color from "../../constants/Colors";
 class Orders extends Component {
   constructor(props) {
     super(props);
-    this.props.showMyLoaderCategory(true);
-    this.props.categoriasFetch();
+    this.props.showMyLoader(true);
+    this.props.pedidosFetch(17,'k1wt0x33kg');
+    
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -49,16 +50,16 @@ class Orders extends Component {
       )
     };
   };
-  handleNaviagation = (categoria_id) => {
+  handleNaviagation = (Atendimento_id) => {
 
-    this.props.navigation.navigate("Dishes", { categoria_id: categoria_id });
+    this.props.navigation.navigate("ViewOrder", { Atendimento_id: Atendimento_id });
   };
   render() {
-
+    
     return (
       <View style={styles.container}>
         {
-          this.props.categorias.length == 0 && this.props.show_loader_categoria == false ? (<View style={{
+          this.props.meus_pedidos.length == 0 && this.props.show_loader == false ? (<View style={{
             opacity: 1.0,
             alignItems:'center',
             justifyContent:'center',
@@ -68,26 +69,22 @@ class Orders extends Component {
           }} >
             <Icon name="frown-o" size={200} color="#ef6136" />
             <Text style={{fontSize:18 , textAlign:'center'}}>Ops!</Text>
-            <Text style={{fontSize:15, textAlign:'center'}}>Não encontramos categorias cadastradas.</Text>
+            <Text style={{fontSize:15, textAlign:'center'}}>Não encontramos pedidos cadastrados.</Text>
             
           </View>):(
             <View></View>
           )
         }
         {
-          this.props.categoria_carregada_falha == false ? (
+          this.props.meus_pedidos_carregados_falha == false ? (
             <FlatList
-              data={this.props.categorias}
-              keyExtractor={item => item.Categoria.id}
+              data={this.props.meus_pedidos}
+              keyExtractor={item => item.Atendimento.id}
               renderItem={({ item }) => (
-                <RestaurantItem
-                  name={item.Categoria.nome}
-                  image={item.Categoria.nome}
-                  cuisine={item.Categoria.nome}
-                  location={item.Categoria.nome}
-                  isVegetarian={item.Categoria.nome}
-                  handleNaviagation={() => this.handleNaviagation(item.Categoria.id)}
-                  categoria_id={ item.Categoria.id}
+                <ListOrder
+                  item= {item}
+                  handleNaviagation={() => this.handleNaviagation(item.Atendimento.id)}
+                  
                 />
               )}
             />
@@ -102,13 +99,13 @@ class Orders extends Component {
             }} >
               <Icon name="frown-o" size={200} color="#ef6136" />
               <Text style={{fontSize:18}}>Ops!</Text>
-              <Text style={{fontSize:15}}>Houve uma falha ao carregar o menu.</Text>
+              <Text style={{fontSize:15}}>Houve uma falha ao carregar os pedidos.</Text>
               <Text style={{fontSize:15}}>Tente novamente mais tarde!</Text>
             </View> 
           )
         }
         {
-          this.props.show_loader_categoria == true ? (
+          this.props.show_loader == true ? (
             <View
               style={{
 
@@ -175,7 +172,7 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = state => ({
-  categorias: state.AppReducer.categorias,
+  meus_pedidos: state.AppReducer.meus_pedidos,
   carrinho: state.AppReducer.carrinho,
   total_carrinho: state.AppReducer.total_carrinho,
   qtd_carrinho: state.AppReducer.qtd_carrinho,
@@ -185,8 +182,7 @@ const mapStateToProps = state => ({
   obs_pedido: state.AppReducer.obs_pedido,
   show_loader: state.AppReducer.show_loader,
   status_envio_pedido: state.AppReducer.status_envio_pedido,
-  show_loader_categoria: state.AppReducer.show_loader_categoria,
-  categoria_carregada_falha: state.AppReducer.categoria_carregada_falha
+  meus_pedidos_carregados_falha: state.AppReducer.meus_pedidos_carregados_falha
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ categoriasFetch, showMyLoaderCategory }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ pedidosFetch, showMyLoader }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);

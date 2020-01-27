@@ -31,5 +31,6 @@ export default {
   noticeText: '#fff',
   style:{
     backgroundColor:'#32A852'
-  }
+  },
+  links:"#32A852",
 };
