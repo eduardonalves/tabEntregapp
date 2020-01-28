@@ -76,7 +76,8 @@ class Billing extends Component {
                     total_carrinho: this.props.total_carrinho,
                     troco_pedido: this.props.troco_pedido,
                     obs: this.props.obs_pedido,
-                    forma_pagamento:this.props.forma_pagamento
+                    pagamento_id:this.props.forma_pagamento,
+
                 }
             );
         }

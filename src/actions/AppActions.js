@@ -48,7 +48,17 @@ import {
     MODIFICA_BAIRRO,
     MODIFICA_TELEFONE,
     CADASTRO_USUARIO,
-    CONFIRMA_SENHA
+    CADASTRO_USUARIO_ERRO,
+    CADASTRO_USUARIO_SUCESSO,
+    CARREGA_ESTADO,
+    CARREGA_ESTADO_FALHA,
+    CARREGA_CIDADE,
+    CARREGA_CIDADE_FALHA,
+    CARREGA_BAIRRO ,
+    CARREGA_BAIRRO_FALHA,
+    LIMPA_CIDADE,
+    LIMPA_BAIRRO,
+    LIMPA_ESTADO
 } from './ActionTypes';
 
 import {
@@ -59,7 +69,166 @@ import {
     SALT
 } from '../Settings'
 
+export const cadastraUsuario = (usuario) => {
+   
 
+    return dispatch => {
+        dispatch({ type: SHOW_LOADER, payload: true });
+        
+        
+        axios.post(`${APP_URL}/entregapp_sistema/RestClientes/addmobile.json`, usuario)
+        .then(res => {
+            console.log('res');
+            console.log(res);
+            if(res.data.ultimocliente=="ErroUsuarioDuplo"){
+                Alert.alert(
+                    'Mensagem',
+                    `Ops. \n Este nome de usuário já não está mais disponível, por favor, escolha outro nome de usuário!`,
+                    [
+                      {
+                        text: 'OK',
+                        style: 'OK',
+                      },
+                    ],
+                    { cancelable: false },
+                  );
+                  dispatch({ type: SHOW_LOADER, payload: false });
+            
+                  dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+            }else if( res.data.ultimocliente =="Erro"){
+                Alert.alert(
+                    'Mensagem',
+                    `Ops \n, houve um erro ao tentar te cadastra, por favor, tente novamente mais tarde!`,
+                    [
+                      {
+                        text: 'OK',
+                        style: 'OK',
+                      },
+                    ],
+                    { cancelable: false },
+                  );
+                  dispatch({ type: SHOW_LOADER, payload: false });
+            
+                dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+            }else{
+                dispatch({ type: SHOW_LOADER, payload: false });
+            
+                dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: true });
+
+                
+                
+                dispatch(NavigationActions.navigate({ routeName: 'Login' }));
+                Alert.alert(
+                    'Mensagem',
+                    `Parabéns, \n Seu cadastro foi efetuado com sucesso! Agora você já pode fazer seus pedidos.`,
+                    [
+                    {
+                        text: 'OK',
+                        style: 'OK',
+                    },
+                    ],
+                    { cancelable: false },
+                );
+            }
+            
+            
+        }).catch(error => {
+            //console.log(error);
+            dispatch({ type: SHOW_LOADER, payload: false });
+             dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
+        });
+       
+    }
+}
+
+export const estadosFetch = () => {
+    return dispatch => {
+        dispatch({ type: CARREGA_ESTADO, payload: [] });
+        dispatch({ type: CARREGA_CIDADE, payload: [] });
+        dispatch({ type: CARREGA_BAIRRO, payload: [] });
+        dispatch({ type: SHOW_LOADER, payload: true });
+        axios.get(`${APP_URL}/entregapp_sistema/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=e`)
+            .then(res => {
+               
+                if (typeof res.data.resultados != 'undefined') {
+                    dispatch({ type: CARREGA_ESTADO, payload: res.data.resultados });
+                } else {
+                    //  console.log('deu erro');
+                    dispatch({ type: CARREGA_ESTADO_FALHA, payload: false });
+                }
+                dispatch({ type: SHOW_LOADER, payload: false });
+
+            }).catch(error => {
+                 dispatch({ type: CARREGA_ESTADO_FALHA, payload: true });
+                 dispatch({ type: SHOW_LOADER, payload: false });
+            });
+    }
+}
+
+export const cidadesFetch = (estado) => {
+    return dispatch => {
+        dispatch({ type: CARREGA_CIDADE, payload: [] });
+        dispatch({ type: CARREGA_BAIRRO, payload: [] });
+        dispatch({ type: SHOW_LOADER, payload: true });
+        axios.get(`${APP_URL}/entregapp_sistema/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=c&e=${estado}`)
+            .then(res => {
+                //console.log('res cidade');
+                //console.log(res);
+                if (typeof res.data.resultados != 'undefined') {
+                    dispatch({ type: CARREGA_CIDADE, payload: res.data.resultados });
+                } else {
+                    //  console.log('deu erro');
+                    dispatch({ type: CARREGA_CIDADE_FALHA, payload: false });
+                }
+                dispatch({ type: SHOW_LOADER, payload: false });
+
+            }).catch(error => {
+                 dispatch({ type: CARREGA_CIDADE_FALHA, payload: true });
+                 dispatch({ type: SHOW_LOADER, payload: false });
+            });
+    }
+}
+
+export const bairroFetch = (cidade) => {
+    return dispatch => {
+        dispatch({ type: CARREGA_BAIRRO, payload: [] });
+        dispatch({ type: SHOW_LOADER, payload: true });
+        axios.get(`${APP_URL}/entregapp_sistema/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=b&c=${cidade}`)
+            .then(res => {
+                //console.log(res);
+                if (typeof res.data.resultados != 'undefined') {
+                    dispatch({ type: CARREGA_BAIRRO, payload: res.data.resultados });
+                } else {
+                    //  console.log('deu erro');
+                    dispatch({ type: CARREGA_BAIRRO_FALHA, payload: false });
+                }
+                dispatch({ type: SHOW_LOADER, payload: false });
+
+            }).catch(error => {
+                 dispatch({ type: CARREGA_BAIRRO_FALHA, payload: true });
+                 dispatch({ type: SHOW_LOADER, payload: false });
+            });
+    }
+}
+
+export const limpaListaCidades = () => {
+    return dispatch => {
+        dispatch({ type: LIMPA_CIDADE, payload: [] })
+    }
+}
+
+export const limpaListaBairros = () => {
+    return dispatch => {
+        dispatch({ type: LIMPA_BAIRRO, payload: [] })
+    }
+}
+
+export const limpaListaEstados = () => {
+    return dispatch => {
+        dispatch({ type: LIMPA_ESTADO, payload: [] })
+    }
+}
 
 export const pedidosViewFetch = (cliente, token, atendimento ) => {
     return dispatch => {
@@ -226,8 +395,6 @@ export const setModalVisible = (status, content) => {
 
 export const atualizaTroco = (troco) => {
     return dispatch => {
-        console.log('troco');
-        console.log(troco);
         dispatch({ type: ATUALIZA_TROCO, payload: troco })
     }
 }
@@ -311,6 +478,16 @@ export const setStatusEnvioPedido = (status) => {
         
     }
 }
+
+export const setStatusCadastroUsuario = (status) => {
+    
+    return dispatch => {
+        //console.log('STATUS_ENVIO_PEDIDO');
+        //console.log(status);
+        dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: status });
+        
+    }
+}
 export const montaPedido = (pedido) => {
     let novoPedido = {
         Pedido:{
@@ -318,9 +495,9 @@ export const montaPedido = (pedido) => {
             a: "entrega",
             cliente_id: 17,
             empresa_id: EMPRESA,
-            pagamento_id:1,
-            trocovalor: 0,
-            trocoresposta:"Não",
+            pagamento_id:pedido.pagamento_id,
+            trocovalor: '',
+            trocoresposta:pedido.troco_pedido,
             entrega_valor:0,
             salt: SALT,
             token:"k1wt0x33kg",

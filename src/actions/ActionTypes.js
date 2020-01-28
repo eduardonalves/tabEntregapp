@@ -76,6 +76,22 @@ export const CARREGA_TIPOS_PAGAMENTO_OK = 'carrega_tipos_pagamento_ok';
 export const CARREGA_TIPOS_PAGAMENTO_FALHA = 'carrega_tipos_pagamento_falha';
 export const PODE_ENVIAR_PEDIDO = 'pode_enviar_pedido';
 
+//estado
+export const CARREGA_ESTADO = 'carrega_estado';
+export const CARREGA_ESTADO_FALHA = 'carrega_estado_falha';
+export const LIMPA_ESTADO = 'limpa_estado';
+
+//cidade
+export const CARREGA_CIDADE = 'carrega_cidade';
+export const CARREGA_CIDADE_FALHA = 'carrega_cidade_falha';
+export const LIMPA_CIDADE = 'limpa_cidade';
+
+//bairro
+export const CARREGA_BAIRRO = 'carrega_bairro';
+export const CARREGA_BAIRRO_FALHA = 'carrega_bairro_falha';
+export const LIMPA_BAIRRO= 'limpa_bairro';
+
+
 //Modal
 export const SHOW_MODAL =  'show_modal';
 export const CARREGA_INFO_MODAL =  'carrega_info_modal';

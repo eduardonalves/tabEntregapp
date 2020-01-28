@@ -11,8 +11,13 @@ import reducers from './src/reducers';
 
 import AppNavigator from './navigation/AppNavigator';
 
+
+
+
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+
+  
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -23,6 +28,7 @@ export default function App(props) {
       />
     );
   } else {
+    
     return (
       <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))} >
         <View style={styles.container}>

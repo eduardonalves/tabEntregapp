@@ -41,9 +41,17 @@ const INITIAL_STATE = {
     cidade:'',
     bairro:'',
     telefone:'',
+    lista_estados:[],
+    lista_cidades:[],
+    lista_bairros:[],
     cadastro_usuario:'',
+    cadastro_usuario_falha:false,
     confirma_senha:'',
     usuario:'',
+    carrega_cidade_falha:false,
+    carrega_bairro_falha: false,
+    carrega_estado_falha:false,
+    cadastro_usuario_sucesso:false,
 };
 
 import {
@@ -94,8 +102,19 @@ import {
     MODIFICA_TELEFONE,
     MODIFICA_CONFIRMA_SENHA,
     CADASTRO_USUARIO,
+    CADASTRO_USUARIO_ERRO,
     CONFIRMA_SENHA,
-    MODIFICA_CONFIR
+    MODIFICA_CONFIR,
+    CARREGA_CIDADE,
+    CARREGA_BAIRRO,
+    CARREGA_BAIRRO_FALHA,
+    CARREGA_CIDADE_FALHA,
+    CARREGA_ESTADO,
+    CARREGA_ESTADO_FALHA,
+    LIMPA_BAIRRO,
+    LIMPA_CIDADE,
+    LIMPA_ESTADO,
+    CADASTRO_USUARIO_SUCESSO
 
 } from '../actions/ActionTypes';
 
@@ -168,20 +187,16 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, show_loader_produto: action.payload }; 
         case PODE_ENVIAR_PEDIDO:
                 return { ...state, pode_enviar_pedido: action.payload };
-
         case MODIFICA_NOME:
                 return { ...state, nome: action.payload };
-                
         case MODIFICA_EMAIL:
                 return { ...state, email: action.payload };
         case MODIFICA_CEP:
                 return { ...state, cep: action.payload };
         case MODIFICA_CONFIRMA_SENHA:
-                return { ...state, confirma_senha: action.payload };
-        
+                return { ...state, confirma_senha: action.payload };        
          case MODIFICA_SENHA:
                 return { ...state, senha: action.payload };
-                
         case MODIFICA_ENDERECO:
                 return { ...state, endereco: action.payload };
         case MODIFICA_NUMERO:
@@ -200,8 +215,31 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, telefone: action.payload };
         case CADASTRO_USUARIO:
             return { ...state, usuario: action.payload };
+        
+        case CADASTRO_USUARIO_ERRO:
+            return { ...state, cadastro_usuario_falha: action.payload };
+        case CADASTRO_USUARIO_SUCESSO:
+            return { ...state, cadastro_usuario_sucesso: action.payload };
         case CONFIRMA_SENHA:
             return { ...state, confirma_senha: action.payload };
+        case CARREGA_ESTADO:
+            return { ...state, lista_estados: action.payload };
+        case CARREGA_ESTADO_FALHA:
+            return { ...state, carrega_estado_falha: action.payload };  
+        case CARREGA_CIDADE:
+            return { ...state, lista_cidades: action.payload };
+        case CARREGA_CIDADE_FALHA:
+            return { ...state, carrega_cidade_falha: action.payload };
+        case LIMPA_CIDADE:
+            return { ...state, lista_cidades: action.payload };
+        case CARREGA_BAIRRO:
+            return { ...state, lista_bairros: action.payload };
+        case LIMPA_BAIRRO:
+                return { ...state, lista_bairros: action.payload };
+        case LIMPA_ESTADO:
+            return { ...state, lista_estados: action.payload };
+        case CARREGA_BAIRRO_FALHA:
+            return { ...state, carrega_bairro_falha: action.payload };
         default:
             return state;
     }
