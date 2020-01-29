@@ -8,32 +8,58 @@ import {
     TouchableHighlight,
     Image,
     ActivityIndicator,
-    Platform
+    AsyncStorage
 } from 'react-native';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import Color from "../../constants/Colors";
+
 import { 
     modificaEmail, 
     modificaSenha,
-    autenticarUsuario 
+    autenticarUsuario,
+    setStatusCadastroUsuario  
 } from '../actions/AppActions';
+import { FILIAL, EMPRESA, SALT } from '../Settings';
 
 
-import SQLite from "react-native-sqlite-2";
 
-let db;
 class formLogin extends Component {    
-    
-   
+
     constructor(props) {
-        super(props);
-       
-        /*db = SQLite.openDatabase({name : "entregapp.db"});
-        db.transaction(tx =>{
-            console.log(tx);
-        });*/
+        super(props);        
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
         
+
+        
+        if(typeof  nextProps.usuario != 'undefined') {
+            if(nextProps.usuario){
+                
+                this.storeToken(nextProps.usuario);
+                
+                //this.props.navigation.navigate('Main');
+            }
+            
+        }
+    }
+    UNSAFE_componentWillMount(){
+        if(this.props.usuario=='' || this.props.usuario==false ){
+            
+            let storeData = this.getToken();
+            storeData.then(resp => {
+                if(typeof resp.token != 'undefined'){
+                    //console.log('resp usuario gravado login');
+                    //console.log(resp);
+                    this.props.setStatusCadastroUsuario(resp);
+                    //console.log('salvou usuário no cache');
+                    //console.log(resp);
+                    //this.props.navigation.navigate('Main');
+                }
+                
+            });
+        }/**/
         
     }
 
@@ -49,12 +75,15 @@ class formLogin extends Component {
     }
 
     _autenticarUsuario() {
-        const params = { 
-            email: this.props.email, 
-            senha: this.props.senha
+        let dadosUsuario = {
+            username:this.props.email,
+            password:this.props.senha,
+            salt:SALT,
+            empresa: EMPRESA,
+            filial: FILIAL
         }; 
 
-        this.props.autenticarUsuario(params);
+        this.props.autenticarUsuario(dadosUsuario);
     }
 
     renderBtnEntrar() {
@@ -67,26 +96,27 @@ class formLogin extends Component {
         )
     }
 
-   
+    async storeToken(user) {
+        try {
+           await AsyncStorage.setItem("userData", JSON.stringify(user));
+        } catch (error) {
+          //console.log("Something went wrong", error);
+        }
+    }
+    async getToken() {
+        try {
+          let userData = await AsyncStorage.getItem("userData");
+          let data = JSON.parse(userData);
+          //console.log(data);
+          return data;
+        } catch (error) {
+          //console.log("Something went wrong", error);
+          return false;
+        }
+    }
 
     render() {
-       
         
-        /*db.transaction(function(txn) {
-            txn.executeSql("DROP TABLE IF EXISTS Users", []);
-            txn.executeSql(
-              "CREATE TABLE IF NOT EXISTS Users(user_id INTEGER PRIMARY KEY NOT NULL, name VARCHAR(30))",
-              []
-            );
-            txn.executeSql("INSERT INTO Users (name) VALUES (:name)", ["nora"]);
-            txn.executeSql("INSERT INTO Users (name) VALUES (:name)", ["takuya"]);
-            txn.executeSql("SELECT * FROM `users`", [], function(tx, res) {
-              for (let i = 0; i < res.rows.length; ++i) {
-                console.log("item:", res.rows.item(i));
-              }
-            });
-        });*/
-
         return (
             
             <View style={styles.grid} >
@@ -136,12 +166,14 @@ const mapStateToProps = state => ({
         email: state.AppReducer.email,
         senha: state.AppReducer.senha,
         msgErroLogin: state.AppReducer.msgErroLogin,
-        loadingLogin: state.AppReducer.loadingLogin
+        loadingLogin: state.AppReducer.loadingLogin,
+        usuario: state.AppReducer.usuario
 });
 export default connect(mapStateToProps, {
     modificaEmail,
     modificaSenha,
-    autenticarUsuario
+    autenticarUsuario,
+    setStatusCadastroUsuario 
 })(formLogin);
 
 const styles = StyleSheet.create({

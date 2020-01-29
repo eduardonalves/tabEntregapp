@@ -70,13 +70,17 @@ class Billing extends Component {
         }else{
            
             this.props.showMyLoader(true);
-            this.props.enviaPedido(
+            console.log(this.props.usuario);
+           this.props.enviaPedido(
                 {
                     carrinho: this.props.carrinho,
                     total_carrinho: this.props.total_carrinho,
-                    troco_pedido: this.props.troco_pedido,
+                    trocoresposta: this.props.troco_pedido,
+                    cliente_id: this.props.usuario.id,
+                    token: this.props.usuario.token,
                     obs: this.props.obs_pedido,
                     pagamento_id:this.props.forma_pagamento,
+                    entrega_valor: this.props.usuario.frete_cadastro,
 
                 }
             );
@@ -229,6 +233,7 @@ const mapStateToProps = state => ({
     troco_pedido: state.AppReducer.troco_pedido,
     obs_pedido: state.AppReducer.obs_pedido,
     status_envio_pedido: state.AppReducer.status_envio_pedido,
+    usuario: state.AppReducer.usuario,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ atualizaFormaDePagamento, atualizaTroco, tiposPagamentoFetch, enviaPedido, setStatusEnvioPedido, limpaCarrinho, showMyLoader }, dispatch);

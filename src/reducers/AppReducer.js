@@ -114,7 +114,8 @@ import {
     LIMPA_BAIRRO,
     LIMPA_CIDADE,
     LIMPA_ESTADO,
-    CADASTRO_USUARIO_SUCESSO
+    CADASTRO_USUARIO_SUCESSO,
+    ATUALIZA_USUARIO
 
 } from '../actions/ActionTypes';
 
@@ -219,7 +220,7 @@ export default (state = INITIAL_STATE, action) => {
         case CADASTRO_USUARIO_ERRO:
             return { ...state, cadastro_usuario_falha: action.payload };
         case CADASTRO_USUARIO_SUCESSO:
-            return { ...state, cadastro_usuario_sucesso: action.payload };
+            return { ...state, usuario: action.payload };
         case CONFIRMA_SENHA:
             return { ...state, confirma_senha: action.payload };
         case CARREGA_ESTADO:
@@ -240,6 +241,9 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, lista_estados: action.payload };
         case CARREGA_BAIRRO_FALHA:
             return { ...state, carrega_bairro_falha: action.payload };
+        case ATUALIZA_USUARIO:
+            return { ...state, usuario: action.payload };
+            
         default:
             return state;
     }

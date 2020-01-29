@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import { HeaderBackButton } from 'react-navigation-stack';
 import { addToCart } from '../actions/AppActions';
 import EmptyCart from "./common/EmptyCart";
 import CartButton from "./common/CartButton";
@@ -34,6 +34,7 @@ class Cart extends Component {
         shadowOpacity: 0,
         backgroundColor: Color.headerBar,
       },
+      headerLeft: <HeaderBackButton onPress={() => navigation.navigate("Main")}  tintColor="#fff"  />,
       headerRight: (
         <CartButton
           onPress={() => {

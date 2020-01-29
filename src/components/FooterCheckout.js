@@ -53,10 +53,42 @@ class FooterCheckout extends Component {
   render() {
     //console.log('this.props.navigation');
     //console.log(this.props.navigation);
-
+    let valorFrete =  parseFloat(this.props.usuario.frete_cadastro); 
+    valorFrete = valorFrete.toFixed(2);
     return (
       <View>
         <View style={styles.container}>
+        <View style={{
+            flex: 1,
+            borderTopLeftRadius: 4,
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 0,
+            borderBottomLeftRadius: 4
+          }}>
+            <Text style={{
+              fontSize: 18,
+              fontWeight: "bold",
+              color: "#a92319",
+            }}>
+            Tx. Entrega
+            </Text>
+          </View>
+          <View style={{
+            flex: 1,
+            borderTopLeftRadius: 4,
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 0,
+            borderBottomLeftRadius: 4,
+            //flexDirection: "row-reverse"
+          }}>
+            <Text style={{
+              fontSize: 18,
+              fontWeight: "bold",
+              color: "#ef6136",
+            }}>
+            &nbsp;R$ {valorFrete}
+            </Text>
+          </View>
           <View style={{
             flex: 1,
             borderTopLeftRadius: 4,
@@ -154,7 +186,8 @@ const mapStateToProps = state => ({
   tipos_pagamento: state.AppReducer.tipos_pagamento,
   troco_pedido: state.AppReducer.troco_pedido,
   obs_pedido: state.AppReducer.obs_pedido,
-  show_loader: state.AppReducer.show_loader
+  show_loader: state.AppReducer.show_loader,
+  usuario: state.AppReducer.usuario,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ atualizaObs }, dispatch);

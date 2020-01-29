@@ -21,6 +21,7 @@
     "expo-font": "~8.0.0",
     "expo-web-browser": "~8.0.0",
     "link": "^0.1.5",
+    "pouchdb-react-native": "^6.4.1",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-lodash": "^0.1.2",

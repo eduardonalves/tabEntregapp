@@ -9,7 +9,8 @@ import {
     ActivityIndicator,
     ScrollView,
     Picker,
-    Alert
+    Alert,
+    AsyncStorage
 } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -52,6 +53,8 @@ class FormCadastro extends Component {
     constructor(props) {
         super(props);
         this.props.estadosFetch();
+        this.storeToken({novoteste:'novo teste'});
+        this.getToken();
         
     }
     static navigationOptions = ({ navigation }) => {
@@ -64,10 +67,38 @@ class FormCadastro extends Component {
             }
         };
     }
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.cadastro_usuario_sucesso ==true) {
-            this.props.setStatusCadastroUsuario(false);
-            this.props.navigation.navigate('Main');
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        //console.log('nextProps');
+        //console.log(nextProps);
+        if(typeof  nextProps.usuario != 'undefined') {
+            if(nextProps.usuario){
+                //console.log('nextProps.usuario');
+                //console.log(nextProps.usuario);
+                this.storeToken(nextProps.usuario);
+                //this.props.setStatusCadastroUsuario(false);
+                //this.props.navigation.navigate('Main');
+            }
+            
+        }
+    }
+
+    async storeToken(user) {
+        try {
+           await AsyncStorage.setItem("userData", JSON.stringify(user));
+           //console.log('setou o usuario na sessão');
+        } catch (error) {
+          //console.log("Something went wrong", error);
+        }
+    }
+    async getToken(user) {
+        try {
+          let userData = await AsyncStorage.getItem("userData");
+          let data = JSON.parse(userData);
+          //console.log(data);
+          return data;
+        } catch (error) {
+          //console.log("Something went wrong", error);
+          return false;
         }
     }
 
@@ -483,7 +514,8 @@ const mapStateToProps = state => ({
     carrega_estado_falha: state.AppReducer.carrega_estado_falha,
     carrega_bairro_falha: state.AppReducer.carrega_bairro_falha,
     show_loader:state.AppReducer.show_loader,
-    cadastro_usuario_sucesso: state.AppReducer.cadastro_usuario_sucesso
+    cadastro_usuario_sucesso: state.AppReducer.cadastro_usuario_sucesso,
+    usuario: state.AppReducer.usuario,
 });
 
 export default connect(mapStateToProps, {

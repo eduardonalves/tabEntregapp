@@ -24,7 +24,7 @@ class ListCart extends Component {
   }
 
   handleRemoveFromCart = () => {
-    this.props.removeFromCart(this.props.item_id, this.props.carrinho);
+    this.props.removeFromCart(this.props.item_id, this.props.carrinho, this.props.usuario.frete_cadastro);
   }
   handleClick = () => {
     this.setState({
@@ -115,7 +115,7 @@ class ListCart extends Component {
                 textAlign: 'center',
               }}
             >
-              Total {"\n"} {this.props.price * this.props.qtd}
+              Total {"\n"}{ this.props.price * this.props.qtd }
             </Text>
           </View>
 
@@ -133,6 +133,7 @@ const mapStateToProps = state => ({
   troco_pedido: state.AppReducer.troco_pedido,
   obs_pedido: state.AppReducer.obs_pedido,
   show_loader: state.AppReducer.show_loader,
+  usuario: state.AppReducer.usuario
 });
 const mapDispatchToProps = dispatch => bindActionCreators({ removeFromCart, updateCart }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ListCart);

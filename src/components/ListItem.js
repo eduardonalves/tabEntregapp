@@ -42,7 +42,7 @@ class ListItem extends Component {
       item_id: this.props.item_id,
     }
     
-    this.props.addToCart(produto, this.props.carrinho);
+    this.props.addToCart(produto, this.props.carrinho, this.props.usuario.frete_cadastro);
     this.props.updateItemId(this.props.item_id);
     //this.props.updateCart(this.props.carrinho);
 
@@ -225,7 +225,8 @@ const mapStateToProps = state => ({
   tipos_pagamento: state.AppReducer.tipos_pagamento,
   troco_pedido: state.AppReducer.troco_pedido,
   obs_pedido: state.AppReducer.obs_pedido,
-  show_loader: state.AppReducer.show_loader
+  show_loader: state.AppReducer.show_loader,
+  usuario: state.AppReducer.usuario,
 });
 
 

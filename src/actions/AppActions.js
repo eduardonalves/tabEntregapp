@@ -69,6 +69,50 @@ import {
     SALT
 } from '../Settings'
 
+
+export const autenticarUsuario = (usuario) => {
+   
+
+    return dispatch => {
+        dispatch({ type: SHOW_LOADER, payload: true });
+        
+        
+        axios.post(`${APP_URL}/entregapp_sistema/RestClientes/loginmobile.json`, usuario)
+        .then(res => {
+            //console.log('res login');
+            //console.log(res);
+            if(typeof res.data.ultimopedido != 'undefined'){
+                if(res.data.ultimopedido == 'ErroLogin'){
+                    Alert.alert(
+                        'Mensagem',
+                        `Ops, houve um erro ao tentar te autenticar, provalvelmente seu usuário ou senha estão errados, por favor tente novamente!`,
+                        [
+                          {
+                            text: 'OK',
+                            style: 'OK',
+                          },
+                        ],
+                        { cancelable: false },
+                      );
+                }else{
+                    dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimopedido.Cliente });
+                }
+                
+            }
+            dispatch({ type: SHOW_LOADER, payload: false });
+            dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+        }).catch(error => {
+            //console.log('error');
+            //console.log(error);
+            dispatch({ type: SHOW_LOADER, payload: false });
+             dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
+        });
+       
+    }
+}
+
+
+
 export const cadastraUsuario = (usuario) => {
    
 
@@ -78,12 +122,12 @@ export const cadastraUsuario = (usuario) => {
         
         axios.post(`${APP_URL}/entregapp_sistema/RestClientes/addmobile.json`, usuario)
         .then(res => {
-            console.log('res');
-            console.log(res);
+            //console.log('res');
+            //console.log(res);
             if(res.data.ultimocliente=="ErroUsuarioDuplo"){
                 Alert.alert(
                     'Mensagem',
-                    `Ops. \n Este nome de usuário já não está mais disponível, por favor, escolha outro nome de usuário!`,
+                    `Ops, este nome de usuário já não está mais disponível, por favor, escolha outro nome de usuário!`,
                     [
                       {
                         text: 'OK',
@@ -92,13 +136,13 @@ export const cadastraUsuario = (usuario) => {
                     ],
                     { cancelable: false },
                   );
-                  dispatch({ type: SHOW_LOADER, payload: false });
-            
-                  dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                dispatch({ type: SHOW_LOADER, payload: false });
+                
+                dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
             }else if( res.data.ultimocliente =="Erro"){
                 Alert.alert(
                     'Mensagem',
-                    `Ops \n, houve um erro ao tentar te cadastra, por favor, tente novamente mais tarde!`,
+                    `Ops, houve um erro ao tentar te cadastrar, por favor, tente novamente mais tarde!`,
                     [
                       {
                         text: 'OK',
@@ -108,18 +152,36 @@ export const cadastraUsuario = (usuario) => {
                     { cancelable: false },
                   );
                   dispatch({ type: SHOW_LOADER, payload: false });
-            
+                    
                 dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
             }else{
-                dispatch({ type: SHOW_LOADER, payload: false });
-            
-                dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
-                dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: true });
+                //dispatch({ type: SHOW_LOADER, payload: false });
+                //dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                //dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimocliente  });
+                let dadosUsuario = {
+                    username:usuario.Cliente.username,
+                    password:usuario.Cliente.password,
+                    salt:usuario.Cliente.salt,
+                    empresa: usuario.Cliente.empresa_id,
+                    filial: usuario.Cliente.filial_id
+                };
+                axios.post(`${APP_URL}/entregapp_sistema/RestClientes/loginmobile.json`, dadosUsuario)
+                .then(res => {
+                    
+                    if(typeof res.data.ultimopedido != 'undefined'){
+                        dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimopedido.Cliente });
+                    }
+                    
+                    dispatch({ type: SHOW_LOADER, payload: false });
+                    dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                }).catch(error => {
+                    //console.log(error);
+                    dispatch({ type: SHOW_LOADER, payload: false });
+                    dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
+                });
 
-                
-                
-                dispatch(NavigationActions.navigate({ routeName: 'Login' }));
-                Alert.alert(
+                //dispatch(NavigationActions.navigate({ routeName: 'RoutesLogin' }));
+                /*Alert.alert(
                     'Mensagem',
                     `Parabéns, \n Seu cadastro foi efetuado com sucesso! Agora você já pode fazer seus pedidos.`,
                     [
@@ -129,12 +191,13 @@ export const cadastraUsuario = (usuario) => {
                     },
                     ],
                     { cancelable: false },
-                );
+                );*/
             }
             
             
         }).catch(error => {
             //console.log(error);
+            
             dispatch({ type: SHOW_LOADER, payload: false });
              dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
         });
@@ -319,9 +382,10 @@ export const tiposPagamentoFetch = () => {
     }
 }
 
-export const addToCart = (produto, carrinho) => {
+export const addToCart = (produto, carrinho, frete = 0) => {
     carrinho.push(produto);
-    let total = updateCart(carrinho);
+    let total = updateCart(carrinho, frete);
+    total = total;
     return dispatch => {
         dispatch({ type: ADICIONA_PRODUTO, payload: carrinho })
         dispatch({ type: ATUALIZA_TOTAL_CARRINHO, payload: total })
@@ -335,14 +399,14 @@ export const updateItemId = (item_id) => {
     }
 }
 
-export const removeFromCart = (item_id, carrinho) => {
-    newItem = [];
+export const removeFromCart = (item_id, carrinho, frete=0) => {
+    let newItem = [];
     carrinho.map((item) => {
         if (item.item_id != item_id) {
             newItem.push(item);
         }
     });
-    let total = updateCart(newItem);
+    let total = updateCart(newItem, frete);
     return dispatch => {
         dispatch({ type: REMOVE_PRODUTO, payload: newItem })
         dispatch({ type: ATUALIZA_TOTAL_CARRINHO, payload: total })
@@ -358,8 +422,9 @@ export const updateCartQtd = (qtd) => {
 }
 
 
-export const updateCart = (carrinho) => {
-    let total = 0;
+export const updateCart = (carrinho, frete) => {
+    let total = frete;
+    total  = parseFloat(total);
     
     carrinho.map((item) => {
         total += item.preco_venda * item.qtd;
@@ -489,20 +554,21 @@ export const setStatusCadastroUsuario = (status) => {
     }
 }
 export const montaPedido = (pedido) => {
+    //console.log(pedido);
     let novoPedido = {
         Pedido:{
             filial_id:  FILIAL,
             a: "entrega",
-            cliente_id: 17,
+            cliente_id: pedido.cliente_id,
             empresa_id: EMPRESA,
             pagamento_id:pedido.pagamento_id,
             trocovalor: '',
-            trocoresposta:pedido.troco_pedido,
+            trocoresposta: pedido.trocoresposta,
             entrega_valor:0,
             salt: SALT,
-            token:"k1wt0x33kg",
-            obs:"",
-            user_id: 1
+            token:pedido.token,
+            obs: pedido.obs,
+            entrega_valor: pedido.entrega_valor
 
         },
         Itensdepedido:[],
@@ -527,6 +593,8 @@ export const limpaCarrinho = () => {
         dispatch({ type: LIMPA_CARRINHO, payload: [] });
         dispatch({ type: LIMPA_QTD_CARRINHO, payload: 0 });
         dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
+        dispatch({ type: ATUALIZA_FORMA_PAGAMENTO, payload: '' });
+        dispatch({ type: ATUALIZA_TROCO, payload: '' });
     }
 }
 
@@ -551,12 +619,6 @@ export const modificaConfirmaSenha = (texto) => {
 export const modificaNome = (texto) => {
     return dispatch => {
         dispatch({ type: MODIFICA_NOME, payload: texto });
-    }
-}
-
-export const autenticarUsuario = () => {
-    return dispatch => {
-        dispatch({ type: LIMPA_CARRINHO, payload: [] });
     }
 }
 
