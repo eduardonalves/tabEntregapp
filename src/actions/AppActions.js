@@ -79,8 +79,8 @@ export const autenticarUsuario = (usuario) => {
         
         axios.post(`${APP_URL}/entregapp_sistema/RestClientes/loginmobile.json`, usuario)
         .then(res => {
-            //console.log('res login');
-            //console.log(res);
+            console.log('res login');
+            console.log(res);
             if(typeof res.data.ultimopedido != 'undefined'){
                 if(res.data.ultimopedido == 'ErroLogin'){
                     Alert.alert(
@@ -111,7 +111,55 @@ export const autenticarUsuario = (usuario) => {
     }
 }
 
+export const recuperarSenha = (usuario) => {
+   
 
+    return dispatch => {
+        dispatch({ type: SHOW_LOADER, payload: true });
+        
+        axios.post(`${APP_URL}/entregapp_sistema/RestClientes/recuperarsenha.json`, usuario)
+        .then(res => {
+            console.log('res recover');
+            console.log(res);
+            if(typeof res.data.ultimocliente != 'undefined'){
+                if(res.data.ultimocliente == 'ok'){
+                      Alert.alert(
+                        'Mensagem',
+                        `Sucesso, enviamos um link de recuperação de senha para seu e-mail cadastrado `,
+                        [
+                          {
+                            text: 'OK',
+                            style: 'OK',
+                          },
+                        ],
+                        { cancelable: false },
+                      );
+                }else{
+                    Alert.alert(
+                        'Mensagem',
+                        `Ops, não encontramos seu usuário`,
+                        [
+                          {
+                            text: 'OK',
+                            style: 'OK',
+                          },
+                        ],
+                        { cancelable: false },
+                      );
+                }
+                
+            }
+            dispatch({ type: SHOW_LOADER, payload: false });d
+            
+        }).catch(error => {
+            console.log('error');
+            console.log(error);
+            dispatch({ type: SHOW_LOADER, payload: false });
+            
+        });
+       
+    }
+}
 
 export const cadastraUsuario = (usuario) => {
    

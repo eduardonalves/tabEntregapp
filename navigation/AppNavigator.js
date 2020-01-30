@@ -14,6 +14,7 @@ import Billing from '../src/components/Billing';
 import Restaurants from '../src/components/Restaurants';
 import FormLogin from '../src/components/FormLogin';
 import FormCadastro from '../src/components/FormCadastro';
+import FormRecover from '../src/components/FormRecover';
 import ViewOrder from '../src/components/ViewOrder';
 import Color from '../constants/Colors';
 
@@ -45,7 +46,8 @@ const Routes = createStackNavigator(
 const RoutesLogin = createStackNavigator(
   {
     FormLogin: { screen: FormLogin },
-    FormCadastro: { screen: FormCadastro }, 
+    FormCadastro: { screen: FormCadastro },
+    FormRecover: { screen: FormRecover} 
   },
   {
     initialRouteName: "FormLogin",
@@ -56,7 +58,7 @@ const RoutesLogin = createStackNavigator(
         backgroundColor:Color.headerBar,
       },
       headerTintColor: Color.headerBarTitle,
-      headerTitle: "Entrar",
+      headerTitle: "Recuperar Senha",
       headerTitleStyle: {
         fontWeight: 'bold'
       },

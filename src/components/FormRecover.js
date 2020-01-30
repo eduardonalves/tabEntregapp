@@ -17,55 +17,24 @@ import Color from "../../constants/Colors";
 import { 
     modificaEmail, 
     modificaSenha,
-    autenticarUsuario,
+    recuperarSenha,
     setStatusCadastroUsuario  
 } from '../actions/AppActions';
 import { FILIAL, EMPRESA, SALT } from '../Settings';
 
 
 
-class formLogin extends Component {    
+class FormRecover extends Component {    
 
     constructor(props) {
         super(props);        
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        
-
-        
-        if(typeof  nextProps.usuario != 'undefined') {
-            if(nextProps.usuario){
-                
-                this.storeToken(nextProps.usuario);
-                
-                //this.props.navigation.navigate('Main');
-            }
-            
-        }
-    }
-    UNSAFE_componentWillMount(){
-        if(this.props.usuario=='' || this.props.usuario==false ){
-            
-            let storeData = this.getToken();
-            storeData.then(resp => {
-                if(typeof resp.token != 'undefined'){
-                    //console.log('resp usuario gravado login');
-                    //console.log(resp);
-                    this.props.setStatusCadastroUsuario(resp);
-                    //console.log('salvou usuário no cache');
-                    //console.log(resp);
-                    //this.props.navigation.navigate('Main');
-                }
-                
-            });
-        }/**/
-        
-    }
+    
 
     static navigationOptions = ({ navigation }) => {
         return {
-            headerTitle: "Entrar",
+            headerTitle: "Recuperar Senha",
             headerStyle: {
                 elevation: 0,
                 shadowOpacity: 0,
@@ -74,16 +43,11 @@ class formLogin extends Component {
         };
     }
 
-    _autenticarUsuario() {
-        let dadosUsuario = {
-            username:this.props.email,
-            password:this.props.senha,
-            salt:SALT,
-            empresa: EMPRESA,
-            filial: FILIAL
-        }; 
-
-        this.props.autenticarUsuario(dadosUsuario);
+    _recuperarSenha() {
+        
+        this.props.recuperarSenha({
+            clt: this.props.email
+        });
     }
 
     renderBtnEntrar() {
@@ -92,7 +56,7 @@ class formLogin extends Component {
             return ( <ActivityIndicator size="large" /> );
         }
         return(
-            <Button title="Entrar" onPress={() => this._autenticarUsuario()} />
+            <Button title="Entrar" onPress={() => this._recuperarSenha()} />
         )
     }
 
@@ -124,48 +88,65 @@ class formLogin extends Component {
                     <Image source={require("../../assets/images/logo.png")} />
                 </View>
                 <View style={styles.contentBody}>
+                    {
+                        this.props.show_loader == true ? (
+                            <View
+                                style={{
+
+
+                                opacity: 1.0,
+                                width: '100%',
+
+                                alignItems: 'center',
+                                flex: 1,
+                                position: 'absolute',
+                                marginTop: '50%'
+                                }}
+                            >
+                                <ActivityIndicator size="large" color="#4099ff"
+
+                                animating={true}
+                                hidesWhenStopped={true}
+
+                                />
+                            </View>
+                        ):(
+                            <View
+                                style={{
+
+
+                                opacity: 0.0,
+                                width: '100%',
+
+                                alignItems: 'center',
+                                flex: 1,
+                                position: 'absolute',
+                                marginTop: '50%'
+                                }}
+                            >
+                                <ActivityIndicator size="large" color="#4099ff"
+
+                                animating={true}
+                                hidesWhenStopped={true}
+
+                                />
+                            </View>
+                        )
+                    }
                     <Input 
                         value={this.props.email} 
                         containerStyle={styles._bodyInputText} 
                         label="Email" 
                        
                         onChangeText={texto => this.props.modificaEmail(texto)} />
-                    <Input 
-                        value={this.props.senha} 
-                        secureTextEntry 
-                        containerStyle={styles._bodyInputText} 
-                        label="Senha" 
-                        
-                        onChangeText={texto => this.props.modificaSenha(texto)} />
+                    
                     
                     <Text style={styles._txtMsgErroLogin}>{this.props.msgErroLogin}</Text>
-
-                    <View style={{
-                        flexDirection: "row",
-                    }}>
-                        <Text style={styles._bodyText}>Ainda não tem cadastro?</Text>
-                        <TouchableHighlight
-                            onPress={() => this.props.navigation.navigate("FormCadastro")}
-                        >
-                        <Text style={styles._LinkText}> Cadastre-se</Text>
-                        </TouchableHighlight>
-                    </View>
-                    <View style={{
-                        flexDirection: "row",
-                    }}>
-                        <Text style={styles._bodyText}>Não lembra a senha?</Text>
-                        <TouchableHighlight
-                            onPress={() => this.props.navigation.navigate("FormRecover")}
-                        >
-                        <Text style={styles._LinkText}> Recuperar senha.</Text>
-                        </TouchableHighlight>
-                    </View>
-                    
-
-                    </View>
                     <View style={styles.contentFooter}>
                         {this.renderBtnEntrar()}
                     </View>
+                    </View>
+                    
 
                     
                 </View>
@@ -179,14 +160,15 @@ const mapStateToProps = state => ({
         senha: state.AppReducer.senha,
         msgErroLogin: state.AppReducer.msgErroLogin,
         loadingLogin: state.AppReducer.loadingLogin,
-        usuario: state.AppReducer.usuario
+        usuario: state.AppReducer.usuario,
+        show_loader: state.AppReducer.show_loader,
 });
 export default connect(mapStateToProps, {
     modificaEmail,
     modificaSenha,
-    autenticarUsuario,
+    recuperarSenha,
     setStatusCadastroUsuario 
-})(formLogin);
+})(FormRecover);
 
 const styles = StyleSheet.create({
     background: {
@@ -224,7 +206,7 @@ const styles = StyleSheet.create({
     },
     contentFooter: {
         flex: 2,
-        marginTop:30
+        marginTop:10
     },
     _txtMsgErroLogin: {
         fontSize: 18,
