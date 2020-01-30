@@ -76,7 +76,7 @@ class FormCadastro extends Component {
                 //console.log(nextProps.usuario);
                 this.storeToken(nextProps.usuario);
                 //this.props.setStatusCadastroUsuario(false);
-                //this.props.navigation.navigate('Main');
+                this.props.navigation.navigate('Main');
             }
             
         }

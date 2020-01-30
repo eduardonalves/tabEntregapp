@@ -39,7 +39,7 @@ class formLogin extends Component {
                 
                 this.storeToken(nextProps.usuario);
                 
-                //this.props.navigation.navigate('Main');
+                this.props.navigation.navigate('Main');
             }
             
         }
@@ -55,7 +55,7 @@ class formLogin extends Component {
                     this.props.setStatusCadastroUsuario(resp);
                     //console.log('salvou usuário no cache');
                     //console.log(resp);
-                    //this.props.navigation.navigate('Main');
+                    this.props.navigation.navigate('Main');
                 }
                 
             });
