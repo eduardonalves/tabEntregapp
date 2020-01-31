@@ -41,6 +41,7 @@ const INITIAL_STATE = {
     cidade:'',
     bairro:'',
     telefone:'',
+    username:'',
     lista_estados:[],
     lista_cidades:[],
     lista_bairros:[],
@@ -52,6 +53,9 @@ const INITIAL_STATE = {
     carrega_bairro_falha: false,
     carrega_estado_falha:false,
     cadastro_usuario_sucesso:false,
+    usuario_id:'',
+    senha_antiga:'',
+    usuario_atualizou_cadastro:false,
 };
 
 import {
@@ -115,15 +119,27 @@ import {
     LIMPA_CIDADE,
     LIMPA_ESTADO,
     CADASTRO_USUARIO_SUCESSO,
-    ATUALIZA_USUARIO
+    ATUALIZA_USUARIO,
+    MODIFICA_USERNAME,
+    MODIFICA_SENHA_ANTIGA,
+    MODIFICA_ID_USUARIO,
+    USUARIO_ATUALIZOU_CADASTRO
 
 } from '../actions/ActionTypes';
 
 export default (state = INITIAL_STATE, action) => {
    
     switch (action.type) {
+        case MODIFICA_SENHA_ANTIGA:
+            return { ...state, senha_antiga: action.payload };
+        case USUARIO_ATUALIZOU_CADASTRO:
+            return { ...state, usuario_atualizou_cadastro: action.payload };
+        case MODIFICA_ID_USUARIO:
+            return { ...state, usuario_id: action.payload };
         case MODIFICA_ADICIONA_CONTATO_EMAIL:
             return { ...state, adiciona_contato_email: action.payload };
+        case MODIFICA_USERNAME:
+            return { ...state, username: action.payload };
         case MEUS_PEDIDOS_CARREGADOS_OK:
             return { ...state, meus_pedidos: action.payload };
         case MEUS_PEDIDOS_CARREGADOS_FALHA:

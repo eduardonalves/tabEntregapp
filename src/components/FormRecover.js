@@ -18,7 +18,9 @@ import {
     modificaEmail, 
     modificaSenha,
     recuperarSenha,
-    setStatusCadastroUsuario  
+    setStatusCadastroUsuario,
+    limpaFormularioCadastro,
+    modificaUsername  
 } from '../actions/AppActions';
 import { FILIAL, EMPRESA, SALT } from '../Settings';
 
@@ -27,7 +29,8 @@ import { FILIAL, EMPRESA, SALT } from '../Settings';
 class FormRecover extends Component {    
 
     constructor(props) {
-        super(props);        
+        super(props); 
+        this.props.limpaFormularioCadastro();       
     }
 
     
@@ -46,7 +49,7 @@ class FormRecover extends Component {
     _recuperarSenha() {
         
         this.props.recuperarSenha({
-            clt: this.props.email
+            clt: this.props.username
         });
     }
 
@@ -134,11 +137,11 @@ class FormRecover extends Component {
                         )
                     }
                     <Input 
-                        value={this.props.email} 
+                        value={this.props.username} 
                         containerStyle={styles._bodyInputText} 
-                        label="Email" 
+                        label="Nome de Usuário" 
                        
-                        onChangeText={texto => this.props.modificaEmail(texto)} />
+                        onChangeText={texto => this.props.modificaUsername(texto)} />
                     
                     
                     <Text style={styles._txtMsgErroLogin}>{this.props.msgErroLogin}</Text>
@@ -162,12 +165,15 @@ const mapStateToProps = state => ({
         loadingLogin: state.AppReducer.loadingLogin,
         usuario: state.AppReducer.usuario,
         show_loader: state.AppReducer.show_loader,
+        username: state.AppReducer.username
 });
 export default connect(mapStateToProps, {
     modificaEmail,
     modificaSenha,
     recuperarSenha,
-    setStatusCadastroUsuario 
+    setStatusCadastroUsuario,
+    limpaFormularioCadastro,
+    modificaUsername 
 })(FormRecover);
 
 const styles = StyleSheet.create({

@@ -42,7 +42,8 @@ import {
     limpaListaBairros,
     limpaListaEstados,
     setStatusCadastroUsuario,
-    
+    limpaFormularioCadastro,
+    modificaUsername
 
 } from '../actions/AppActions';
 
@@ -53,19 +54,12 @@ class FormCadastro extends Component {
     constructor(props) {
         super(props);
         this.props.estadosFetch();
-        this.storeToken({novoteste:'novo teste'});
-        this.getToken();
+        this.props.limpaFormularioCadastro();
         
-    }
-    static navigationOptions = ({ navigation }) => {
-        return {
-            headerTitle: "Cadastro",
-            headerStyle: {
-                elevation: 0,
-                shadowOpacity: 0,
-                backgroundColor: Color.headerBar
-            }
-        };
+        /*let userdata = this.getToken();
+        userData.then(data => {
+          console.log(data);
+        });*/
     }
     UNSAFE_componentWillReceiveProps(nextProps) {
         //console.log('nextProps');
@@ -81,6 +75,23 @@ class FormCadastro extends Component {
             
         }
     }
+
+    static navigationOptions = ({ navigation }) => {
+        return {
+            headerTitle: "Cadastro",
+            headerTintColor: Color.headerBarTitle,
+            headerStyle: {
+                elevation: 0,
+                shadowOpacity: 0,
+                backgroundColor: Color.headerBar,
+                fontWeight:'bold'
+            },
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+        };
+    }
+    
 
     async storeToken(user) {
         try {
@@ -138,7 +149,7 @@ class FormCadastro extends Component {
             Cliente:{
                 id:'',
                 nome: this.props.nome,
-                username: this.props.nome,
+                username: this.props.username,
                 password: this.props.senha,
                 passwordcconfirm: this.props.confirma_senha,
                 logradouro: this.props.endereco,
@@ -342,31 +353,14 @@ class FormCadastro extends Component {
                                 </View>
                             )
                         }
-                        <Input 
-                            value={this.props.nome} 
-                            //placeholder="Nome" 
-                            //placeholderTextColor="#fff" 
-                            containerStyle={styles._bodyInputText}  
-                            onChangeText={texto => this.props.modificaNome(texto)} 
-                            label='Nome de Usuário'
-                        />
-                       
-                        <Input 
-                            value={this.props.senha} 
-                            secureTextEntry 
-                            label="Senha" 
-                            //placeholderTextColor="#fff" 
-                            containerStyle={styles._bodyInputText} 
-                            onChangeText={texto => this.props.modificaSenha(texto)} />
                         
                         <Input 
-                            value={this.props.confirma_senha} 
-                            secureTextEntry 
-                            label="Confirme a Senha" 
+                            value={this.props.nome} 
+                             
+                            label="Nome" 
                             //placeholderTextColor="#fff" 
-                            stylcontainerStylee={styles._bodyInputText} 
-                            onChangeText={texto => this.props.modificaConfirmaSenha(texto)} />
-                         
+                            containerStyle={styles._bodyInputText} 
+                            onChangeText={texto => this.props.modificaNome(texto)} />
                         <Input 
                             value={this.props.telefone} 
                              
@@ -469,7 +463,30 @@ class FormCadastro extends Component {
                             </Picker>
                         </View>
                         
-
+                        <Input 
+                            value={this.props.username} 
+                            //placeholder="Nome" 
+                            //placeholderTextColor="#fff" 
+                            containerStyle={styles._bodyInputText}  
+                            onChangeText={texto => this.props.modificaUsername(texto)} 
+                            label='Nome de Usuário'
+                        />
+                       
+                        <Input 
+                            value={this.props.senha} 
+                            secureTextEntry 
+                            label="Senha" 
+                            //placeholderTextColor="#fff" 
+                            containerStyle={styles._bodyInputText} 
+                            onChangeText={texto => this.props.modificaSenha(texto)} />
+                        
+                        <Input 
+                            value={this.props.confirma_senha} 
+                            secureTextEntry 
+                            label="Confirme a Senha" 
+                            //placeholderTextColor="#fff" 
+                            stylcontainerStylee={styles._bodyInputText} 
+                            onChangeText={texto => this.props.modificaConfirmaSenha(texto)} />
                         
 
 
@@ -477,6 +494,7 @@ class FormCadastro extends Component {
 
                         <Button title="Cadastrar"
                             // color="#115e54" 
+                            disabled={this.props.show_loader}
                             onPress={() => this._handleCadastraUsuario()} />
 
                     </View>
@@ -516,6 +534,7 @@ const mapStateToProps = state => ({
     show_loader:state.AppReducer.show_loader,
     cadastro_usuario_sucesso: state.AppReducer.cadastro_usuario_sucesso,
     usuario: state.AppReducer.usuario,
+    username: state.AppReducer.username
 });
 
 export default connect(mapStateToProps, {
@@ -540,7 +559,9 @@ export default connect(mapStateToProps, {
     limpaListaBairros,
     limpaListaEstados,
     cadastraUsuario,
-    setStatusCadastroUsuario
+    setStatusCadastroUsuario,
+    limpaFormularioCadastro,
+    modificaUsername
 })(FormCadastro);
 
 const styles = StyleSheet.create({

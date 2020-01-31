@@ -18,7 +18,9 @@ import {
     modificaEmail, 
     modificaSenha,
     autenticarUsuario,
-    setStatusCadastroUsuario  
+    setStatusCadastroUsuario,
+    limpaFormularioCadastro,
+    modificaUsername
 } from '../actions/AppActions';
 import { FILIAL, EMPRESA, SALT } from '../Settings';
 
@@ -27,7 +29,8 @@ import { FILIAL, EMPRESA, SALT } from '../Settings';
 class formLogin extends Component {    
 
     constructor(props) {
-        super(props);        
+        super(props);
+        this.props.limpaFormularioCadastro();        
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -76,7 +79,7 @@ class formLogin extends Component {
 
     _autenticarUsuario() {
         let dadosUsuario = {
-            username:this.props.email,
+            username:this.props.username,
             password:this.props.senha,
             salt:SALT,
             empresa: EMPRESA,
@@ -125,11 +128,11 @@ class formLogin extends Component {
                 </View>
                 <View style={styles.contentBody}>
                     <Input 
-                        value={this.props.email} 
+                        value={this.props.username} 
                         containerStyle={styles._bodyInputText} 
-                        label="Email" 
+                        label="Nome de Usuário" 
                        
-                        onChangeText={texto => this.props.modificaEmail(texto)} />
+                        onChangeText={texto => this.props.modificaUsername(texto)} />
                     <Input 
                         value={this.props.senha} 
                         secureTextEntry 
@@ -179,13 +182,16 @@ const mapStateToProps = state => ({
         senha: state.AppReducer.senha,
         msgErroLogin: state.AppReducer.msgErroLogin,
         loadingLogin: state.AppReducer.loadingLogin,
-        usuario: state.AppReducer.usuario
+        usuario: state.AppReducer.usuario,
+        username: state.AppReducer.username
 });
 export default connect(mapStateToProps, {
     modificaEmail,
     modificaSenha,
     autenticarUsuario,
-    setStatusCadastroUsuario 
+    setStatusCadastroUsuario,
+    limpaFormularioCadastro,
+    modificaUsername 
 })(formLogin);
 
 const styles = StyleSheet.create({

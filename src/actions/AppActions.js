@@ -54,11 +54,15 @@ import {
     CARREGA_ESTADO_FALHA,
     CARREGA_CIDADE,
     CARREGA_CIDADE_FALHA,
-    CARREGA_BAIRRO ,
+    CARREGA_BAIRRO,
     CARREGA_BAIRRO_FALHA,
     LIMPA_CIDADE,
     LIMPA_BAIRRO,
-    LIMPA_ESTADO
+    LIMPA_ESTADO,
+    MODIFICA_USERNAME,
+    MODIFICA_SENHA_ANTIGA,
+    MODIFICA_ID_USUARIO,
+    USUARIO_ATUALIZOU_CADASTRO
 } from './ActionTypes';
 
 import {
@@ -71,185 +75,340 @@ import {
 
 
 export const autenticarUsuario = (usuario) => {
-   
+
 
     return dispatch => {
         dispatch({ type: SHOW_LOADER, payload: true });
-        
-        
+
+
         axios.post(`${APP_URL}/entregapp_sistema/RestClientes/loginmobile.json`, usuario)
-        .then(res => {
-            console.log('res login');
-            console.log(res);
-            if(typeof res.data.ultimopedido != 'undefined'){
-                if(res.data.ultimopedido == 'ErroLogin'){
-                    Alert.alert(
-                        'Mensagem',
-                        `Ops, houve um erro ao tentar te autenticar, provalvelmente seu usuário ou senha estão errados, por favor tente novamente!`,
-                        [
-                          {
-                            text: 'OK',
-                            style: 'OK',
-                          },
-                        ],
-                        { cancelable: false },
-                      );
-                }else{
-                    dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimopedido.Cliente });
+            .then(res => {
+               
+
+                if (typeof res.data.ultimopedido != 'undefined') {
+                    if (res.data.ultimopedido == 'ErroLogin') {
+                        Alert.alert(
+                            'Mensagem',
+                            `Ops, houve um erro ao tentar te autenticar, provalvelmente seu usuário ou senha estão errados, por favor tente novamente!`,
+                            [
+                                {
+                                    text: 'OK',
+                                    style: 'OK',
+                                },
+                            ],
+                            { cancelable: false },
+                        );
+                    } else {
+                        dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimopedido.Cliente });
+                    }
+
                 }
-                
-            }
-            dispatch({ type: SHOW_LOADER, payload: false });
-            dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
-        }).catch(error => {
-            //console.log('error');
-            //console.log(error);
-            dispatch({ type: SHOW_LOADER, payload: false });
-             dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
-        });
-       
+                dispatch({ type: SHOW_LOADER, payload: false });
+                dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+            }).catch(error => {
+               
+                dispatch({ type: SHOW_LOADER, payload: false });
+                dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
+            });
+
     }
 }
 
 export const recuperarSenha = (usuario) => {
-   
+
 
     return dispatch => {
         dispatch({ type: SHOW_LOADER, payload: true });
-        
+
         axios.post(`${APP_URL}/entregapp_sistema/RestClientes/recuperarsenha.json`, usuario)
-        .then(res => {
-            console.log('res recover');
-            console.log(res);
-            if(typeof res.data.ultimocliente != 'undefined'){
-                if(res.data.ultimocliente == 'ok'){
-                      Alert.alert(
-                        'Mensagem',
-                        `Sucesso, enviamos um link de recuperação de senha para seu e-mail cadastrado `,
-                        [
-                          {
-                            text: 'OK',
-                            style: 'OK',
-                          },
-                        ],
-                        { cancelable: false },
-                      );
-                }else{
+            .then(res => {
+                
+                if (typeof res.data.ultimocliente != 'undefined') {
+                    if (res.data.ultimocliente == 'ok') {
+                        Alert.alert(
+                            'Mensagem',
+                            `Sucesso, enviamos um link de recuperação de senha para seu e-mail cadastrado `,
+                            [
+                                {
+                                    text: 'OK',
+                                    style: 'OK',
+                                },
+                            ],
+                            { cancelable: false },
+                        );
+                    } else {
+                        Alert.alert(
+                            'Mensagem',
+                            `Ops, não encontramos seu usuário`,
+                            [
+                                {
+                                    text: 'OK',
+                                    style: 'OK',
+                                },
+                            ],
+                            { cancelable: false },
+                        );
+                    }
+
+                }
+                dispatch({ type: SHOW_LOADER, payload: false }); d
+
+            }).catch(error => {
+                
+                dispatch({ type: SHOW_LOADER, payload: false });
+
+            });
+
+    }
+}
+
+export const cadastraUsuarioEdit = (usuario) => {
+
+
+    return dispatch => {
+        dispatch({ type: SHOW_LOADER, payload: true });
+        dispatch({ type: USUARIO_ATUALIZOU_CADASTRO, payload: false });
+        dispatch({ type: CARREGA_ESTADO_FALHA, payload: false });
+        
+
+
+        axios.post(`${APP_URL}/entregapp_sistema/RestClientes/addmobile.json`, usuario)
+            .then(res => {
+               
+                if (res.data.ultimocliente == "ErroUsuarioDuplo") {
                     Alert.alert(
                         'Mensagem',
-                        `Ops, não encontramos seu usuário`,
+                        `Ops, este nome de usuário já não está mais disponível, por favor, escolha outro nome de usuário!`,
                         [
-                          {
-                            text: 'OK',
-                            style: 'OK',
-                          },
+                            {
+                                text: 'OK',
+                                style: 'OK',
+                            },
                         ],
                         { cancelable: false },
-                      );
+                    );
+                    dispatch({ type: SHOW_LOADER, payload: false });
+
+                    dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                } else if (res.data.ultimocliente == "Erro") {
+                    Alert.alert(
+                        'Mensagem',
+                        `Ops, houve um erro ao tentar te cadastrar, por favor, tente novamente mais tarde!`,
+                        [
+                            {
+                                text: 'OK',
+                                style: 'OK',
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                    dispatch({ type: SHOW_LOADER, payload: false });
+
+                    dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                } else {
+                    dispatch({ type: SHOW_LOADER, payload: false });
+                    dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                    dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimocliente.Cliente  });
+                    dispatch({ type: USUARIO_ATUALIZOU_CADASTRO, payload: true });
+
+                    Alert.alert(
+                        'Mensagem',
+                        `Parabéns, seu  cadastro foi atualizado!`,
+                        [
+                            {
+                                text: 'OK',
+                                style: 'OK',
+                            },
+                        ],
+                        { cancelable: false },
+                    );
                 }
+
+            }).catch(error => {
+                dispatch({ type: SHOW_LOADER, payload: false });
+                dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
+            });
+
+    }
+}
+
+export const cadastraUsuarioEditComSenha = (usuario) => {
+
+
+    return dispatch => {
+        dispatch({ type: SHOW_LOADER, payload: true });
+        dispatch({ type: USUARIO_ATUALIZOU_CADASTRO, payload: false });
+        dispatch({ type: CARREGA_ESTADO_FALHA, payload: false });
+
+        axios.post(`${APP_URL}/entregapp_sistema/RestClientes/addmobile.json`, usuario)
+            .then(res => {
                 
-            }
-            dispatch({ type: SHOW_LOADER, payload: false });d
-            
-        }).catch(error => {
-            console.log('error');
-            console.log(error);
-            dispatch({ type: SHOW_LOADER, payload: false });
-            
-        });
-       
+                if (res.data.ultimocliente == "ErroUsuarioDuplo") {
+                    Alert.alert(
+                        'Mensagem',
+                        `Ops, este nome de usuário já não está mais disponível, por favor, escolha outro nome de usuário!`,
+                        [
+                            {
+                                text: 'OK',
+                                style: 'OK',
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                    dispatch({ type: SHOW_LOADER, payload: false });
+
+                    dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                } else if (res.data.ultimocliente == "Erro") {
+                    Alert.alert(
+                        'Mensagem',
+                        `Ops, houve um erro ao tentar te cadastrar, por favor, tente novamente mais tarde!`,
+                        [
+                            {
+                                text: 'OK',
+                                style: 'OK',
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                    dispatch({ type: SHOW_LOADER, payload: false });
+
+                    dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                } else {
+                  
+                    let dadosUsuario = {
+                        username: usuario.Cliente.username,
+                        password: usuario.Cliente.password,
+                        salt: usuario.Cliente.salt,
+                        empresa: usuario.Cliente.empresa_id,
+                        filial: usuario.Cliente.filial_id
+                    };
+                    axios.post(`${APP_URL}/entregapp_sistema/RestClientes/loginmobile.json`, dadosUsuario)
+                        .then(res => {
+
+                            if (typeof res.data.ultimopedido != 'undefined') {
+                                dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimopedido.Cliente });
+                            }
+
+                            dispatch({ type: SHOW_LOADER, payload: false });
+                            dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                            dispatch({ type: USUARIO_ATUALIZOU_CADASTRO, payload: true });
+                        }).catch(error => {
+                            
+                            dispatch({ type: SHOW_LOADER, payload: false });
+                            dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
+                        });
+
+                    //dispatch(NavigationActions.navigate({ routeName: 'RoutesLogin' }));
+                    Alert.alert(
+                        'Mensagem',
+                        `Parabéns, \n Seu cadastro foi atualizado!`,
+                        [
+                        {
+                            text: 'OK',
+                            style: 'OK',
+                        },
+                        ],
+                        { cancelable: false },
+                    );
+                }
+
+                
+            }).catch(error => {
+               
+
+                dispatch({ type: SHOW_LOADER, payload: false });
+                dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
+            });
+
     }
 }
 
 export const cadastraUsuario = (usuario) => {
-   
+
 
     return dispatch => {
         dispatch({ type: SHOW_LOADER, payload: true });
-        
-        
-        axios.post(`${APP_URL}/entregapp_sistema/RestClientes/addmobile.json`, usuario)
-        .then(res => {
-            //console.log('res');
-            //console.log(res);
-            if(res.data.ultimocliente=="ErroUsuarioDuplo"){
-                Alert.alert(
-                    'Mensagem',
-                    `Ops, este nome de usuário já não está mais disponível, por favor, escolha outro nome de usuário!`,
-                    [
-                      {
-                        text: 'OK',
-                        style: 'OK',
-                      },
-                    ],
-                    { cancelable: false },
-                  );
-                dispatch({ type: SHOW_LOADER, payload: false });
-                
-                dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
-            }else if( res.data.ultimocliente =="Erro"){
-                Alert.alert(
-                    'Mensagem',
-                    `Ops, houve um erro ao tentar te cadastrar, por favor, tente novamente mais tarde!`,
-                    [
-                      {
-                        text: 'OK',
-                        style: 'OK',
-                      },
-                    ],
-                    { cancelable: false },
-                  );
-                  dispatch({ type: SHOW_LOADER, payload: false });
-                    
-                dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
-            }else{
-                //dispatch({ type: SHOW_LOADER, payload: false });
-                //dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
-                //dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimocliente  });
-                let dadosUsuario = {
-                    username:usuario.Cliente.username,
-                    password:usuario.Cliente.password,
-                    salt:usuario.Cliente.salt,
-                    empresa: usuario.Cliente.empresa_id,
-                    filial: usuario.Cliente.filial_id
-                };
-                axios.post(`${APP_URL}/entregapp_sistema/RestClientes/loginmobile.json`, dadosUsuario)
-                .then(res => {
-                    
-                    if(typeof res.data.ultimopedido != 'undefined'){
-                        dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimopedido.Cliente });
-                    }
-                    
-                    dispatch({ type: SHOW_LOADER, payload: false });
-                    dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
-                }).catch(error => {
-                    //console.log(error);
-                    dispatch({ type: SHOW_LOADER, payload: false });
-                    dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
-                });
 
-                //dispatch(NavigationActions.navigate({ routeName: 'RoutesLogin' }));
-                /*Alert.alert(
-                    'Mensagem',
-                    `Parabéns, \n Seu cadastro foi efetuado com sucesso! Agora você já pode fazer seus pedidos.`,
-                    [
-                    {
-                        text: 'OK',
-                        style: 'OK',
-                    },
-                    ],
-                    { cancelable: false },
-                );*/
-            }
-            
-            
-        }).catch(error => {
-            //console.log(error);
-            
-            dispatch({ type: SHOW_LOADER, payload: false });
-             dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
-        });
-       
+
+        axios.post(`${APP_URL}/entregapp_sistema/RestClientes/addmobile.json`, usuario)
+            .then(res => {
+                
+                if (res.data.ultimocliente == "ErroUsuarioDuplo") {
+                    Alert.alert(
+                        'Mensagem',
+                        `Ops, este nome de usuário já não está mais disponível, por favor, escolha outro nome de usuário!`,
+                        [
+                            {
+                                text: 'OK',
+                                style: 'OK',
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                    dispatch({ type: SHOW_LOADER, payload: false });
+
+                    dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                } else if (res.data.ultimocliente == "Erro") {
+                    Alert.alert(
+                        'Mensagem',
+                        `Ops, houve um erro ao tentar te cadastrar, por favor, tente novamente mais tarde!`,
+                        [
+                            {
+                                text: 'OK',
+                                style: 'OK',
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                    dispatch({ type: SHOW_LOADER, payload: false });
+
+                    dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                } else {
+                  
+                    let dadosUsuario = {
+                        username: usuario.Cliente.username,
+                        password: usuario.Cliente.password,
+                        salt: usuario.Cliente.salt,
+                        empresa: usuario.Cliente.empresa_id,
+                        filial: usuario.Cliente.filial_id
+                    };
+                    axios.post(`${APP_URL}/entregapp_sistema/RestClientes/loginmobile.json`, dadosUsuario)
+                        .then(res => {
+
+                            if (typeof res.data.ultimopedido != 'undefined') {
+                                dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimopedido.Cliente });
+                            }
+
+                            dispatch({ type: SHOW_LOADER, payload: false });
+                            dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                        }).catch(error => {
+                            
+                            dispatch({ type: SHOW_LOADER, payload: false });
+                            dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
+                        });
+
+                    //dispatch(NavigationActions.navigate({ routeName: 'RoutesLogin' }));
+                    /*Alert.alert(
+                        'Mensagem',
+                        `Parabéns, \n Seu cadastro foi efetuado com sucesso! Agora você já pode fazer seus pedidos.`,
+                        [
+                        {
+                            text: 'OK',
+                            style: 'OK',
+                        },
+                        ],
+                        { cancelable: false },
+                    );*/
+                }
+
+
+            }).catch(error => {
+               
+
+                dispatch({ type: SHOW_LOADER, payload: false });
+                dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
+            });
+
     }
 }
 
@@ -261,18 +420,18 @@ export const estadosFetch = () => {
         dispatch({ type: SHOW_LOADER, payload: true });
         axios.get(`${APP_URL}/entregapp_sistema/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=e`)
             .then(res => {
-               
+
                 if (typeof res.data.resultados != 'undefined') {
                     dispatch({ type: CARREGA_ESTADO, payload: res.data.resultados });
                 } else {
-                    //  console.log('deu erro');
+                    
                     dispatch({ type: CARREGA_ESTADO_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
 
             }).catch(error => {
-                 dispatch({ type: CARREGA_ESTADO_FALHA, payload: true });
-                 dispatch({ type: SHOW_LOADER, payload: false });
+                dispatch({ type: CARREGA_ESTADO_FALHA, payload: true });
+                dispatch({ type: SHOW_LOADER, payload: false });
             });
     }
 }
@@ -284,19 +443,18 @@ export const cidadesFetch = (estado) => {
         dispatch({ type: SHOW_LOADER, payload: true });
         axios.get(`${APP_URL}/entregapp_sistema/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=c&e=${estado}`)
             .then(res => {
-                //console.log('res cidade');
-                //console.log(res);
+               
                 if (typeof res.data.resultados != 'undefined') {
                     dispatch({ type: CARREGA_CIDADE, payload: res.data.resultados });
                 } else {
-                    //  console.log('deu erro');
+                   
                     dispatch({ type: CARREGA_CIDADE_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
 
             }).catch(error => {
-                 dispatch({ type: CARREGA_CIDADE_FALHA, payload: true });
-                 dispatch({ type: SHOW_LOADER, payload: false });
+                dispatch({ type: CARREGA_CIDADE_FALHA, payload: true });
+                dispatch({ type: SHOW_LOADER, payload: false });
             });
     }
 }
@@ -307,18 +465,18 @@ export const bairroFetch = (cidade) => {
         dispatch({ type: SHOW_LOADER, payload: true });
         axios.get(`${APP_URL}/entregapp_sistema/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=b&c=${cidade}`)
             .then(res => {
-                //console.log(res);
+              
                 if (typeof res.data.resultados != 'undefined') {
                     dispatch({ type: CARREGA_BAIRRO, payload: res.data.resultados });
                 } else {
-                    //  console.log('deu erro');
+                  
                     dispatch({ type: CARREGA_BAIRRO_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
 
             }).catch(error => {
-                 dispatch({ type: CARREGA_BAIRRO_FALHA, payload: true });
-                 dispatch({ type: SHOW_LOADER, payload: false });
+                dispatch({ type: CARREGA_BAIRRO_FALHA, payload: true });
+                dispatch({ type: SHOW_LOADER, payload: false });
             });
     }
 }
@@ -341,7 +499,7 @@ export const limpaListaEstados = () => {
     }
 }
 
-export const pedidosViewFetch = (cliente, token, atendimento ) => {
+export const pedidosViewFetch = (cliente, token, atendimento) => {
     return dispatch => {
         dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
         dispatch({ type: SHOW_LOADER, payload: true });
@@ -351,36 +509,36 @@ export const pedidosViewFetch = (cliente, token, atendimento ) => {
                 if (typeof res.data.resultados != 'undefined') {
                     dispatch({ type: PEDIDO_CARREGADO_OK, payload: res.data.resultados });
                 } else {
-                    //  console.log('deu erro');
+                   
                     dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
 
             }).catch(error => {
-                 dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: true });
-                 dispatch({ type: SHOW_LOADER, payload: false });
+                dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: true });
+                dispatch({ type: SHOW_LOADER, payload: false });
             });
     }
 }
 
-export const pedidosFetch = (cliente, token ) => {
+export const pedidosFetch = (cliente, token) => {
     return dispatch => {
         dispatch({ type: MEUS_PEDIDOS_CARREGADOS_OK, payload: [] });
         dispatch({ type: SHOW_LOADER, payload: true });
         axios.get(`${APP_URL}/entregapp_sistema/RestAtendimentos/indexmobile.json?fp=${FILIAL}&lj=${EMPRESA}&clt=${cliente}&token=${token}&limit=20`)
             .then(res => {
-                //console.log(res);
+               
                 if (typeof res.data.resultados != 'undefined') {
                     dispatch({ type: MEUS_PEDIDOS_CARREGADOS_OK, payload: res.data.resultados });
                 } else {
-                    //  console.log('deu erro');
+                   
                     dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
 
             }).catch(error => {
-                 dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: true });
-                 dispatch({ type: SHOW_LOADER, payload: false });
+                dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: true });
+                dispatch({ type: SHOW_LOADER, payload: false });
             });
     }
 }
@@ -395,14 +553,14 @@ export const categoriasFetch = () => {
                 if (typeof res.data.categorias != 'undefined') {
                     dispatch({ type: CATEGORIA_CARREGADA_OK, payload: res.data.categorias });
                 } else {
-                    //  console.log('deu erro');
+                   
                     dispatch({ type: CATEGORIA_CARREGADA_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER_CATEGORIA, payload: false });
 
             }).catch(error => {
-                 dispatch({ type: CATEGORIA_CARREGADA_FALHA, payload: true });
-                 dispatch({ type: SHOW_LOADER_CATEGORIA, payload: false });
+                dispatch({ type: CATEGORIA_CARREGADA_FALHA, payload: true });
+                dispatch({ type: SHOW_LOADER_CATEGORIA, payload: false });
             });
     }
 }
@@ -413,18 +571,17 @@ export const tiposPagamentoFetch = () => {
 
         axios.get(`${APP_URL}/entregapp_sistema/RestPagamentos/pagamentosmobile.json?fp=${FILIAL}`)
             .then(res => {
-                
+
                 if (typeof res.data.pagamentos != 'undefined') {
                     return dispatch({ type: CARREGA_TIPOS_PAGAMENTO_OK, payload: res.data.pagamentos });
                 } else {
-                    //  console.log('deu erro');
+                  
                     return dispatch({ type: CARREGA_TIPOS_PAGAMENTO_FALHA, payload: false });
                 }
 
 
             }).catch(error => {
-                //console.log('error');
-                //console.log(error);
+               
                 return dispatch({ type: CARREGA_TIPOS_PAGAMENTO_FALHA, payload: false });
             });
     }
@@ -447,7 +604,7 @@ export const updateItemId = (item_id) => {
     }
 }
 
-export const removeFromCart = (item_id, carrinho, frete=0) => {
+export const removeFromCart = (item_id, carrinho, frete = 0) => {
     let newItem = [];
     carrinho.map((item) => {
         if (item.item_id != item_id) {
@@ -472,8 +629,8 @@ export const updateCartQtd = (qtd) => {
 
 export const updateCart = (carrinho, frete) => {
     let total = frete;
-    total  = parseFloat(total);
-    
+    total = parseFloat(total);
+
     carrinho.map((item) => {
         total += item.preco_venda * item.qtd;
 
@@ -525,7 +682,7 @@ export const atualizaFormaDePagamento = (pagamento) => {
 }
 
 export const enviaPedido = (pedido) => {
-   
+
     /*return dispatch => {
         dispatch({ type: PEDIDO_OK, payload: true })
     }*/
@@ -533,38 +690,38 @@ export const enviaPedido = (pedido) => {
     return dispatch => {
         dispatch({ type: SHOW_LOADER, payload: true });
         let meuPedido = montaPedido(pedido);
-        
+
         axios.post(`${APP_URL}/entregapp_sistema/RestPedidos/addmobile.json`, meuPedido)
-        .then(res => {
-            //console.log('passou aqui2 ok');
-            dispatch({ type: SHOW_LOADER, payload: false });
-            
-            
-            dispatch({ type: LIMPA_QTD_CARRINHO, payload: 0 });
-            
-            dispatch({ type: LIMPA_CARRINHO, payload: [] });
-            dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
-            dispatch({ type: PEDIDO_OK, payload: true });
-            //dispatch(NavigationActions.navigate({ routeName: 'Restaurants' }));
-            Alert.alert(
-                'Mensagem',
-                `Pedido enviado com sucesso!`,
-                [
-                  {
-                    text: 'OK',
-                    onPress: () => limpaCarrinho(),
-                    style: 'OK',
-                  },
-                ],
-                { cancelable: false },
-              );
-            //dispatch(NavigationActions.navigate({ routeName: 'Restaurants' }));
-        }).catch(error => {
-            //console.log('passou aqui2 nok');
-            dispatch({ type: SHOW_LOADER, payload: false });
-             dispatch({ type: PEDIDO_NAO_OK, payload: false });
-        });
-       
+            .then(res => {
+                
+                dispatch({ type: SHOW_LOADER, payload: false });
+
+
+                dispatch({ type: LIMPA_QTD_CARRINHO, payload: 0 });
+
+                dispatch({ type: LIMPA_CARRINHO, payload: [] });
+                dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
+                dispatch({ type: PEDIDO_OK, payload: true });
+             
+                Alert.alert(
+                    'Mensagem',
+                    `Pedido enviado com sucesso!`,
+                    [
+                        {
+                            text: 'OK',
+                            onPress: () => limpaCarrinho(),
+                            style: 'OK',
+                        },
+                    ],
+                    { cancelable: false },
+                );
+               
+            }).catch(error => {
+               
+                dispatch({ type: SHOW_LOADER, payload: false });
+                dispatch({ type: PEDIDO_NAO_OK, payload: false });
+            });
+
     }
 }
 
@@ -583,60 +740,58 @@ export const showMyLoaderCategory = (status) => {
 
 
 export const setStatusEnvioPedido = (status) => {
-    
+
     return dispatch => {
-        //console.log('STATUS_ENVIO_PEDIDO');
-        //console.log(status);
+      
         dispatch({ type: STATUS_ENVIO_PEDIDO, payload: status });
-        
+
     }
 }
 
 export const setStatusCadastroUsuario = (status) => {
-    
+
     return dispatch => {
-        //console.log('STATUS_ENVIO_PEDIDO');
-        //console.log(status);
+      
         dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: status });
-        
+
     }
 }
 export const montaPedido = (pedido) => {
-    //console.log(pedido);
+
     let novoPedido = {
-        Pedido:{
-            filial_id:  FILIAL,
+        Pedido: {
+            filial_id: FILIAL,
             a: "entrega",
             cliente_id: pedido.cliente_id,
             empresa_id: EMPRESA,
-            pagamento_id:pedido.pagamento_id,
+            pagamento_id: pedido.pagamento_id,
             trocovalor: '',
             trocoresposta: pedido.trocoresposta,
-            entrega_valor:0,
+            entrega_valor: 0,
             salt: SALT,
-            token:pedido.token,
+            token: pedido.token,
             obs: pedido.obs,
             entrega_valor: pedido.entrega_valor
 
         },
-        Itensdepedido:[],
+        Itensdepedido: [],
     }
     let itensPedido = pedido.carrinho.map((v, k) => {
-       
+
         let p_total = v.preco_venda * v.qtd;
         novoPedido.Itensdepedido.push({
-            produto_id:v.id,
+            produto_id: v.id,
             qtde: v.qtd,
             valor_unit: v.preco_venda,
             valor_total: p_total.toFixed(2),
-            obs_sis:"",
+            obs_sis: "",
         });
     });
     return novoPedido;
 }
 
 export const limpaCarrinho = () => {
-    
+
     return dispatch => {
         dispatch({ type: LIMPA_CARRINHO, payload: [] });
         dispatch({ type: LIMPA_QTD_CARRINHO, payload: 0 });
@@ -646,10 +801,17 @@ export const limpaCarrinho = () => {
     }
 }
 
+
 export const modificaEmail = (texto) => {
     return dispatch => {
         dispatch({ type: MODIFICA_EMAIL, payload: texto });
-       
+
+    }
+}
+export const modificaUsuarioModificouCadastro = (texto) => {
+    return dispatch => {
+        dispatch({ type: USUARIO_ATUALIZOU_CADASTRO, payload: texto });
+
     }
 }
 
@@ -725,4 +887,49 @@ export const modificaTelefone = (texto) => {
         dispatch({ type: MODIFICA_TELEFONE, payload: texto });
     }
 }
+export const modificaUsername = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_USERNAME, payload: texto });
+    }
+}
 
+export const modificaCarregaEstadoFalha = (texto) => {
+    return dispatch => {
+        dispatch({ type: CARREGA_ESTADO_FALHA, payload: texto });
+    }
+}
+
+
+
+export const limpaFormularioCadastro = () => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_PONTO_REFERENCIA, payload: '' });
+        dispatch({ type: MODIFICA_ESTADO, payload: '' });
+        dispatch({ type: MODIFICA_ESTADO, payload: '' });
+        dispatch({ type: MODIFICA_CIDADE, payload: '' });
+        dispatch({ type: MODIFICA_BAIRRO, payload: '' });
+        dispatch({ type: MODIFICA_TELEFONE, payload: '' });
+        dispatch({ type: MODIFICA_COMPLEMENTO, payload: '' });
+        dispatch({ type: MODIFICA_NUMERO, payload: '' });
+        dispatch({ type: MODIFICA_ENDERECO, payload: '' });
+        dispatch({ type: MODIFICA_CEP, payload: '' });
+        dispatch({ type: MODIFICA_NOME, payload: '' });
+        dispatch({ type: MODIFICA_CONFIRMA_SENHA, payload: '' });
+        dispatch({ type: MODIFICA_SENHA, payload: '' });
+        dispatch({ type: MODIFICA_EMAIL, payload: '' });
+        dispatch({ type: MODIFICA_USERNAME, payload: '' });
+        dispatch({ type: MODIFICA_NOME, payload: '' });
+    }
+}
+
+export const modificaSenhaAntiga = (senha) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_SENHA_ANTIGA, payload: senha });
+    }
+}
+
+export const modificaIdUsuario = (id) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_ID_USUARIO, payload: id });
+    }
+}

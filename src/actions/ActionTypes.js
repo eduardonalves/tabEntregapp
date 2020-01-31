@@ -12,7 +12,10 @@ export const MODIFICA_BAIRRO ='modifica_bairro';
 export const MODIFICA_TELEFONE ='modifica_telefone';
 export const CADASTRO_USUARIO = 'cadastro_usuario';
 export const MODIFICA_CONFIRMA_SENHA = 'modifica_confirma_senha';
-
+export const MODIFICA_USERNAME = 'modifica_username';
+export const MODIFICA_SENHA_ANTIGA='modifica_senha_antiga';
+export const MODIFICA_ID_USUARIO= 'modifica_id_usuario';
+export const USUARIO_ATUALIZOU_CADASTRO = 'usuario_atualizou_cadastro';
 
 export const CADASTRO_USUARIO_SUCESSO = 'cadastro_usuario_sucesso';
 export const CADASTRO_USUARIO_ERRO = 'cadastro_usuario_erro';
