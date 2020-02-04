@@ -15,6 +15,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import CustomModal from './common/CustomModal';
+import Color  from '../../constants/Colors';
+import NumberFormat from 'react-number-format';
 
 import { addToCart, updateItemId, updateCart, setModalVisible, showMyLoader } from '../actions/AppActions';
 
@@ -72,18 +74,20 @@ class ListItem extends Component {
     );
   };
   render() {
+    let preco = this.props.price.toString();
+    preco = preco.replace(".", ",");
     return (
       <View>
         <TouchableOpacity onPress={this.handleClick} disabled={this.props.show_loader}>
           <View
             elevation={4}
             style={{
-              flex: 1,
+              //flex: 1,
               flexDirection: "row",
               padding: 10,
               backgroundColor: "#ffffff",
-              marginHorizontal: 24,
-              marginVertical: 8,
+              marginHorizontal: 10,
+              marginVertical: 5,
               borderRadius: 4,
               shadowOpacity: 0.1,
               shadowRadius: 2,
@@ -93,14 +97,16 @@ class ListItem extends Component {
               }
             }}
           >
-            <Image
+            
+           <Image
               style={{
                 width: 108,
                 height: 108,
-                borderTopLeftRadius: 4,
-                borderTopRightRadius: 0,
-                borderBottomRightRadius: 0,
-                borderBottomLeftRadius: 4,
+                //borderRadius: 110/ 2,
+                //borderTopLeftRadius: 4,
+                //borderTopRightRadius: 0,
+                //borderBottomRightRadius: 0,
+                //borderBottomLeftRadius: 4,
                 flexDirection: "column",
                 alignSelf: "center"
               }}
@@ -111,7 +117,7 @@ class ListItem extends Component {
             <View
               style={{
                 padding: 16,
-                flex: 1
+                flex: 3 
               }}
             >
               <Text
@@ -123,17 +129,7 @@ class ListItem extends Component {
               >
                 {this.props.name}
               </Text>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: "#666",
-                  width: "100%"
-                }}
-              >
-                {this.props.cuisine},{" "}
-
-
-              </Text>
+              
               <Text
                 style={{
                   fontSize: 14,
@@ -152,17 +148,26 @@ class ListItem extends Component {
                 }}
               >
                 <View style={{ flex: 1 }}>
-                  <Text style={{ color: "#a92319", fontWeight: "bold" }}>
-                    R$
-              </Text>
+                  
                   <Text
                     style={{
-                      fontSize: 21,
+                      fontSize: 16,
                       fontWeight: "bold",
                       color: "#ef6136"
                     }}
                   >
-                    {this.props.price}
+                    <NumberFormat 
+                            value={preco } 
+                            displayType={'text'} 
+                            renderText={value => <Text>{value}</Text>}
+                            thousandSeparator={'.'}
+                            decimalScale={2} 
+                            fixedDecimalScale={true}
+                            prefix={'R$ '}
+                            decimalSeparator={','}
+                        
+                        />
+                    
                   </Text>
                 </View>
 
@@ -197,10 +202,11 @@ class ListItem extends Component {
               </View>
               <Button
                 onPress={e => this.props.setModalVisible(true, this.props.description)}
+                color={Color.button}
                 title="Detalhes"
                 style={{
-                  backgroundColor: "#4099ff",
-                  color: "#fff",
+                  backgroundColor: Color.button,
+                  
                   paddingLeft: 16,
                   paddingRight: 16,
                   paddingTop: 8,

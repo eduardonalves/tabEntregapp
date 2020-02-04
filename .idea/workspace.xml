@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1f8cac46-5570-40f9-9e32-fced065f0116" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/actions/AppActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/AppActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Billing.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Billing.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Cart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Checkout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Checkout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FooterCheckout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FooterCheckout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ItemOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ItemOrder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ListCart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListCart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ViewOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ViewOrder.js" afterDir="false" />
-    </list>
+    <list default="true" id="1f8cac46-5570-40f9-9e32-fced065f0116" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

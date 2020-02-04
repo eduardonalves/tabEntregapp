@@ -223,10 +223,11 @@ class Billing extends Component {
                     </View>
                     
                 </View>
-                <View >
-                    <View style={{width:"100%", padding:16}} >
+                <View style={{padding:20}} >
+                    <View style={{width:"100%"}} >
                         <Button
-                            title="Enviar Pedido" color="#4099ff" 
+                            color={Color.button}
+                            title="Enviar Pedido" 
                             //disabled={this.props.show_loader} 
                             style={styles.button} 
                             onPress={() => this.handleSendOrder()}

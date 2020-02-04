@@ -54,126 +54,135 @@ class FooterCheckout extends Component {
   render() {
     //console.log('this.props.navigation');
     //console.log(this.props.navigation);
-    let valorFrete =  parseFloat(this.props.usuario.frete_cadastro); 
+    let valorFrete = parseFloat(this.props.usuario.frete_cadastro);
     valorFrete = valorFrete.toFixed(2);
     valorFrete = valorFrete.toString();
     return (
-      <View>
-        <View style={styles.container}>
-        <View style={{
-            flex: 1,
-            borderTopLeftRadius: 4,
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 0,
-            borderBottomLeftRadius: 4,
-          }}>
-            <Text style={{
-              fontSize: 17,
-              fontWeight: "bold",
-              //color: "#a92319",
+      <View style={{
+        //padding:10
+      }}>
+        <View  style={{padding:10}} >
+          <View style={styles.container}>
+            <View style={{
+              flex: 1,
+              borderTopLeftRadius: 4,
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+              borderBottomLeftRadius: 4,
             }}>
-            Tx. Entrega
+              <Text style={{
+                fontSize: 17,
+                fontWeight: "bold",
+                //color: "#a92319",
+              }}>
+                Tx. Entrega
             </Text>
-          </View>
-          <View style={{
-            flex: 1,
-            borderTopLeftRadius: 4,
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 0,
-            borderBottomLeftRadius: 4,
-            //flexDirection: "row-reverse"
-          }}>
-            <Text style={{
-              fontSize: 17,
-              fontWeight: "bold",
-              //color: "#ef6136",
+            </View>
+            <View style={{
+              flex: 1,
+              borderTopLeftRadius: 4,
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+              borderBottomLeftRadius: 4,
+              //flexDirection: "row-reverse"
             }}>
-            
-            <NumberFormat 
-                value={ valorFrete.replace(".",",") } 
-                displayType={'text'} 
-                renderText={value => <Text>{value}</Text>}
-                thousandSeparator={'.'}
-                decimalScale={2} 
-                fixedDecimalScale={true}
-                prefix={'R$ '}
-                decimalSeparator={','}
-              />
-            </Text>
-          </View>
-          <View style={{
-            flex: 1,
-            borderTopLeftRadius: 4,
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 0,
-            borderBottomLeftRadius: 4
-          }}>
-            <Text style={{
-              fontSize: 17,
-              fontWeight: "bold",
-              //color: "#a92319",
+              <Text style={{
+                fontSize: 17,
+                fontWeight: "bold",
+                //color: "#ef6136",
+              }}>
+
+                <NumberFormat
+                  value={valorFrete.replace(".", ",")}
+                  displayType={'text'}
+                  renderText={value => <Text>{value}</Text>}
+                  thousandSeparator={'.'}
+                  decimalScale={2}
+                  fixedDecimalScale={true}
+                  prefix={'R$ '}
+                  decimalSeparator={','}
+                />
+              </Text>
+            </View>
+            <View style={{
+              flex: 1,
+              borderTopLeftRadius: 4,
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+              borderBottomLeftRadius: 4
             }}>
-              Total Geral
+              <Text style={{
+                fontSize: 17,
+                fontWeight: "bold",
+                //color: "#a92319",
+              }}>
+                Total Geral
             </Text>
-          </View>
-          <View style={{
-            flex: 1,
-            borderTopLeftRadius: 4,
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 0,
-            borderBottomLeftRadius: 4,
-            flexDirection: "row-reverse"
-          }}>
-            <Text style={{
-              fontSize: 17,
-              fontWeight: "bold",
-              //color: "#ef6136",
+            </View>
+            <View style={{
+              flex: 1,
+              borderTopLeftRadius: 4,
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+              borderBottomLeftRadius: 4,
+              flexDirection: "row-reverse"
             }}>
-            
-              <NumberFormat 
-                value={ this.props.total_carrinho.replace(".",",") } 
-                displayType={'text'} 
-                renderText={value => <Text>{value}</Text>}
-                thousandSeparator={'.'}
-                decimalScale={2} 
-                fixedDecimalScale={true}
-                prefix={'R$ '}
-                decimalSeparator={','}
-              
-              />
-            </Text>
-          </View>
+              <Text style={{
+                fontSize: 17,
+                fontWeight: "bold",
+                //color: "#ef6136",
+              }}>
+
+                <NumberFormat
+                  value={this.props.total_carrinho.replace(".", ",")}
+                  displayType={'text'}
+                  renderText={value => <Text>{value}</Text>}
+                  thousandSeparator={'.'}
+                  decimalScale={2}
+                  fixedDecimalScale={true}
+                  prefix={'R$ '}
+                  decimalSeparator={','}
+
+                />
+              </Text>
+            </View>
 
 
+          </View>
+
+          <View style={{
+            flexDirection: "column",
+            width: "100%",
+            //marginTop: 8,
+            //marginBottom: 8,
+            //flexDirection: "row",
+            padding: 17,
+          }}>
+            <Input
+              label="Observações"
+              multiline={true}
+              numberOfLines={4}
+              textAlignVertical="top"
+              style={{ width: "100%", borderColor: 'gray', borderWidth: 1 }}
+              onChangeText={(value) => this.props.atualizaObs(value)}
+
+            />
+          </View>
         </View>
 
-        <View style={{
-          flexDirection: "column",
-          width: "100%",
-          //marginTop: 8,
-          //marginBottom: 8,
-          //flexDirection: "row",
-          padding: 17,
-        }}>
-          <Input
-            label="Observações"
-            multiline={true}
-            numberOfLines={4}
-            textAlignVertical="top"
-            style={{ width: "100%", borderColor: 'gray', borderWidth: 1 }}
-            onChangeText={(value) => this.props.atualizaObs(value)}
-
-          />
-        </View>
         <View style={{
           //flexDirection: "column",
           width: "100%",
           //marginTop: 8,
           //marginBottom: 8,
           //flexDirection: "row",
-          padding: 25,
+          padding: 20,
         }}>
-          <Button style={styles.button} title="Pagamento" color="#4099ff" onPress={ this.props.handleNaviagation} />
+          <Button
+            style={styles.button}
+            title="Pagamento"
+            color={Color.button}
+            onPress={this.props.handleNaviagation} />
         </View>
       </View>
     );
@@ -195,11 +204,11 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     paddingTop: 8,
     paddingBottom: 8,
-    height:50,
-    flex:1,
-    justifyContent:"center"
+    height: 50,
+    flex: 1,
+    justifyContent: "center"
   },
- 
+
 });
 
 const mapStateToProps = state => ({

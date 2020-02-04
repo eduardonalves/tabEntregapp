@@ -20,8 +20,8 @@ export default {
   tabInactive:'#ccc',
   tabIconDefault: '#ccc',
   tabIconSelected: tintColor,
-  tabBar: '#32A852',
-  headerBar: '#32A852',
+  tabBar: '#323232',
+  headerBar: '#323232',
   headerBarTitle:'#fff',
   errorBackground: 'red',
   errorText: '#fff',
@@ -30,7 +30,8 @@ export default {
   noticeBackground: tintColor,
   noticeText: '#fff',
   style:{
-    backgroundColor:'#32A852'
+    backgroundColor:'#323232'
   },
-  links:"#32A852",
+  links:"#323232",
+  button:"#323232"
 };
