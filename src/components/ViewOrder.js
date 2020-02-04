@@ -9,7 +9,8 @@ import {
   Picker,
   Button,
   ActivityIndicator,
-  AsyncStorage
+  AsyncStorage,
+  ScrollView
 } from "react-native";
 import { HeaderBackButton } from 'react-navigation-stack';
 import { bindActionCreators } from 'redux';
@@ -30,7 +31,7 @@ class ViewOrder extends Component {
   
   constructor(props) {
     super(props);
-    //console.log(props);
+    console.log(props.pedido);
     
     let userData = this.getToken();
     //console.log(userData);
@@ -98,7 +99,7 @@ class ViewOrder extends Component {
       return (
         
             this.props.show_loader == false ? (
-              <View>
+              <ScrollView>
                 <View style={styles.container}>
                   
                   <View style={{
@@ -313,7 +314,7 @@ class ViewOrder extends Component {
                   borderBottomLeftRadius: 4 }}>
                     <Text
                       style={{
-                        fontSize: 15,
+                        fontSize: 16,
                         color: "#000000",
                         fontWeight: "bold",
                       }}
@@ -326,7 +327,7 @@ class ViewOrder extends Component {
                   <View style={{ flex: 1 }}>
                     <Text
                       style={{
-                        fontSize: 15,
+                        fontSize: 16,
                         color: "#000000",
                         fontWeight: "bold",
                       }}
@@ -339,7 +340,7 @@ class ViewOrder extends Component {
                   <View style={{ flex: 1 }}>
                     <Text
                       style={{
-                        fontSize: 15,
+                        fontSize: 16,
                         color: "#000000",
                         fontWeight: "bold",
                       }}
@@ -350,7 +351,7 @@ class ViewOrder extends Component {
                   <View style={{ flex: 1 }}>
                     <Text
                       style={{
-                        fontSize: 15,
+                        fontSize: 16,
                         color: "#000000",
                         fontWeight: "bold",
                       }}
@@ -405,7 +406,7 @@ class ViewOrder extends Component {
                       marginTop:10,
                       //marginLeft:10,
                     }}>
-                      Valor
+                      Total
                     
                     </Text> 
                   </View>
@@ -442,10 +443,55 @@ class ViewOrder extends Component {
                   </View>
                   
                 </View>
-                
+                <View style={styles.container3} >
+                    <View >
+                        <Text style={{
+                            fontSize: 20,
+                            fontWeight:'bold',
+                            textAlign:'center',
+                            marginBottom:5, 
+                        }}>
+                            Endereço de entrega
+                        </Text>
+                        <Text style={{
+                            fontSize: 16,
+                            //fontWeight:'bold',
+                            textAlign:'center',
+
+                            marginBottom:5,   
+                        }}>
+                            {this.props.pedido.Pedido[0].logradouro}
+                            {this.props.pedido.Pedido[0].numero != '' ? ', '+ this.props.pedido.Pedido[0].numero :'' }
+                            {this.props.pedido.Pedido[0].complemento != '' ? ', ' + this.props.pedido.Pedido[0].complemento :'' }
+                            
+                       
+                        </Text>
+                        <Text style={{
+                            fontSize: 16,
+                            //fontWeight:'bold',
+                            textAlign:'center',
+                            marginBottom:5,   
+                        }}>
+                            {this.props.pedido.Pedido[0].bairro_nome != '' ? '' + this.props.pedido.Pedido[0].bairro_nome :''}
+                            {this.props.pedido.Pedido[0].cidade_nome != '' ? ' - ' + this.props.pedido.Pedido[0].cidade_nome :''}
+                            {this.props.pedido.Pedido[0].estado_nome != '' ? ' - ' + this.props.pedido.Pedido[0].estado_nome :''}
+                            
+                           
+                        </Text>
+                        <Text style={{
+                            fontSize: 16,
+                            //fontWeight:'bold',
+                            textAlign:'center',
+                            marginBottom:5,   
+                        }}>
+                           {this.props.pedido.Pedido[0].ponto_referencia != '' ? '' + this.props.pedido.Pedido[0].ponto_referencia :''}
+                        </Text>
+                    </View>
+                    
+                </View>
 
               
-              </View>
+              </ScrollView>
             ):( <View style={{
                   opacity: 0.0,
                   width: '100%',
@@ -515,6 +561,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     //padding: 16,
   },
+  container3: {
+    width: "100%",
+    //marginTop: 8,
+    //marginBottom: 8,
+//flexDirection: "row",
+    padding: 16,
+    alignSelf:"center",
+    alignItems:"center"
+  },
   button: {
     backgroundColor: "#4099ff",
     color: "#fff",
@@ -537,7 +592,8 @@ const mapStateToProps = state => ({
   troco_pedido: state.AppReducer.troco_pedido,
   obs_pedido: state.AppReducer.obs_pedido,
   show_loader: state.AppReducer.show_loader,
-  pedido:state.AppReducer.pedido
+  pedido:state.AppReducer.pedido,
+  usuario: state.AppReducer.usuario
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ atualizaObs, pedidosViewFetch, modificaUsuario,pedidosViewFetchInterval }, dispatch);

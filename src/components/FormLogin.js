@@ -20,7 +20,7 @@ import {
     autenticarUsuario,
     setStatusCadastroUsuario,
     limpaFormularioCadastro,
-    modificaUsername
+    modificaUsername,
 } from '../actions/AppActions';
 import { FILIAL, EMPRESA, SALT } from '../Settings';
 
@@ -30,7 +30,9 @@ class formLogin extends Component {
 
     constructor(props) {
         super(props);
-        this.props.limpaFormularioCadastro();        
+        this.props.limpaFormularioCadastro();     
+        //this.props.setStatusCadastroUsuario('');
+        
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -38,12 +40,14 @@ class formLogin extends Component {
 
         
         if(typeof  nextProps.usuario != 'undefined') {
-            if(nextProps.usuario){
-                
-                this.storeToken(nextProps.usuario);
-                
-                this.props.navigation.navigate('Main');
+            if(nextProps.usuario != ''){
+                if(nextProps.usuario){
+                    this.storeToken(nextProps.usuario);
+                    this.props.setStatusCadastroUsuario(nextProps.usuario);
+                    this.props.navigation.navigate('Main');
+                }
             }
+            
             
         }
     }
@@ -53,16 +57,13 @@ class formLogin extends Component {
             let storeData = this.getToken();
             storeData.then(resp => {
                 if(typeof resp.token != 'undefined'){
-                    //console.log('resp usuario gravado login');
-                    //console.log(resp);
+                    
                     this.props.setStatusCadastroUsuario(resp);
-                    //console.log('salvou usuário no cache');
-                    //console.log(resp);
                     this.props.navigation.navigate('Main');
                 }
                 
             });
-        }/**/
+        }
         
     }
 
@@ -191,7 +192,8 @@ export default connect(mapStateToProps, {
     autenticarUsuario,
     setStatusCadastroUsuario,
     limpaFormularioCadastro,
-    modificaUsername 
+    modificaUsername,
+    setStatusCadastroUsuario 
 })(formLogin);
 
 const styles = StyleSheet.create({

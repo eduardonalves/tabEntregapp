@@ -70,7 +70,7 @@ class ListCart extends Component {
             }
           }}
         >
-          <View style={{ flex: 2, 
+          <View style={{ flex: 4, 
           borderTopLeftRadius: 4,
           borderTopRightRadius: 0,
           borderBottomRightRadius: 0,
@@ -87,7 +87,7 @@ class ListCart extends Component {
             </Text>
 
           </View>
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 2 }}>
             
             <Text
               style={{
@@ -120,10 +120,10 @@ class ListCart extends Component {
                 //textAlign: 'center',
               }}
             >
-              {this.props.qtd}
+              &nbsp;{this.props.qtd}
             </Text>
           </View>
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 2 }}>
            
             <Text
               style={{

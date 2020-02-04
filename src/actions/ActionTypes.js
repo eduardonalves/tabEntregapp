@@ -17,6 +17,10 @@ export const MODIFICA_SENHA_ANTIGA='modifica_senha_antiga';
 export const MODIFICA_ID_USUARIO= 'modifica_id_usuario';
 export const USUARIO_ATUALIZOU_CADASTRO = 'usuario_atualizou_cadastro';
 
+export const MODIFICA_NOME_ESTADO= 'modifica_nome_estado';
+export const MODIFICA_NOME_CIDADE= 'modifica_nome_cidade';
+export const MODIFICA_NOME_BAIRRO= 'modifica_nome_bairro';
+
 export const CADASTRO_USUARIO_SUCESSO = 'cadastro_usuario_sucesso';
 export const CADASTRO_USUARIO_ERRO = 'cadastro_usuario_erro';
 export const CADASTRO_EM_ANDAMENTO = 'cadastro_em_andamento';

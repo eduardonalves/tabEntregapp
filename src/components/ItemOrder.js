@@ -7,7 +7,8 @@ import {
   Button,
   TouchableOpacity,
   Alert,
-  Picker
+  Picker,
+  ScrollView
 } from "react-native";
 import { Overlay } from 'react-native-elements';
 import { bindActionCreators } from 'redux';
@@ -77,12 +78,12 @@ class ItemOrder extends Component {
   render() {
     
     return (
-      <TouchableOpacity onPress={() => this.props.handleNaviagation()}>
+      <ScrollView>
         <View
           elevation={2}
           style={{
             flexDirection: "row",
-            backgroundColor: this.props.linha % 2 ? "#d2d2d2":  '#ffffff',
+            backgroundColor: this.props.linha % 2 ? '#ffffff' : "#d2d2d2"  ,
             marginHorizontal: 24,
             marginVertical: 8,
             borderRadius: 4,
@@ -145,7 +146,7 @@ class ItemOrder extends Component {
                // textAlign: 'center',
               }}
             >
-            {this.props.qtde} 
+            &nbsp;&nbsp;{this.props.qtde} 
             </Text>
           </View>
           <View style={{ flex: 1 }}>
@@ -175,7 +176,7 @@ class ItemOrder extends Component {
 
 
         </View>
-      </TouchableOpacity>
+      </ScrollView>
     );
   }
 }

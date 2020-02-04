@@ -50,7 +50,8 @@ import {
   cadastraUsuarioEdit,
   cadastraUsuarioEditComSenha,
   modificaUsuarioModificouCadastro,
-  modificaCarregaEstadoFalha
+  modificaCarregaEstadoFalha,
+  showMyLoader
 
 } from '../actions/AppActions';
 
@@ -61,10 +62,12 @@ class Perfil extends Component {
   constructor(props) {
     super(props);
     this.props.limpaFormularioCadastro();
+    this.props.showMyLoader(true);
     let userData = this.getToken();
     console.log(userData);
     userData.then(
       res => {
+        
         this.props.modificaCarregaEstadoFalha(false);
         this.props.modificaIdUsuario(res.id);
         this.props.modificaEmail(res.email);
@@ -84,9 +87,11 @@ class Perfil extends Component {
         this.props.estadosFetch();
         this.props.cidadesFetch(res.uf);
         this.props.bairroFetch(res.cidade);
+        this.props.showMyLoader(false);
       }
+      
     ).catch(error => {
-
+      this.props.showMyLoader(false);
     });
 
 
@@ -689,7 +694,8 @@ export default connect(mapStateToProps, {
   cadastraUsuarioEdit,
   cadastraUsuarioEditComSenha,
   modificaUsuarioModificouCadastro,
-  modificaCarregaEstadoFalha
+  modificaCarregaEstadoFalha,
+  showMyLoader
 })(Perfil);
 
 const styles = StyleSheet.create({

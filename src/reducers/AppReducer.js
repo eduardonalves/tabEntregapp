@@ -56,6 +56,9 @@ const INITIAL_STATE = {
     usuario_id:'',
     senha_antiga:'',
     usuario_atualizou_cadastro:false,
+    estado_nome:'',
+    bairro_nome:'',
+    cidade_nome:'',
 };
 
 import {
@@ -123,7 +126,10 @@ import {
     MODIFICA_USERNAME,
     MODIFICA_SENHA_ANTIGA,
     MODIFICA_ID_USUARIO,
-    USUARIO_ATUALIZOU_CADASTRO
+    USUARIO_ATUALIZOU_CADASTRO,
+    MODIFICA_NOME_ESTADO,
+    MODIFICA_NOME_CIDADE,
+    MODIFICA_NOME_BAIRRO
 
 } from '../actions/ActionTypes';
 
@@ -136,6 +142,12 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, usuario_atualizou_cadastro: action.payload };
         case MODIFICA_ID_USUARIO:
             return { ...state, usuario_id: action.payload };
+        case MODIFICA_NOME_ESTADO:
+            return { ...state, estado_nome: action.payload };
+        case MODIFICA_NOME_CIDADE:
+            return { ...state, cidade_nome: action.payload };
+        case MODIFICA_NOME_BAIRRO:
+            return { ...state, bairro_nome: action.payload };   
         case MODIFICA_ADICIONA_CONTATO_EMAIL:
             return { ...state, adiciona_contato_email: action.payload };
         case MODIFICA_USERNAME:

@@ -12,6 +12,7 @@ import {
     Alert
 } from "react-native";
 import { Input } from 'react-native-elements';
+import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { atualizaFormaDePagamento, atualizaTroco, tiposPagamentoFetch, enviaPedido,setStatusEnvioPedido, limpaCarrinho, showMyLoader } from '../actions/AppActions';
@@ -23,6 +24,7 @@ class Billing extends Component {
     constructor(props) {
         super(props);
         this.props.tiposPagamentoFetch();
+       
     }
     static navigationOptions = ({ navigation }) => {
         return {
@@ -42,11 +44,10 @@ class Billing extends Component {
         };
     }
     UNSAFE_componentWillReceiveProps(nextProps) {
-        //console.log('nextProps.carrinho');
-        //console.log(nextProps.carrinho);
+        
         if(nextProps.status_envio_pedido ==true) {
             this.props.setStatusEnvioPedido(false);
-            //console.log(nextProps);
+            
             this.props.navigation.navigate("ViewOrder", { Atendimento_id: nextProps.pedido.atendimento_id });
         }
     }
@@ -75,7 +76,7 @@ class Billing extends Component {
         }else{
            
             this.props.showMyLoader(true);
-            console.log(this.props.usuario);
+            
            this.props.enviaPedido(
                 {
                     carrinho: this.props.carrinho,
@@ -86,9 +87,21 @@ class Billing extends Component {
                     obs: this.props.obs_pedido,
                     pagamento_id:this.props.forma_pagamento,
                     entrega_valor: this.props.usuario.frete_cadastro,
-
+                    logradouro: this.props.usuario.logradouro,
+                    numero:this.props.usuario.numero,
+                    ponto_referencia: this.props.usuario.ponto_referencia,
+                    complemento: this.props.usuario.complemento,
+                    bairro_id: this.props.usuario.bairro,
+                    cidad_id: this.props.usuario.cidade,
+                    estado_id: this.props.usuario.uf,
+                    telefone: this.props.usuario.telefone,
+                    email: this.props.usuario.email,
+                    bairro_nome: this.props.usuario.bairro_nome,
+                    cidade_nome: this.props.usuario.cidade_nome,
+                    estado_nome: this.props.usuario.estado_nome,
+                    ponto_referencia: this.props.usuario.ponto_referencia,
                 }
-            );
+            );/**/
         }
         
     }
@@ -99,9 +112,43 @@ class Billing extends Component {
                 <Picker.Item label={v.Pagamento.tipo} value={v.Pagamento.id} key={k} />
             );
         });
+        let total_carrinho = this.props.total_carrinho.toString();
+        total_carrinho =total_carrinho.replace(".",",");
         return (
             <View >
                 <View style={styles.container} >
+                    <View >
+                        <Text style={{
+                            fontSize: 26,
+                            fontWeight:'bold' 
+                        }}>
+                            Total&nbsp;
+                        </Text>
+                        
+                    </View>
+                    <View>
+                        <Text style={{
+                            fontSize: 26,
+                            fontWeight:'bold' 
+                        }}>
+                        
+                        <NumberFormat 
+                            value={total_carrinho} 
+                            displayType={'text'} 
+                            renderText={value => <Text>{value}</Text>}
+                            thousandSeparator={'.'}
+                            decimalScale={2} 
+                            fixedDecimalScale={true}
+                            prefix={'R$ '}
+                            decimalSeparator={','}
+                        
+                        />
+                        </Text>
+                    </View>
+                </View>
+                
+                <View style={styles.container} >
+                    
                     <View>
                         <Text style={{
                             textAlign: "center", fontSize: 18, textAlign: "center", flex: 1,
@@ -148,10 +195,41 @@ class Billing extends Component {
 
 
                 </View>
+                <View style={styles.container} >
+                    <View >
+                        <Text style={{
+                            fontSize: 15,
+                            fontWeight:'bold',
+                            textAlign:'center',
+                            marginBottom:5, 
+                        }}>
+                            Endereço de Entrega
+                        </Text>
+                        <Text style={{
+                            fontSize: 16,
+                            //fontWeight:'bold',
+                            textAlign:'center'  
+                        }}>
+                            {this.props.usuario.logradouro}
+                            {this.props.usuario.numero != '' ? ', '+ this.props.usuario.numero :'' }
+                            {this.props.usuario.complemento != '' ? ', ' + this.props.usuario.complemento :'' }
+                            {'\n'}
+                            {this.props.usuario.bairro_nome != '' ? '' + this.props.usuario.bairro_nome :''}
+                            {this.props.usuario.cidade_nome != '' ? ' - ' + this.props.usuario.cidade_nome :''}
+                            {this.props.usuario.estado_nome != '' ? ' - ' + this.props.usuario.estado_nome :''}
+                            {'\n'}
+                            {this.props.usuario.ponto_referencia != '' ? '' + this.props.usuario.ponto_referencia :''}
+                        </Text>
+                    </View>
+                    
+                </View>
                 <View >
                     <View style={{width:"100%", padding:16}} >
                         <Button
-                            title="Finalizar" color="#4099ff" disabled={this.props.show_loader} style={styles.button} onPress={() => this.handleSendOrder()}
+                            title="Enviar Pedido" color="#4099ff" 
+                            //disabled={this.props.show_loader} 
+                            style={styles.button} 
+                            onPress={() => this.handleSendOrder()}
                             
                         />
                     </View>
@@ -201,6 +279,7 @@ class Billing extends Component {
                     
                     
                 </View>
+               
             </View>
         );
     }

@@ -151,7 +151,7 @@ class ListOrder extends Component {
                // textAlign: 'center',
               }}
             >
-            Valor 
+            Total 
              
             </Text>
             <Text

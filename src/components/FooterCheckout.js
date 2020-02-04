@@ -68,7 +68,7 @@ class FooterCheckout extends Component {
             borderBottomLeftRadius: 4,
           }}>
             <Text style={{
-              fontSize: 16,
+              fontSize: 17,
               fontWeight: "bold",
               //color: "#a92319",
             }}>
@@ -84,7 +84,7 @@ class FooterCheckout extends Component {
             //flexDirection: "row-reverse"
           }}>
             <Text style={{
-              fontSize: 16,
+              fontSize: 17,
               fontWeight: "bold",
               //color: "#ef6136",
             }}>
@@ -109,11 +109,11 @@ class FooterCheckout extends Component {
             borderBottomLeftRadius: 4
           }}>
             <Text style={{
-              fontSize: 16,
+              fontSize: 17,
               fontWeight: "bold",
               //color: "#a92319",
             }}>
-              Valor Total
+              Total Geral
             </Text>
           </View>
           <View style={{
@@ -125,7 +125,7 @@ class FooterCheckout extends Component {
             flexDirection: "row-reverse"
           }}>
             <Text style={{
-              fontSize: 16,
+              fontSize: 17,
               fontWeight: "bold",
               //color: "#ef6136",
             }}>
@@ -153,7 +153,7 @@ class FooterCheckout extends Component {
           //marginTop: 8,
           //marginBottom: 8,
           //flexDirection: "row",
-          padding: 16,
+          padding: 17,
         }}>
           <Input
             label="Observações"

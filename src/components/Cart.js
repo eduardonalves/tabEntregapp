@@ -50,10 +50,16 @@ class Cart extends Component {
       return <EmptyCart />;
     } else {
       return (
-        <ScrollView>
-          <Checkout />
-          <FooterCheckout handleNaviagation={this.handleNaviagation} />
-        </ScrollView>
+        <View>
+           <ScrollView>
+             <View>
+               <Checkout />
+             </View>
+             <View>
+              <FooterCheckout handleNaviagation={this.handleNaviagation} />
+             </View>
+          </ScrollView>
+        </View>
       );
     }
 

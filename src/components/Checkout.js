@@ -52,7 +52,7 @@ class Checkout extends Component {
     return (
       <View style={styles.container}>
         <View
-          //elevation={2}
+          elevation={2}
           style={{
             flexDirection: "row",
             backgroundColor: '#ffffff' ,
@@ -68,14 +68,14 @@ class Checkout extends Component {
             }
           }}
         >
-          <View style={{ flex: 3, 
+          <View style={{ flex: 4, 
           borderTopLeftRadius: 4,
           borderTopRightRadius: 0,
           borderBottomRightRadius: 0,
           borderBottomLeftRadius: 4 }}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 17,
                 color: "#333",
                 fontWeight: "bold",
                 //textAlign: 'center',
@@ -85,10 +85,10 @@ class Checkout extends Component {
             </Text>
             
           </View>
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 2 }}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 17,
                 fontWeight: "bold",
                 //color: "#ef6136",
                 //textAlign: 'center',
@@ -101,22 +101,22 @@ class Checkout extends Component {
           <View style={{ flex: 1 }}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 17,
                 fontWeight: "bold",
                 //color: "#a92319",
                 //textAlign: 'center',
               }}
             >
-              Qtde 
+              Qtd 
             </Text>
           </View>
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 2 }}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 17,
                 fontWeight: "bold",
                 //color: "#ef6136",
-                textAlign: 'center',
+                //textAlign: 'center',
               }}
             >
               Total 

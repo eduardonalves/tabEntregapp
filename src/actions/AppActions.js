@@ -62,7 +62,10 @@ import {
     MODIFICA_USERNAME,
     MODIFICA_SENHA_ANTIGA,
     MODIFICA_ID_USUARIO,
-    USUARIO_ATUALIZOU_CADASTRO
+    USUARIO_ATUALIZOU_CADASTRO,
+    MODIFICA_NOME_ESTADO,
+    MODIFICA_NOME_CIDADE,
+    MODIFICA_NOME_BAIRRO
 } from './ActionTypes';
 
 import {
@@ -84,7 +87,7 @@ export const autenticarUsuario = (usuario) => {
         axios.post(`${APP_URL}/entregapp_sistema/RestClientes/loginmobile.json`, usuario)
             .then(res => {
                
-
+                
                 if (typeof res.data.ultimopedido != 'undefined') {
                     if (res.data.ultimopedido == 'ErroLogin') {
                         Alert.alert(
@@ -106,7 +109,7 @@ export const autenticarUsuario = (usuario) => {
                 dispatch({ type: SHOW_LOADER, payload: false });
                 dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
             }).catch(error => {
-               
+                
                 dispatch({ type: SHOW_LOADER, payload: false });
                 dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
             });
@@ -174,8 +177,7 @@ export const cadastraUsuarioEdit = (usuario) => {
 
         axios.post(`${APP_URL}/entregapp_sistema/RestClientes/addmobile.json`, usuario)
             .then(res => {
-               //console.log('data');
-               //console.log(res);
+                
                 if (res.data.ultimocliente == "ErroUsuarioDuplo") {
                     Alert.alert(
                         'Mensagem',
@@ -224,10 +226,12 @@ export const cadastraUsuarioEdit = (usuario) => {
                         { cancelable: false },
                     );
                 }
-
+                
             }).catch(error => {
+                
                 dispatch({ type: SHOW_LOADER, payload: false });
                 dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
+                
             });
 
     }
@@ -298,7 +302,7 @@ export const cadastraUsuarioEditComSenha = (usuario) => {
                             dispatch({ type: SHOW_LOADER, payload: false });
                             dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
                         });
-
+                        
                     //dispatch(NavigationActions.navigate({ routeName: 'RoutesLogin' }));
                     Alert.alert(
                         'Mensagem',
@@ -316,7 +320,7 @@ export const cadastraUsuarioEditComSenha = (usuario) => {
                 
             }).catch(error => {
                
-
+               
                 dispatch({ type: SHOW_LOADER, payload: false });
                 dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
             });
@@ -825,8 +829,20 @@ export const montaPedido = (pedido) => {
             salt: SALT,
             token: pedido.token,
             obs: pedido.obs,
-            entrega_valor: pedido.entrega_valor
-
+            entrega_valor: pedido.entrega_valor,
+            logradouro: pedido.logradouro,
+            numero: pedido.numero,
+            ponto_referencia: pedido.ponto_referencia,
+            bairro_id: pedido.bairro_id,
+            cidad_id: pedido.cidad_id,
+            estado_id: pedido.estado_id,
+            telefone: pedido.telefone,
+            email: pedido.email,
+            complemento: pedido.complemento,
+            bairro_nome: pedido.bairro_nome,
+            cidade_nome: pedido.cidade_nome,
+            estado_nome: pedido.estado_nome,
+            ponto_referencia: pedido.ponto_referencia,
         },
         Itensdepedido: [],
     }
@@ -992,5 +1008,22 @@ export const modificaSenhaAntiga = (senha) => {
 export const modificaIdUsuario = (id) => {
     return dispatch => {
         dispatch({ type: MODIFICA_ID_USUARIO, payload: id });
+    }
+}
+
+export const modificaNomeEstado = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_NOME_ESTADO, payload: texto });
+    }
+}
+
+export const modificaNomeCidade = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_NOME_CIDADE, payload: texto });
+    }
+}
+export const modificaNomeBairro = (texto) => {
+    return dispatch => {
+        dispatch({ type: MODIFICA_NOME_BAIRRO, payload: texto });
     }
 }
