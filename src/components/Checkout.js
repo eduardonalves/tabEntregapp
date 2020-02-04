@@ -51,10 +51,85 @@ class Checkout extends Component {
 
     return (
       <View style={styles.container}>
+        <View
+          //elevation={2}
+          style={{
+            flexDirection: "row",
+            backgroundColor: '#ffffff' ,
+            marginHorizontal: 24,
+            marginVertical: 8,
+            borderRadius: 4,
+            shadowOpacity: 0.1,
+            shadowRadius: 2,
+            padding: 10,
+            shadowOffset: {
+              height: 1,
+              width: 1
+            }
+          }}
+        >
+          <View style={{ flex: 3, 
+          borderTopLeftRadius: 4,
+          borderTopRightRadius: 0,
+          borderBottomRightRadius: 0,
+          borderBottomLeftRadius: 4 }}>
+            <Text
+              style={{
+                fontSize: 16,
+                color: "#333",
+                fontWeight: "bold",
+                //textAlign: 'center',
+              }}
+            >
+              Produto
+            </Text>
+            
+          </View>
+          <View style={{ flex: 1 }}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                //color: "#ef6136",
+                //textAlign: 'center',
+              }}
+            >
+              Unt
+            </Text>
+            
+          </View>
+          <View style={{ flex: 1 }}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                //color: "#a92319",
+                //textAlign: 'center',
+              }}
+            >
+              Qtde 
+            </Text>
+          </View>
+          <View style={{ flex: 1 }}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                //color: "#ef6136",
+                textAlign: 'center',
+              }}
+            >
+              Total 
+            </Text>
+            
+          </View>
+
+
+        </View>
         <FlatList
           data={this.props.carrinho}
-          keyExtractor={item => item.item_id.toString()}
-          renderItem={({ item }) => (
+          keyExtractor={(item, index) => item.item_id.toString()}
+          renderItem={({ item , index}) => (
             <ListCart
               name={item.nome}
               image={item.foto}
@@ -64,6 +139,7 @@ class Checkout extends Component {
               isVegetarian={item.parte_compre_ganhe}
               item_id={item.item_id}
               qtd={item.qtd}
+              linha={index}
              
             />
           )}

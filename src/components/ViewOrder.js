@@ -8,12 +8,14 @@ import {
   TouchableOpacity,
   Picker,
   Button,
-  ActivityIndicator
+  ActivityIndicator,
+  AsyncStorage
 } from "react-native";
 import { HeaderBackButton } from 'react-navigation-stack';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { atualizaObs, pedidosViewFetch } from '../actions/AppActions';
+import NumberFormat from 'react-number-format';
+import { atualizaObs, pedidosViewFetch, modificaUsuario, pedidosViewFetchInterval } from '../actions/AppActions';
 import Constants from "../utils/constants";
 import foodData from "../food-data.json";
 import ListCart from "./ListCart";
@@ -25,11 +27,26 @@ import Billing from "../components/Billing";
 import Color from "../../constants/Colors";
 
 class ViewOrder extends Component {
+  
   constructor(props) {
     super(props);
     //console.log(props);
-    this.props.pedidosViewFetch(17, 'k1wt0x33kg',this.props.navigation.getParam('Atendimento_id'));
+    
+    let userData = this.getToken();
+    //console.log(userData);
+    userData.then(
+      res => {
 
+        this.props.pedidosViewFetch(res.id,res.token,this.props.navigation.getParam('Atendimento_id'))
+        this.interval = setInterval(() => this.props.pedidosViewFetchInterval(res.id,res.token,this.props.navigation.getParam('Atendimento_id')), 60000);
+      }
+    ).catch(error => {
+
+    });
+
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -50,16 +67,34 @@ class ViewOrder extends Component {
       )
     };
   }
-
+  async storeToken(user) {
+    try {
+      await AsyncStorage.setItem("userData", JSON.stringify(user));
+      //console.log('setou o usuario na sessão');
+    } catch (error) {
+      //console.log("Something went wrong", error);
+    }
+  }
+  async getToken() {
+    try {
+      let userData = await AsyncStorage.getItem("userData");
+      let data = JSON.parse(userData);
+      //console.log(data);
+      return data;
+    } catch (error) {
+      //console.log("Something went wrong", error);
+      return false;
+    }
+  }
   /*handleNaviagation = () => {
     this.props.navigation.navigate("Billing");
   };*/
 
   render() {
-    console.log('this.props.pedido.Itensdepedido');
+    //console.log('this.props.pedido.Itensdepedido');
     
     if(typeof this.props.pedido.Atendimento != 'undefined'){
-      console.log(this.props.pedido.Itensdepedido);
+      //console.log(this.props.pedido.Itensdepedido);
       return (
         
             this.props.show_loader == false ? (
@@ -215,41 +250,44 @@ class ViewOrder extends Component {
                         Entrega 
                       
                       </Text>
-                      <Text style={{
-                        fontSize: 16,
-                        //fontWeight: "bold",
-                        //color: "#ef6136",
-                        textAlign:'center'
-                      }}>
-                        {this.props.pedido.Pedido[0].entrega_valor == '0' ? 'Grátis':'R$ ' + this.props.pedido.Pedido[0].entrega_valor }
-                      </Text>
-                    </View>
-                    <View style={{
-                      flex: 1,
-                      borderTopLeftRadius: 4,
-                      borderTopRightRadius: 0,
-                      borderBottomRightRadius: 0,
-                      borderBottomLeftRadius: 4,
-                      textAlign:'center'
-                    }}>
-                      <Text style={{
-                        fontSize: 16,
-                        fontWeight: "bold",
-                        //color: "#ef6136",
-                        textAlign:'center'
-                      }}>
-                        Valor
                       
-                      </Text>
-                      <Text style={{
-                        fontSize: 16,
-                        //fontWeight: "bold",
-                        //color: "#ef6136",
-                        textAlign:'center'
-                      }}>
-                        R$ {this.props.pedido.Pedido[0].valor}
-                      </Text>
+                        
+                        {
+                          this.props.pedido.Pedido[0].entrega_valor == '0' || this.props.pedido.Pedido[0].entrega_valor == '' || this.props.pedido.Pedido[0].entrega_valor== null ? (
+                            <Text style={{
+                              fontSize: 16,
+                              //fontWeight: "bold",
+                              //color: "#ef6136",
+                              textAlign:'center'
+                            }}>
+                              Grátis
+                            </Text>
+                          )
+                          :(
+                            <Text style={{
+                              fontSize: 16,
+                              //fontWeight: "bold",
+                              //color: "#ef6136",
+                              textAlign:'center'
+                            }}>
+                              <NumberFormat 
+                                value={ this.props.pedido.Pedido[0].entrega_valor == '' || this.props.pedido.Pedido[0].entrega_valor== null ? 0 :this.props.pedido.Pedido[0].entrega_valor.replace(".",",")} 
+                                displayType={'text'} 
+                                renderText={value => <Text>{value}</Text>}
+                                thousandSeparator={'.'}
+                                decimalScale={2} 
+                                fixedDecimalScale={true}
+                                prefix={'R$ '}
+                                decimalSeparator={','}
+                              
+                              />
+                            </Text>
+                          
+                          
+                          ) }
+                      
                     </View>
+                    
                 </View>
                 
                 <View
@@ -336,17 +374,76 @@ class ViewOrder extends Component {
                       <FlatList
                           data={this.props.pedido.Itensdepedido}
                           keyExtractor={item => item.Itensdepedido.id}
-                          renderItem={({ item }) => (
+                          renderItem={({ item, index }) => (
                             <ItemOrder
                               produtonome={item.Produto.nome}
                               valor_unit={item.Itensdepedido.valor_unit}
                               qtde={item.Itensdepedido.qtde}
                               valor_total={item.Itensdepedido.valor_total}
+                              linha={index}
                             />
                           )}
                         />
                     </View>
                 </View>
+
+                <View style={styles.container2}>
+                  <View style={{
+                    flex: 2,
+                    borderTopLeftRadius: 4,
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                    borderBottomLeftRadius: 4,
+                    //textAlign:'center'
+                  }}>
+                    <Text style={{
+                      fontSize: 28,
+                      fontWeight: "bold",
+                      //color: "#ef6136",
+                      textAlign:'right',
+                      padding:16,
+                      marginTop:10,
+                      //marginLeft:10,
+                    }}>
+                      Valor
+                    
+                    </Text> 
+                  </View>
+                  <View style={{
+                    flex: 2,
+                    borderTopLeftRadius: 4,
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                    borderBottomLeftRadius: 4,
+                    //textAlign:'center'
+                  }}>
+                    <Text style={{
+                      fontSize: 28,
+                      fontWeight: "bold",
+                      //color: "#ef6136",
+                      textAlign:'center',
+                      padding:16,
+                      marginTop:10,
+                      //marginLeft:10,
+                    }}>
+                      
+                      <NumberFormat 
+                                value={ this.props.pedido.Pedido[0].valor == '' || this.props.pedido.Pedido[0].valor== null ? 0 :this.props.pedido.Pedido[0].valor.replace(".",",")} 
+                                displayType={'text'} 
+                                renderText={value => <Text>{value}</Text>}
+                                thousandSeparator={'.'}
+                                decimalScale={2} 
+                                fixedDecimalScale={true}
+                                prefix={'R$ '}
+                                decimalSeparator={','}
+                              
+                              />
+                    </Text>
+                  </View>
+                  
+                </View>
+                
+
               
               </View>
             ):( <View style={{
@@ -443,5 +540,5 @@ const mapStateToProps = state => ({
   pedido:state.AppReducer.pedido
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ atualizaObs, pedidosViewFetch }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ atualizaObs, pedidosViewFetch, modificaUsuario,pedidosViewFetchInterval }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ViewOrder);

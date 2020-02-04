@@ -14,6 +14,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { removeFromCart, updateCart } from '../actions/AppActions';
+import NumberFormat from 'react-number-format';
 
 class ListOrder extends Component {
   constructor(props) {
@@ -81,8 +82,9 @@ class ListOrder extends Component {
           elevation={2}
           style={{
             flexDirection: "row",
-            backgroundColor: "#ffffff",
+            backgroundColor: this.props.linha % 2 ? "#d2d2d2":  '#ffffff' ,
             marginHorizontal: 24,
+            padding:10,
             marginVertical: 8,
             borderRadius: 4,
             shadowOpacity: 0.1,
@@ -101,16 +103,34 @@ class ListOrder extends Component {
             <Text
               style={{
                 fontSize: 15,
-                color: "#000000",
+               // color: "#000000",
                 fontWeight: "bold",
               }}
             >
-            Data {"\n"}
-            {this.props.item.Atendimento.data} 
+            Data
+            
             </Text>
-
+            <Text
+              style={{
+                fontSize: 15,
+               // color: "#000000",
+               // fontWeight: "bold",
+              }}
+            >
+              {this.props.item.Atendimento.data} 
+            </Text>
           </View>
           <View style={{ flex: 1 }}>
+            <Text
+              style={{
+                fontSize: 15,
+                fontWeight: "bold",
+               // color: "#333",
+               // textAlign: 'center',
+              }}
+            >
+              Hora
+            </Text>
             <Text
               style={{
                 fontSize: 15,
@@ -119,9 +139,7 @@ class ListOrder extends Component {
                // textAlign: 'center',
               }}
             >
-              Hora {"\n"}
-             {this.props.item.Atendimento.hora}
-
+              {this.props.item.Atendimento.hora}
             </Text>
           </View>
           <View style={{ flex: 1 }}>
@@ -129,12 +147,33 @@ class ListOrder extends Component {
               style={{
                 fontSize: 15,
                 fontWeight: "bold",
-                color: "#a92319",
+                //color: "#a92319",
                // textAlign: 'center',
               }}
             >
-            Valor {"\n"}
-            R$ {this.props.item.Pedido[0].valor} 
+            Valor 
+             
+            </Text>
+            <Text
+              style={{
+                fontSize: 15,
+                //fontWeight: "bold",
+                //color: "#a92319",
+               // textAlign: 'center',
+              }}
+            >
+              
+              <NumberFormat 
+                value={this.props.item.Pedido[0].valor.replace(".",",")} 
+                displayType={'text'} 
+                renderText={value => <Text>{value}</Text>}
+                thousandSeparator={'.'}
+                decimalScale={2} 
+                fixedDecimalScale={true}
+                prefix={'R$ '}
+                decimalSeparator={','}
+              
+              />
             </Text>
           </View>
           <View style={{ flex: 1 }}>
@@ -142,12 +181,22 @@ class ListOrder extends Component {
               style={{
                 fontSize: 15,
                 fontWeight: "bold",
-                color: "#ef6136",
+                //color: "#ef6136",
                 textAlign: 'center',
               }}
             >
-            Situação {"\n"}
-            {this.props.item.Pedido[0].status} 
+            Situação
+            
+            </Text>
+            <Text
+              style={{
+                fontSize: 15,
+                //fontWeight: "bold",
+                //color: "#ef6136",
+                textAlign: 'center',
+              }}
+            >
+              {this.props.item.Pedido[0].status} 
             </Text>
           </View>
 

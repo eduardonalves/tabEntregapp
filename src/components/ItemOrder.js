@@ -14,6 +14,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { removeFromCart, updateCart } from '../actions/AppActions';
+import NumberFormat from 'react-number-format';
 
 class ItemOrder extends Component {
   constructor(props) {
@@ -81,12 +82,13 @@ class ItemOrder extends Component {
           elevation={2}
           style={{
             flexDirection: "row",
-            backgroundColor: "#ffffff",
+            backgroundColor: this.props.linha % 2 ? "#d2d2d2":  '#ffffff',
             marginHorizontal: 24,
             marginVertical: 8,
             borderRadius: 4,
             shadowOpacity: 0.1,
             shadowRadius: 2,
+            padding:10,
             shadowOffset: {
               height: 1,
               width: 1
@@ -119,9 +121,19 @@ class ItemOrder extends Component {
                // textAlign: 'center',
               }}
             >
-            R$ {this.props.valor_unit}
+           
              
-
+            <NumberFormat 
+                value={this.props.valor_unit.replace(".",",")} 
+                displayType={'text'} 
+                renderText={value => <Text>{value}</Text>}
+                thousandSeparator={'.'}
+                decimalScale={2} 
+                fixedDecimalScale={true}
+                prefix={'R$ '}
+                decimalSeparator={','}
+              
+              />
             </Text>
           </View>
           <View style={{ flex: 1 }}>
@@ -145,7 +157,18 @@ class ItemOrder extends Component {
                 //textAlign: 'center',
               }}
             >
-            {this.props.valor_total} 
+            <NumberFormat 
+                value={this.props.valor_total.replace(".",",")} 
+                displayType={'text'} 
+                renderText={value => <Text>{value}</Text>}
+                thousandSeparator={'.'}
+                decimalScale={2} 
+                fixedDecimalScale={true}
+                prefix={'R$ '}
+                decimalSeparator={','}
+              
+              />  
+           
            
             </Text>
           </View>

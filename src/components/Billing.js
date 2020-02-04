@@ -22,7 +22,6 @@ import Color from "../../constants/Colors";
 class Billing extends Component {
     constructor(props) {
         super(props);
-        //console.log(props);
         this.props.tiposPagamentoFetch();
     }
     static navigationOptions = ({ navigation }) => {
@@ -42,11 +41,17 @@ class Billing extends Component {
             )
         };
     }
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        //console.log('nextProps.carrinho');
+        //console.log(nextProps.carrinho);
         if(nextProps.status_envio_pedido ==true) {
             this.props.setStatusEnvioPedido(false);
-            this.props.navigation.navigate('Main');
+            //console.log(nextProps);
+            this.props.navigation.navigate("ViewOrder", { Atendimento_id: nextProps.pedido.atendimento_id });
         }
+    }
+    UNSAFE_componentWillUnmount(){
+        this.props.limpaCarrinho();
     }
     handleAtualizatroco(event){
         this.props.atualizaTroco(event);
@@ -234,6 +239,7 @@ const mapStateToProps = state => ({
     obs_pedido: state.AppReducer.obs_pedido,
     status_envio_pedido: state.AppReducer.status_envio_pedido,
     usuario: state.AppReducer.usuario,
+    pedido: state.AppReducer.pedido
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ atualizaFormaDePagamento, atualizaTroco, tiposPagamentoFetch, enviaPedido, setStatusEnvioPedido, limpaCarrinho, showMyLoader }, dispatch);

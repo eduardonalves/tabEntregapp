@@ -12,7 +12,7 @@ import {
 import { Overlay } from 'react-native-elements';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import NumberFormat from 'react-number-format';
 import { removeFromCart, updateCart } from '../actions/AppActions';
 
 class ListCart extends Component {
@@ -49,33 +49,38 @@ class ListCart extends Component {
     );
   };
   render() {
+    let total = this.props.price * this.props.qtd;
+    total = total.toString();
     return (
       <TouchableOpacity onPress={this.handleClick}>
         <View
           elevation={2}
           style={{
             flexDirection: "row",
-            backgroundColor: "#ffffff",
+            backgroundColor: this.props.linha % 2 ? '#ffffff' : "#d2d2d2" ,
             marginHorizontal: 24,
             marginVertical: 8,
             borderRadius: 4,
             shadowOpacity: 0.1,
             shadowRadius: 2,
+            padding: 10,
             shadowOffset: {
               height: 1,
               width: 1
             }
           }}
         >
-          <View style={{ flex: 3, 
+          <View style={{ flex: 2, 
           borderTopLeftRadius: 4,
           borderTopRightRadius: 0,
           borderBottomRightRadius: 0,
           borderBottomLeftRadius: 4 }}>
+            
             <Text
               style={{
-                fontSize: 18,
-                color: "#333"
+                fontSize: 16,
+                color: "#333",
+                //textAlign: 'center',
               }}
             >
               {this.props.name}
@@ -83,39 +88,63 @@ class ListCart extends Component {
 
           </View>
           <View style={{ flex: 1 }}>
+            
             <Text
               style={{
-                fontSize: 15,
-                fontWeight: "bold",
-                color: "#ef6136",
-                textAlign: 'center',
+                fontSize: 16,
+                //fontWeight: "bold",
+                //color: "#ef6136",
+                //textAlign: 'center',
               }}
             >
-              Unt {"\n"} {this.props.price}
+              
+              <NumberFormat 
+                value={ this.props.price.replace(".",",") } 
+                displayType={'text'} 
+                renderText={value => <Text>{value}</Text>}
+                thousandSeparator={'.'}
+                decimalScale={2} 
+                fixedDecimalScale={true}
+                prefix={'R$ '}
+                decimalSeparator={','}
+              />
             </Text>
           </View>
           <View style={{ flex: 1 }}>
+            
             <Text
               style={{
-                fontSize: 15,
-                fontWeight: "bold",
-                color: "#a92319",
-                textAlign: 'center',
+                fontSize: 16,
+                //fontWeight: "bold",
+                //color: "#a92319",
+                //textAlign: 'center',
               }}
             >
-              Qtde {"\n"}  {this.props.qtd}
-                </Text>
+              {this.props.qtd}
+            </Text>
           </View>
           <View style={{ flex: 1 }}>
+           
             <Text
               style={{
-                fontSize: 15,
-                fontWeight: "bold",
-                color: "#ef6136",
-                textAlign: 'center',
+                fontSize: 16,
+                ///fontWeight: "bold",
+                //color: "#ef6136",
+                //textAlign: 'center',
               }}
             >
-              Total {"\n"}{ this.props.price * this.props.qtd }
+              
+              <NumberFormat 
+                value={ total.replace(".",",") } 
+                displayType={'text'} 
+                renderText={value => <Text>{value}</Text>}
+                thousandSeparator={'.'}
+                decimalScale={2} 
+                fixedDecimalScale={true}
+                prefix={'R$ '}
+                decimalSeparator={','}
+              />
+              
             </Text>
           </View>
 

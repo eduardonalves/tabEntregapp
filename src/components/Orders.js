@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { pedidosFetch, showMyLoader } from '../actions/AppActions';
+import { pedidosFetch, showMyLoader, modificaUsuario, pedidosFetchInverval } from '../actions/AppActions';
 import { AppLoading } from 'expo';
 
 
@@ -12,7 +12,8 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
+  AsyncStorage
 } from "react-native";
 
 import ListOrder from "./ListOrder";
@@ -24,8 +25,27 @@ class Orders extends Component {
   constructor(props) {
     super(props);
     this.props.showMyLoader(true);
-    this.props.pedidosFetch(17,'k1wt0x33kg');
     
+    
+    
+
+    let userData = this.getToken();
+    
+    userData.then(
+      res => {
+        this.props.pedidosFetch(res.id,res.token);
+
+        this.interval = setInterval(() => this.props.pedidosFetchInverval(res.id,res.token), 60000);
+        console.log('this.props.meus_pedidos');
+        console.log(this.props.meus_pedidos);
+      }
+    ).catch(error => {
+
+    });
+    
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -50,10 +70,30 @@ class Orders extends Component {
       )
     };
   };
+  async storeToken(user) {
+    try {
+      await AsyncStorage.setItem("userData", JSON.stringify(user));
+      //console.log('setou o usuario na sessão');
+    } catch (error) {
+      //console.log("Something went wrong", error);
+    }
+  }
+  async getToken() {
+    try {
+      let userData = await AsyncStorage.getItem("userData");
+      let data = JSON.parse(userData);
+      //console.log(data);
+      return data;
+    } catch (error) {
+      //console.log("Something went wrong", error);
+      return false;
+    }
+  }
   handleNaviagation = (Atendimento_id) => {
 
     this.props.navigation.navigate("ViewOrder", { Atendimento_id: Atendimento_id });
   };
+  
   render() {
     
     return (
@@ -80,9 +120,10 @@ class Orders extends Component {
             <FlatList
               data={this.props.meus_pedidos}
               keyExtractor={item => item.Atendimento.id}
-              renderItem={({ item }) => (
+              renderItem={({ item, index }) => (
                 <ListOrder
                   item= {item}
+                  linha={index}
                   handleNaviagation={() => this.handleNaviagation(item.Atendimento.id)}
                   
                 />
@@ -184,5 +225,5 @@ const mapStateToProps = state => ({
   status_envio_pedido: state.AppReducer.status_envio_pedido,
   meus_pedidos_carregados_falha: state.AppReducer.meus_pedidos_carregados_falha
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ pedidosFetch, showMyLoader }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ pedidosFetch, showMyLoader, modificaUsuario,pedidosFetchInverval }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);

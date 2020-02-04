@@ -94,13 +94,16 @@ class Perfil extends Component {
 
 
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    
     if (nextProps.usuario_atualizou_cadastro == true) {
-      console.log('this.props.usuario component will update');
-      console.log(this.props.usuario);
+      //console.log('this.props.usuario component will update');
+      //console.log(this.props.usuario);
       if (this.props.usuario != "") {
         this.storeToken(this.props.usuario);
-        this.props.estadosFetch();
+        this.props.modificaUsuarioModificouCadastro(false);
+        //console.log(this.props.usuario);
+        //this.props.estadosFetch();
       }
     }
   }
@@ -227,7 +230,7 @@ class Perfil extends Component {
 
         }
         this.props.cadastraUsuarioEdit(usuario);
-
+        
       }
 
 

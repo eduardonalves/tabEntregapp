@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 
 import CustomModal from './common/CustomModal';
 
-import { addToCart, updateItemId, updateCart, setModalVisible } from '../actions/AppActions';
+import { addToCart, updateItemId, updateCart, setModalVisible, showMyLoader } from '../actions/AppActions';
 
 class ListItem extends Component {
   constructor(props) {
@@ -31,6 +31,7 @@ class ListItem extends Component {
   
   
   handleAddToCart = () => {
+    this.props.showMyLoader(true);
     let produto = {
       id: this.props.id,
       nome: this.props.name,
@@ -45,9 +46,10 @@ class ListItem extends Component {
     this.props.addToCart(produto, this.props.carrinho, this.props.usuario.frete_cadastro);
     this.props.updateItemId(this.props.item_id);
     //this.props.updateCart(this.props.carrinho);
-
+    this.props.showMyLoader(false);
   }
   handleClick = () => {
+    this.props.showMyLoader(true);
     this.setState({
       isClicked: !this.state.isClicked
     });
@@ -62,7 +64,7 @@ class ListItem extends Component {
         },
         {
           text: 'Não',
-          onPress: () => console.log('Não Pressed'),
+          onPress: () => this.props.showMyLoader(false),
           style: 'cancel',
         },
       ],
@@ -72,7 +74,7 @@ class ListItem extends Component {
   render() {
     return (
       <View>
-        <TouchableOpacity onPress={this.handleClick}>
+        <TouchableOpacity onPress={this.handleClick} disabled={this.props.show_loader}>
           <View
             elevation={4}
             style={{
@@ -230,5 +232,5 @@ const mapStateToProps = state => ({
 });
 
 
-const mapDispatchToProps = dispatch => bindActionCreators({ addToCart, updateItemId, updateCart, setModalVisible }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ addToCart, updateItemId, updateCart, setModalVisible, showMyLoader }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ListItem);

@@ -174,7 +174,8 @@ export const cadastraUsuarioEdit = (usuario) => {
 
         axios.post(`${APP_URL}/entregapp_sistema/RestClientes/addmobile.json`, usuario)
             .then(res => {
-               
+               //console.log('data');
+               //console.log(res);
                 if (res.data.ultimocliente == "ErroUsuarioDuplo") {
                     Alert.alert(
                         'Mensagem',
@@ -513,10 +514,35 @@ export const pedidosViewFetch = (cliente, token, atendimento) => {
                     dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
+               
 
             }).catch(error => {
                 dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: true });
                 dispatch({ type: SHOW_LOADER, payload: false });
+            });
+    }
+}
+
+
+export const pedidosViewFetchInterval = (cliente, token, atendimento) => {
+    return dispatch => {
+        //dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
+        //dispatch({ type: SHOW_LOADER, payload: true });
+        axios.get(`${APP_URL}/entregapp_sistema/RestAtendimentos/viewmobile.json?a=${atendimento}&fp=${FILIAL}&lj=${EMPRESA}&b=${cliente}&c=${token}&limit=20`)
+            .then(res => {
+
+                if (typeof res.data.resultados != 'undefined') {
+                    dispatch({ type: PEDIDO_CARREGADO_OK, payload: res.data.resultados });
+                } else {
+                   
+                    //dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: false });
+                }
+                //dispatch({ type: SHOW_LOADER, payload: false });
+               
+
+            }).catch(error => {
+                //dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: true });
+                //dispatch({ type: SHOW_LOADER, payload: false });
             });
     }
 }
@@ -529,6 +555,7 @@ export const pedidosFetch = (cliente, token) => {
             .then(res => {
                
                 if (typeof res.data.resultados != 'undefined') {
+                    //console.log(res.data.resultados);
                     dispatch({ type: MEUS_PEDIDOS_CARREGADOS_OK, payload: res.data.resultados });
                 } else {
                    
@@ -539,6 +566,29 @@ export const pedidosFetch = (cliente, token) => {
             }).catch(error => {
                 dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: true });
                 dispatch({ type: SHOW_LOADER, payload: false });
+            });
+    }
+}
+
+export const pedidosFetchInverval = (cliente, token) => {
+    return dispatch => {
+        //dispatch({ type: MEUS_PEDIDOS_CARREGADOS_OK, payload: [] });
+        //dispatch({ type: SHOW_LOADER, payload: true });
+        axios.get(`${APP_URL}/entregapp_sistema/RestAtendimentos/indexmobile.json?fp=${FILIAL}&lj=${EMPRESA}&clt=${cliente}&token=${token}&limit=20`)
+            .then(res => {
+               
+                if (typeof res.data.resultados != 'undefined') {
+                    //console.log(res.data.resultados);
+                    dispatch({ type: MEUS_PEDIDOS_CARREGADOS_OK, payload: res.data.resultados });
+                } else {
+                   
+                    //dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: false });
+                }
+                //dispatch({ type: SHOW_LOADER, payload: false });
+
+            }).catch(error => {
+                //dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: true });
+                //dispatch({ type: SHOW_LOADER, payload: false });
             });
     }
 }
@@ -690,11 +740,11 @@ export const enviaPedido = (pedido) => {
     return dispatch => {
         dispatch({ type: SHOW_LOADER, payload: true });
         let meuPedido = montaPedido(pedido);
-
+        dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
         axios.post(`${APP_URL}/entregapp_sistema/RestPedidos/addmobile.json`, meuPedido)
             .then(res => {
+                dispatch({ type: PEDIDO_CARREGADO_OK, payload: res.data.resultados.Pedido });
                 
-                dispatch({ type: SHOW_LOADER, payload: false });
 
 
                 dispatch({ type: LIMPA_QTD_CARRINHO, payload: 0 });
@@ -702,6 +752,10 @@ export const enviaPedido = (pedido) => {
                 dispatch({ type: LIMPA_CARRINHO, payload: [] });
                 dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
                 dispatch({ type: PEDIDO_OK, payload: true });
+                dispatch({ type: SHOW_LOADER, payload: false });
+               
+                
+                
              
                 Alert.alert(
                     'Mensagem',
@@ -717,7 +771,7 @@ export const enviaPedido = (pedido) => {
                 );
                
             }).catch(error => {
-               
+                dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
                 dispatch({ type: SHOW_LOADER, payload: false });
                 dispatch({ type: PEDIDO_NAO_OK, payload: false });
             });
@@ -811,6 +865,13 @@ export const modificaEmail = (texto) => {
 export const modificaUsuarioModificouCadastro = (texto) => {
     return dispatch => {
         dispatch({ type: USUARIO_ATUALIZOU_CADASTRO, payload: texto });
+
+    }
+}
+
+export const modificaUsuario = (usuario) => {
+    return dispatch => {
+        dispatch({ type: CADASTRO_USUARIO, payload: usuario });
 
     }
 }

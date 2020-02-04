@@ -5,7 +5,8 @@ import {
   View,
   FlatList,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -49,10 +50,10 @@ class Cart extends Component {
       return <EmptyCart />;
     } else {
       return (
-        <View>
+        <ScrollView>
           <Checkout />
           <FooterCheckout handleNaviagation={this.handleNaviagation} />
-        </View>
+        </ScrollView>
       );
     }
 

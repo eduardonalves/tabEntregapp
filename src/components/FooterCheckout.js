@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import NumberFormat from 'react-number-format';
 import { atualizaObs } from '../actions/AppActions';
 import Constants from "../utils/constants";
 import foodData from "../food-data.json";
@@ -55,6 +56,7 @@ class FooterCheckout extends Component {
     //console.log(this.props.navigation);
     let valorFrete =  parseFloat(this.props.usuario.frete_cadastro); 
     valorFrete = valorFrete.toFixed(2);
+    valorFrete = valorFrete.toString();
     return (
       <View>
         <View style={styles.container}>
@@ -63,12 +65,12 @@ class FooterCheckout extends Component {
             borderTopLeftRadius: 4,
             borderTopRightRadius: 0,
             borderBottomRightRadius: 0,
-            borderBottomLeftRadius: 4
+            borderBottomLeftRadius: 4,
           }}>
             <Text style={{
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: "bold",
-              color: "#a92319",
+              //color: "#a92319",
             }}>
             Tx. Entrega
             </Text>
@@ -82,11 +84,21 @@ class FooterCheckout extends Component {
             //flexDirection: "row-reverse"
           }}>
             <Text style={{
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: "bold",
-              color: "#ef6136",
+              //color: "#ef6136",
             }}>
-            &nbsp;R$ {valorFrete}
+            
+            <NumberFormat 
+                value={ valorFrete.replace(".",",") } 
+                displayType={'text'} 
+                renderText={value => <Text>{value}</Text>}
+                thousandSeparator={'.'}
+                decimalScale={2} 
+                fixedDecimalScale={true}
+                prefix={'R$ '}
+                decimalSeparator={','}
+              />
             </Text>
           </View>
           <View style={{
@@ -97,9 +109,9 @@ class FooterCheckout extends Component {
             borderBottomLeftRadius: 4
           }}>
             <Text style={{
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: "bold",
-              color: "#a92319",
+              //color: "#a92319",
             }}>
               Valor Total
             </Text>
@@ -113,11 +125,22 @@ class FooterCheckout extends Component {
             flexDirection: "row-reverse"
           }}>
             <Text style={{
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: "bold",
-              color: "#ef6136",
+              //color: "#ef6136",
             }}>
-              R$ {this.props.total_carrinho}
+            
+              <NumberFormat 
+                value={ this.props.total_carrinho.replace(".",",") } 
+                displayType={'text'} 
+                renderText={value => <Text>{value}</Text>}
+                thousandSeparator={'.'}
+                decimalScale={2} 
+                fixedDecimalScale={true}
+                prefix={'R$ '}
+                decimalSeparator={','}
+              
+              />
             </Text>
           </View>
 
