@@ -457,13 +457,32 @@ class ViewOrder extends Component {
                             textAlign:'center',
                             marginBottom:5, 
                         }}>
+                          Levar troco?  {this.props.pedido.Pedido[0].trocoresposta}
+                        </Text>
+                        {this.props.pedido.Pedido[0].obs != '' ? (
+                          <Text style={{
+                              fontSize: 16,
+                              padding: 10,
+                              //fontWeight:'bold',
+                              textAlign:'center',
+                              marginBottom:5, 
+                          }}>
+                          {this.props.pedido.Pedido[0].obs}
+                        </Text>
+                        ):(<View></View>)}
+                          
+                        <Text style={{
+                            fontSize: 16,
+                            fontWeight:'bold',
+                            textAlign:'center',
+                            marginBottom:5, 
+                        }}>
                             Endereço de entrega
                         </Text>
                         <Text style={{
                             fontSize: 16,
                             //fontWeight:'bold',
                             textAlign:'center',
-
                             marginBottom:5,   
                         }}>
                             {this.props.pedido.Pedido[0].logradouro}

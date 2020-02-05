@@ -8,6 +8,8 @@
       <change beforePath="$PROJECT_DIR$/src/components/FormCadastro.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormCadastro.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FormLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormLogin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FormRecover.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormRecover.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ViewOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ViewOrder.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

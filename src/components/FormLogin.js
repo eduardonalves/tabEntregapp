@@ -31,8 +31,20 @@ class formLogin extends Component {
 
     constructor(props) {
         super(props);
-        this.props.limpaFormularioCadastro();     
+        //this.props.limpaFormularioCadastro();     
         //this.props.setStatusCadastroUsuario('');
+        let storeData = this.getToken();
+        console.log('storeData');
+        console.log(storeData);
+        storeData.then(resp => {
+            console.log(resp);
+            if(typeof resp.token != 'undefined'){
+                
+                this.props.setStatusCadastroUsuario(resp);
+                this.props.navigation.navigate('Main');
+            }
+            
+        });
         
     }
 

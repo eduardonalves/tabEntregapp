@@ -409,20 +409,7 @@ class Perfil extends Component {
                       //placeholderTextColor="#fff" 
                       containerStyle={styles._bodyInputText}
                       onChangeText={texto => this.props.modificaNome(texto)} />
-                    <Input
-                      value={this.props.nome}
-
-                      label="Nome"
-                      //placeholderTextColor="#fff" 
-                      containerStyle={styles._bodyInputText}
-                      onChangeText={texto => this.props.modificaNome(texto)} />
-                    <Input
-                      value={this.props.nome}
-
-                      label="Nome"
-                      //placeholderTextColor="#fff" 
-                      containerStyle={styles._bodyInputText}
-                      onChangeText={texto => this.props.modificaNome(texto)} />
+                    
                     <Input
                       value={this.props.telefone}
 
