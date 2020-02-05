@@ -493,7 +493,7 @@ class FormCadastro extends Component {
                         <Text style={styles.txtMsgErro}>{this.props.msgErroCadastro}</Text>
 
                         <Button title="Cadastrar"
-                            // color="#115e54" 
+                            color={Color.button}
                             disabled={this.props.show_loader}
                             onPress={() => this._handleCadastraUsuario()} />
 

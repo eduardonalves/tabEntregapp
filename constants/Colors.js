@@ -32,6 +32,7 @@ export default {
   style:{
     backgroundColor:'#323232'
   },
-  links:"#323232",
-  button:"#323232"
+  links:"#ef6136",
+  button:"#323232",
+  text:"#323232",
 };

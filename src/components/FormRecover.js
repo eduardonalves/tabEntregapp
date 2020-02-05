@@ -8,7 +8,8 @@ import {
     TouchableHighlight,
     Image,
     ActivityIndicator,
-    AsyncStorage
+    AsyncStorage,
+    ScrollView
 } from 'react-native';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -59,7 +60,11 @@ class FormRecover extends Component {
             return ( <ActivityIndicator size="large" /> );
         }
         return(
-            <Button title="Entrar" onPress={() => this._recuperarSenha()} />
+            <Button 
+                title="Entrar" 
+                onPress={() => this._recuperarSenha()} 
+                color={Color.button}
+            />
         )
     }
 
@@ -85,12 +90,24 @@ class FormRecover extends Component {
     render() {
         
         return (
-            
-            <View style={styles.grid} >
+            <ScrollView>
+                <View style={styles.grid} >
                 <View style={styles.contentHeader}>
-                    <Image source={require("../../assets/images/logo.png")} />
+                    <Image source={require("../../assets/images/logo_mini.jpg")} />
                 </View>
                 <View style={styles.contentBody}>
+                    <Input 
+                        value={this.props.username} 
+                        containerStyle={styles._bodyInputText} 
+                        label="Nome de Usuário" 
+                       
+                        onChangeText={texto => this.props.modificaUsername(texto)} />
+                    
+                    
+                    <Text style={styles._txtMsgErroLogin}>{this.props.msgErroLogin}</Text>
+                    <View style={styles.contentFooter}>
+                        {this.renderBtnEntrar()}
+                    </View>
                     {
                         this.props.show_loader == true ? (
                             <View
@@ -136,23 +153,14 @@ class FormRecover extends Component {
                             </View>
                         )
                     }
-                    <Input 
-                        value={this.props.username} 
-                        containerStyle={styles._bodyInputText} 
-                        label="Nome de Usuário" 
-                       
-                        onChangeText={texto => this.props.modificaUsername(texto)} />
                     
-                    
-                    <Text style={styles._txtMsgErroLogin}>{this.props.msgErroLogin}</Text>
-                    <View style={styles.contentFooter}>
-                        {this.renderBtnEntrar()}
-                    </View>
                     </View>
                     
 
                     
                 </View>
+            </ScrollView>
+            
             
         );
     }
@@ -178,7 +186,7 @@ export default connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
     background: {
-        flex: 1
+        flex: 2
     },
     grid: {
         flex: 1,
@@ -186,16 +194,22 @@ const styles = StyleSheet.create({
     },
     contentHeader: {
         flex: 1,
-        justifyContent: 'center',
+        padding:20,
+        //justifyContent: 'center',
         alignItems: 'center'
+    },
+    contentBody: {
+        flex: 2
+    },
+    contentFooter: {
+        flex: 2,
+        marginTop:10
     },
     _headerTitle: {
         fontSize: 25,
         //color: '#fff'
     },
-    contentBody: {
-        flex: 2
-    },
+    
     _bodyInputText: {
         //fontSize: 20,
         //height: 45,
@@ -210,10 +224,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#32A852'
     },
-    contentFooter: {
-        flex: 2,
-        marginTop:10
-    },
+    
     _txtMsgErroLogin: {
         fontSize: 18,
         //color: '#ff0000'

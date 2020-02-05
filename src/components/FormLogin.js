@@ -8,7 +8,8 @@ import {
     TouchableHighlight,
     Image,
     ActivityIndicator,
-    AsyncStorage
+    AsyncStorage,
+    ScrollView
 } from 'react-native';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -96,7 +97,10 @@ class formLogin extends Component {
             return ( <ActivityIndicator size="large" /> );
         }
         return(
-            <Button title="Entrar" onPress={() => this._autenticarUsuario()} />
+            <Button title="Entrar" 
+                onPress={() => this._autenticarUsuario()}
+                color={Color.button}
+            />
         )
     }
 
@@ -122,10 +126,10 @@ class formLogin extends Component {
     render() {
         
         return (
-            
+        <ScrollView>
             <View style={styles.grid} >
                 <View style={styles.contentHeader}>
-                    <Image source={require("../../assets/images/logo.png")} />
+                    <Image source={require("../../assets/images/logo_mini.jpg")} />
                 </View>
                 <View style={styles.contentBody}>
                     <Input 
@@ -173,6 +177,7 @@ class formLogin extends Component {
 
                     
                 </View>
+        </ScrollView>
             
         );
     }
@@ -205,16 +210,23 @@ const styles = StyleSheet.create({
         padding: 20
     },
     contentHeader: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flex: 4,
+        alignSelf:"center",
+        //justifyContent: 'center',
+        //alignItems: 'center',
+        //padding:60
     },
     _headerTitle: {
         fontSize: 25,
         //color: '#fff'
     },
     contentBody: {
-        flex: 2
+        flex: 2,
+        marginBottom:30,
+    },
+    contentFooter: {
+        flex: 2,
+        //marginTop:30
     },
     _bodyInputText: {
         //fontSize: 20,
@@ -223,19 +235,16 @@ const styles = StyleSheet.create({
         marginTop:10,
     },
     _bodyText: {
-        fontSize: 20,
-        //color: '#32A852'
+        fontSize: 15,
+        color: Color.text
     },
     _LinkText:{
-        fontSize: 20,
-        color: '#32A852'
+        fontSize: 15,
+        color: Color.links
     },
-    contentFooter: {
-        flex: 2,
-        marginTop:30
-    },
+    
     _txtMsgErroLogin: {
-        fontSize: 18,
+        fontSize: 15,
         //color: '#ff0000'
     }
 });

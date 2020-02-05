@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f8cac46-5570-40f9-9e32-fced065f0116" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/Checkout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Checkout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ListCart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListCart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/Colors.js" beforeDir="false" afterPath="$PROJECT_DIR$/constants/Colors.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FormCadastro.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormCadastro.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FormLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormLogin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FormRecover.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormRecover.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
