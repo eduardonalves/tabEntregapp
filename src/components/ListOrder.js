@@ -83,8 +83,9 @@ class ListOrder extends Component {
           style={{
             flexDirection: "row",
             backgroundColor: this.props.linha % 2 ? "#d2d2d2":  '#ffffff' ,
-            marginHorizontal: 24,
             padding:10,
+            /*marginHorizontal: 24,
+            
             marginVertical: 8,
             borderRadius: 4,
             shadowOpacity: 0.1,
@@ -92,14 +93,16 @@ class ListOrder extends Component {
             shadowOffset: {
               height: 1,
               width: 1
-            }
+            }*/
           }}
         >
-          <View style={{ flex: 1, 
-          borderTopLeftRadius: 4,
-          borderTopRightRadius: 0,
-          borderBottomRightRadius: 0,
-          borderBottomLeftRadius: 4 }}>
+          <View style={{ 
+            flex: 1, 
+            //borderTopLeftRadius: 4,
+            //borderTopRightRadius: 0,
+            //borderBottomRightRadius: 0,
+            //borderBottomLeftRadius: 4 
+            }}>
             <Text
               style={{
                 fontSize: 15,

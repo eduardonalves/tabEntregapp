@@ -104,10 +104,10 @@ class ViewOrder extends Component {
                   
                   <View style={{
                     flex: 1,
-                    borderTopLeftRadius: 4,
-                    borderTopRightRadius: 0,
-                    borderBottomRightRadius: 0,
-                    borderBottomLeftRadius: 4,
+                    //borderTopLeftRadius: 4,
+                    //borderTopRightRadius: 0,
+                    //borderBottomRightRadius: 0,
+                    //borderBottomLeftRadius: 4,
                     textAlign:'center'
                   }}> 
                       <Text style={{
@@ -129,10 +129,10 @@ class ViewOrder extends Component {
                   </View>
                   <View style={{
                     flex: 1,
-                    borderTopLeftRadius: 4,
-                    borderTopRightRadius: 0,
-                    borderBottomRightRadius: 0,
-                    borderBottomLeftRadius: 4
+                    //borderTopLeftRadius: 4,
+                    //borderTopRightRadius: 0,
+                    //borderBottomRightRadius: 0,
+                    //borderBottomLeftRadius: 4
                   }}>
                       <Text style={{
                         fontSize: 16,
@@ -153,10 +153,10 @@ class ViewOrder extends Component {
                   </View>
                   <View style={{
                     flex: 1,
-                    borderTopLeftRadius: 4,
-                    borderTopRightRadius: 0,
-                    borderBottomRightRadius: 0,
-                    borderBottomLeftRadius: 4,
+                    //borderTopLeftRadius: 4,
+                    //borderTopRightRadius: 0,
+                    //borderBottomRightRadius: 0,
+                    //borderBottomLeftRadius: 4,
                     textAlign:'center'
                   }}>
                     <Text style={{
@@ -184,10 +184,11 @@ class ViewOrder extends Component {
                   
                     <View style={{
                       flex: 1,
-                      borderTopLeftRadius: 4,
-                      borderTopRightRadius: 0,
-                      borderBottomRightRadius: 0,
-                      borderBottomLeftRadius: 4,
+                     
+                      //borderTopLeftRadius: 4,
+                      //borderTopRightRadius: 0,
+                      //borderBottomRightRadius: 0,
+                      //borderBottomLeftRadius: 4,
                       textAlign:'center'
                     }}>
                       <Text style={{
@@ -210,10 +211,10 @@ class ViewOrder extends Component {
                     </View>
                     <View style={{
                       flex: 1,
-                      borderTopLeftRadius: 4,
-                      borderTopRightRadius: 0,
-                      borderBottomRightRadius: 0,
-                      borderBottomLeftRadius: 4,
+                      //borderTopLeftRadius: 4,
+                      //borderTopRightRadius: 0,
+                      //borderBottomRightRadius: 0,
+                      //borderBottomLeftRadius: 4,
                       textAlign:'center'
                     }}>
                       <Text style={{
@@ -236,10 +237,10 @@ class ViewOrder extends Component {
                     </View>
                     <View style={{
                       flex: 1,
-                      borderTopLeftRadius: 4,
-                      borderTopRightRadius: 0,
-                      borderBottomRightRadius: 0,
-                      borderBottomLeftRadius: 4,
+                      //borderTopLeftRadius: 4,
+                      //borderTopRightRadius: 0,
+                      //borderBottomRightRadius: 0,
+                      //borderBottomLeftRadius: 4,
                       textAlign:'center'
                     }}>
                       <Text style={{
@@ -296,7 +297,9 @@ class ViewOrder extends Component {
                   style={{
                     flexDirection: "row",
                     backgroundColor: "#ffffff",
-                    marginHorizontal: 24,
+                    padding:10,
+                    marginTop:10,
+                    /*marginHorizontal: 24,
                     marginVertical: 8,
                     borderRadius: 4,
                     shadowOpacity: 0.1,
@@ -304,14 +307,16 @@ class ViewOrder extends Component {
                     shadowOffset: {
                       height: 1,
                       width: 1
-                    }
+                    }*/
                   }}
                 >
-                  <View style={{ flex: 2, 
-                  borderTopLeftRadius: 4,
-                  borderTopRightRadius: 0,
-                  borderBottomRightRadius: 0,
-                  borderBottomLeftRadius: 4 }}>
+                  <View style={{ 
+                    flex: 4, 
+                    //borderTopLeftRadius: 4,
+                    //borderTopRightRadius: 0,
+                    //borderBottomRightRadius: 0,
+                    //borderBottomLeftRadius: 4 
+                    }}>
                     <Text
                       style={{
                         fontSize: 16,
@@ -324,7 +329,7 @@ class ViewOrder extends Component {
                     </Text>
 
                   </View>
-                  <View style={{ flex: 1 }}>
+                  <View style={{ flex: 2 }}>
                     <Text
                       style={{
                         fontSize: 16,
@@ -348,7 +353,7 @@ class ViewOrder extends Component {
                     Qtd
                     </Text>
                   </View>
-                  <View style={{ flex: 1 }}>
+                  <View style={{ flex: 2 }}>
                     <Text
                       style={{
                         fontSize: 16,
@@ -366,10 +371,10 @@ class ViewOrder extends Component {
                 <View style={styles.container2}>
                   <View style={{
                       flex: 1,
-                      borderTopLeftRadius: 4,
-                      borderTopRightRadius: 0,
-                      borderBottomRightRadius: 0,
-                      borderBottomLeftRadius: 4,
+                      //borderTopLeftRadius: 4,
+                      //borderTopRightRadius: 0,
+                      //borderBottomRightRadius: 0,
+                      //borderBottomLeftRadius: 4,
                       textAlign:'center'
                     }}>
                       <FlatList
@@ -390,15 +395,16 @@ class ViewOrder extends Component {
 
                 <View style={styles.container2}>
                   <View style={{
-                    flex: 2,
-                    borderTopLeftRadius: 4,
-                    borderTopRightRadius: 0,
-                    borderBottomRightRadius: 0,
-                    borderBottomLeftRadius: 4,
-                    //textAlign:'center'
+                    flex: 1,
+                    //borderTopLeftRadius: 4,
+                    //borderTopRightRadius: 0,
+                    //borderBottomRightRadius: 0,
+                    //borderBottomLeftRadius: 4,
+                    //textAlign:'center',
+                    alignItems:'center',
                   }}>
                     <Text style={{
-                      fontSize: 28,
+                      fontSize: 20,
                       fontWeight: "bold",
                       //color: "#ef6136",
                       textAlign:'right',
@@ -411,15 +417,15 @@ class ViewOrder extends Component {
                     </Text> 
                   </View>
                   <View style={{
-                    flex: 2,
-                    borderTopLeftRadius: 4,
-                    borderTopRightRadius: 0,
-                    borderBottomRightRadius: 0,
-                    borderBottomLeftRadius: 4,
+                    flex: 1,
+                    //borderTopLeftRadius: 4,
+                    //borderTopRightRadius: 0,
+                    //borderBottomRightRadius: 0,
+                    //borderBottomLeftRadius: 4,
                     //textAlign:'center'
                   }}>
                     <Text style={{
-                      fontSize: 28,
+                      fontSize: 20,
                       fontWeight: "bold",
                       //color: "#ef6136",
                       textAlign:'center',
@@ -446,7 +452,7 @@ class ViewOrder extends Component {
                 <View style={styles.container3} >
                     <View >
                         <Text style={{
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight:'bold',
                             textAlign:'center',
                             marginBottom:5, 
@@ -542,17 +548,17 @@ class ViewOrder extends Component {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    //marginTop: 8,
-    //marginBottom: 8,
+    marginTop: 10,
+    //marginBottom: 20,
     flexDirection: "row",
-    padding: 16,
+    padding: 10,
   },
   container1: {
     width: "100%",
     //marginTop: 8,
     //marginBottom: 8,
     flexDirection: "row",
-    padding: 16,
+    //padding: 16,
   },
   container2: {
     //width: "100%",
@@ -566,7 +572,7 @@ const styles = StyleSheet.create({
     //marginTop: 8,
     //marginBottom: 8,
 //flexDirection: "row",
-    padding: 16,
+    //padding: 16,
     alignSelf:"center",
     alignItems:"center"
   },

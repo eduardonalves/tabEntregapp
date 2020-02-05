@@ -241,11 +241,13 @@ class Billing extends Component {
         
                           opacity: 1.0,
                           width: '100%',
+                          height:'100%',
         
                           alignItems: 'center',
-                          flex: 1,
+                         
                           position: 'absolute',
-                          marginTop: '50%'
+                          top: '50%',
+                          left:'50%',
                         }}
                       >
                         <ActivityIndicator size="large" color="#4099ff"
@@ -260,13 +262,15 @@ class Billing extends Component {
                             style={{
 
 
-                            opacity: 0.0,
+                            opacity: 1.0,
                             width: '100%',
+                            height:'100%',
 
                             alignItems: 'center',
-                            flex: 1,
+                           
                             position: 'absolute',
-                            marginTop: '50%'
+                            top: '50%',
+                            left:'50%',
                             }}
                         >
                             <ActivityIndicator size="large" color="#4099ff"

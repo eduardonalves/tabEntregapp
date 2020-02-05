@@ -52,18 +52,19 @@ class ListCart extends Component {
     let total = this.props.price * this.props.qtd;
     total = total.toString();
     return (
-      <TouchableOpacity onPress={this.handleClick}>
+      <TouchableOpacity onPress={this.handleClick} >
         <View
           elevation={2}
           style={{
             flexDirection: "row",
             backgroundColor: this.props.linha % 2 ? '#ffffff' : "#d2d2d2" ,
-            marginHorizontal: 24,
-            marginVertical: 8,
-            borderRadius: 4,
-            shadowOpacity: 0.1,
-            shadowRadius: 2,
+            //marginHorizontal: 24,
+            //marginVertical: 8,
+            //borderRadius: 4,
+            //shadowOpacity: 0.1,
+            //shadowRadius: 2,
             padding: 10,
+           
             shadowOffset: {
               height: 1,
               width: 1

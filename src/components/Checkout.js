@@ -56,41 +56,46 @@ class Checkout extends Component {
           style={{
             flexDirection: "row",
             backgroundColor: '#ffffff' ,
-            marginHorizontal: 24,
-            marginVertical: 8,
-            borderRadius: 4,
-            shadowOpacity: 0.1,
-            shadowRadius: 2,
-            padding: 10,
-            shadowOffset: {
+            padding:10,
+            
+            //marginHorizontal: 24,
+            //marginVertical: 8,
+            //borderRadius: 4,
+            //shadowOpacity: 0.1,
+            //shadowRadius: 2,
+            //padding: 10,
+            /*shadowOffset: {
               height: 1,
               width: 1
-            }
+            }*/
           }}
         >
-          <View style={{ flex: 4, 
-          borderTopLeftRadius: 4,
-          borderTopRightRadius: 0,
-          borderBottomRightRadius: 0,
-          borderBottomLeftRadius: 4 }}>
+          <View style={{ 
+            flex: 4, 
+            
+            //borderTopLeftRadius: 4,
+            //borderTopRightRadius: 0,
+            //borderBottomRightRadius: 0,
+            //borderBottomLeftRadius: 4 
+          }}>
             <Text
               style={{
-                fontSize: 17,
-                color: "#333",
+                fontSize: 16,
+                color: "#000000",
                 fontWeight: "bold",
                 //textAlign: 'center',
               }}
             >
-              Produto
+              Item
             </Text>
             
           </View>
           <View style={{ flex: 2 }}>
             <Text
               style={{
-                fontSize: 17,
+                fontSize: 16,
                 fontWeight: "bold",
-                //color: "#ef6136",
+                color: "#000000",
                 //textAlign: 'center',
               }}
             >
@@ -101,9 +106,9 @@ class Checkout extends Component {
           <View style={{ flex: 1 }}>
             <Text
               style={{
-                fontSize: 17,
+                fontSize: 16,
                 fontWeight: "bold",
-                //color: "#a92319",
+                color: "#000000",
                 //textAlign: 'center',
               }}
             >
@@ -113,9 +118,9 @@ class Checkout extends Component {
           <View style={{ flex: 2 }}>
             <Text
               style={{
-                fontSize: 17,
+                fontSize: 16,
                 fontWeight: "bold",
-                //color: "#ef6136",
+                color: "#000000",
                 //textAlign: 'center',
               }}
             >
@@ -126,6 +131,7 @@ class Checkout extends Component {
 
 
         </View>
+      
         <FlatList
           data={this.props.carrinho}
           keyExtractor={(item, index) => item.item_id.toString()}
@@ -140,10 +146,12 @@ class Checkout extends Component {
               item_id={item.item_id}
               qtd={item.qtd}
               linha={index}
-             
+            
             />
           )}
         />
+        
+        
       </View>
     );
   }

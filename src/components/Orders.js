@@ -36,8 +36,7 @@ class Orders extends Component {
         this.props.pedidosFetch(res.id,res.token);
 
         this.interval = setInterval(() => this.props.pedidosFetchInverval(res.id,res.token), 60000);
-        console.log('this.props.meus_pedidos');
-        console.log(this.props.meus_pedidos);
+        
       }
     ).catch(error => {
 

@@ -83,8 +83,9 @@ class ItemOrder extends Component {
           elevation={2}
           style={{
             flexDirection: "row",
-            backgroundColor: this.props.linha % 2 ? '#ffffff' : "#d2d2d2"  ,
-            marginHorizontal: 24,
+            backgroundColor: this.props.linha % 2 ? '#ffffff' : "#d2d2d2",
+            padding:10,
+            /*marginHorizontal: 24,
             marginVertical: 8,
             borderRadius: 4,
             shadowOpacity: 0.1,
@@ -93,10 +94,10 @@ class ItemOrder extends Component {
             shadowOffset: {
               height: 1,
               width: 1
-            }
+            }*/
           }}
         >
-          <View style={{ flex: 2, 
+          <View style={{ flex: 4, 
           borderTopLeftRadius: 4,
           borderTopRightRadius: 0,
           borderBottomRightRadius: 0,
@@ -113,7 +114,7 @@ class ItemOrder extends Component {
             </Text>
 
           </View>
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 2 }}>
             <Text
               style={{
                 fontSize: 15,
@@ -149,7 +150,7 @@ class ItemOrder extends Component {
             &nbsp;&nbsp;{this.props.qtde} 
             </Text>
           </View>
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 2 }}>
             <Text
               style={{
                 fontSize: 15,
