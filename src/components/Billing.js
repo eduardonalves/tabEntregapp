@@ -221,33 +221,13 @@ class Billing extends Component {
                             {this.props.usuario.ponto_referencia != '' ? '' + this.props.usuario.ponto_referencia :''}
                         </Text>
                     </View>
-                    
-                </View>
-                <View style={{padding:20}} >
-                    <View style={{width:"100%"}} >
-                        <Button
-                            color={Color.button}
-                            title="Enviar Pedido" 
-                            //disabled={this.props.show_loader} 
-                            style={styles.button} 
-                            onPress={() => this.handleSendOrder()}
-                            
-                        />
-                    </View>
                     {this.props.show_loader == true ? (
                         <View
                         style={{
-        
-        
-                          opacity: 1.0,
-                          width: '100%',
-                          height:'100%',
-        
-                          alignItems: 'center',
-                         
-                          position: 'absolute',
-                          top: '50%',
-                          left:'50%',
+                            alignSelf:'center',
+                            opacity: 1.0,
+                            alignItems: 'center',
+                            position: 'absolute',
                         }}
                       >
                         <ActivityIndicator size="large" color="#4099ff"
@@ -260,27 +240,34 @@ class Billing extends Component {
                     ):(
                         <View
                             style={{
-
-
-                            opacity: 1.0,
-                            width: '100%',
-                            height:'100%',
-
-                            alignItems: 'center',
-                           
-                            position: 'absolute',
-                            top: '50%',
-                            left:'50%',
+                                alignSelf:'center',
+                                opacity: 0.0,
+                                alignItems: 'center',
+                                position: 'absolute',
                             }}
                         >
                             <ActivityIndicator size="large" color="#4099ff"
 
                             animating={true}
                             hidesWhenStopped={true}
+                            
 
                             />
                         </View>
                     )}
+                </View>
+                <View style={{padding:20}} >
+                    <View style={{width:"100%"}} >
+                        <Button
+                            color={Color.button}
+                            title="Enviar Pedido" 
+                            disabled={this.props.show_loader} 
+                            style={styles.button} 
+                            onPress={() => this.handleSendOrder()}
+                            
+                        />
+                    </View>
+                   
                     
                     
                 </View>
