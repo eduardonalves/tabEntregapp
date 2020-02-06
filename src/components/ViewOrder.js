@@ -31,7 +31,7 @@ class ViewOrder extends Component {
   
   constructor(props) {
     super(props);
-    console.log(props.pedido);
+    //console.log(props.pedido);
     
     let userData = this.getToken();
     //console.log(userData);

@@ -25,8 +25,11 @@ class Restaurants extends Component {
     super(props);
     this.props.showMyLoaderCategory(true);
     this.props.categoriasFetch();
+    this.interval = setInterval(() => this.props.categoriasFetch(), 60000);
   }
-
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: "Cardápio",

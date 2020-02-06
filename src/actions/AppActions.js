@@ -508,8 +508,11 @@ export const pedidosViewFetch = (cliente, token, atendimento) => {
     return dispatch => {
         dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
         dispatch({ type: SHOW_LOADER, payload: true });
+        let loadError=false;
+        let interval;
         axios.get(`${APP_URL}/entregapp_sistema/RestAtendimentos/viewmobile.json?a=${atendimento}&fp=${FILIAL}&lj=${EMPRESA}&b=${cliente}&c=${token}&limit=20`)
             .then(res => {
+                
 
                 if (typeof res.data.resultados != 'undefined') {
                     dispatch({ type: PEDIDO_CARREGADO_OK, payload: res.data.resultados });
@@ -518,11 +521,21 @@ export const pedidosViewFetch = (cliente, token, atendimento) => {
                     dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
-               
+                loadError=false;
+                clearInterval(interval);
+                //console.log('limpouuuuuuu');
 
             }).catch(error => {
-                dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: true });
-                dispatch({ type: SHOW_LOADER, payload: false });
+                loadError=true;
+                if(loadError==true){
+                    interval = setInterval(() =>{
+                        //console.log('errou voz do Faustão....');
+                        pedidosViewFetch(cliente,token,atendimento);
+                    } , 10000);
+                }
+                
+                //dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: true });
+                //dispatch({ type: SHOW_LOADER, payload: false });
             });
     }
 }
@@ -541,8 +554,8 @@ export const pedidosViewFetchInterval = (cliente, token, atendimento) => {
                    
                     //dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: false });
                 }
-                //dispatch({ type: SHOW_LOADER, payload: false });
-               
+                dispatch({ type: SHOW_LOADER, payload: false });
+               //console.log('passou no pedidosViewFetchInterval');
 
             }).catch(error => {
                 //dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: true });
@@ -555,6 +568,9 @@ export const pedidosFetch = (cliente, token) => {
     return dispatch => {
         dispatch({ type: MEUS_PEDIDOS_CARREGADOS_OK, payload: [] });
         dispatch({ type: SHOW_LOADER, payload: true });
+        let loadError=false;
+        let interval;
+
         axios.get(`${APP_URL}/entregapp_sistema/RestAtendimentos/indexmobile.json?fp=${FILIAL}&lj=${EMPRESA}&clt=${cliente}&token=${token}&limit=20`)
             .then(res => {
                
@@ -566,10 +582,20 @@ export const pedidosFetch = (cliente, token) => {
                     dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
-
+                
+                loadError=false;
+                clearInterval(interval);
             }).catch(error => {
-                dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: true });
-                dispatch({ type: SHOW_LOADER, payload: false });
+                //dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: true });
+                //dispatch({ type: SHOW_LOADER, payload: false });
+                loadError=true;
+                if(loadError==true){
+                    interval = setInterval(() =>{
+                        //console.log('errou voz do Faustão....');
+                        pedidosFetch(cliente,token);
+                    } , 10000);
+                }
+                
             });
     }
 }
@@ -588,7 +614,8 @@ export const pedidosFetchInverval = (cliente, token) => {
                    
                     //dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: false });
                 }
-                //dispatch({ type: SHOW_LOADER, payload: false });
+                
+                dispatch({ type: SHOW_LOADER, payload: false });
 
             }).catch(error => {
                 //dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: true });
@@ -601,20 +628,38 @@ export const categoriasFetch = () => {
     return dispatch => {
         dispatch({ type: CATEGORIA_CARREGADA_OK, payload: [] });
         dispatch({ type: SHOW_LOADER_CATEGORIA, payload: true });
+        let loadError=false;
+        let interval;
         axios.get(`${APP_URL}/entregapp_sistema/RestCategorias/catsmobile.json?fp=${FILIAL}`)
             .then(res => {
 
                 if (typeof res.data.categorias != 'undefined') {
                     dispatch({ type: CATEGORIA_CARREGADA_OK, payload: res.data.categorias });
                 } else {
-                   
-                    dispatch({ type: CATEGORIA_CARREGADA_FALHA, payload: false });
+                    loadError=true;
+                    if(loadError==true){
+                        interval = setInterval(() =>{
+                            //console.log('errou voz do Faustão....');
+                            categoriasFetch();
+                        } , 10000);
+                    }
+                    //dispatch({ type: CATEGORIA_CARREGADA_FALHA, payload: false });
                 }
+                loadError=false;
+                clearInterval(interval);
+
                 dispatch({ type: SHOW_LOADER_CATEGORIA, payload: false });
 
             }).catch(error => {
-                dispatch({ type: CATEGORIA_CARREGADA_FALHA, payload: true });
-                dispatch({ type: SHOW_LOADER_CATEGORIA, payload: false });
+                loadError=true;
+                if(loadError==true){
+                    interval = setInterval(() =>{
+                        //console.log('errou voz do Faustão....');
+                        categoriasFetch();
+                    } , 10000);
+                }
+                //dispatch({ type: CATEGORIA_CARREGADA_FALHA, payload: true });
+                //dispatch({ type: SHOW_LOADER_CATEGORIA, payload: false });
             });
     }
 }
