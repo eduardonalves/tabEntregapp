@@ -865,12 +865,12 @@ export const montaPedido = (pedido) => {
         Pedido: {
             filial_id: FILIAL,
             a: "entrega",
+            status_novo: 1,
             cliente_id: pedido.cliente_id,
             empresa_id: EMPRESA,
             pagamento_id: pedido.pagamento_id,
             trocovalor: '',
             trocoresposta: pedido.trocoresposta,
-            entrega_valor: 0,
             salt: SALT,
             token: pedido.token,
             obs: pedido.obs,
