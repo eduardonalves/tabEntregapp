@@ -84,6 +84,7 @@ class Perfil extends Component {
         this.props.modificaTelefone(res.telefone);
         this.props.modificaConfirmaSenha(res.password);
         this.props.modificaUsername(res.username);
+        this.props.showMyLoader(true);
         this.props.estadosFetch();
         this.props.cidadesFetch(res.uf);
         this.props.bairroFetch(res.cidade);
@@ -234,7 +235,10 @@ class Perfil extends Component {
           }
 
         }
-        this.props.cadastraUsuarioEdit(usuario);
+        if(this._isValidUser()){
+          this.props.cadastraUsuarioEdit(usuario);
+        }
+        
         
       }
 
@@ -245,6 +249,21 @@ class Perfil extends Component {
 
   }
   _isValidUser() {
+    if (this.props.nome == '') {
+      Alert.alert(
+        'Mensagem',
+        `O nome não pode ficar em branco.`,
+        [
+          {
+            text: 'OK',
+            //onPress: () => console.log('clicou'),
+            style: 'WARNING',
+          },
+        ],
+        { cancelable: true },
+      );
+      return false;
+    }
     if (this.props.username == '') {
       Alert.alert(
         'Mensagem',
@@ -261,10 +280,10 @@ class Perfil extends Component {
       return false;
     }
 
-    if (this.props.senha == '') {
+    if (this.props.telefone == '') {
       Alert.alert(
         'Mensagem',
-        `A senha não pode ficar em branco.`,
+        `O telefone não pode ficar em branco.`,
         [
           {
             text: 'OK',
@@ -281,6 +300,22 @@ class Perfil extends Component {
       Alert.alert(
         'Mensagem',
         `O campo confirme sua senha não pode ficar em branco.`,
+        [
+          {
+            text: 'OK',
+            //onPress: () => console.log('clicou'),
+            style: 'WARNING',
+          },
+        ],
+        { cancelable: true },
+      );
+      return false;
+    }
+
+    if (this.props.senha != this.props.confirma_senha) {
+      Alert.alert(
+        'Mensagem',
+        `Os campos senha e confirme sua senha não são iguais.`,
         [
           {
             text: 'OK',

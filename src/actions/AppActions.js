@@ -83,13 +83,19 @@ export const autenticarUsuario = (usuario) => {
     return dispatch => {
         dispatch({ type: SHOW_LOADER, payload: true });
 
+        let loadError = false;
+        let interval;
+        let passouOk = false;
 
-        axios.post(`${APP_URL}/entregapp_sistema/RestClientes/loginmobile.json`, usuario)
+
+        axios.post(`${APP_URL}/RestClientes/loginmobile.json`, usuario)
             .then(res => {
-               
-                
+
+                loadError = false;
                 if (typeof res.data.ultimopedido != 'undefined') {
                     if (res.data.ultimopedido == 'ErroLogin') {
+
+                        clearInterval(interval);
                         Alert.alert(
                             'Mensagem',
                             `Ops, houve um erro ao tentar te autenticar, provalvelmente seu usuário ou senha estão errados, por favor tente novamente!`,
@@ -102,17 +108,84 @@ export const autenticarUsuario = (usuario) => {
                             { cancelable: false },
                         );
                     } else {
+
+                        clearInterval(interval);
                         dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimopedido.Cliente });
                     }
 
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
                 dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                passouOk = true;
             }).catch(error => {
-                
-                dispatch({ type: SHOW_LOADER, payload: false });
-                dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
+                loadError = true;
+                passouOk = true;
+                if (loadError == true) {
+                    interval = setInterval(() => {
+
+                        autenticarUsuario(usuario);
+                    }, 10000);
+                }
+
             });
+
+        if (passouOk == false) {
+            let contVezesErrou = 0;
+            interval = setInterval(() => {
+                contVezesErrou += 1;
+
+
+                if (contVezesErrou < 5) {
+                    axios.post(`${APP_URL}/RestClientes/loginmobile.json`, usuario)
+                        .then(res => {
+
+                            loadError = false;
+                            if (typeof res.data.ultimopedido != 'undefined') {
+                                if (res.data.ultimopedido == 'ErroLogin') {
+
+                                    clearInterval(interval);
+                                    Alert.alert(
+                                        'Mensagem',
+                                        `Ops, houve um erro ao tentar autenticar seu usuário, provalvelmente seu usuário ou senha estão errados, por favor tente novamente!`,
+                                        [
+                                            {
+                                                text: 'OK',
+                                                style: 'OK',
+                                            },
+                                        ],
+                                        { cancelable: false },
+                                    );
+                                } else {
+
+                                    clearInterval(interval);
+                                    dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimopedido.Cliente });
+                                }
+
+                            }
+                            dispatch({ type: SHOW_LOADER, payload: false });
+                            dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
+                            passouOk = true;
+                        });
+                } else {
+                    clearInterval(interval);
+                    passouOk = true;
+                    loadError = false;
+                    dispatch({ type: SHOW_LOADER, payload: false });
+                    Alert.alert(
+                        'Mensagem',
+                        `Ops, houve um erro ao tentar ao tentar autenticar seu usuário, por favor, verifique sua internet e tente novamente, caso isto não funcione, por favor entre em contato com a loja! Obrigado ;-D`,
+                        [
+                            {
+                                text: 'OK',
+                                style: 'OK',
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                }
+
+            }, 10000);
+        }
 
     }
 }
@@ -122,10 +195,15 @@ export const recuperarSenha = (usuario) => {
 
     return dispatch => {
         dispatch({ type: SHOW_LOADER, payload: true });
+        let loadError = false;
+        let interval;
+        let passouOk = false;
 
-        axios.post(`${APP_URL}/entregapp_sistema/RestClientes/recuperarsenha.json`, usuario)
+        axios.post(`${APP_URL}/RestClientes/recuperarsenha.json`, usuario)
             .then(res => {
-                
+                loadError = false;
+                passouOk = true;
+                clearInterval(interval);
                 if (typeof res.data.ultimocliente != 'undefined') {
                     if (res.data.ultimocliente == 'ok') {
                         Alert.alert(
@@ -154,13 +232,99 @@ export const recuperarSenha = (usuario) => {
                     }
 
                 }
-                dispatch({ type: SHOW_LOADER, payload: false }); d
 
-            }).catch(error => {
-                
                 dispatch({ type: SHOW_LOADER, payload: false });
 
+            }).catch(error => {
+
+                //dispatch({ type: SHOW_LOADER, payload: false });
+                loadError = true;
+                passouOk = true;
+                if (loadError == true) {
+                    interval = setInterval(() => {
+
+                        recuperarSenha(usuario);
+                    }, 10000);
+                }
+
             });
+
+        if (passouOk == false) {
+            let contVezesErrou = 0;
+            interval = setInterval(() => {
+                contVezesErrou += 1;
+
+
+                if (contVezesErrou < 5) {
+                    axios.post(`${APP_URL}/RestClientes/recuperarsenha.json`, usuario)
+                        .then(res => {
+                            loadError = false;
+                            passouOk = true;
+                            clearInterval(interval);
+
+                            if (typeof res.data.ultimocliente != 'undefined') {
+                                if (res.data.ultimocliente == 'ok') {
+                                    Alert.alert(
+                                        'Mensagem',
+                                        `Sucesso, enviamos um link de recuperação de senha para seu e-mail cadastrado `,
+                                        [
+                                            {
+                                                text: 'OK',
+                                                style: 'OK',
+                                            },
+                                        ],
+                                        { cancelable: false },
+                                    );
+                                } else {
+                                    Alert.alert(
+                                        'Mensagem',
+                                        `Ops, não encontramos seu usuário`,
+                                        [
+                                            {
+                                                text: 'OK',
+                                                style: 'OK',
+                                            },
+                                        ],
+                                        { cancelable: false },
+                                    );
+                                }
+
+                            }
+                            dispatch({ type: SHOW_LOADER, payload: false });
+
+                        }).catch(error => {
+
+                            //dispatch({ type: SHOW_LOADER, payload: false });
+                            loadError = true;
+                            passouOk = true;
+                            if (loadError == true) {
+                                interval = setInterval(() => {
+
+                                    recuperarSenha(usuario);
+                                }, 10000);
+                            }
+
+                        });
+                } else {
+                    clearInterval(interval);
+                    passouOk = true;
+                    loadError = false;
+                    dispatch({ type: SHOW_LOADER, payload: false });
+                    Alert.alert(
+                        'Mensagem',
+                        `Ops, houve um erro ao tentar ao tentar recuperar sua senha, por favor, verifique sua internet e tente novamente, caso isto não funcione, por favor entre em contato com a loja! Obrigado ;-D`,
+                        [
+                            {
+                                text: 'OK',
+                                style: 'OK',
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                }
+
+            }, 10000);
+        }
 
     }
 }
@@ -172,12 +336,12 @@ export const cadastraUsuarioEdit = (usuario) => {
         dispatch({ type: SHOW_LOADER, payload: true });
         dispatch({ type: USUARIO_ATUALIZOU_CADASTRO, payload: false });
         dispatch({ type: CARREGA_ESTADO_FALHA, payload: false });
-        
 
 
-        axios.post(`${APP_URL}/entregapp_sistema/RestClientes/addmobile.json`, usuario)
+
+        axios.post(`${APP_URL}/RestClientes/addmobile.json`, usuario)
             .then(res => {
-                
+
                 if (res.data.ultimocliente == "ErroUsuarioDuplo") {
                     Alert.alert(
                         'Mensagem',
@@ -211,7 +375,7 @@ export const cadastraUsuarioEdit = (usuario) => {
                 } else {
                     dispatch({ type: SHOW_LOADER, payload: false });
                     dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
-                    dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimocliente.Cliente  });
+                    dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimocliente.Cliente });
                     dispatch({ type: USUARIO_ATUALIZOU_CADASTRO, payload: true });
 
                     Alert.alert(
@@ -226,12 +390,12 @@ export const cadastraUsuarioEdit = (usuario) => {
                         { cancelable: false },
                     );
                 }
-                
+
             }).catch(error => {
-                
+
                 dispatch({ type: SHOW_LOADER, payload: false });
                 dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
-                
+
             });
 
     }
@@ -245,9 +409,9 @@ export const cadastraUsuarioEditComSenha = (usuario) => {
         dispatch({ type: USUARIO_ATUALIZOU_CADASTRO, payload: false });
         dispatch({ type: CARREGA_ESTADO_FALHA, payload: false });
 
-        axios.post(`${APP_URL}/entregapp_sistema/RestClientes/addmobile.json`, usuario)
+        axios.post(`${APP_URL}/RestClientes/addmobile.json`, usuario)
             .then(res => {
-                
+
                 if (res.data.ultimocliente == "ErroUsuarioDuplo") {
                     Alert.alert(
                         'Mensagem',
@@ -279,7 +443,7 @@ export const cadastraUsuarioEditComSenha = (usuario) => {
 
                     dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
                 } else {
-                  
+
                     let dadosUsuario = {
                         username: usuario.Cliente.username,
                         password: usuario.Cliente.password,
@@ -287,7 +451,7 @@ export const cadastraUsuarioEditComSenha = (usuario) => {
                         empresa: usuario.Cliente.empresa_id,
                         filial: usuario.Cliente.filial_id
                     };
-                    axios.post(`${APP_URL}/entregapp_sistema/RestClientes/loginmobile.json`, dadosUsuario)
+                    axios.post(`${APP_URL}/RestClientes/loginmobile.json`, dadosUsuario)
                         .then(res => {
 
                             if (typeof res.data.ultimopedido != 'undefined') {
@@ -298,29 +462,29 @@ export const cadastraUsuarioEditComSenha = (usuario) => {
                             dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
                             dispatch({ type: USUARIO_ATUALIZOU_CADASTRO, payload: true });
                         }).catch(error => {
-                            
+
                             dispatch({ type: SHOW_LOADER, payload: false });
                             dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
                         });
-                        
+
                     //dispatch(NavigationActions.navigate({ routeName: 'RoutesLogin' }));
                     Alert.alert(
                         'Mensagem',
                         `Parabéns, \n Seu cadastro foi atualizado!`,
                         [
-                        {
-                            text: 'OK',
-                            style: 'OK',
-                        },
+                            {
+                                text: 'OK',
+                                style: 'OK',
+                            },
                         ],
                         { cancelable: false },
                     );
                 }
 
-                
+
             }).catch(error => {
-               
-               
+
+
                 dispatch({ type: SHOW_LOADER, payload: false });
                 dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
             });
@@ -335,9 +499,9 @@ export const cadastraUsuario = (usuario) => {
         dispatch({ type: SHOW_LOADER, payload: true });
 
 
-        axios.post(`${APP_URL}/entregapp_sistema/RestClientes/addmobile.json`, usuario)
+        axios.post(`${APP_URL}/RestClientes/addmobile.json`, usuario)
             .then(res => {
-                
+
                 if (res.data.ultimocliente == "ErroUsuarioDuplo") {
                     Alert.alert(
                         'Mensagem',
@@ -369,7 +533,7 @@ export const cadastraUsuario = (usuario) => {
 
                     dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
                 } else {
-                  
+
                     let dadosUsuario = {
                         username: usuario.Cliente.username,
                         password: usuario.Cliente.password,
@@ -377,7 +541,7 @@ export const cadastraUsuario = (usuario) => {
                         empresa: usuario.Cliente.empresa_id,
                         filial: usuario.Cliente.filial_id
                     };
-                    axios.post(`${APP_URL}/entregapp_sistema/RestClientes/loginmobile.json`, dadosUsuario)
+                    axios.post(`${APP_URL}/RestClientes/loginmobile.json`, dadosUsuario)
                         .then(res => {
 
                             if (typeof res.data.ultimopedido != 'undefined') {
@@ -387,7 +551,7 @@ export const cadastraUsuario = (usuario) => {
                             dispatch({ type: SHOW_LOADER, payload: false });
                             dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
                         }).catch(error => {
-                            
+
                             dispatch({ type: SHOW_LOADER, payload: false });
                             dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
                         });
@@ -408,7 +572,7 @@ export const cadastraUsuario = (usuario) => {
 
 
             }).catch(error => {
-               
+
 
                 dispatch({ type: SHOW_LOADER, payload: false });
                 dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
@@ -423,21 +587,71 @@ export const estadosFetch = () => {
         dispatch({ type: CARREGA_CIDADE, payload: [] });
         dispatch({ type: CARREGA_BAIRRO, payload: [] });
         dispatch({ type: SHOW_LOADER, payload: true });
-        axios.get(`${APP_URL}/entregapp_sistema/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=e`)
+        let loadError = false;
+        let interval;
+        let passouOk = false;
+        clearInterval(interval);
+
+        axios.get(`${APP_URL}/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=e`)
             .then(res => {
+                loadError = false;
+                passouOk = true;
+                clearInterval(interval);
 
                 if (typeof res.data.resultados != 'undefined') {
                     dispatch({ type: CARREGA_ESTADO, payload: res.data.resultados });
                 } else {
-                    
+
                     dispatch({ type: CARREGA_ESTADO_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
 
             }).catch(error => {
-                dispatch({ type: CARREGA_ESTADO_FALHA, payload: true });
-                dispatch({ type: SHOW_LOADER, payload: false });
+                //dispatch({ type: CARREGA_ESTADO_FALHA, payload: true });
+                //dispatch({ type: SHOW_LOADER, payload: false });
+                loadError = true;
+                passouOk = true;
+                clearInterval(interval);
+                if (loadError == true) {
+                    interval = setInterval(() => {
+
+                        estadosFetch();
+                    }, 10000);
+                }
             });
+        if (passouOk == false) {
+            interval = setInterval(() => {
+
+                axios.get(`${APP_URL}/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=e`)
+                    .then(res => {
+                        loadError = false;
+                        passouOk = true;
+                        clearInterval(interval);
+
+                        if (typeof res.data.resultados != 'undefined') {
+                            dispatch({ type: CARREGA_ESTADO, payload: res.data.resultados });
+                        } else {
+
+                            dispatch({ type: CARREGA_ESTADO_FALHA, payload: false });
+                        }
+                        dispatch({ type: SHOW_LOADER, payload: false });
+
+                    }).catch(error => {
+                        //dispatch({ type: CARREGA_ESTADO_FALHA, payload: true });
+                        //dispatch({ type: SHOW_LOADER, payload: false });
+                        loadError = true;
+                        passouOk = true;
+                        clearInterval(interval);
+                        if (loadError == true) {
+                            interval = setInterval(() => {
+
+                                estadosFetch();
+                            }, 10000);
+                        }
+                    });
+            }, 10000);
+        }
+        //console.log('continuou');
     }
 }
 
@@ -446,21 +660,66 @@ export const cidadesFetch = (estado) => {
         dispatch({ type: CARREGA_CIDADE, payload: [] });
         dispatch({ type: CARREGA_BAIRRO, payload: [] });
         dispatch({ type: SHOW_LOADER, payload: true });
-        axios.get(`${APP_URL}/entregapp_sistema/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=c&e=${estado}`)
+        let loadError = false;
+        let interval;
+        let passouOk = false;
+        clearInterval(interval);
+
+        axios.get(`${APP_URL}/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=c&e=${estado}`)
             .then(res => {
-               
+                loadError = false;
+                passouOk = true;
                 if (typeof res.data.resultados != 'undefined') {
                     dispatch({ type: CARREGA_CIDADE, payload: res.data.resultados });
                 } else {
-                   
+
                     dispatch({ type: CARREGA_CIDADE_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
 
             }).catch(error => {
-                dispatch({ type: CARREGA_CIDADE_FALHA, payload: true });
-                dispatch({ type: SHOW_LOADER, payload: false });
+                //dispatch({ type: CARREGA_CIDADE_FALHA, payload: true });
+                //dispatch({ type: SHOW_LOADER, payload: false });
+                loadError = true;
+                passouOk = true;
+                clearInterval(interval);
+                if (loadError == true) {
+                    interval = setInterval(() => {
+
+                        cidadesFetch(estado);
+                    }, 10000);
+                }
             });
+        if (passouOk == false) {
+            interval = setInterval(() => {
+                axios.get(`${APP_URL}/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=c&e=${estado}`)
+                    .then(res => {
+                        loadError = false;
+                        passouOk = true;
+                        if (typeof res.data.resultados != 'undefined') {
+                            dispatch({ type: CARREGA_CIDADE, payload: res.data.resultados });
+                        } else {
+
+                            dispatch({ type: CARREGA_CIDADE_FALHA, payload: false });
+                        }
+                        dispatch({ type: SHOW_LOADER, payload: false });
+
+                    }).catch(error => {
+                        //dispatch({ type: CARREGA_CIDADE_FALHA, payload: true });
+                        //dispatch({ type: SHOW_LOADER, payload: false });
+                        loadError = true;
+                        passouOk = true;
+                        clearInterval(interval);
+                        if (loadError == true) {
+                            interval = setInterval(() => {
+
+                                cidadesFetch(estado);
+                            }, 10000);
+                        }
+                    });
+
+            }, 10000);
+        }
     }
 }
 
@@ -468,22 +727,66 @@ export const bairroFetch = (cidade) => {
     return dispatch => {
         dispatch({ type: CARREGA_BAIRRO, payload: [] });
         dispatch({ type: SHOW_LOADER, payload: true });
-        axios.get(`${APP_URL}/entregapp_sistema/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=b&c=${cidade}`)
+        let loadError = false;
+        let interval;
+        let passouOk = false;
+        clearInterval(interval);
+
+        axios.get(`${APP_URL}/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=b&c=${cidade}`)
             .then(res => {
-              
+                loadError = false;
+                passouOk = true;
                 if (typeof res.data.resultados != 'undefined') {
                     dispatch({ type: CARREGA_BAIRRO, payload: res.data.resultados });
                 } else {
-                  
+
                     dispatch({ type: CARREGA_BAIRRO_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
 
             }).catch(error => {
-                dispatch({ type: CARREGA_BAIRRO_FALHA, payload: true });
-                dispatch({ type: SHOW_LOADER, payload: false });
+                //dispatch({ type: CARREGA_BAIRRO_FALHA, payload: true });
+                //dispatch({ type: SHOW_LOADER, payload: false });
+                loadError = true;
+                passouOk = true;
+                clearInterval(interval);
+                if (loadError == true) {
+                    interval = setInterval(() => {
+                        bairroFetch(cidade);
+                    }, 10000);
+                }
             });
+        if (passouOk == false) {
+            interval = setInterval(() => {
+                axios.get(`${APP_URL}/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=b&c=${cidade}`)
+                    .then(res => {
+                        loadError = false;
+                        passouOk = true;
+                        if (typeof res.data.resultados != 'undefined') {
+                            dispatch({ type: CARREGA_BAIRRO, payload: res.data.resultados });
+                        } else {
+
+                            dispatch({ type: CARREGA_BAIRRO_FALHA, payload: false });
+                        }
+                        dispatch({ type: SHOW_LOADER, payload: false });
+
+                    }).catch(error => {
+                        //dispatch({ type: CARREGA_BAIRRO_FALHA, payload: true });
+                        //dispatch({ type: SHOW_LOADER, payload: false });
+                        loadError = true;
+                        passouOk = true;
+                        clearInterval(interval);
+                        if (loadError == true) {
+                            interval = setInterval(() => {
+                                bairroFetch(cidade);
+                            }, 10000);
+                        }
+                    });
+            }, 10000);
+        }
+
     }
+
 }
 
 export const limpaListaCidades = () => {
@@ -508,32 +811,32 @@ export const pedidosViewFetch = (cliente, token, atendimento) => {
     return dispatch => {
         dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
         dispatch({ type: SHOW_LOADER, payload: true });
-        let loadError=false;
+        let loadError = false;
         let interval;
-        axios.get(`${APP_URL}/entregapp_sistema/RestAtendimentos/viewmobile.json?a=${atendimento}&fp=${FILIAL}&lj=${EMPRESA}&b=${cliente}&c=${token}&limit=20`)
+        axios.get(`${APP_URL}/RestAtendimentos/viewmobile.json?a=${atendimento}&fp=${FILIAL}&lj=${EMPRESA}&b=${cliente}&c=${token}&limit=20`)
             .then(res => {
-                
+
 
                 if (typeof res.data.resultados != 'undefined') {
                     dispatch({ type: PEDIDO_CARREGADO_OK, payload: res.data.resultados });
                 } else {
-                   
+
                     dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
-                loadError=false;
+                loadError = false;
                 clearInterval(interval);
                 //console.log('limpouuuuuuu');
 
             }).catch(error => {
-                loadError=true;
-                if(loadError==true){
-                    interval = setInterval(() =>{
+                loadError = true;
+                if (loadError == true) {
+                    interval = setInterval(() => {
                         //console.log('errou voz do Faustão....');
-                        pedidosViewFetch(cliente,token,atendimento);
-                    } , 10000);
+                        pedidosViewFetch(cliente, token, atendimento);
+                    }, 10000);
                 }
-                
+
                 //dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: true });
                 //dispatch({ type: SHOW_LOADER, payload: false });
             });
@@ -545,17 +848,17 @@ export const pedidosViewFetchInterval = (cliente, token, atendimento) => {
     return dispatch => {
         //dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
         //dispatch({ type: SHOW_LOADER, payload: true });
-        axios.get(`${APP_URL}/entregapp_sistema/RestAtendimentos/viewmobile.json?a=${atendimento}&fp=${FILIAL}&lj=${EMPRESA}&b=${cliente}&c=${token}&limit=20`)
+        axios.get(`${APP_URL}/RestAtendimentos/viewmobile.json?a=${atendimento}&fp=${FILIAL}&lj=${EMPRESA}&b=${cliente}&c=${token}&limit=20`)
             .then(res => {
 
                 if (typeof res.data.resultados != 'undefined') {
                     dispatch({ type: PEDIDO_CARREGADO_OK, payload: res.data.resultados });
                 } else {
-                   
+
                     //dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
-               //console.log('passou no pedidosViewFetchInterval');
+                //console.log('passou no pedidosViewFetchInterval');
 
             }).catch(error => {
                 //dispatch({ type: PEDIDO_CARREGADO_FALHA, payload: true });
@@ -568,34 +871,34 @@ export const pedidosFetch = (cliente, token) => {
     return dispatch => {
         dispatch({ type: MEUS_PEDIDOS_CARREGADOS_OK, payload: [] });
         dispatch({ type: SHOW_LOADER, payload: true });
-        let loadError=false;
+        let loadError = false;
         let interval;
 
-        axios.get(`${APP_URL}/entregapp_sistema/RestAtendimentos/indexmobile.json?fp=${FILIAL}&lj=${EMPRESA}&clt=${cliente}&token=${token}&limit=20`)
+        axios.get(`${APP_URL}/RestAtendimentos/indexmobile.json?fp=${FILIAL}&lj=${EMPRESA}&clt=${cliente}&token=${token}&limit=20`)
             .then(res => {
-               
+
                 if (typeof res.data.resultados != 'undefined') {
                     //console.log(res.data.resultados);
                     dispatch({ type: MEUS_PEDIDOS_CARREGADOS_OK, payload: res.data.resultados });
                 } else {
-                   
+
                     dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: false });
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
-                
-                loadError=false;
+
+                loadError = false;
                 clearInterval(interval);
             }).catch(error => {
                 //dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: true });
                 //dispatch({ type: SHOW_LOADER, payload: false });
-                loadError=true;
-                if(loadError==true){
-                    interval = setInterval(() =>{
+                loadError = true;
+                if (loadError == true) {
+                    interval = setInterval(() => {
                         //console.log('errou voz do Faustão....');
-                        pedidosFetch(cliente,token);
-                    } , 10000);
+                        pedidosFetch(cliente, token);
+                    }, 10000);
                 }
-                
+
             });
     }
 }
@@ -604,17 +907,17 @@ export const pedidosFetchInverval = (cliente, token) => {
     return dispatch => {
         //dispatch({ type: MEUS_PEDIDOS_CARREGADOS_OK, payload: [] });
         //dispatch({ type: SHOW_LOADER, payload: true });
-        axios.get(`${APP_URL}/entregapp_sistema/RestAtendimentos/indexmobile.json?fp=${FILIAL}&lj=${EMPRESA}&clt=${cliente}&token=${token}&limit=20`)
+        axios.get(`${APP_URL}/RestAtendimentos/indexmobile.json?fp=${FILIAL}&lj=${EMPRESA}&clt=${cliente}&token=${token}&limit=20`)
             .then(res => {
-               
+
                 if (typeof res.data.resultados != 'undefined') {
                     //console.log(res.data.resultados);
                     dispatch({ type: MEUS_PEDIDOS_CARREGADOS_OK, payload: res.data.resultados });
                 } else {
-                   
+
                     //dispatch({ type: MEUS_PEDIDOS_CARREGADOS_FALHA, payload: false });
                 }
-                
+
                 dispatch({ type: SHOW_LOADER, payload: false });
 
             }).catch(error => {
@@ -628,35 +931,35 @@ export const categoriasFetch = () => {
     return dispatch => {
         dispatch({ type: CATEGORIA_CARREGADA_OK, payload: [] });
         dispatch({ type: SHOW_LOADER_CATEGORIA, payload: true });
-        let loadError=false;
+        let loadError = false;
         let interval;
-        axios.get(`${APP_URL}/entregapp_sistema/RestCategorias/catsmobile.json?fp=${FILIAL}`)
+        axios.get(`${APP_URL}/RestCategorias/catsmobile.json?fp=${FILIAL}`)
             .then(res => {
 
                 if (typeof res.data.categorias != 'undefined') {
                     dispatch({ type: CATEGORIA_CARREGADA_OK, payload: res.data.categorias });
                 } else {
-                    loadError=true;
-                    if(loadError==true){
-                        interval = setInterval(() =>{
+                    loadError = true;
+                    if (loadError == true) {
+                        interval = setInterval(() => {
                             //console.log('errou voz do Faustão....');
-                            categoriasFetch();
-                        } , 10000);
+                            categoriasFetchInterval();
+                        }, 10000);
                     }
                     //dispatch({ type: CATEGORIA_CARREGADA_FALHA, payload: false });
                 }
-                loadError=false;
+                loadError = false;
                 clearInterval(interval);
 
                 dispatch({ type: SHOW_LOADER_CATEGORIA, payload: false });
 
             }).catch(error => {
-                loadError=true;
-                if(loadError==true){
-                    interval = setInterval(() =>{
+                loadError = true;
+                if (loadError == true) {
+                    interval = setInterval(() => {
                         //console.log('errou voz do Faustão....');
-                        categoriasFetch();
-                    } , 10000);
+                        categoriasFetchInterval();
+                    }, 10000);
                 }
                 //dispatch({ type: CATEGORIA_CARREGADA_FALHA, payload: true });
                 //dispatch({ type: SHOW_LOADER_CATEGORIA, payload: false });
@@ -665,24 +968,97 @@ export const categoriasFetch = () => {
 }
 
 
-export const tiposPagamentoFetch = () => {
+export const categoriasFetchInterval = () => {
     return dispatch => {
-
-        axios.get(`${APP_URL}/entregapp_sistema/RestPagamentos/pagamentosmobile.json?fp=${FILIAL}`)
+        //dispatch({ type: CATEGORIA_CARREGADA_OK, payload: [] });
+        //dispatch({ type: SHOW_LOADER_CATEGORIA, payload: true });
+        let loadError = false;
+        let interval;
+        axios.get(`${APP_URL}/RestCategorias/catsmobile.json?fp=${FILIAL}`)
             .then(res => {
 
-                if (typeof res.data.pagamentos != 'undefined') {
-                    return dispatch({ type: CARREGA_TIPOS_PAGAMENTO_OK, payload: res.data.pagamentos });
+                if (typeof res.data.categorias != 'undefined') {
+                    dispatch({ type: CATEGORIA_CARREGADA_OK, payload: res.data.categorias });
                 } else {
-                  
-                    return dispatch({ type: CARREGA_TIPOS_PAGAMENTO_FALHA, payload: false });
+                    loadError = true;
+                    if (loadError == true) {
+                        interval = setInterval(() => {
+                            //console.log('errou voz do Faustão....');
+                            categoriasFetchInterval();
+                        }, 10000);
+                    }
+                    //dispatch({ type: CATEGORIA_CARREGADA_FALHA, payload: false });
                 }
+                loadError = false;
+                clearInterval(interval);
 
+                dispatch({ type: SHOW_LOADER_CATEGORIA, payload: false });
 
             }).catch(error => {
-               
-                return dispatch({ type: CARREGA_TIPOS_PAGAMENTO_FALHA, payload: false });
+                loadError = true;
+                if (loadError == true) {
+                    interval = setInterval(() => {
+                        //console.log('errou voz do Faustão....');
+                        categoriasFetchInterval();
+                    }, 10000);
+                }
+                //dispatch({ type: CATEGORIA_CARREGADA_FALHA, payload: true });
+                //dispatch({ type: SHOW_LOADER_CATEGORIA, payload: false });
             });
+    }
+}
+
+export const tiposPagamentoFetch = () => {
+    return dispatch => {
+        let loadError = false;
+        let interval;
+        dispatch({ type: SHOW_LOADER, payload: true });
+        axios.get(`${APP_URL}/RestPagamentos/pagamentosmobile.json?fp=${FILIAL}`)
+            .then(res => {
+                clearInterval(interval);
+                if (typeof res.data.pagamentos != 'undefined') {
+                    dispatch({ type: CARREGA_TIPOS_PAGAMENTO_OK, payload: res.data.pagamentos });
+                } else {
+
+                    dispatch({ type: CARREGA_TIPOS_PAGAMENTO_FALHA, payload: false });
+                }
+
+                dispatch({ type: SHOW_LOADER, payload: false });
+            }).catch(error => {
+                clearInterval(interval);
+                loadError = true;
+
+                if (loadError == true) {
+                    interval = setInterval(() => {
+                        tiposPagamentoFetch();
+                    }, 10000);
+                }
+            });
+        if (loadError == false) {
+            interval = setInterval(() => {
+                axios.get(`${APP_URL}/RestPagamentos/pagamentosmobile.json?fp=${FILIAL}`)
+                    .then(res => {
+                        clearInterval(interval);
+                        if (typeof res.data.pagamentos != 'undefined') {
+                            dispatch({ type: CARREGA_TIPOS_PAGAMENTO_OK, payload: res.data.pagamentos });
+                        } else {
+
+                            dispatch({ type: CARREGA_TIPOS_PAGAMENTO_FALHA, payload: false });
+                        }
+
+                        dispatch({ type: SHOW_LOADER, payload: false });
+                    }).catch(error => {
+                        clearInterval(interval);
+                        loadError = true;
+
+                        if (loadError == true) {
+                            interval = setInterval(() => {
+                                tiposPagamentoFetch();
+                            }, 10000);
+                        }
+                    });
+            }, 10000);
+        }
     }
 }
 
@@ -790,10 +1166,17 @@ export const enviaPedido = (pedido) => {
         dispatch({ type: SHOW_LOADER, payload: true });
         let meuPedido = montaPedido(pedido);
         dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
-        axios.post(`${APP_URL}/entregapp_sistema/RestPedidos/addmobile.json`, meuPedido)
+        let loadError = false;
+        let passouOk= false;
+        let interval;
+        
+        axios.post(`${APP_URL}/RestPedidos/addmobile.json`, meuPedido)
             .then(res => {
+                clearInterval(interval);
+                loadError = false;
+                passouOk= true;
                 dispatch({ type: PEDIDO_CARREGADO_OK, payload: res.data.resultados.Pedido });
-                
+
 
 
                 dispatch({ type: LIMPA_QTD_CARRINHO, payload: 0 });
@@ -802,10 +1185,10 @@ export const enviaPedido = (pedido) => {
                 dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
                 dispatch({ type: PEDIDO_OK, payload: true });
                 dispatch({ type: SHOW_LOADER, payload: false });
-               
-                
-                
-             
+
+
+
+
                 Alert.alert(
                     'Mensagem',
                     `Pedido enviado com sucesso!`,
@@ -818,12 +1201,71 @@ export const enviaPedido = (pedido) => {
                     ],
                     { cancelable: false },
                 );
-               
+
             }).catch(error => {
-                dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
-                dispatch({ type: SHOW_LOADER, payload: false });
-                dispatch({ type: PEDIDO_NAO_OK, payload: false });
+               // dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
+                //dispatch({ type: SHOW_LOADER, payload: false });
+                //dispatch({ type: PEDIDO_NAO_OK, payload: false });
+                clearInterval(interval);
+                loadError = true;
+                passouOk= true;
+
+                if (loadError == true) {
+                    interval = setInterval(() => {
+                        enviaPedido(pedido);
+                    }, 10000);
+                }
             });
+            if(passouOk==false){
+                interval = setInterval(() => {
+                    axios.post(`${APP_URL}/RestPedidos/addmobile.json`, meuPedido)
+                    .then(res => {
+                        clearInterval(interval);
+                        loadError = false;
+                        passouOk= true;
+                        dispatch({ type: PEDIDO_CARREGADO_OK, payload: res.data.resultados.Pedido });
+        
+        
+        
+                        dispatch({ type: LIMPA_QTD_CARRINHO, payload: 0 });
+        
+                        dispatch({ type: LIMPA_CARRINHO, payload: [] });
+                        dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
+                        dispatch({ type: PEDIDO_OK, payload: true });
+                        dispatch({ type: SHOW_LOADER, payload: false });
+        
+        
+        
+        
+                        Alert.alert(
+                            'Mensagem',
+                            `Pedido enviado com sucesso!`,
+                            [
+                                {
+                                    text: 'OK',
+                                    onPress: () => limpaCarrinho(),
+                                    style: 'OK',
+                                },
+                            ],
+                            { cancelable: false },
+                        );
+        
+                    }).catch(error => {
+                       // dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
+                        //dispatch({ type: SHOW_LOADER, payload: false });
+                        //dispatch({ type: PEDIDO_NAO_OK, payload: false });
+                        clearInterval(interval);
+                        loadError = true;
+                        passouOk= true;
+        
+                        if (loadError == true) {
+                            interval = setInterval(() => {
+                                enviaPedido(pedido);
+                            }, 10000);
+                        }
+                    });
+                }, 10000);
+            }
 
     }
 }
@@ -845,7 +1287,7 @@ export const showMyLoaderCategory = (status) => {
 export const setStatusEnvioPedido = (status) => {
 
     return dispatch => {
-      
+
         dispatch({ type: STATUS_ENVIO_PEDIDO, payload: status });
 
     }
@@ -854,7 +1296,7 @@ export const setStatusEnvioPedido = (status) => {
 export const setStatusCadastroUsuario = (status) => {
 
     return dispatch => {
-      
+
         dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: status });
 
     }

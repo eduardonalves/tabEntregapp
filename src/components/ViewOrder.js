@@ -486,8 +486,8 @@ class ViewOrder extends Component {
                             marginBottom:5,   
                         }}>
                             {this.props.pedido.Pedido[0].logradouro}
-                            {this.props.pedido.Pedido[0].numero != '' ? ', '+ this.props.pedido.Pedido[0].numero :'' }
-                            {this.props.pedido.Pedido[0].complemento != '' ? ', ' + this.props.pedido.Pedido[0].complemento :'' }
+                            {this.props.pedido.Pedido[0].numero != '' && this.props.pedido.Pedido[0].numero != null  ? ', '+ this.props.pedido.Pedido[0].numero :'' }
+                            {this.props.pedido.Pedido[0].complemento != '' && this.props.pedido.Pedido[0].complemento != null ? ', ' + this.props.pedido.Pedido[0].complemento :'' }
                             
                        
                         </Text>
@@ -497,9 +497,9 @@ class ViewOrder extends Component {
                             textAlign:'center',
                             marginBottom:5,   
                         }}>
-                            {this.props.pedido.Pedido[0].bairro_nome != '' ? '' + this.props.pedido.Pedido[0].bairro_nome :''}
-                            {this.props.pedido.Pedido[0].cidade_nome != '' ? ' - ' + this.props.pedido.Pedido[0].cidade_nome :''}
-                            {this.props.pedido.Pedido[0].estado_nome != '' ? ' - ' + this.props.pedido.Pedido[0].estado_nome :''}
+                            {this.props.pedido.Pedido[0].bairro_nome != '' && this.props.pedido.Pedido[0].bairro_nome != null ? '' + this.props.pedido.Pedido[0].bairro_nome :''}
+                            {this.props.pedido.Pedido[0].cidade_nome != '' && this.props.pedido.Pedido[0].cidade_nome != null ? ' - ' + this.props.pedido.Pedido[0].cidade_nome :''}
+                            {this.props.pedido.Pedido[0].estado_nome != '' && this.props.pedido.Pedido[0].estado_nome != null ? ' - ' + this.props.pedido.Pedido[0].estado_nome :''}
                             
                            
                         </Text>
@@ -509,7 +509,7 @@ class ViewOrder extends Component {
                             textAlign:'center',
                             marginBottom:5,   
                         }}>
-                           {this.props.pedido.Pedido[0].ponto_referencia != '' ? '' + this.props.pedido.Pedido[0].ponto_referencia :''}
+                           {this.props.pedido.Pedido[0].ponto_referencia != '' && this.props.pedido.Pedido[0].ponto_referencia != null  ? '' + this.props.pedido.Pedido[0].ponto_referencia :''}
                         </Text>
                     </View>
                     

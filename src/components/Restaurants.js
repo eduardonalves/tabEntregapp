@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { categoriasFetch, showMyLoaderCategory } from '../actions/AppActions';
+import { categoriasFetch,categoriasFetchInterval, showMyLoaderCategory } from '../actions/AppActions';
 import { AppLoading } from 'expo';
 
 
@@ -25,7 +25,7 @@ class Restaurants extends Component {
     super(props);
     this.props.showMyLoaderCategory(true);
     this.props.categoriasFetch();
-    this.interval = setInterval(() => this.props.categoriasFetch(), 60000);
+    this.interval = setInterval(() => this.props.categoriasFetchInterval(), 60000);
   }
   componentWillUnmount() {
     clearInterval(this.interval);
@@ -85,7 +85,7 @@ class Restaurants extends Component {
               renderItem={({ item }) => (
                 <RestaurantItem
                   name={item.Categoria.nome}
-                  image={item.Categoria.nome}
+                  image={item.Categoria.foto}
                   cuisine={item.Categoria.nome}
                   location={item.Categoria.nome}
                   isVegetarian={item.Categoria.nome}
@@ -191,5 +191,5 @@ const mapStateToProps = state => ({
   show_loader_categoria: state.AppReducer.show_loader_categoria,
   categoria_carregada_falha: state.AppReducer.categoria_carregada_falha
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ categoriasFetch, showMyLoaderCategory }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ categoriasFetch,categoriasFetchInterval, showMyLoaderCategory }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Restaurants);

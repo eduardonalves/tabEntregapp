@@ -53,8 +53,9 @@ import { categoriasFetch } from '../actions/AppActions';
               justifyContent: "center",
               borderRadius: 6
             }}
+            source={{ uri: this.props.image.replace('http://localhost/', 'http://10.0.2.2/') }}
             //Local teste
-            source={require('../../assets/download/adayar-anandha-bhavan.jpg')}
+            //source={require('../../assets/download/adayar-anandha-bhavan.jpg')}
             //Internet teste
             //source={{ uri: this.props.image }}
           />

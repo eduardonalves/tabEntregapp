@@ -166,14 +166,32 @@ class FormCadastro extends Component {
             }
             
         }
+        if(this._isValidUser()){
+            this.props.cadastraUsuario(usuario);
+        }
         
-        this.props.cadastraUsuario(usuario);
     }
     _isValidUser(){
         if(this.props.username == ''){
             Alert.alert(
                 'Mensagem',
                 `O nome de usuário não pode ficar em branco.`,
+                [
+                  {
+                    text: 'OK',
+                    //onPress: () => console.log('clicou'),
+                    style: 'WARNING',
+                  },
+                ],
+                { cancelable: true },
+              );
+              return false;
+        }
+
+        if(this.props.nome == ''){
+            Alert.alert(
+                'Mensagem',
+                `O nome não pode ficar em branco.`,
                 [
                   {
                     text: 'OK',
@@ -201,11 +219,25 @@ class FormCadastro extends Component {
               );
               return false;
         }
-
-        if(this.props.senha == ''){
+        if (this.props.senha != this.props.confirma_senha) {
+            Alert.alert(
+              'Mensagem',
+              `Os campos senha e confirme sua senha não são iguais.`,
+              [
+                {
+                  text: 'OK',
+                  //onPress: () => console.log('clicou'),
+                  style: 'WARNING',
+                },
+              ],
+              { cancelable: true },
+            );
+            return false;
+        }
+        if(this.props.telefone == ''){
             Alert.alert(
                 'Mensagem',
-                `O campo confirme sua senha não pode ficar em branco.`,
+                `O campo telefone não pode ficar em branco.`,
                 [
                   {
                     text: 'OK',

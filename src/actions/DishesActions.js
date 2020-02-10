@@ -20,7 +20,7 @@ export const produtosFetch = (categoria_id) => {
     return dispatch => {
         dispatch({ type: PRODUTO_CARREGADO_OK, payload: [] });
         dispatch({ type: SHOW_LOADER_PRODUTO, payload: true });
-        axios.get(`${APP_URL}/entregapp_sistema/RestProdutos/prodsmobilebycat.json?fp=${FILIAL}&cat=${categoria_id}`)
+        axios.get(`${APP_URL}/RestProdutos/prodsmobilebycat.json?fp=${FILIAL}&cat=${categoria_id}`)
             .then(res => {
                 
                 if (typeof res.data.produtos != 'undefined') {

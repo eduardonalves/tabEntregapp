@@ -112,6 +112,7 @@ class formLogin extends Component {
             <Button title="Entrar" 
                 onPress={() => this._autenticarUsuario()}
                 color={Color.button}
+                disabled={this.props.show_loader}
             />
         )
     }
@@ -144,6 +145,43 @@ class formLogin extends Component {
                     <Image source={require("../../assets/images/logo_mini.jpg")} />
                 </View>
                 <View style={styles.contentBody}>
+                {
+                        this.props.show_loader == true ? (
+                            <View
+                            style={{
+                                alignSelf:'center',
+                                opacity: 1.0,
+                                alignItems: 'center',
+                                position: 'absolute',
+                            }}
+                        >
+                            <ActivityIndicator size="large" color="#4099ff"
+
+                            animating={true}
+                            hidesWhenStopped={true}
+                            
+
+                            />
+                        </View>
+                        ):(
+                            <View
+                            style={{
+                                alignSelf:'center',
+                                opacity: 0.0,
+                                alignItems: 'center',
+                                position: 'absolute',
+                            }}
+                        >
+                            <ActivityIndicator size="large" color="#4099ff"
+
+                            animating={true}
+                            hidesWhenStopped={true}
+                            
+
+                            />
+                        </View>
+                        )
+                    }
                     <Input 
                         value={this.props.username} 
                         containerStyle={styles._bodyInputText} 
@@ -183,12 +221,15 @@ class formLogin extends Component {
                     
 
                     </View>
+                    
                     <View style={styles.contentFooter}>
                         {this.renderBtnEntrar()}
                     </View>
+                   
 
                     
                 </View>
+                
         </ScrollView>
             
         );
@@ -201,7 +242,8 @@ const mapStateToProps = state => ({
         msgErroLogin: state.AppReducer.msgErroLogin,
         loadingLogin: state.AppReducer.loadingLogin,
         usuario: state.AppReducer.usuario,
-        username: state.AppReducer.username
+        username: state.AppReducer.username,
+        show_loader: state.AppReducer.show_loader
 });
 export default connect(mapStateToProps, {
     modificaEmail,
