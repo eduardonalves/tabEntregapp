@@ -10,7 +10,8 @@ import {
     ScrollView,
     Picker,
     Alert,
-    AsyncStorage
+    AsyncStorage,
+    Platform
 } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -453,10 +454,11 @@ class FormCadastro extends Component {
 
                             <Picker
                                 selectedValue={this.props.estado}
-                                style={{ height: 22, width: 200, flex: 1, justifyContent: "center", marginBottom:16 }}
+                                style={{ height: Platform.OS === 'ios' ? 110 : 22, width: 200, flex: 1, justifyContent: "center", marginBottom:16 }}
                                 onValueChange={(itemValue, itemIndex) => this._handleModificaEstado(itemValue)}
                             >
-                                <Picker.Item label="Selecione" value="" key="-1" />
+                                <Picker.Item label="Selecione" value="" key="0" />
+                                
                                 {estates}
                             
                             </Picker>
@@ -470,7 +472,7 @@ class FormCadastro extends Component {
 
                             <Picker
                                 selectedValue={this.props.cidade}
-                                style={{ height: 22, width: 200, flex: 1, justifyContent: "center", marginBottom:16 }}
+                                style={{ height: Platform.OS === 'ios' ? 110 : 22, width: 200, flex: 1, justifyContent: "center", marginBottom:16 }}
                                 onValueChange={(itemValue, itemIndex) => this._handleModificaCidade(itemValue)}
                             >
                                 <Picker.Item label="Selecione" value="" key="-1" />
@@ -486,7 +488,7 @@ class FormCadastro extends Component {
 
                             <Picker
                                 selectedValue={this.props.bairro}
-                                style={{ height: 22, width: 200, flex: 1, justifyContent: "center", marginBottom:16 }}
+                                style={{ height: Platform.OS === 'ios' ? 110 : 22, width: 200, flex: 1, justifyContent: "center", marginBottom:16 }}
                                 onValueChange={(itemValue, itemIndex) => this.props.modificaBairro(itemValue)}
                             >
                                 <Picker.Item label="Selecione" value="" key="-1" />
