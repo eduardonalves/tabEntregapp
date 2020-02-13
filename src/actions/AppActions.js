@@ -615,7 +615,7 @@ export const estadosFetch = () => {
                 if (loadError == true) {
                     interval = setInterval(() => {
 
-                        estadosFetch();
+                        estadosFetchInterval();
                     }, 10000);
                 }
             });
@@ -645,7 +645,7 @@ export const estadosFetch = () => {
                         if (loadError == true) {
                             interval = setInterval(() => {
 
-                                estadosFetch();
+                                estadosFetchInterval();
                             }, 10000);
                         }
                     });
@@ -654,7 +654,76 @@ export const estadosFetch = () => {
         //console.log('continuou');
     }
 }
+export const estadosFetchInterval = () => {
+    return dispatch => {
+        
+        let loadError = false;
+        let interval;
+        let passouOk = false;
+        clearInterval(interval);
 
+        axios.get(`${APP_URL}/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=e`)
+            .then(res => {
+                loadError = false;
+                passouOk = true;
+                clearInterval(interval);
+
+                if (typeof res.data.resultados != 'undefined') {
+                    dispatch({ type: CARREGA_ESTADO, payload: res.data.resultados });
+                } else {
+
+                    dispatch({ type: CARREGA_ESTADO_FALHA, payload: false });
+                }
+                dispatch({ type: SHOW_LOADER, payload: false });
+
+            }).catch(error => {
+                //dispatch({ type: CARREGA_ESTADO_FALHA, payload: true });
+                //dispatch({ type: SHOW_LOADER, payload: false });
+                loadError = true;
+                passouOk = true;
+                clearInterval(interval);
+                if (loadError == true) {
+                    interval = setInterval(() => {
+
+                        estadosFetchInterval();
+                    }, 10000);
+                }
+            });
+        if (passouOk == false) {
+            interval = setInterval(() => {
+
+                axios.get(`${APP_URL}/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=e`)
+                    .then(res => {
+                        loadError = false;
+                        passouOk = true;
+                        clearInterval(interval);
+
+                        if (typeof res.data.resultados != 'undefined') {
+                            dispatch({ type: CARREGA_ESTADO, payload: res.data.resultados });
+                        } else {
+
+                            dispatch({ type: CARREGA_ESTADO_FALHA, payload: false });
+                        }
+                        dispatch({ type: SHOW_LOADER, payload: false });
+
+                    }).catch(error => {
+                        //dispatch({ type: CARREGA_ESTADO_FALHA, payload: true });
+                        //dispatch({ type: SHOW_LOADER, payload: false });
+                        loadError = true;
+                        passouOk = true;
+                        clearInterval(interval);
+                        if (loadError == true) {
+                            interval = setInterval(() => {
+
+                                estadosFetchInterval();
+                            }, 10000);
+                        }
+                    });
+            }, 10000);
+        }
+        //console.log('continuou');
+    }
+}
 export const cidadesFetch = (estado) => {
     return dispatch => {
         dispatch({ type: CARREGA_CIDADE, payload: [] });
@@ -669,6 +738,7 @@ export const cidadesFetch = (estado) => {
             .then(res => {
                 loadError = false;
                 passouOk = true;
+                clearInterval(interval);
                 if (typeof res.data.resultados != 'undefined') {
                     dispatch({ type: CARREGA_CIDADE, payload: res.data.resultados });
                 } else {
@@ -686,7 +756,7 @@ export const cidadesFetch = (estado) => {
                 if (loadError == true) {
                     interval = setInterval(() => {
 
-                        cidadesFetch(estado);
+                        cidadesFetchInterval(estado);
                     }, 10000);
                 }
             });
@@ -696,6 +766,7 @@ export const cidadesFetch = (estado) => {
                     .then(res => {
                         loadError = false;
                         passouOk = true;
+                        clearInterval(interval);
                         if (typeof res.data.resultados != 'undefined') {
                             dispatch({ type: CARREGA_CIDADE, payload: res.data.resultados });
                         } else {
@@ -713,7 +784,7 @@ export const cidadesFetch = (estado) => {
                         if (loadError == true) {
                             interval = setInterval(() => {
 
-                                cidadesFetch(estado);
+                                cidadesFetchInterval(estado);
                             }, 10000);
                         }
                     });
@@ -723,6 +794,73 @@ export const cidadesFetch = (estado) => {
     }
 }
 
+export const cidadesFetchInterval = (estado) => {
+    return dispatch => {
+       
+        let loadError = false;
+        let interval;
+        let passouOk = false;
+        clearInterval(interval);
+
+        axios.get(`${APP_URL}/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=c&e=${estado}`)
+            .then(res => {
+                loadError = false;
+                passouOk = true;
+                clearInterval(interval);
+                if (typeof res.data.resultados != 'undefined') {
+                    dispatch({ type: CARREGA_CIDADE, payload: res.data.resultados });
+                } else {
+
+                    dispatch({ type: CARREGA_CIDADE_FALHA, payload: false });
+                }
+                dispatch({ type: SHOW_LOADER, payload: false });
+
+            }).catch(error => {
+                //dispatch({ type: CARREGA_CIDADE_FALHA, payload: true });
+                //dispatch({ type: SHOW_LOADER, payload: false });
+                loadError = true;
+                passouOk = true;
+                clearInterval(interval);
+                if (loadError == true) {
+                    interval = setInterval(() => {
+
+                        cidadesFetchInterval(estado);
+                    }, 10000);
+                }
+            });
+        if (passouOk == false) {
+            interval = setInterval(() => {
+                axios.get(`${APP_URL}/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=c&e=${estado}`)
+                    .then(res => {
+                        loadError = false;
+                        passouOk = true;
+                        clearInterval(interval);
+                        if (typeof res.data.resultados != 'undefined') {
+                            dispatch({ type: CARREGA_CIDADE, payload: res.data.resultados });
+                        } else {
+
+                            dispatch({ type: CARREGA_CIDADE_FALHA, payload: false });
+                        }
+                        dispatch({ type: SHOW_LOADER, payload: false });
+
+                    }).catch(error => {
+                        //dispatch({ type: CARREGA_CIDADE_FALHA, payload: true });
+                        //dispatch({ type: SHOW_LOADER, payload: false });
+                        loadError = true;
+                        passouOk = true;
+                        clearInterval(interval);
+                        if (loadError == true) {
+                            interval = setInterval(() => {
+
+                                cidadesFetchInterval(estado);
+                            }, 10000);
+                        }
+                    });
+
+            }, 10000);
+        }
+    }
+}
 export const bairroFetch = (cidade) => {
     return dispatch => {
         dispatch({ type: CARREGA_BAIRRO, payload: [] });
@@ -736,6 +874,7 @@ export const bairroFetch = (cidade) => {
             .then(res => {
                 loadError = false;
                 passouOk = true;
+                clearInterval(interval);
                 if (typeof res.data.resultados != 'undefined') {
                     dispatch({ type: CARREGA_BAIRRO, payload: res.data.resultados });
                 } else {
@@ -752,7 +891,7 @@ export const bairroFetch = (cidade) => {
                 clearInterval(interval);
                 if (loadError == true) {
                     interval = setInterval(() => {
-                        bairroFetch(cidade);
+                        bairroFetchInterval(cidade);
                     }, 10000);
                 }
             });
@@ -762,6 +901,7 @@ export const bairroFetch = (cidade) => {
                     .then(res => {
                         loadError = false;
                         passouOk = true;
+                        clearInterval(interval);
                         if (typeof res.data.resultados != 'undefined') {
                             dispatch({ type: CARREGA_BAIRRO, payload: res.data.resultados });
                         } else {
@@ -778,7 +918,7 @@ export const bairroFetch = (cidade) => {
                         clearInterval(interval);
                         if (loadError == true) {
                             interval = setInterval(() => {
-                                bairroFetch(cidade);
+                                bairroFetchInterval(cidade);
                             }, 10000);
                         }
                     });
@@ -789,6 +929,72 @@ export const bairroFetch = (cidade) => {
 
 }
 
+export const bairroFetchInterval = (cidade) => {
+    return dispatch => {
+        
+        let loadError = false;
+        let interval;
+        let passouOk = false;
+        clearInterval(interval);
+
+        axios.get(`${APP_URL}/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=b&c=${cidade}`)
+            .then(res => {
+                loadError = false;
+                passouOk = true;
+                clearInterval(interval);
+                if (typeof res.data.resultados != 'undefined') {
+                    dispatch({ type: CARREGA_BAIRRO, payload: res.data.resultados });
+                } else {
+
+                    dispatch({ type: CARREGA_BAIRRO_FALHA, payload: false });
+                }
+                dispatch({ type: SHOW_LOADER, payload: false });
+
+            }).catch(error => {
+                //dispatch({ type: CARREGA_BAIRRO_FALHA, payload: true });
+                //dispatch({ type: SHOW_LOADER, payload: false });
+                loadError = true;
+                passouOk = true;
+                clearInterval(interval);
+                if (loadError == true) {
+                    interval = setInterval(() => {
+                        bairroFetchInterval(cidade);
+                    }, 10000);
+                }
+            });
+        if (passouOk == false) {
+            interval = setInterval(() => {
+                axios.get(`${APP_URL}/RestPedidos/getLocalidadePedidos.json?fp=${FILIAL}&p=b&c=${cidade}`)
+                    .then(res => {
+                        loadError = false;
+                        passouOk = true;
+                        clearInterval(interval);
+                        if (typeof res.data.resultados != 'undefined') {
+                            dispatch({ type: CARREGA_BAIRRO, payload: res.data.resultados });
+                        } else {
+
+                            dispatch({ type: CARREGA_BAIRRO_FALHA, payload: false });
+                        }
+                        dispatch({ type: SHOW_LOADER, payload: false });
+
+                    }).catch(error => {
+                        //dispatch({ type: CARREGA_BAIRRO_FALHA, payload: true });
+                        //dispatch({ type: SHOW_LOADER, payload: false });
+                        loadError = true;
+                        passouOk = true;
+                        clearInterval(interval);
+                        if (loadError == true) {
+                            interval = setInterval(() => {
+                                bairroFetchInterval(cidade);
+                            }, 10000);
+                        }
+                    });
+            }, 10000);
+        }
+
+    }
+
+}
 export const limpaListaCidades = () => {
     return dispatch => {
         dispatch({ type: LIMPA_CIDADE, payload: [] })
