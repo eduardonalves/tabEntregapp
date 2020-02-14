@@ -16,7 +16,8 @@ import {
 import { Text, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import Color from "../../constants/Colors";
-import Icon from 'react-native-vector-icons/FontAwesome';
+//import Icon from 'react-native-vector-icons/FontAwesome';
+import { Ionicons } from '@expo/vector-icons';
 import {
   FILIAL,
   EMPRESA,
@@ -430,7 +431,7 @@ class Perfil extends Component {
                   padding: 50
 
                 }} >
-                  <Icon name="frown-o" size={200} color="#ef6136" />
+                  <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'}  size={200} color="#ef6136" />
                   <Text style={{ fontSize: 18 }}>Ops!</Text>
                   <Text style={{ fontSize: 15 }}>Houve uma falha ao carregar seu cadastro.</Text>
                   <Text style={{ fontSize: 15 }}>Tente novamente mais tarde!</Text>

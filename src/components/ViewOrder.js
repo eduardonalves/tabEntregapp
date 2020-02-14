@@ -22,7 +22,7 @@ import foodData from "../food-data.json";
 import ListCart from "./ListCart";
 import ItemOrder from './ItemOrder';
 import CartButton from "./common/CartButton";
-import Icon from 'react-native-vector-icons/FontAwesome';
+//import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, CheckBox } from 'react-native-elements';
 import Billing from "../components/Billing";
 import Color from "../../constants/Colors";

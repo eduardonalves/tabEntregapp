@@ -17,7 +17,8 @@ import {
 //import restaurantsData from "../api/restaurants.json";
 import RestaurantItem from "./RestaurantItem";
 import CartButton from "./common/CartButton";
-import Icon from 'react-native-vector-icons/FontAwesome';
+//import Icon from 'react-native-vector-icons/FontAwesome';
+import { Ionicons } from '@expo/vector-icons';
 import Color from "../../constants/Colors";
 
 class Restaurants extends Component {
@@ -69,7 +70,7 @@ class Restaurants extends Component {
             padding:50
             
           }} >
-            <Icon name="frown-o" size={200} color="#ef6136" />
+            <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'}  size={200} color="#ef6136" />
             <Text style={{fontSize:18 , textAlign:'center'}}>Ops!</Text>
             <Text style={{fontSize:15, textAlign:'center'}}>Não encontramos categorias cadastradas.</Text>
             
@@ -103,7 +104,7 @@ class Restaurants extends Component {
               padding:50
               
             }} >
-              <Icon name="frown-o" size={200} color="#ef6136" />
+              <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'} size={200} color="#ef6136" />
               <Text style={{fontSize:18}}>Ops!</Text>
               <Text style={{fontSize:15}}>Houve uma falha ao carregar o menu.</Text>
               <Text style={{fontSize:15}}>Tente novamente mais tarde!</Text>

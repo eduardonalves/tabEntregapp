@@ -16,7 +16,7 @@ import { Input } from 'react-native-elements';
 import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { atualizaFormaDePagamento, atualizaTroco, tiposPagamentoFetch, enviaPedido,setStatusEnvioPedido, limpaCarrinho, showMyLoader } from '../actions/AppActions';
+import { atualizaFormaDePagamento, atualizaTroco, tiposPagamentoFetch, enviaPedido, setStatusEnvioPedido, limpaCarrinho, showMyLoader } from '../actions/AppActions';
 import CartButton from "./common/CartButton";
 import Color from "../../constants/Colors";
 
@@ -25,7 +25,7 @@ class Billing extends Component {
     constructor(props) {
         super(props);
         this.props.tiposPagamentoFetch();
-       
+
     }
     static navigationOptions = ({ navigation }) => {
         return {
@@ -45,111 +45,127 @@ class Billing extends Component {
         };
     }
     UNSAFE_componentWillReceiveProps(nextProps) {
-        
-        if(nextProps.status_envio_pedido ==true) {
+
+        if (nextProps.status_envio_pedido == true) {
             this.props.setStatusEnvioPedido(false);
-            
+
             this.props.navigation.navigate("ViewOrder", { Atendimento_id: nextProps.pedido.atendimento_id });
         }
     }
-    UNSAFE_componentWillUnmount(){
+    UNSAFE_componentWillUnmount() {
         this.props.limpaCarrinho();
     }
-    handleAtualizatroco(event){
+    handleAtualizatroco(event) {
         this.props.atualizaTroco(event);
     }
-    handleSendOrder(){
-        
-        if(this.props.forma_pagamento== 1 && this.props.troco_pedido==''){
-            
+    handleSendOrder() {
+
+        if (this.props.forma_pagamento == 1 && this.props.troco_pedido == '') {
+
             Alert.alert(
                 'Mensagem',
-                `Por favor, informe se é necessário enviar troco!`,
+                `Vai precisar de troco? Por faor, se precisar de troco, diga para quanto quer, caso contrário, informe que não que não!`,
                 [
-                  {
-                    text: 'OK',
-                    //onPress: () => console.log('clicou'),
-                    style: 'OK',
-                  },
+                    {
+                        text: 'OK',
+                        //onPress: () => console.log('clicou'),
+                        style: 'OK',
+                    },
                 ],
                 { cancelable: true },
-              );
-        }else{
-           
-            this.props.showMyLoader(true);
+            );
+        } else {
+
+            if (this.props.forma_pagamento ==  '' || this.props.forma_pagamento == null) {
+                Alert.alert(
+                    'Mensagem',
+                    `Opa, faltou informar a forma de pagamento.`,
+                    [
+                        {
+                            text: 'OK',
+                            //onPress: () => console.log('clicou'),
+                            style: 'OK',
+                        },
+                    ],
+                    { cancelable: true },
+                );
+            } else {
+                this.props.showMyLoader(true);
+
+                this.props.enviaPedido(
+                    {
+                        carrinho: this.props.carrinho,
+                        total_carrinho: this.props.total_carrinho,
+                        trocoresposta: this.props.troco_pedido,
+                        cliente_id: this.props.usuario.id,
+                        token: this.props.usuario.token,
+                        obs: this.props.obs_pedido,
+                        pagamento_id: this.props.forma_pagamento,
+                        entrega_valor: this.props.usuario.frete_cadastro,
+                        logradouro: this.props.usuario.logradouro,
+                        numero: this.props.usuario.numero,
+                        ponto_referencia: this.props.usuario.ponto_referencia,
+                        complemento: this.props.usuario.complemento,
+                        bairro_id: this.props.usuario.bairro,
+                        cidad_id: this.props.usuario.cidade,
+                        estado_id: this.props.usuario.uf,
+                        telefone: this.props.usuario.telefone,
+                        email: this.props.usuario.email,
+                        bairro_nome: this.props.usuario.bairro_nome,
+                        cidade_nome: this.props.usuario.cidade_nome,
+                        estado_nome: this.props.usuario.estado_nome,
+                        ponto_referencia: this.props.usuario.ponto_referencia,
+                    }
+                );/**/
+            }
             
-           this.props.enviaPedido(
-                {
-                    carrinho: this.props.carrinho,
-                    total_carrinho: this.props.total_carrinho,
-                    trocoresposta: this.props.troco_pedido,
-                    cliente_id: this.props.usuario.id,
-                    token: this.props.usuario.token,
-                    obs: this.props.obs_pedido,
-                    pagamento_id:this.props.forma_pagamento,
-                    entrega_valor: this.props.usuario.frete_cadastro,
-                    logradouro: this.props.usuario.logradouro,
-                    numero:this.props.usuario.numero,
-                    ponto_referencia: this.props.usuario.ponto_referencia,
-                    complemento: this.props.usuario.complemento,
-                    bairro_id: this.props.usuario.bairro,
-                    cidad_id: this.props.usuario.cidade,
-                    estado_id: this.props.usuario.uf,
-                    telefone: this.props.usuario.telefone,
-                    email: this.props.usuario.email,
-                    bairro_nome: this.props.usuario.bairro_nome,
-                    cidade_nome: this.props.usuario.cidade_nome,
-                    estado_nome: this.props.usuario.estado_nome,
-                    ponto_referencia: this.props.usuario.ponto_referencia,
-                }
-            );/**/
         }
-        
+
     }
     render() {
         let payments = this.props.tipos_pagamento.map((v, k) => {
-            
+
             return (
                 <Picker.Item label={v.Pagamento.tipo} value={v.Pagamento.id} key={k} />
             );
         });
         let total_carrinho = this.props.total_carrinho.toString();
-        total_carrinho =total_carrinho.replace(".",",");
+        total_carrinho = total_carrinho.replace(".", ",");
         return (
             <View >
                 <View style={styles.container} >
                     <View >
                         <Text style={{
                             fontSize: 26,
-                            fontWeight:'bold' 
+                            fontWeight: 'bold'
                         }}>
                             Total&nbsp;
                         </Text>
-                        
+
                     </View>
                     <View>
                         <Text style={{
                             fontSize: 26,
-                            fontWeight:'bold' 
+                            fontWeight: 'bold'
                         }}>
-                        
-                        <NumberFormat 
-                            value={total_carrinho} 
-                            displayType={'text'} 
-                            renderText={value => <Text>{value}</Text>}
-                            thousandSeparator={'.'}
-                            decimalScale={2} 
-                            fixedDecimalScale={true}
-                            prefix={'R$ '}
-                            decimalSeparator={','}
-                        
-                        />
+
+                            <NumberFormat
+                                value={total_carrinho}
+                                displayType={'text'}
+                                renderText={value => <Text>{value}</Text>}
+                                thousandSeparator={'.'}
+                                decimalScale={2}
+                                fixedDecimalScale={true}
+                                prefix={'R$ '}
+                                decimalSeparator={','}
+
+                            />
                         </Text>
                     </View>
                 </View>
-                
+
                 <View style={styles.container} >
-                    
+
                     <View>
                         <Text style={{
                             textAlign: "center", fontSize: 18, textAlign: "center", flex: 1,
@@ -166,7 +182,7 @@ class Billing extends Component {
                         </Picker>
                     </View>
                     {
-                        this.props.forma_pagamento== 1 ? (
+                        this.props.forma_pagamento == 1 ? (
                             <View style={{
                                 flex: 1,
                                 flexDirection: "row"
@@ -174,26 +190,26 @@ class Billing extends Component {
                                 <Input
                                     placeholder="Troco p/ quanto?"
                                     label="Levar Troco?"
-                                    onChangeText ={(event) => this.handleAtualizatroco(event)}
+                                    onChangeText={(event) => this.handleAtualizatroco(event)}
                                 />
                             </View>
                         ) : (
-                            <View style={{
-                                flex: 1,
-                                flexDirection: "row"
-                            }}>
-                                <Input
-                                    
-                                    placeholder="Troco p/ quanto?"
-                                    label="Levar Troco?"
-                                    onChangeText ={(event) => this.handleAtualizatroco(event)}
-                                    editable={false}
-                                    name="troco_pedido"
-                                />
-                            </View>
-                        )
+                                <View style={{
+                                    flex: 1,
+                                    flexDirection: "row"
+                                }}>
+                                    <Input
+
+                                        placeholder="Troco p/ quanto?"
+                                        label="Levar Troco?"
+                                        onChangeText={(event) => this.handleAtualizatroco(event)}
+                                        editable={false}
+                                        name="troco_pedido"
+                                    />
+                                </View>
+                            )
                     }
-                    
+
 
 
                 </View>
@@ -201,9 +217,9 @@ class Billing extends Component {
                     <View >
                         <Text style={{
                             fontSize: 15,
-                            fontWeight:'bold',
-                            textAlign:'center',
-                            marginBottom:5, 
+                            fontWeight: 'bold',
+                            textAlign: 'center',
+                            marginBottom: 5,
                             marginTop: Platform.OS === 'ios' ? 30 : 0
                         }}>
                             Endereço de Entrega
@@ -211,70 +227,70 @@ class Billing extends Component {
                         <Text style={{
                             fontSize: 16,
                             //fontWeight:'bold',
-                            textAlign:'center'  
+                            textAlign: 'center'
                         }}>
                             {this.props.usuario.logradouro}
-                            {this.props.usuario.numero != '' && this.props.usuario.numero != null ? ', '+ this.props.usuario.numero :'' }
-                            {this.props.usuario.complemento != '' && this.props.usuario.complemento != null  ? ', ' + this.props.usuario.complemento :'' }
+                            {this.props.usuario.numero != '' && this.props.usuario.numero != null ? ', ' + this.props.usuario.numero : ''}
+                            {this.props.usuario.complemento != '' && this.props.usuario.complemento != null ? ', ' + this.props.usuario.complemento : ''}
                             {'\n'}
-                            {this.props.usuario.bairro_nome != '' && this.props.usuario.bairro_nome != null ? '' + this.props.usuario.bairro_nome :''}
-                            {this.props.usuario.cidade_nome != '' && this.props.usuario.estado_nome != null ? ' - ' + this.props.usuario.cidade_nome :''}
-                            {this.props.usuario.estado_nome != '' && this.props.usuario.estado_nome != null   ? ' - ' + this.props.usuario.estado_nome :''}
+                            {this.props.usuario.bairro_nome != '' && this.props.usuario.bairro_nome != null ? '' + this.props.usuario.bairro_nome : ''}
+                            {this.props.usuario.cidade_nome != '' && this.props.usuario.estado_nome != null ? ' - ' + this.props.usuario.cidade_nome : ''}
+                            {this.props.usuario.estado_nome != '' && this.props.usuario.estado_nome != null ? ' - ' + this.props.usuario.estado_nome : ''}
                             {'\n'}
-                            {this.props.usuario.ponto_referencia != '' && this.props.usuario.ponto_referencia != null ? '' + this.props.usuario.ponto_referencia :''}
+                            {this.props.usuario.ponto_referencia != '' && this.props.usuario.ponto_referencia != null ? '' + this.props.usuario.ponto_referencia : ''}
                         </Text>
                     </View>
                     {this.props.show_loader == true ? (
                         <View
-                        style={{
-                            alignSelf:'center',
-                            opacity: 1.0,
-                            alignItems: 'center',
-                            position: 'absolute',
-                        }}
-                      >
-                        <ActivityIndicator size="large" color="#4099ff"
-        
-                          animating={true}
-                          hidesWhenStopped={true}
-        
-                        />
-                      </View>
-                    ):(
-                        <View
                             style={{
-                                alignSelf:'center',
-                                opacity: 0.0,
+                                alignSelf: 'center',
+                                opacity: 1.0,
                                 alignItems: 'center',
                                 position: 'absolute',
                             }}
                         >
                             <ActivityIndicator size="large" color="#4099ff"
 
-                            animating={true}
-                            hidesWhenStopped={true}
-                            
+                                animating={true}
+                                hidesWhenStopped={true}
 
                             />
                         </View>
-                    )}
+                    ) : (
+                            <View
+                                style={{
+                                    alignSelf: 'center',
+                                    opacity: 0.0,
+                                    alignItems: 'center',
+                                    position: 'absolute',
+                                }}
+                            >
+                                <ActivityIndicator size="large" color="#4099ff"
+
+                                    animating={true}
+                                    hidesWhenStopped={true}
+
+
+                                />
+                            </View>
+                        )}
                 </View>
-                <View style={{padding:20}} >
-                    <View style={{width:"100%"}} >
+                <View style={{ padding: 20 }} >
+                    <View style={{ width: "100%" }} >
                         <Button
-                            color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
-                            title="Enviar Pedido" 
-                            disabled={this.props.show_loader} 
-                            style={styles.button} 
+                            color={Platform.OS === 'ios' ? Color.buttonIos : Color.button}
+                            title="Enviar Pedido"
+                            disabled={this.props.show_loader}
+                            style={styles.button}
                             onPress={() => this.handleSendOrder()}
-                            
+
                         />
                     </View>
-                   
-                    
-                    
+
+
+
                 </View>
-               
+
             </View>
         );
     }
@@ -297,10 +313,10 @@ const styles = StyleSheet.create({
         paddingRight: 16,
         paddingTop: 8,
         paddingBottom: 8,
-        height:50,
-        flex:1,
-        justifyContent:"center",
-      },
+        height: 50,
+        flex: 1,
+        justifyContent: "center",
+    },
 });
 const mapStateToProps = state => ({
     carrinho: state.AppReducer.carrinho,

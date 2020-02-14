@@ -12,7 +12,8 @@ import {
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome';
+//import Icon from 'react-native-vector-icons/FontAwesome';
+import { Ionicons } from '@expo/vector-icons';
 import { produtosFetch, showMyLoaderProduct } from '../actions/DishesActions';
 import { HeaderBackButton } from 'react-navigation-stack';
 import Constants from "../utils/constants";
@@ -69,7 +70,7 @@ class Dishes extends Component {
             padding:50
             
           }} >
-            <Icon name="frown-o" size={200} color="#ef6136" />
+            <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'}  size={200} color="#ef6136" />
             <Text style={{fontSize:18 , textAlign:'center'}}>Ops!</Text>
             <Text style={{fontSize:15, textAlign:'center'}}>Não existem produtos cadastrados nesta categoria.</Text>
             
@@ -87,7 +88,7 @@ class Dishes extends Component {
               padding:50
               
             }} >
-              <Icon name="frown-o" size={200} color="#ef6136" />
+              <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'} size={200} color="#ef6136" />
               <Text style={{fontSize:18}}>Ops!</Text>
               <Text style={{fontSize:15}}>Houve uma falha ao carregar o menu.</Text>
               <Text style={{fontSize:15}}>Tente novamente mais tarde!</Text>
