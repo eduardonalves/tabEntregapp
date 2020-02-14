@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   Button,
+  Platform,
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -20,6 +21,7 @@ import ListItem from "./ListItem";
 import CartButton from "./common/CartButton";
 import CustomModal from "../components/common/CustomModal";
 import Color from "../../constants/Colors";
+import ListItemIos from "./ListItemIos";
 
 
 
@@ -92,10 +94,30 @@ class Dishes extends Component {
             </View>
             
           ):(
-            <FlatList
+            Platform.OS === 'ios' ? (
+              <FlatList
+                data={this.props.produtos}
+                keyExtractor={item => item.Produto.id}
+                renderItem={({ item }) => (
+                  
+                  <ListItemIos
+                    id={item.Produto.id}
+                    name={item.Produto.nome}
+                    image={item.Produto.foto}
+                    cuisine={item.Produto.nome}
+                    price={item.Produto.preco_venda}
+                    description={item.Produto.descricao}
+                    isVegetarian={item.Produto.parte_compre_ganhe}
+                    handleNaviagation={this.handleNaviagation}
+                  />
+                )}
+              />
+            ):(
+              <FlatList
               data={this.props.produtos}
               keyExtractor={item => item.Produto.id}
               renderItem={({ item }) => (
+                
                 <ListItem
                   id={item.Produto.id}
                   name={item.Produto.nome}
@@ -107,7 +129,9 @@ class Dishes extends Component {
                   handleNaviagation={this.handleNaviagation}
                 />
               )}
-            /> 
+            />
+            )
+             
              
           )
         }

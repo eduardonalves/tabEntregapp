@@ -27,13 +27,14 @@ const HomeStack = createStackNavigator(
   config
 );
 
+
 HomeStack.navigationOptions = {
   tabBarLabel: 'Cardápio',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
-        'list-alt'
+         Platform.OS === 'ios' ? 'ios-list-box' : 'list-alt' 
       }
      
     />
@@ -52,7 +53,13 @@ const LinksStack = createStackNavigator(
 LinksStack.navigationOptions = {
   tabBarLabel: 'Meus Pedidos',
   tabBarIcon: ({ focused, tintColor }) => (
-    <TabBarIcon focused={focused} name={'shopping-cart'} />
+    <TabBarIcon 
+    focused={focused} 
+    name={
+      Platform.OS === 'ios' ? 'ios-cart' : 'shopping-cart' 
+    } 
+    
+    />
   ),
 };
 
@@ -68,7 +75,9 @@ const SettingsStack = createStackNavigator(
 SettingsStack.navigationOptions = {
   tabBarLabel: 'Perfil',
   tabBarIcon: ({ focused , tintColor }) => (
-    <TabBarIcon focused={focused} name={'user'}   />
+    <TabBarIcon focused={focused} name={
+      Platform.OS === 'ios' ? 'ios-person' : 'user' 
+    }   />
   ),
   
 };

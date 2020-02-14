@@ -7,7 +7,8 @@ import {
   Image,
   TouchableOpacity,
   Picker,
-  Button
+  Button,
+  Platform
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -71,7 +72,7 @@ class FooterCheckout extends Component {
               borderBottomLeftRadius: 4,
             }}>
               <Text style={{
-                fontSize: 17,
+                fontSize: 16,
                 fontWeight: "bold",
                 //color: "#a92319",
               }}>
@@ -87,7 +88,7 @@ class FooterCheckout extends Component {
               //flexDirection: "row-reverse"
             }}>
               <Text style={{
-                fontSize: 17,
+                fontSize: 16,
                 fontWeight: "bold",
                 //color: "#ef6136",
               }}>
@@ -181,8 +182,10 @@ class FooterCheckout extends Component {
           <Button
             style={styles.button}
             title="Pagamento"
-            color={Color.button}
-            onPress={this.props.handleNaviagation} />
+            color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
+            onPress={this.props.handleNaviagation} 
+
+          />
         </View>
       </View>
     );

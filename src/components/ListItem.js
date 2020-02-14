@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   Alert,
   Picker,
-  TouchableHighlight
+  TouchableHighlight,
+  Platform
 } from "react-native";
 import { Overlay } from 'react-native-elements';
 import { bindActionCreators } from 'redux';
@@ -202,7 +203,7 @@ class ListItem extends Component {
               </View>
               <Button
                 onPress={e => this.props.setModalVisible(true, this.props.description)}
-                color={Color.button}
+                color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
                 title="Detalhes"
                 style={{
                   backgroundColor: Color.button,

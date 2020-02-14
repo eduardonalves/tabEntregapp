@@ -34,5 +34,6 @@ export default {
   },
   links:"#ef6136",
   button:"#323232",
+  buttonIos: "#ef6136",
   text:"#323232",
 };

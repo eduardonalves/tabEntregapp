@@ -9,7 +9,8 @@ import {
     Image,
     ActivityIndicator,
     AsyncStorage,
-    ScrollView
+    ScrollView,
+    Platform
 } from 'react-native';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -111,7 +112,7 @@ class formLogin extends Component {
         return(
             <Button title="Entrar" 
                 onPress={() => this._autenticarUsuario()}
-                color={Color.button}
+                color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
                 disabled={this.props.show_loader}
             />
         )

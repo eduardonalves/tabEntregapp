@@ -9,7 +9,8 @@ import {
     Image,
     ActivityIndicator,
     AsyncStorage,
-    ScrollView
+    ScrollView,
+    Platform
 } from 'react-native';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -61,9 +62,9 @@ class FormRecover extends Component {
         }
         return (
             <Button
-                title="Entrar"
+                title="Recuperar Senha"
                 onPress={() => this._recuperarSenha()}
-                color={Color.button}
+                color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
                 disabled={this.props.show_loader}
             />
         )

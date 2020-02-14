@@ -79,23 +79,7 @@ import { categoriasFetch } from '../actions/AppActions';
             >
               {this.props.name}
             </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                color: "#ffffff"
-              }}
-            >
-              {this.props.cuisine},{" "}
-              {this.props.isVegetarian ? (
-                <Text style={{ color: "#4caf50", fontWeight: "bold" }}>
-                  Veg
-                </Text>
-              ) : (
-                <Text style={{ color: "#a92319", fontWeight: "bold" }}>
-                  Non-Veg
-                </Text>
-              )}
-            </Text>
+           
             <Text
               style={{
                 fontSize: 14,

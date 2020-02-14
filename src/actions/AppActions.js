@@ -1386,11 +1386,12 @@ export const enviaPedido = (pedido) => {
 
 
                 dispatch({ type: LIMPA_QTD_CARRINHO, payload: 0 });
-
+                dispatch({ type: ATUALIZA_FORMA_PAGAMENTO, payload: '' });
                 dispatch({ type: LIMPA_CARRINHO, payload: [] });
                 dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
                 dispatch({ type: PEDIDO_OK, payload: true });
                 dispatch({ type: SHOW_LOADER, payload: false });
+                
 
 
 
@@ -1434,7 +1435,7 @@ export const enviaPedido = (pedido) => {
         
         
                         dispatch({ type: LIMPA_QTD_CARRINHO, payload: 0 });
-        
+                        dispatch({ type: ATUALIZA_FORMA_PAGAMENTO, payload: '' });
                         dispatch({ type: LIMPA_CARRINHO, payload: [] });
                         dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
                         dispatch({ type: PEDIDO_OK, payload: true });

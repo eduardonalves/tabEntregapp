@@ -10,7 +10,8 @@ import {
   ScrollView,
   Picker,
   Alert,
-  AsyncStorage
+  AsyncStorage,
+  Platform
 } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -577,7 +578,7 @@ class Perfil extends Component {
                     <Text style={styles.txtMsgErro}>{this.props.msgErroCadastro}</Text>
 
                     <Button title="Cadastrar"
-                       color={Color.button}
+                       color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
                       disabled={this.props.show_loader}
                       onPress={() => this._handleCadastraUsuario()} />
                   </View>

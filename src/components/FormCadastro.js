@@ -11,7 +11,8 @@ import {
     Picker,
     Alert,
     AsyncStorage,
-    Platform
+    Platform, 
+    Keyboard
 } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -444,7 +445,7 @@ class FormCadastro extends Component {
                             <Text style={{textAlign:'center', fontSize:16, fontWeight:'bold'}}>Observação:</Text>
                             <Text style={{textAlign:'center', fontSize:16}}>Só aparecerão os bairros cobertos pela entrega.</Text>  
                         </View>
-                        <View style={{flexDirection:'row', padding:10}}>
+                        <View style={{flexDirection:'row', padding:10, marginTop: Platform.OS === 'ios' ? 60:0 }}>
 
                         
                             <Text style={{
@@ -454,7 +455,7 @@ class FormCadastro extends Component {
 
                             <Picker
                                 selectedValue={this.props.estado}
-                                style={{ height: Platform.OS === 'ios' ? 110 : 22, width: 200, flex: 1, justifyContent: "center", marginBottom:16 }}
+                                style={{ height: 22, width: 200, flex: 1, justifyContent: "center", marginBottom:16 }}
                                 onValueChange={(itemValue, itemIndex) => this._handleModificaEstado(itemValue)}
                             >
                                 <Picker.Item label="Selecione" value="" key="0" />
@@ -464,7 +465,7 @@ class FormCadastro extends Component {
                             </Picker>
                         </View>
 
-                        <View style={{flexDirection:'row', padding:10}}>
+                        <View style={{flexDirection:'row', padding:10 , marginTop: Platform.OS === 'ios' ? 60:0 }}>
                             <Text style={{
                                 fontSize: 16, flex: 1,
                                 color: "#7b7b7b"
@@ -472,7 +473,7 @@ class FormCadastro extends Component {
 
                             <Picker
                                 selectedValue={this.props.cidade}
-                                style={{ height: Platform.OS === 'ios' ? 110 : 22, width: 200, flex: 1, justifyContent: "center", marginBottom:16 }}
+                                style={{ height: 22, width: 200, flex: 1, justifyContent: "center", marginBottom:16 }}
                                 onValueChange={(itemValue, itemIndex) => this._handleModificaCidade(itemValue)}
                             >
                                 <Picker.Item label="Selecione" value="" key="-1" />
@@ -480,7 +481,7 @@ class FormCadastro extends Component {
 
                             </Picker>
                         </View>
-                        <View style={{flexDirection:'row', padding:10}}>
+                        <View style={{flexDirection:'row', padding:10 , marginTop: Platform.OS === 'ios' ? 60:0 }}>
                             <Text style={{
                                 fontSize: 16,  flex: 1,
                                 color: "#7b7b7b"
@@ -488,7 +489,7 @@ class FormCadastro extends Component {
 
                             <Picker
                                 selectedValue={this.props.bairro}
-                                style={{ height: Platform.OS === 'ios' ? 110 : 22, width: 200, flex: 1, justifyContent: "center", marginBottom:16 }}
+                                style={{ height: 22, width: 200, flex: 1, justifyContent: "center", marginBottom:16 }}
                                 onValueChange={(itemValue, itemIndex) => this.props.modificaBairro(itemValue)}
                             >
                                 <Picker.Item label="Selecione" value="" key="-1" />
@@ -520,6 +521,8 @@ class FormCadastro extends Component {
                             label="Confirme a Senha" 
                             //placeholderTextColor="#fff" 
                             stylcontainerStylee={styles._bodyInputText} 
+                            blurOnSubmit={false}
+                            onSubmitEditing={()=> Keyboard.dismiss()}
                             onChangeText={texto => this.props.modificaConfirmaSenha(texto)} />
                         
 
@@ -527,8 +530,8 @@ class FormCadastro extends Component {
                         <Text style={styles.txtMsgErro}>{this.props.msgErroCadastro}</Text>
 
                         <Button title="Cadastrar"
-                            color={Color.button}
                             disabled={this.props.show_loader}
+                            color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
                             onPress={() => this._handleCadastraUsuario()} />
 
                     </View>
