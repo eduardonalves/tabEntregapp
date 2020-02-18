@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1f8cac46-5570-40f9-9e32-fced065f0116" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/TabBarIcon.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/TabBarIcon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/navigation/MainTabNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/navigation/MainTabNavigator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Billing.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Billing.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dishes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dishes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FooterCheckout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FooterCheckout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Orders.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Orders.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Restaurants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Restaurants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ViewOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ViewOrder.js" afterDir="false" />
-    </list>
+    <list default="true" id="1f8cac46-5570-40f9-9e32-fced065f0116" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,10 +12,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="1727" />
-    <option name="y" value="37" />
-    <option name="width" value="1382" />
-    <option name="height" value="784" />
+    <option name="x" value="1466" />
+    <option name="width" value="1378" />
+    <option name="height" value="622" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -84,10 +69,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1727" y="37" width="1382" height="784" extended-state="1" />
+    <frame x="1466" y="0" width="1378" height="622" extended-state="1" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32886904" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32985073" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
@@ -97,7 +82,7 @@
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Terminal" order="2" />
-      <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" visible="true" weight="0.32961783" />
+      <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" visible="true" weight="0.444206" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="right" id="Theme Preview" order="1" />
       <window_info anchor="right" id="Palette&#9;" order="2" />

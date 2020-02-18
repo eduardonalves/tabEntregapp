@@ -25,6 +25,7 @@ class Billing extends Component {
     constructor(props) {
         super(props);
         this.props.tiposPagamentoFetch();
+        //console.log(this.props.usuario);
 
     }
     static navigationOptions = ({ navigation }) => {
@@ -48,8 +49,10 @@ class Billing extends Component {
 
         if (nextProps.status_envio_pedido == true) {
             this.props.setStatusEnvioPedido(false);
-
-            this.props.navigation.navigate("ViewOrder", { Atendimento_id: nextProps.pedido.atendimento_id });
+            if(typeof nextProps.pedido != 'undefined'){
+                this.props.navigation.navigate("ViewOrder", { Atendimento_id: nextProps.pedido.atendimento_id });
+            }
+            
         }
     }
     UNSAFE_componentWillUnmount() {

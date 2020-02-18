@@ -1381,35 +1381,69 @@ export const enviaPedido = (pedido) => {
                 clearInterval(interval);
                 loadError = false;
                 passouOk= true;
-                dispatch({ type: PEDIDO_CARREGADO_OK, payload: res.data.resultados.Pedido });
+                
+                console.log(res);
 
 
+                if(res.data.resultados== "errolojafechada" || res.data.resultados== "" || res.data== ""){
+                    Alert.alert(
+                        'Mensagem',
+                        `Ops, no momento não conseguimos enviar seu pedido porque a loja está fechada.`,
+                        [
+                            {
+                                text: 'OK',
+                                //onPress: () => limpaCarrinho(),
+                                style: 'OK',
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                }else if(res.data== "erro")
+                {
+                    Alert.alert(
+                        'Mensagem',
+                        `Houve um erro ao tentar enviar seu pedido, por favor, tente novamente mais tarde. Caso o erro persista, entre em contato com a loja.`,
+                        [
+                            {
+                                text: 'OK',
+                                //onPress: () => limpaCarrinho(),
+                                style: 'OK',
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                }else{
 
-                dispatch({ type: LIMPA_QTD_CARRINHO, payload: 0 });
-                dispatch({ type: ATUALIZA_FORMA_PAGAMENTO, payload: '' });
-                dispatch({ type: LIMPA_CARRINHO, payload: [] });
-                dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
-                dispatch({ type: PEDIDO_OK, payload: true });
+                    Alert.alert(
+                        'Mensagem',
+                        `Pedido enviado com sucesso!`,
+                        [
+                            {
+                                text: 'OK',
+                                onPress: () => limpaCarrinho(),
+                                style: 'OK',
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                    dispatch({ type: PEDIDO_CARREGADO_OK, payload: res.data.resultados.Pedido });
+                    dispatch({ type: LIMPA_QTD_CARRINHO, payload: 0 });
+                    dispatch({ type: ATUALIZA_FORMA_PAGAMENTO, payload: '' });
+                    dispatch({ type: LIMPA_CARRINHO, payload: [] });
+                    dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
+                    dispatch({ type: PEDIDO_OK, payload: true });
+                    
+                    
+                    
+                }
+                
                 dispatch({ type: SHOW_LOADER, payload: false });
                 
-
-
-
-
-                Alert.alert(
-                    'Mensagem',
-                    `Pedido enviado com sucesso!`,
-                    [
-                        {
-                            text: 'OK',
-                            onPress: () => limpaCarrinho(),
-                            style: 'OK',
-                        },
-                    ],
-                    { cancelable: false },
-                );
-
+               // console.log('res');
+                //console.log(res);  
             }).catch(error => {
+               // console.log('error');
+               // console.log(error);
                // dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
                 //dispatch({ type: SHOW_LOADER, payload: false });
                 //dispatch({ type: PEDIDO_NAO_OK, payload: false });
@@ -1509,7 +1543,7 @@ export const setStatusCadastroUsuario = (status) => {
     }
 }
 export const montaPedido = (pedido) => {
-
+    
     let novoPedido = {
         Pedido: {
             filial_id: FILIAL,
@@ -1539,6 +1573,7 @@ export const montaPedido = (pedido) => {
             ponto_referencia: pedido.ponto_referencia,
         },
         Itensdepedido: [],
+        
     }
     let itensPedido = pedido.carrinho.map((v, k) => {
 
@@ -1551,6 +1586,7 @@ export const montaPedido = (pedido) => {
             obs_sis: "",
         });
     });
+    //console.log(novoPedido);
     return novoPedido;
 }
 
