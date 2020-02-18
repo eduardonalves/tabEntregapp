@@ -1,9 +1,10 @@
 {
   "expo": {
-    "name": "GeekGrill",
-    "slug": "GeekGrill",
+    "name": "Geek Grill",
+    "slug": "geek-grill",
     "privacy": "public",
     "sdkVersion": "36.0.0",
+    "owner":"Rudo",
     "platforms": [
       "ios",
       "android",

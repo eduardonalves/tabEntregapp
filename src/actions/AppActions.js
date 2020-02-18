@@ -114,12 +114,16 @@ export const autenticarUsuario = (usuario) => {
                     }
 
                 }
+                console.log('res');
+                console.log(res);
                 dispatch({ type: SHOW_LOADER, payload: false });
                 dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
                 passouOk = true;
             }).catch(error => {
                 loadError = true;
                 passouOk = true;
+                console.log('error');
+                console.log(error);
                 if (loadError == true) {
                     interval = setInterval(() => {
 
@@ -1432,7 +1436,7 @@ export const enviaPedido = (pedido) => {
                     dispatch({ type: LIMPA_CARRINHO, payload: [] });
                     dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
                     dispatch({ type: PEDIDO_OK, payload: true });
-                    
+
                     
                     
                 }
