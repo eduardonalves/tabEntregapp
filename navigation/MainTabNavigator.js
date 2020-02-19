@@ -34,7 +34,7 @@ HomeStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name={
-         Platform.OS === 'ios' ? 'ios-list-box' : 'list-alt' 
+         Platform.OS === 'ios' ? 'ios-list-box' : 'md-list-box' 
       }
      
     />
@@ -56,7 +56,7 @@ LinksStack.navigationOptions = {
     <TabBarIcon 
     focused={focused} 
     name={
-      Platform.OS === 'ios' ? 'ios-cart' : 'shopping-cart' 
+      Platform.OS === 'ios' ? 'ios-cart' : 'md-cart' 
     } 
     
     />
@@ -76,7 +76,7 @@ SettingsStack.navigationOptions = {
   tabBarLabel: 'Perfil',
   tabBarIcon: ({ focused , tintColor }) => (
     <TabBarIcon focused={focused} name={
-      Platform.OS === 'ios' ? 'ios-person' : 'user' 
+      Platform.OS === 'ios' ? 'ios-person' : 'md-person' 
     }   />
   ),
   

@@ -152,7 +152,7 @@ class ListItem extends Component {
                   
                   <Text
                     style={{
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: "bold",
                       color: "#ef6136"
                     }}
@@ -172,11 +172,11 @@ class ListItem extends Component {
                   </Text>
                 </View>
 
-                {<View style={{ flex: 1 }}  >
+                {<View style={{ flex: 1 , marginTop:- 9}}  >
                   <Picker
                     selectedValue={this.state.qtd}
                     style={{
-                      height: 30, width: 100
+                      height: 40, width: 100
                     }}
                     onValueChange={(itemValue, itemIndex) =>
                       this.setState({ qtd: itemValue })

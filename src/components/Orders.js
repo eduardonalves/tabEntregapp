@@ -13,12 +13,14 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  AsyncStorage
+  AsyncStorage,
+  Platform
 } from "react-native";
 
 import ListOrder from "./ListOrder";
 import CartButton from "./common/CartButton";
-import Icon from 'react-native-vector-icons/FontAwesome';
+//import Icon from 'react-native-vector-icons/FontAwesome';
+import { Ionicons } from '@expo/vector-icons';
 import Color from "../../constants/Colors";
 
 class Orders extends Component {
@@ -36,6 +38,7 @@ class Orders extends Component {
         this.props.pedidosFetch(res.id,res.token);
 
         this.interval = setInterval(() => this.props.pedidosFetchInverval(res.id,res.token), 60000);
+       // console.log(res);
         
       }
     ).catch(error => {
@@ -106,7 +109,7 @@ class Orders extends Component {
             padding:50
             
           }} >
-            <Icon name="frown-o" size={200} color="#ef6136" />
+            <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'} size={200} color="#ef6136" />
             <Text style={{fontSize:18 , textAlign:'center'}}>Ops!</Text>
             <Text style={{fontSize:15, textAlign:'center'}}>Não encontramos pedidos cadastrados.</Text>
             
@@ -137,7 +140,7 @@ class Orders extends Component {
               padding:50
               
             }} >
-              <Icon name="frown-o" size={200} color="#ef6136" />
+              <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'} size={200} color="#ef6136" />
               <Text style={{fontSize:18}}>Ops!</Text>
               <Text style={{fontSize:15}}>Houve uma falha ao carregar os pedidos.</Text>
               <Text style={{fontSize:15}}>Tente novamente mais tarde!</Text>

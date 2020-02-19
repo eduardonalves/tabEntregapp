@@ -22,7 +22,7 @@ import foodData from "../food-data.json";
 import ListCart from "./ListCart";
 import ItemOrder from './ItemOrder';
 import CartButton from "./common/CartButton";
-import Icon from 'react-native-vector-icons/FontAwesome';
+//import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, CheckBox } from 'react-native-elements';
 import Billing from "../components/Billing";
 import Color from "../../constants/Colors";
@@ -92,7 +92,7 @@ class ViewOrder extends Component {
   };*/
 
   render() {
-    //console.log('this.props.pedido.Itensdepedido');
+    console.log(this.props.pedido);
     
     if(typeof this.props.pedido.Atendimento != 'undefined'){
       //console.log(this.props.pedido.Itensdepedido);
@@ -465,9 +465,22 @@ class ViewOrder extends Component {
                               padding: 10,
                               //fontWeight:'bold',
                               textAlign:'center',
-                              marginBottom:5, 
+                             // marginBottom:5, 
                           }}>
                           {this.props.pedido.Pedido[0].obs}
+                        </Text>
+                        ):(<View></View>)}
+
+                        {this.props.pedido.Pedido[0].motivocancela != '' ? (
+                          <Text style={{
+                              fontSize: 16,
+                              padding: 10,
+                              //fontWeight:'bold',
+                              textAlign:'center',
+                              marginTop: -40,
+                             // marginBottom:5, 
+                          }}>
+                          {this.props.pedido.Pedido[0].motivocancela}
                         </Text>
                         ):(<View></View>)}
                           

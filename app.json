@@ -1,9 +1,10 @@
 {
   "expo": {
-    "name": "GeekGrill",
-    "slug": "GeekGrill",
+    "name": "Geek Grill",
+    "slug": "geek-grill",
     "privacy": "public",
     "sdkVersion": "36.0.0",
+    "owner":"Rudo",
     "platforms": [
       "ios",
       "android",
@@ -24,7 +25,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rudo.geekgrill",
+      "buildNumber": "1.0.0"
     },
 	"android": {
       "package": "com.rudo.geekgrill",
