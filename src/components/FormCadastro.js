@@ -14,6 +14,8 @@ import {
     Platform, 
     Keyboard
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 import { Text, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import Color from "../../constants/Colors";
@@ -339,8 +341,16 @@ class FormCadastro extends Component {
         });
 
         return  (
+            <KeyboardAwareScrollView
+            enableAutomaticScroll
+            extraScrollHeight={10}
+            enableOnAndroid={true}
+            resetScrollToCoords={{ x: 0, y: 0 }}
+            extraHeight={Platform.select({ android: 200 })}
+            contentContainerStyle={styles.grid}
+            >
             <ScrollView>
-                <View style={styles.grid}>
+                <View>
                     <View style={styles.contentBody}>
                         {
                             this.props.show_loader == true ? (
@@ -537,7 +547,9 @@ class FormCadastro extends Component {
                     </View>
                     
                 </View>
+                <View style={{height:200}}></View>
             </ScrollView>
+            </KeyboardAwareScrollView>
             
         );
     }
@@ -604,9 +616,9 @@ export default connect(mapStateToProps, {
 const styles = StyleSheet.create({
     grid: {
         //flex: 1,
-        padding: 20,
+        padding: 10,
         marginTop: 8,
-        marginBottom: 400,
+        //marginBottom: 400,
     },      
     contentBody: {
         //flex: 4,

@@ -10,8 +10,10 @@ import {
     ActivityIndicator,
     AsyncStorage,
     ScrollView,
-    Platform
+    Platform,
+     
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import Color from "../../constants/Colors";
@@ -140,99 +142,108 @@ class formLogin extends Component {
     render() {
         
         return (
-        <ScrollView>
-            <View style={styles.grid} >
-                <View style={styles.contentHeader}>
-                    <Image source={require("../../assets/images/logo_mini.jpg")} />
-                </View>
-                <View style={styles.contentBody}>
-                {
-                        this.props.show_loader == true ? (
-                            <View
-                            style={{
-                                alignSelf:'center',
-                                opacity: 1.0,
-                                alignItems: 'center',
-                                position: 'absolute',
-                            }}
-                        >
-                            <ActivityIndicator size="large" color="#4099ff"
+        <KeyboardAwareScrollView  
+            enableAutomaticScroll
+            extraScrollHeight={10}
+            enableOnAndroid={true}
+            resetScrollToCoords={{ x: 0, y: 0 }}
+            extraHeight={Platform.select({ android: 200 })}
+            contentContainerStyle={styles.grid}
+                   >
+            <ScrollView>
+                <View style={styles.grid} >
+                    <View style={styles.contentHeader}>
+                        <Image source={require("../../assets/images/logo_mini.jpg")} />
+                    </View>
+                    <View style={styles.contentBody}>
+                    {
+                            this.props.show_loader == true ? (
+                                <View
+                                style={{
+                                    alignSelf:'center',
+                                    opacity: 1.0,
+                                    alignItems: 'center',
+                                    position: 'absolute',
+                                }}
+                            >
+                                <ActivityIndicator size="large" color="#4099ff"
 
-                            animating={true}
-                            hidesWhenStopped={true}
-                            
+                                animating={true}
+                                hidesWhenStopped={true}
+                                
 
-                            />
-                        </View>
-                        ):(
-                            <View
-                            style={{
-                                alignSelf:'center',
-                                opacity: 0.0,
-                                alignItems: 'center',
-                                position: 'absolute',
-                            }}
-                        >
-                            <ActivityIndicator size="large" color="#4099ff"
+                                />
+                            </View>
+                            ):(
+                                <View
+                                style={{
+                                    alignSelf:'center',
+                                    opacity: 0.0,
+                                    alignItems: 'center',
+                                    position: 'absolute',
+                                }}
+                            >
+                                <ActivityIndicator size="large" color="#4099ff"
 
-                            animating={true}
-                            hidesWhenStopped={true}
-                            
+                                animating={true}
+                                hidesWhenStopped={true}
+                                
 
-                            />
-                        </View>
-                        )
-                    }
-                    <Input 
-                        value={this.props.username} 
-                        containerStyle={styles._bodyInputText} 
-                        label="Nome de Usuário" 
-                       
-                        onChangeText={texto => this.props.modificaUsername(texto)} />
-                    <Input 
-                        value={this.props.senha} 
-                        secureTextEntry 
-                        containerStyle={styles._bodyInputText} 
-                        label="Senha" 
+                                />
+                            </View>
+                            )
+                        }
+                        <Input 
+                            value={this.props.username} 
+                            containerStyle={styles._bodyInputText} 
+                            label="Nome de Usuário" 
                         
-                        onChangeText={texto => this.props.modificaSenha(texto)} />
-                    
-                    <Text style={styles._txtMsgErroLogin}>{this.props.msgErroLogin}</Text>
+                            onChangeText={texto => this.props.modificaUsername(texto)} />
+                        <Input 
+                            value={this.props.senha} 
+                            secureTextEntry 
+                            containerStyle={styles._bodyInputText} 
+                            label="Senha" 
+                            
+                            onChangeText={texto => this.props.modificaSenha(texto)} />
+                        
+                        <Text style={styles._txtMsgErroLogin}>{this.props.msgErroLogin}</Text>
 
-                    <View style={{
-                        flexDirection: "row",
-                    }}>
-                        <Text style={styles._bodyText}>Ainda não tem cadastro?</Text>
-                        <TouchableHighlight
-                            onPress={() => this.props.navigation.navigate("FormCadastro")}
-                        >
-                        <Text style={styles._LinkText}> Cadastre-se</Text>
-                        </TouchableHighlight>
-                    </View>
-                    <View style={{
-                        flexDirection: "row",
-                    }}>
-                        <Text style={styles._bodyText}>Não lembra a senha?</Text>
-                        <TouchableHighlight
-                            onPress={() => this.props.navigation.navigate("FormRecover")}
-                        >
-                        <Text style={styles._LinkText}> Recuperar senha.</Text>
-                        </TouchableHighlight>
-                    </View>
+                        <View style={{
+                            flexDirection: "row",
+                        }}>
+                            <Text style={styles._bodyText}>Ainda não tem cadastro?</Text>
+                            <TouchableHighlight
+                                onPress={() => this.props.navigation.navigate("FormCadastro")}
+                            >
+                            <Text style={styles._LinkText}> Cadastre-se</Text>
+                            </TouchableHighlight>
+                        </View>
+                        <View style={{
+                            flexDirection: "row",
+                        }}>
+                            <Text style={styles._bodyText}>Não lembra a senha?</Text>
+                            <TouchableHighlight
+                                onPress={() => this.props.navigation.navigate("FormRecover")}
+                            >
+                            <Text style={styles._LinkText}> Recuperar senha.</Text>
+                            </TouchableHighlight>
+                        </View>
+                        
+
+                        </View>
+                        
+                        <View style={styles.contentFooter}>
+                            {this.renderBtnEntrar()}
+                        </View>
                     
 
+                        
                     </View>
                     
-                    <View style={styles.contentFooter}>
-                        {this.renderBtnEntrar()}
-                    </View>
-                   
-
-                    
-                </View>
-                
-        </ScrollView>
+            </ScrollView>
             
+        </KeyboardAwareScrollView>
         );
     }
 }
@@ -262,7 +273,7 @@ const styles = StyleSheet.create({
     },
     grid: {
         flex: 1,
-        padding: 20
+        padding: 10
     },
     contentHeader: {
         flex: 4,

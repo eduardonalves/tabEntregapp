@@ -13,6 +13,7 @@ import {
   AsyncStorage,
   Platform
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Text, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import Color from "../../constants/Colors";
@@ -417,8 +418,18 @@ class Perfil extends Component {
     });
 
     return (
+      <KeyboardAwareScrollView
+        enableAutomaticScroll
+        extraScrollHeight={10}
+        enableOnAndroid={true}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        extraHeight={Platform.select({ android: 200 })}
+        contentContainerStyle={styles.grid}
+      >
+
+      
       <ScrollView>
-        <View style={styles.grid}>
+        <View >
           <View style={styles.contentBody}>
 
             {
@@ -649,7 +660,7 @@ class Perfil extends Component {
             )
         }
       </ScrollView>
-
+      </KeyboardAwareScrollView>
     );
   }
 

@@ -114,16 +114,16 @@ export const autenticarUsuario = (usuario) => {
                     }
 
                 }
-                console.log('res');
-                console.log(res);
+                //console.log('res');
+                //console.log(res);
                 dispatch({ type: SHOW_LOADER, payload: false });
                 dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
                 passouOk = true;
             }).catch(error => {
                 loadError = true;
                 passouOk = true;
-                console.log('error');
-                console.log(error);
+                //console.log('error');
+                //console.log(error);
                 if (loadError == true) {
                     interval = setInterval(() => {
 
@@ -174,7 +174,7 @@ export const autenticarUsuario = (usuario) => {
                     clearInterval(interval);
                     passouOk = true;
                     loadError = false;
-                    dispatch({ type: SHOW_LOADER, payload: false });
+                    
                     Alert.alert(
                         'Mensagem',
                         `Ops, houve um erro ao tentar ao tentar autenticar seu usuário, por favor, verifique sua internet e tente novamente, caso isto não funcione, por favor entre em contato com a loja! Obrigado ;-D`,
@@ -187,7 +187,7 @@ export const autenticarUsuario = (usuario) => {
                         { cancelable: false },
                     );
                 }
-
+                dispatch({ type: SHOW_LOADER, payload: false });
             }, 10000);
         }
 
