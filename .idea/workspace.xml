@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1f8cac46-5570-40f9-9e32-fced065f0116" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/AppActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/AppActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FormCadastro.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormCadastro.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FormLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormLogin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FormRecover.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormRecover.js" afterDir="false" />
-    </list>
+    <list default="true" id="1f8cac46-5570-40f9-9e32-fced065f0116" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +21,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -39,7 +33,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -79,7 +72,7 @@
     <frame x="1466" y="0" width="1378" height="622" extended-state="0" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32985073" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32910448" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />

@@ -124,7 +124,7 @@ class ViewOrder extends Component {
                         //color: "#a92319",
                         textAlign:'center'
                       }}>
-                      {this.props.pedido.Atendimento.id}
+                      {this.props.pedido.Pedido[0].id}
                       </Text>
                   </View>
                   <View style={{
@@ -477,7 +477,7 @@ class ViewOrder extends Component {
                               padding: 10,
                               //fontWeight:'bold',
                               textAlign:'center',
-                              marginTop: -40,
+                              marginTop: 0,
                              // marginBottom:5, 
                           }}>
                           {this.props.pedido.Pedido[0].motivocancela}
