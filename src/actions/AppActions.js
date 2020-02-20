@@ -1386,7 +1386,7 @@ export const enviaPedido = (pedido) => {
                 loadError = false;
                 passouOk= true;
                 
-                console.log(res);
+               // console.log(res);
 
 
                 if(res.data.resultados== "errolojafechada" || res.data.resultados== "" || res.data== ""){
@@ -1402,11 +1402,25 @@ export const enviaPedido = (pedido) => {
                         ],
                         { cancelable: false },
                     );
-                }else if(res.data== "erro")
+                }else if(res.data.resultados== "erro")
                 {
                     Alert.alert(
                         'Mensagem',
                         `Houve um erro ao tentar enviar seu pedido, por favor, tente novamente mais tarde. Caso o erro persista, entre em contato com a loja.`,
+                        [
+                            {
+                                text: 'OK',
+                                //onPress: () => limpaCarrinho(),
+                                style: 'OK',
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                }else if(res.data.resultados == "erroUsuarioInativo")
+                {
+                    Alert.alert(
+                        'Mensagem',
+                        `Houve um erro inesperado ao tentar enviar seu pedido, por favor, tente novamente mais tarde. Caso o erro persista, entre em contato com a loja.`,
                         [
                             {
                                 text: 'OK',

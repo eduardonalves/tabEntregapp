@@ -166,11 +166,13 @@ class FormCadastro extends Component {
                 telefone: this.props.telefone,
                 filial_id: FILIAL,
                 salt: SALT,
-                empresa_id:EMPRESA
+                empresa_id:EMPRESA,
+                ativo: 1,
             }
             
         }
         if(this._isValidUser()){
+            //console.log(usuario);
             this.props.cadastraUsuario(usuario);
         }
         
