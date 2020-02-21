@@ -67,7 +67,7 @@ class Perfil extends Component {
     this.props.limpaFormularioCadastro();
     this.props.showMyLoader(true);
     let userData = this.getToken();
-    console.log(userData);
+   // console.log(userData);
     userData.then(
       res => {
         
@@ -247,7 +247,7 @@ class Perfil extends Component {
 
 
     } else {
-      console.log('is invalid user');
+      //console.log('is invalid user');
     }
 
   }

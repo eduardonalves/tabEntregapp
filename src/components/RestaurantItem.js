@@ -86,7 +86,7 @@ import { categoriasFetch } from '../actions/AppActions';
                 color: "#ffffff"
               }}
             >
-              {this.props.location}
+              Categoria
             </Text>
           </View>
         </View>
