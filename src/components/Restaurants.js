@@ -12,7 +12,9 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
+  BackHandler,
+  Alert
 } from "react-native";
 //import restaurantsData from "../api/restaurants.json";
 import RestaurantItem from "./RestaurantItem";
@@ -27,10 +29,45 @@ class Restaurants extends Component {
     this.props.showMyLoaderCategory(true);
     this.props.categoriasFetch();
     this.interval = setInterval(() => this.props.categoriasFetchInterval(), 60000);
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
+
+  handleNaviagation = () => {
+    this.props.navigation.navigate("Dishes");
+  }
+
+  componentWillMount() {
+      BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
   componentWillUnmount() {
     clearInterval(this.interval);
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
+
+  handleBackButtonClick() {
+      
+      Alert.alert(
+        'Sair',
+        `Deseja mesmo sair do aplicativo`,
+        [
+          {
+            text: 'Sim',
+            onPress: () =>  BackHandler.exitApp(),
+          },
+          {
+            text: 'Não',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+        ],
+        { cancelable: false },
+      );
+      //NavigationAction.back();
+      return true;
+  }
+
+ 
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: "Cardápio",

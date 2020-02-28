@@ -9,7 +9,9 @@ import {
   TouchableOpacity,
   Button,
   Platform,
+  BackHandler
 } from "react-native";
+import { NavigationAction } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 //import Icon from 'react-native-vector-icons/FontAwesome';
@@ -26,10 +28,12 @@ import ListItemIos from "./ListItemIos";
 
 
 
+
 class Dishes extends Component {
   constructor(props) {
     super(props);
     this.props.produtosFetch(this.props.navigation.getParam('categoria_id'));
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -55,6 +59,22 @@ class Dishes extends Component {
   handleNaviagation = () => {
     this.props.navigation.navigate("Dishes");
   };
+
+  componentWillMount() {
+      BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  handleBackButtonClick() {
+      this.props.navigation.navigate("Main");
+      //NavigationAction.back();
+      return true;
+  }
+
+  
   render() {
     
 
@@ -110,6 +130,7 @@ class Dishes extends Component {
                     description={item.Produto.descricao}
                     isVegetarian={item.Produto.parte_compre_ganhe}
                     handleNaviagation={this.handleNaviagation}
+                    
                   />
                 )}
               />
@@ -128,6 +149,7 @@ class Dishes extends Component {
                   description={item.Produto.descricao}
                   isVegetarian={item.Produto.parte_compre_ganhe}
                   handleNaviagation={this.handleNaviagation}
+                 
                 />
               )}
             />
