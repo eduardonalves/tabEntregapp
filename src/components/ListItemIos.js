@@ -150,17 +150,21 @@ class ListItemIos extends Component {
                         color: "#ef6136"
                       }}
                     >
-                      <NumberFormat
-                        value={preco}
-                        displayType={'text'}
-                        renderText={value => <Text>{value}</Text>}
-                        thousandSeparator={'.'}
-                        decimalScale={2}
-                        fixedDecimalScale={true}
-                        prefix={'R$ '}
-                        decimalSeparator={','}
-
+                      {this.props.disponivel == 1? (
+                      <NumberFormat 
+                          value={preco } 
+                          displayType={'text'} 
+                          renderText={value => <Text>{value}</Text>}
+                          thousandSeparator={'.'}
+                          decimalScale={2} 
+                          fixedDecimalScale={true}
+                          prefix={'R$ '}
+                          decimalSeparator={','}
+                      
                       />
+                    ):(
+                      'N/D'
+                    )}
 
                     </Text>
 
@@ -194,6 +198,7 @@ class ListItemIos extends Component {
                   onPress={e => this.handleClick() }
                   color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
                   title="Adicionar"
+                  disabled={!this.props.disponivel}
                   style={{
                     backgroundColor: Color.button,
                     

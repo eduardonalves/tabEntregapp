@@ -129,6 +129,7 @@ class Dishes extends Component {
                     price={item.Produto.preco_venda}
                     description={item.Produto.descricao}
                     isVegetarian={item.Produto.parte_compre_ganhe}
+                    disponivel={item.Produto.disponivel}
                     handleNaviagation={this.handleNaviagation}
                     
                   />
@@ -148,6 +149,7 @@ class Dishes extends Component {
                   price={item.Produto.preco_venda}
                   description={item.Produto.descricao}
                   isVegetarian={item.Produto.parte_compre_ganhe}
+                  disponivel={item.Produto.disponivel}
                   handleNaviagation={this.handleNaviagation}
                  
                 />
