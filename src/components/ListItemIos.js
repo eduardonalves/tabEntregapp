@@ -59,7 +59,7 @@ class ListItemIos extends Component {
     this.props.handleNaviagation();
     Alert.alert(
       'Adicionar Produto',
-      `Deseja mesmo adicionar o produto ${this.props.name} ao seu pedido?`,
+      `Deseja mesmo adicionar o produto ${this.props.name} à sua sacola de pedidos?`,
       [
         {
           text: 'Sim',
@@ -79,7 +79,7 @@ class ListItemIos extends Component {
     preco = preco.replace(".", ",");
     return (
       <View>
-        <TouchableOpacity onPress={this.handleClick} disabled={this.props.show_loader}>
+        <View >
           <View
             elevation={4}
             style={{
@@ -190,6 +190,20 @@ class ListItemIos extends Component {
                     // flexDirection: "row",
                   }}
                 />
+                <Button
+                  onPress={e => this.handleClick() }
+                  color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
+                  title="Adicionar"
+                  style={{
+                    backgroundColor: Color.button,
+                    
+                    //paddingLeft: 16,
+                    //paddingRight: 16,
+                    //paddingTop: 8,
+                    //paddingBottom: 8,
+                    // flexDirection: "row",
+                  }}
+                />
                 </View>
               </View>
               <View style={{
@@ -241,7 +255,7 @@ class ListItemIos extends Component {
             
           </View>
 
-        </TouchableOpacity>
+        </View>
 
       </View>
     );
