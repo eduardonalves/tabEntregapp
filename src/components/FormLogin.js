@@ -13,6 +13,7 @@ import {
     Platform,
      
 } from 'react-native';
+import { HeaderBackButton } from 'react-navigation-stack';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -36,11 +37,12 @@ class formLogin extends Component {
         super(props);
         //this.props.limpaFormularioCadastro();     
         //this.props.setStatusCadastroUsuario('');
+        //this.storeToken({})
         let storeData = this.getToken();
         //console.log('storeData');
         //console.log(storeData);
         storeData.then(resp => {
-            console.log(resp);
+            //console.log(resp);
             if(typeof resp.token != 'undefined'){
                 
                 this.props.setStatusCadastroUsuario(resp);
@@ -90,7 +92,8 @@ class formLogin extends Component {
                 elevation: 0,
                 shadowOpacity: 0,
                 backgroundColor: Color.headerBar
-            }
+            },
+            headerLeft: <HeaderBackButton onPress={() => navigation.navigate("Main")}  tintColor="#fff"  />,
         };
     }
 

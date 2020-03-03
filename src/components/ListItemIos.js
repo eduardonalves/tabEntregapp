@@ -52,27 +52,44 @@ class ListItemIos extends Component {
     this.props.showMyLoader(false);
   }
   handleClick = () => {
-    this.props.showMyLoader(true);
-    this.setState({
-      isClicked: !this.state.isClicked
-    });
-    this.props.handleNaviagation();
-    Alert.alert(
-      'Adicionar Produto',
-      `Deseja mesmo adicionar o produto ${this.props.name} à sua sacola de pedidos?`,
-      [
-        {
-          text: 'Sim',
-          onPress: () => this.handleAddToCart(),
-        },
-        {
-          text: 'Não',
-          onPress: () => this.props.showMyLoader(false),
-          style: 'cancel',
-        },
-      ],
-      { cancelable: false },
-    );
+    if(this.props.usuario==''){
+      this.props.handleGoToLogin();
+      Alert.alert(
+        'Mensagem',
+        `Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`,
+        [
+          {
+            text: 'OK',
+            //onPress: () => console.log('clicou'),
+            style: 'WARNING',
+          },
+        ],
+        { cancelable: true },
+      );
+    }else{
+      this.props.showMyLoader(true);
+      this.setState({
+        isClicked: !this.state.isClicked
+      });
+      this.props.handleNaviagation();
+      Alert.alert(
+        'Adicionar Produto',
+        `Deseja mesmo adicionar o produto ${this.props.name} à sua sacola de pedidos?`,
+        [
+          {
+            text: 'Sim',
+            onPress: () => this.handleAddToCart(),
+          },
+          {
+            text: 'Não',
+            onPress: () => this.props.showMyLoader(false),
+            style: 'cancel',
+          },
+        ],
+        { cancelable: false },
+      );
+    }
+    
   };
   render() {
     let preco = this.props.price.toString();
