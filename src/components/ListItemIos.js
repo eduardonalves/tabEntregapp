@@ -9,7 +9,8 @@ import {
   Alert,
   Picker,
   TouchableHighlight,
-  Platform
+  Platform,
+  AsyncStorage
 } from "react-native";
 import { Overlay } from 'react-native-elements';
 import { bindActionCreators } from 'redux';
@@ -19,11 +20,23 @@ import CustomModal from './common/CustomModal';
 import Color from '../../constants/Colors';
 import NumberFormat from 'react-number-format';
 
-import { addToCart, updateItemId, updateCart, setModalVisible, showMyLoader } from '../actions/AppActions';
+import { addToCart, updateItemId, updateCart, setModalVisible, showMyLoader, setStatusCadastroUsuario } from '../actions/AppActions';
 
 class ListItemIos extends Component {
   constructor(props) {
     super(props);
+    let storeData = this.getToken();
+    //console.log('storeData');
+    //console.log(storeData);
+    storeData.then(resp => {
+        //console.log(resp);
+        if(typeof resp.token != 'undefined'){
+            
+            this.props.setStatusCadastroUsuario(resp);
+            
+        }
+        
+        });
     this.state = {
       isClicked: false,
       qtd: 1,
@@ -31,7 +44,24 @@ class ListItemIos extends Component {
     };
     //console.log(this.props);
   }
-
+  async storeToken(user) {
+    try {
+       await AsyncStorage.setItem("userData", JSON.stringify(user));
+    } catch (error) {
+      //console.log("Something went wrong", error);
+    }
+}
+async getToken() {
+    try {
+      let userData = await AsyncStorage.getItem("userData");
+      let data = JSON.parse(userData);
+      //console.log(data);
+      return data;
+    } catch (error) {
+      //console.log("Something went wrong", error);
+      return false;
+    }
+}
 
   handleAddToCart = () => {
     this.props.showMyLoader(true);
@@ -52,7 +82,9 @@ class ListItemIos extends Component {
     this.props.showMyLoader(false);
   }
   handleClick = () => {
-    if(this.props.usuario==''){
+    console.log('this.props.usuario');
+    console.log(this.props.usuario);
+    if(this.props.usuario ==''){
       this.props.handleGoToLogin();
       Alert.alert(
         'Mensagem',
@@ -297,5 +329,5 @@ const mapStateToProps = state => ({
 });
 
 
-const mapDispatchToProps = dispatch => bindActionCreators({ addToCart, updateItemId, updateCart, setModalVisible, showMyLoader }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ addToCart, updateItemId, updateCart, setModalVisible, showMyLoader, setStatusCadastroUsuario }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ListItemIos);
