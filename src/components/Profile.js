@@ -70,28 +70,46 @@ class Perfil extends Component {
    // console.log(userData);
     userData.then(
       res => {
+        if(typeof res.token == 'undefined'){
+                
+          this.props.showMyLoader(false);
+          this.props.navigation.navigate('RoutesLogin');
+          Alert.alert(
+            'Mensagem',
+            `Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`,
+            [
+              {
+                text: 'OK',
+                //onPress: () => console.log('clicou'),
+                style: 'WARNING',
+              },
+            ],
+            { cancelable: true },
+          );
+          
+        }else{
+          this.props.modificaCarregaEstadoFalha(false);
+          this.props.modificaIdUsuario(res.id);
+          this.props.modificaEmail(res.email);
+          this.props.modificaSenha(res.password);
+          this.props.modificaSenhaAntiga(res.password);
+          this.props.modificaNome(res.nome);
+          this.props.modificaEndereco(res.logradouro);
+          this.props.modificaNumero(res.numero);
+          this.props.modificaComplemento(res.complemento);
+          this.props.modificaPontoReferencia(res.ponto_referencia);
+          this.props.modificaEstado(res.uf);
+          this.props.modificaCidade(res.cidade);
+          this.props.modificaBairro(res.bairro);
+          this.props.modificaTelefone(res.telefone);
+          this.props.modificaConfirmaSenha(res.password);
+          this.props.modificaUsername(res.username);
+          this.props.estadosFetch();
+          this.props.cidadesFetch(res.uf);
+          this.props.bairroFetch(res.cidade);
+          this.props.showMyLoader(false);
+        }
         
-        this.props.modificaCarregaEstadoFalha(false);
-        this.props.modificaIdUsuario(res.id);
-        this.props.modificaEmail(res.email);
-        this.props.modificaSenha(res.password);
-        this.props.modificaSenhaAntiga(res.password);
-        this.props.modificaNome(res.nome);
-        this.props.modificaEndereco(res.logradouro);
-        this.props.modificaNumero(res.numero);
-        this.props.modificaComplemento(res.complemento);
-        this.props.modificaPontoReferencia(res.ponto_referencia);
-        this.props.modificaEstado(res.uf);
-        this.props.modificaCidade(res.cidade);
-        this.props.modificaBairro(res.bairro);
-        this.props.modificaTelefone(res.telefone);
-        this.props.modificaConfirmaSenha(res.password);
-        this.props.modificaUsername(res.username);
-        this.props.showMyLoader(true);
-        this.props.estadosFetch();
-        this.props.cidadesFetch(res.uf);
-        this.props.bairroFetch(res.cidade);
-        this.props.showMyLoader(false);
       }
       
     ).catch(error => {

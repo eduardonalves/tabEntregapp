@@ -74,6 +74,13 @@ class Dishes extends Component {
       return true;
   }
 
+  handleGoToLogin  = () => {
+    //alert('dsfda');
+    this.props.navigation.navigate("RoutesLogin");
+    //NavigationAction.back();
+    //return true;
+  }
+
   
   render() {
     
@@ -131,6 +138,7 @@ class Dishes extends Component {
                     isVegetarian={item.Produto.parte_compre_ganhe}
                     disponivel={item.Produto.disponivel}
                     handleNaviagation={this.handleNaviagation}
+                    handleGoToLogin={this.handleGoToLogin}
                     
                   />
                 )}
@@ -151,6 +159,7 @@ class Dishes extends Component {
                   isVegetarian={item.Produto.parte_compre_ganhe}
                   disponivel={item.Produto.disponivel}
                   handleNaviagation={this.handleNaviagation}
+                  handleGoToLogin={this.handleGoToLogin}
                  
                 />
               )}
