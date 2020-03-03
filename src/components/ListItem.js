@@ -28,6 +28,8 @@ class ListItem extends Component {
     let storeData = this.getToken();
     //console.log('storeData');
     //console.log(storeData);
+    //console.log('this.props.usuario');
+    //console.log(this.props.usuario);
     storeData.then(resp => {
       //console.log(resp);
       if(typeof resp.token != 'undefined'){

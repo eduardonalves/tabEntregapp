@@ -96,6 +96,7 @@ export const autenticarUsuario = (usuario) => {
                     if (res.data.ultimopedido == 'ErroLogin') {
 
                         clearInterval(interval);
+                        
                         Alert.alert(
                             'Mensagem',
                             `Ops, houve um erro ao tentar te autenticar, provalvelmente seu usuário ou senha estão errados, por favor tente novamente!`,
@@ -142,11 +143,13 @@ export const autenticarUsuario = (usuario) => {
                 if (contVezesErrou < 5) {
                     axios.post(`${APP_URL}/RestClientes/loginmobile.json`, usuario)
                         .then(res => {
-
+                            //console.log('res');
+                           // console.log(res);
                             loadError = false;
                             if (typeof res.data.ultimopedido != 'undefined') {
                                 if (res.data.ultimopedido == 'ErroLogin') {
 
+                                    clearInterval(interval);
                                     clearInterval(interval);
                                     Alert.alert(
                                         'Mensagem',
@@ -171,10 +174,11 @@ export const autenticarUsuario = (usuario) => {
                             passouOk = true;
                         });
                 } else {
+                    //console.log()
                     clearInterval(interval);
                     passouOk = true;
                     loadError = false;
-                    
+                    clearInterval(interval);
                     Alert.alert(
                         'Mensagem',
                         `Ops, houve um erro ao tentar ao tentar autenticar seu usuário, por favor, verifique sua internet e tente novamente, caso isto não funcione, por favor entre em contato com a loja! Obrigado ;-D`,
@@ -314,6 +318,7 @@ export const recuperarSenha = (usuario) => {
                     passouOk = true;
                     loadError = false;
                     dispatch({ type: SHOW_LOADER, payload: false });
+                    clearInterval(interval);
                     Alert.alert(
                         'Mensagem',
                         `Ops, houve um erro ao tentar ao tentar recuperar sua senha, por favor, verifique sua internet e tente novamente, caso isto não funcione, por favor entre em contato com a loja! Obrigado ;-D`,

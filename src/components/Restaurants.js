@@ -30,6 +30,7 @@ class Restaurants extends Component {
     this.props.categoriasFetch();
     this.interval = setInterval(() => this.props.categoriasFetchInterval(), 60000);
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+    
   }
 
   handleNaviagation = () => {

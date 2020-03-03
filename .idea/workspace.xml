@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1f8cac46-5570-40f9-9e32-fced065f0116" name="Default Changelist" comment="" />
+    <list default="true" id="1f8cac46-5570-40f9-9e32-fced065f0116" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/navigation/AppNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/navigation/AppNavigator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/AppActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/AppActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ListItemIos.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListItemIos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Restaurants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Restaurants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ViewOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ViewOrder.js" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +77,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="170" y="91" width="1026" height="546" extended-state="1" />
+    <frame x="170" y="91" width="1026" height="546" extended-state="0" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.31578946" />

@@ -26,6 +26,7 @@ class ListItemIos extends Component {
   constructor(props) {
     super(props);
     let storeData = this.getToken();
+    
     //console.log('storeData');
     //console.log(storeData);
     storeData.then(resp => {

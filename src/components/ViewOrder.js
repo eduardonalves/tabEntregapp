@@ -520,9 +520,29 @@ class ViewOrder extends Component {
                             fontSize: 16,
                             //fontWeight:'bold',
                             textAlign:'center',
-                            marginBottom:5,   
+                            
                         }}>
                            {this.props.pedido.Pedido[0].ponto_referencia != '' && this.props.pedido.Pedido[0].ponto_referencia != null  ? '' + this.props.pedido.Pedido[0].ponto_referencia :''}
+                        </Text>
+                        <Text style={{
+                            fontSize: 16,
+                            fontWeight:'bold',
+                            textAlign:'center',
+                            marginBottom:5, 
+                        }}>
+                            {this.props.pedido.Filial.nome} - Dúvidas e Informações 
+                        </Text>
+                        <Text style={{
+                            fontSize: 16,
+                            //fontWeight:'bold',
+                            textAlign:'center',
+                            marginBottom:5,   
+                        }}>
+                                           
+                           {this.props.pedido.Filial.telefone1 != '' ? 'WhatsApp: '+ this.props.pedido.Filial.telefone1 +' ' :''} 
+                           {this.props.pedido.Filial.telefone2 != '' ? '\n'+'Telefone : '+ this.props.pedido.Filial.telefone2 +' '  :''}
+                           {this.props.pedido.Filial.telefone3 != '' ? '\n'+'Telefone : '+ this.props.pedido.Filial.telefone3 +' ' :''}
+                           {this.props.pedido.Filial.email != '' ? '\n'+'E-mail : '+ this.props.pedido.Filial.email +' ' :''} 
                         </Text>
                     </View>
                     
