@@ -44,7 +44,24 @@ class ListItem extends Component {
     };
     //console.log(this.props);
   }
-  
+  async storeToken(user) {
+    try {
+       await AsyncStorage.setItem("userData", JSON.stringify(user));
+    } catch (error) {
+      //console.log("Something went wrong", error);
+    }
+}
+async getToken() {
+    try {
+      let userData = await AsyncStorage.getItem("userData");
+      let data = JSON.parse(userData);
+      //console.log(data);
+      return data;
+    } catch (error) {
+      //console.log("Something went wrong", error);
+      return false;
+    }
+}
   
   handleAddToCart = () => {
     this.props.showMyLoader(true);
@@ -269,7 +286,7 @@ class ListItem extends Component {
                   onPress={this.handleClick} 
                   color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
                   title="Adicionar"
-                  disabled={!this.props.disponivel}
+                  disabled={!this.props.disponivel || this.props.show_loader   }
                   style={{
                     backgroundColor: Color.button,
                     

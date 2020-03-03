@@ -247,7 +247,7 @@ async getToken() {
                   onPress={e => this.handleClick() }
                   color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
                   title="Adicionar"
-                  disabled={!this.props.disponivel}
+                  disabled={!this.props.disponivel || this.props.show_loader   }
                   style={{
                     backgroundColor: Color.button,
                     
