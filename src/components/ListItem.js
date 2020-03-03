@@ -9,7 +9,8 @@ import {
   Alert,
   Picker,
   TouchableHighlight,
-  Platform
+  Platform,
+  AsyncStorage
 } from "react-native";
 import { Overlay } from 'react-native-elements';
 import { bindActionCreators } from 'redux';
@@ -19,11 +20,23 @@ import CustomModal from './common/CustomModal';
 import Color  from '../../constants/Colors';
 import NumberFormat from 'react-number-format';
 
-import { addToCart, updateItemId, updateCart, setModalVisible, showMyLoader } from '../actions/AppActions';
+import { addToCart, updateItemId, updateCart, setModalVisible, showMyLoader, setStatusCadastroUsuario } from '../actions/AppActions';
 
 class ListItem extends Component {
   constructor(props) {
     super(props);
+    let storeData = this.getToken();
+    //console.log('storeData');
+    //console.log(storeData);
+    storeData.then(resp => {
+      //console.log(resp);
+      if(typeof resp.token != 'undefined'){
+          
+          this.props.setStatusCadastroUsuario(resp);
+          
+      }
+    
+    });
     this.state = {
       isClicked: false,
       qtd: 1,
@@ -294,5 +307,5 @@ const mapStateToProps = state => ({
 });
 
 
-const mapDispatchToProps = dispatch => bindActionCreators({ addToCart, updateItemId, updateCart, setModalVisible, showMyLoader }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ addToCart, updateItemId, updateCart, setModalVisible, showMyLoader, setStatusCadastroUsuario }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ListItem);
