@@ -59,6 +59,7 @@ const INITIAL_STATE = {
     estado_nome:'',
     bairro_nome:'',
     cidade_nome:'',
+    is_valid_token:'',
 };
 
 import {
@@ -129,7 +130,8 @@ import {
     USUARIO_ATUALIZOU_CADASTRO,
     MODIFICA_NOME_ESTADO,
     MODIFICA_NOME_CIDADE,
-    MODIFICA_NOME_BAIRRO
+    MODIFICA_NOME_BAIRRO,
+    IS_VALID_TOKEN,
 
 } from '../actions/ActionTypes';
 
@@ -138,6 +140,8 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case MODIFICA_SENHA_ANTIGA:
             return { ...state, senha_antiga: action.payload };
+        case IS_VALID_TOKEN:
+            return { ...state, is_valid_token: action.payload };
         case USUARIO_ATUALIZOU_CADASTRO:
             return { ...state, usuario_atualizou_cadastro: action.payload };
         case MODIFICA_ID_USUARIO:

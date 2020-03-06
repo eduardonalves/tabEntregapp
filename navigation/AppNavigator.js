@@ -13,10 +13,14 @@ import Cart from '../src/components/Cart';
 import Billing from '../src/components/Billing';
 import Restaurants from '../src/components/Restaurants';
 import FormLogin from '../src/components/FormLogin';
+
+import MenuReward from '../src/components/MenuReward';
+import Jokenpo from '../src/components/Jokenpo';
 import FormCadastro from '../src/components/FormCadastro';
 import FormRecover from '../src/components/FormRecover';
 import ViewOrder from '../src/components/ViewOrder';
 import Color from '../constants/Colors';
+import MyGifts from '../src/components/MyGifts';
 
 const Routes = createStackNavigator(
   {
@@ -24,7 +28,10 @@ const Routes = createStackNavigator(
     Cart: {screen: Cart},
     Billing: {screen: Billing},
     Restaurants:{screen: Restaurants},
+    MenuReward:{screen: MenuReward},
     ViewOrder:{screen: ViewOrder},
+    Jokenpo:{screen:Jokenpo},
+    MyGifts: {screen:MyGifts}
   },
   {
     initialRouteName: "Dishes",

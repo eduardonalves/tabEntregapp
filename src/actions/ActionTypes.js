@@ -110,3 +110,7 @@ export const SHOW_LOADER_CATEGORIA ='show_loader_categoria';
 export const SHOW_LOADER_PRODUTO ='show_loader_produto';
 
 
+//Loader
+export const IS_VALID_TOKEN = 'is_valid_token';
+
+

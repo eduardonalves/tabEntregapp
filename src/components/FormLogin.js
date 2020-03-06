@@ -46,6 +46,7 @@ class formLogin extends Component {
             if(typeof resp.token != 'undefined'){
                 
                 this.props.setStatusCadastroUsuario(resp);
+                this.props.validaToken(res.id,res.token);
                 this.props.navigation.navigate('Main');
             }
             

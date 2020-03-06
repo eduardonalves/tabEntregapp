@@ -65,7 +65,8 @@ import {
     USUARIO_ATUALIZOU_CADASTRO,
     MODIFICA_NOME_ESTADO,
     MODIFICA_NOME_CIDADE,
-    MODIFICA_NOME_BAIRRO
+    MODIFICA_NOME_BAIRRO,
+    IS_VALID_TOKEN
 } from './ActionTypes';
 
 import {
@@ -870,6 +871,7 @@ export const cidadesFetchInterval = (estado) => {
         }
     }
 }
+
 export const bairroFetch = (cidade) => {
     return dispatch => {
         dispatch({ type: CARREGA_BAIRRO, payload: [] });
@@ -1534,6 +1536,37 @@ export const enviaPedido = (pedido) => {
     }
 }
 
+
+export const validaToken = (usuario,token) => {
+    return dispatch => {
+        
+        axios.get(`${APP_URL}/RestClientes/validatoken.json?fp=${FILIAL}&lj=${EMPRESA}&clt=${usuario}&token=${token}&limit=20`)
+        .then(res => {
+           
+           
+            
+            dispatch({ type: IS_VALID_TOKEN, payload: res.data.users });
+        }).catch(error => {
+            //console.log('errou cli');
+        });
+    }
+    
+}
+
+export const entrarJokenpo = (usuario,token) => {
+    return dispatch => {
+        
+        axios.get(`${APP_URL}/RestClientes/temmoedasparajogar.json?fp=${FILIAL}&lj=${EMPRESA}&clt=${usuario}&token=${token}&limit=20`)
+        .then(res => {
+            
+        }).catch(error => {
+            //console.log('errou cli');
+        });
+    }
+    
+}
+
+
 export const showMyLoader = (status) => {
     return dispatch => {
         dispatch({ type: SHOW_LOADER, payload: status })
@@ -1780,3 +1813,5 @@ export const modificaNomeBairro = (texto) => {
         dispatch({ type: MODIFICA_NOME_BAIRRO, payload: texto });
     }
 }
+
+

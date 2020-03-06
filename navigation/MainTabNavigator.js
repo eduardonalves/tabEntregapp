@@ -12,6 +12,9 @@ import Restaurants from '../src/components/Restaurants';
 import Orders from '../src/components/Orders';
 import Profile from '../src/components/Profile';
 
+import MenuReward from '../src/components/MenuReward';
+
+
 import Color from '../constants/Colors';
 
 
@@ -28,6 +31,8 @@ const HomeStack = createStackNavigator(
 );
 
 
+
+
 HomeStack.navigationOptions = {
   tabBarLabel: 'Cardápio',
   tabBarIcon: ({ focused }) => (
@@ -42,6 +47,28 @@ HomeStack.navigationOptions = {
 };
 
 HomeStack.path = '';
+
+
+const MenuRewardStack = createStackNavigator(
+  {
+    MenuReward: MenuReward,
+  },
+  config
+);
+
+MenuRewardStack.navigationOptions = {
+  tabBarLabel: 'Recompensas',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+         Platform.OS === 'ios' ? 'ion-ios-trophy' : 'md-trophy' 
+      }
+     
+    />
+  ),
+};
+MenuRewardStack.path = '';
 
 const LinksStack = createStackNavigator(
   {
@@ -91,6 +118,8 @@ const tabNavigator = createBottomTabNavigator(
   {
     HomeStack,
     LinksStack,
+    
+    MenuRewardStack,
     SettingsStack,
   },
   {

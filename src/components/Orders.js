@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { pedidosFetch, showMyLoader, modificaUsuario, pedidosFetchInverval } from '../actions/AppActions';
+import { pedidosFetch, showMyLoader, modificaUsuario, pedidosFetchInverval, validaToken } from '../actions/AppActions';
 import { AppLoading } from 'expo';
 
 
@@ -14,7 +14,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   AsyncStorage,
-  Platform
+  Platform,
+  Alert
 } from "react-native";
 
 import ListOrder from "./ListOrder";
@@ -28,8 +29,7 @@ class Orders extends Component {
     super(props);
     this.props.showMyLoader(true);
     
-    
-    
+    //this.storeToken({})
 
     let userData = this.getToken();
     
@@ -38,13 +38,51 @@ class Orders extends Component {
         this.props.pedidosFetch(res.id,res.token);
 
         this.interval = setInterval(() => this.props.pedidosFetchInverval(res.id,res.token), 60000);
-       // console.log(res);
-        
+        this.props.validaToken(res.id,res.token);
+      
       }
     ).catch(error => {
-
+    console.log(error);    
+     
     });
-    
+    //console.log(this.props);
+  }
+  UNSAFE_componentWillReceiveProps(nextProps) {
+        
+    console.log('nextProps.is_valid_token');
+        console.log(nextProps.is_valid_token);
+        
+    if(typeof  nextProps.is_valid_token != 'undefined') {
+      if(typeof  nextProps.usuario != 'undefined') {
+          if(nextProps.usuario != ''){
+              if(nextProps.usuario){
+                  this.props.validaToken(nextProps.usuario.id,nextProps.usuario.token);
+                  //this.props.setStatusCadastroUsuario(nextProps.usuario);
+                  //this.props.navigation.navigate('Main');
+              }
+          }
+      }
+      
+      if(nextProps.is_valid_token == 'NOK' ){
+          this.storeToken({});
+          
+            this.props.navigation.navigate('RoutesLogin');
+            Alert.alert(
+              'Mensagem',
+              `Ops, você não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade.`,
+              [
+                {
+                  text: 'OK',
+                  //onPress: () => console.log('clicou'),
+                  style: 'WARNING',
+                },
+              ],
+              { cancelable: true },
+            );
+        }/**/
+        
+        
+    }
   }
   componentWillUnmount() {
     clearInterval(this.interval);
@@ -225,7 +263,9 @@ const mapStateToProps = state => ({
   obs_pedido: state.AppReducer.obs_pedido,
   show_loader: state.AppReducer.show_loader,
   status_envio_pedido: state.AppReducer.status_envio_pedido,
-  meus_pedidos_carregados_falha: state.AppReducer.meus_pedidos_carregados_falha
+  meus_pedidos_carregados_falha: state.AppReducer.meus_pedidos_carregados_falha,
+  is_valid_token: state.AppReducer.is_valid_token,
+  usuario: state.AppReducer.usuario
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ pedidosFetch, showMyLoader, modificaUsuario,pedidosFetchInverval }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ pedidosFetch, showMyLoader, modificaUsuario,pedidosFetchInverval,validaToken }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);
