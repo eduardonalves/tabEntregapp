@@ -114,3 +114,21 @@ export const SHOW_LOADER_PRODUTO ='show_loader_produto';
 export const IS_VALID_TOKEN = 'is_valid_token';
 
 
+//recompensas
+export const DADOS_PARTIDA = 'dados_partida';
+export const INICIOU_PARTIDA = 'iniciou_partida';
+export const DADOS_PREMIO = 'dados_premio';
+
+//jokenpo
+export const RESULTADO ='resultado';
+export const TXTCOLOR ='txtcolor';
+export const ESCOLHA_DO_COMPUTADOR  ='escolha_do_computador';
+export const ESCOLHA_DO_USUARIO ='escolha_do_usuario';
+export const SHOW_IMAGE ='show_image';
+export const IMAGEM_COMPUTADOR ='imagem_computador';
+export const IMAGEM_USUARIO ='imagem_usuario';
+
+export const N_VITORIAS ='n_vitorias';
+export const N_DERROTAS ='n_derrotas';
+export const RESULTADO_FINAL ='resultado_final';
+export const SALDO ='saldo';

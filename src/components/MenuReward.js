@@ -5,12 +5,15 @@ import {
     View,
     Image,
     Platform,
-    Button
+    Button,
+    AsyncStorage,
+    Alert,
+    ActivityIndicator
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { categoriasFetch,categoriasFetchInterval, showMyLoaderCategory } from '../actions/AppActions';
+import { categoriasFetch,categoriasFetchInterval, showMyLoaderCategory, entrarJokenpo, setStatusCadastroUsuario, modificaIniciouPartida, verificasaldo } from '../actions/AppActions';
 import CartButton from "./common/CartButton";
 import Color from "../../constants/Colors";
 import  BtnEscolha  from './Escolha';
@@ -20,7 +23,31 @@ class MenuReward extends Component {
 
     constructor(props) {
         super(props);
+        let userData = this.getToken();
+        userData.then(resp => {
+            //console.log(resp);
+            if(typeof resp.token != 'undefined'){   
+                this.props.setStatusCadastroUsuario(resp);
+                this.props.verificasaldo(this.props.usuario.id, this.props.usuario.token );
+                //this.props.validaToken(res.id,res.token);
+                //this.props.navigation.navigate('Main');
+            } 
+        });
+        //console.log(this.props);
         
+    }
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        //console.log(nextProps);
+        if(typeof  nextProps.iniciou_partida != 'undefined') {
+            if(nextProps.iniciou_partida == true){
+                this.props.navigation.navigate("Jokenpo");
+                this.props.modificaIniciouPartida(false);
+
+            }
+        }
+    }
+    componentWillUnmount() {
+        this.props.modificaIniciouPartida(false);
     }
     static navigationOptions = ({ navigation }) => {
         return {
@@ -45,18 +72,106 @@ class MenuReward extends Component {
             
         };
     }
+    async storeToken(user) {
+        try {
+           await AsyncStorage.setItem("userData", JSON.stringify(user));
+        } catch (error) {
+          //console.log("Something went wrong", error);
+        }
+    }
+    async getToken() {
+        try {
+          let userData = await AsyncStorage.getItem("userData");
+          let data = JSON.parse(userData);
+          //console.log(data);
+          return data;
+        } catch (error) {
+          //console.log("Something went wrong", error);
+          return false;
+        }
+    }
+    handleGotoJokenpo(){
+        this.props.entrarJokenpo(this.props.usuario.id, this.props.usuario.token );
+    }
     gotoJokenpo(){
-        this.props.navigation.navigate("Jokenpo");
+        Alert.alert(
+            'Jogar',
+            `Deseja mesmo jogar uma partida de pedra, papel e tesoura? Isto poderá te custar 10 moedas.`,
+            [
+              {
+                text: 'Sim',
+                onPress: () => this.handleGotoJokenpo(),
+              },
+              {
+                text: 'Não',
+                //onPress: () => this.props.showMyLoader(false),
+                style: 'cancel',
+              },
+            ],
+            { cancelable: false },
+          );
+          
+        
     }
     gotoMyGifts(){
         
-        this.props.navigation.navigate("MyGifts", { user_id: 1 });
+        this.props.navigation.navigate("MyGifts", { user_id: this.props.usuario.id });
     }
+
     render() {
         
 
         return (
             <View >
+                {
+                this.props.show_loader == true ? (
+                    <View
+                    style={{
+
+
+                        opacity: 1.0,
+                        width: '100%',
+
+                        alignItems: 'center',
+                        flex: 1,
+                        position: 'absolute',
+                        marginTop: '50%'
+                    }}
+                    >
+                    <ActivityIndicator size="large" color="#4099ff"
+
+                        animating={true}
+                        hidesWhenStopped={true}
+
+                    />
+                    </View>
+
+                ) : (
+                    <View
+                        style={{
+
+
+                        opacity: 0.0,
+                        width: '100%',
+
+                        alignItems: 'center',
+                        flex: 1,
+                        position: 'absolute',
+                        marginTop: '50%'
+                        }}
+                    >
+                        <ActivityIndicator size="large" color="#4099ff"
+
+                        animating={true}
+                        hidesWhenStopped={true}
+
+                        />
+                    </View>
+
+
+
+                    )
+                }
                 <View style={{flexDirection:'row'}}> 
                     <Image source={require('../../assets/images/jokenpo.png')} style={{flex:1}}/>
                 </View>
@@ -72,11 +187,11 @@ class MenuReward extends Component {
                     <View style={{flexDirection:'row', alignItems:'center'}}>
                         <View style={{flex:1, padding:5,alignItems:'flex-end'}}> 
                             <Text style={{fontSize:100, color:Color.text}}>
-                                10
+                                {this.props.saldo}
                             </Text>
                         </View>
-                        <View style={{flex:1, padding:5, alignItems:'flex-start'}}> 
-                            <Image style={{marginLeft:5}} source={require('../../assets/images/coin.gif')} />
+                        <View style={{flex:1, alignItems:'flex-start'}}> 
+                            <Image style={{marginLeft:5, width:107, height:100 }} source={require('../../assets/images/PngItem_5107354.png')} />
                         </View>
                     </View>
                     
@@ -154,7 +269,11 @@ const mapStateToProps = state => ({
     show_loader: state.AppReducer.show_loader,
     status_envio_pedido: state.AppReducer.status_envio_pedido,
     show_loader_categoria: state.AppReducer.show_loader_categoria,
-    categoria_carregada_falha: state.AppReducer.categoria_carregada_falha
+    categoria_carregada_falha: state.AppReducer.categoria_carregada_falha,
+    dados_premio: state.AppReducer.dados_premio,
+    iniciou_partida: state.AppReducer.iniciou_partida,
+    usuario: state.AppReducer.usuario,
+    saldo: state.AppReducer.saldo
 });  
-const mapDispatchToProps = dispatch => bindActionCreators({ categoriasFetch,categoriasFetchInterval, showMyLoaderCategory }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ categoriasFetch,categoriasFetchInterval, showMyLoaderCategory, entrarJokenpo, setStatusCadastroUsuario, modificaIniciouPartida, verificasaldo }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(MenuReward);

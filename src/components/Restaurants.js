@@ -37,7 +37,7 @@ class Restaurants extends Component {
     this.props.navigation.navigate("Dishes");
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
       BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 

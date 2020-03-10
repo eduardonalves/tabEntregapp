@@ -10,6 +10,7 @@ export default class BtnEscolha extends Component{
                 title={this.props.title} 
                 onPress={this.props.jokenpo}
                 color={Platform.OS === 'ios' ? Color.buttonIos : Color.button}
+                disabled={this.props.disabled}
               ></Button>
             </View>
         )

@@ -5,12 +5,14 @@ import {
     View,
     Image,
     Button,
-    Platform
+    Platform,
+    AsyncStorage,
+    ActivityIndicator
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { HeaderBackButton } from 'react-navigation-stack';
-import { categoriasFetch,categoriasFetchInterval, showMyLoaderCategory } from '../actions/AppActions';
+import { categoriasFetch,categoriasFetchInterval, showMyLoaderCategory, jogarJokenpo, setStatusCadastroUsuario } from '../actions/AppActions';
 
 import Color from "../../constants/Colors";
 import  BtnEscolha  from './Escolha';
@@ -20,15 +22,16 @@ class Jokenpo extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            escolhaUsuario: '',
-            txtColor: 'red',
-            escolhaDoComputador: '',
-            resultado: '',
-            showImage: false,
-            imagemComputador: require('../../assets/images/pedra.png'),
-            imagemUsuario: require('../../assets/images/pedra.png')
-        }
+        let userData = this.getToken();
+        userData.then(resp => {
+            //console.log(resp);
+            if(typeof resp.token != 'undefined'){   
+                this.props.setStatusCadastroUsuario(resp);
+                //this.props.validaToken(res.id,res.token);
+                //this.props.navigation.navigate('Main');
+            } 
+        });
+        
     }
     static navigationOptions = ({ navigation }) => {
         return {
@@ -46,87 +49,94 @@ class Jokenpo extends Component {
             
         };
     }
+    async storeToken(user) {
+        try {
+           await AsyncStorage.setItem("userData", JSON.stringify(user));
+        } catch (error) {
+          //console.log("Something went wrong", error);
+        }
+    }
+    async getToken() {
+        try {
+          let userData = await AsyncStorage.getItem("userData");
+          let data = JSON.parse(userData);
+          //console.log(data);
+          return data;
+        } catch (error) {
+          //console.log("Something went wrong", error);
+          return false;
+        }
+    }
     jokenpo = (escolhaUsuario) => {
-        let numeroAleatorio = Math.floor(Math.random() * 3)
-        let respostaComputador = ''
-        let resultado = ''
-        let imagemComputador = ''
-        let imagemUsuario = ''
-
-        switch (numeroAleatorio) {
-            case 0:
-
-                respostaComputador = 'Pedra'
-                imagemComputador = require('../../assets/images/pedra.png');
-
-                if (escolhaUsuario == 'Pedra') {
-                    resultado = 'Você Empatou'
-                } else if (escolhaUsuario == 'Papel') {
-                    resultado = 'Você Ganhou'
-                } else {
-                    resultado = 'Você Perdeu'
-                }
-                break;
-            case 1:
-
-
-                respostaComputador = 'Papel'
-                imagemComputador = require('../../assets/images/papel.png');
-
-                if (escolhaUsuario == 'Papel') {
-                    resultado = 'Você Empatou'
-                } else if (escolhaUsuario == 'Tesoura') {
-                    resultado = 'Você Ganhou'
-                } else {
-                    resultado = 'Você Perdeu'
-                }
-
-
-                break;
-            case 2:
-
-                respostaComputador = 'Tesoura'
-
-                imagemComputador = require('../../assets/images/tesoura.png');
-
-                if (escolhaUsuario == 'Tesoura') {
-                    resultado = 'Você Empatou'
-                } else if (escolhaUsuario == 'Papel') {
-                    resultado = 'Você Perdeu'
-                } else {
-                    resultado = 'Você Ganhou'
-                }
-                break;
-        }
-
-        if (escolhaUsuario == 'Pedra') {
-            imagemUsuario = require('../../assets/images/pedra.png');
-        } else if (escolhaUsuario == 'Papel') {
-            imagemUsuario = require('../../assets/images/papel.png');
-        } else {
-            imagemUsuario = require('../../assets/images/tesoura.png');
-        }
-
-        if (resultado == 'Você Ganhou') {
-            txtColor = 'green'
-        } else if (resultado == 'Você Empatou') {
-            txtColor = '#E1AD01'
-        } else {
-            txtColor = 'red'
-        }
-
-        this.setState({ resultado: resultado, txtColor: txtColor, escolhaDoComputador: respostaComputador, escolhaUsuario: escolhaUsuario, showImage: true, imagemComputador: imagemComputador, imagemUsuario: imagemUsuario })
-
+        
+        this.props.jogarJokenpo(this.props.usuario.id, this.props.usuario.token, escolhaUsuario);
+        
+    }
+    gotoMyGifts(){
+        
+        this.props.navigation.navigate("MyGifts", { user_id: this.props.usuario.id });
     }
     render() {
         let test = false
-        if (this.state.showImage) {
+        if (this.props.showImage) {
             test = true
         }
-
+        let btnDisabled=false;
+        if(this.props.resultado_final !=''){
+            btnDisabled=true;
+        }
+        
         return (
             <View>
-            
+            {
+          this.props.show_loader == true ? (
+            <View
+              style={{
+
+
+                opacity: 1.0,
+                width: '100%',
+
+                alignItems: 'center',
+                flex: 1,
+                position: 'absolute',
+                marginTop: '50%'
+              }}
+            >
+              <ActivityIndicator size="large" color="#4099ff"
+
+                animating={true}
+                hidesWhenStopped={true}
+
+              />
+            </View>
+
+          ) : (
+              <View
+                style={{
+
+
+                  opacity: 0.0,
+                  width: '100%',
+
+                  alignItems: 'center',
+                  flex: 1,
+                  position: 'absolute',
+                  marginTop: '50%'
+                }}
+              >
+                <ActivityIndicator size="large" color="#4099ff"
+
+                  animating={true}
+                  hidesWhenStopped={true}
+
+                />
+              </View>
+
+
+
+            )
+        }
             <View style={{flexDirection:'row'}}> 
                 <Image source={require('../../assets/images/jokenpo.png')} style={{flex:1}}/>
             </View>
@@ -135,21 +145,62 @@ class Jokenpo extends Component {
                         fontSize:30,
                         textAlign:'center'
                     }}>
-                    Escolha uma Opção
+                    Jogo do pedra, papel ou tesoura
+                    </Text>
+                    <Text style={{
+                        fontSize:20,
+                        textAlign:'center'
+                    }}>
+                    Disputa melhor de três
                     </Text>
                 </View>
+                <View style={{padding:10}}>
+                    {this.props.resultado_final==''? (
+                        <Text style={{
+                            fontSize:30,
+                            textAlign:'center',
+                            color:'#E1AD01',
+                            fontWeight:'bold'
+                        }}>
+                        Placar Parcial
+                        </Text>
+                    ):(
+                        <Text style={{
+                            fontSize:30,
+                            textAlign:'center',
+                            color:this.props.txtColor,
+                            fontWeight:'bold'
+                        }}>
+                        Placar Final - {this.props.resultado_final} 
+                        </Text>
+                    )}
+                    
+                    <Text style={{
+                        fontSize:30,
+                        textAlign:'center'
+                    }}>
+                    {this.props.n_vitorias} x {this.props.n_derrotas}
+                    </Text>
+                    
+                </View>
+                <Text style={{
+                        fontSize:20,
+                        textAlign:'center'
+                    }}>
+                        Escolha uma opção
+                </Text>
                 <View style={styles.painelAcoes}  >
-                    <BtnEscolha styleBtn={styles.btnEscolha} title='Pedra' jokenpo={() => this.jokenpo('Pedra')} />
-                    <BtnEscolha styleBtn={styles.btnEscolha} title='Papel' jokenpo={() => this.jokenpo('Papel')} />
-                    <BtnEscolha styleBtn={styles.btnEscolha} title='Tesoura' jokenpo={() => this.jokenpo('Tesoura')} />
+                    <BtnEscolha styleBtn={styles.btnEscolha} title='Pedra' jokenpo={() => this.jokenpo('Pedra')} disabled={btnDisabled} />
+                    <BtnEscolha styleBtn={styles.btnEscolha} title='Papel' jokenpo={() => this.jokenpo('Papel')}  disabled={btnDisabled} />
+                    <BtnEscolha styleBtn={styles.btnEscolha} title='Tesoura' jokenpo={() => this.jokenpo('Tesoura')} disabled={btnDisabled} />
                 </View>
                 <View style={styles.palco} >
                     {
                     test== true ? ( 
                     <View>
-                        <Text style={{ fontSize: 25, fontWeight: 'bold', color: this.state.txtColor, height: 60 }}>{this.state.resultado} </Text>
-                        <Icone texto='Sua escolha:' imagemUsuario={this.state.imagemUsuario} styleImage={styles.palco} />
-                        <Icone texto='Escolha do Jogo:' imagemUsuario={this.state.imagemComputador} />
+                        <Text style={{ fontSize: 25, fontWeight: 'bold', color: this.props.txtColor, height: 60 }}>{this.props.resultado} </Text>
+                        <Icone texto='Sua escolha:' imagemUsuario={this.props.imagemUsuario} styleImage={styles.palco} />
+                        <Icone texto='Escolha do Jogo:' imagemUsuario={this.props.imagemComputador} />
                     </View>
                     
                         ):(
@@ -157,10 +208,31 @@ class Jokenpo extends Component {
                                 <Text>''</Text>
                             </View>
                             
-                    )}
-                        
-                    
+                    )} 
                 </View>
+                {
+                    this.props.resultado_final !='' ? (
+                        <View style={{flexDirection:'row', alignSelf:'center'}}>
+                            <View style={{padding:10}}>
+                                <Button
+                                    onPress={e => this.gotoMyGifts() } 
+                                    title="Ver Sua Recompensa"
+                                    color={Platform.OS === 'ios' ? Color.buttonIos : Color.button}
+                                    style={{
+                                        flex:1,
+                                        paddingLeft: 16,
+                                        paddingRight: 16,
+                                        paddingTop: 8,
+                                        paddingBottom: 8,
+                                    }}
+                                />
+                            </View>
+                        </View>
+                    ):(
+                        <View></View>
+                    )
+                }
+                
 
             </View>
         );
@@ -203,7 +275,18 @@ const mapStateToProps = state => ({
     show_loader: state.AppReducer.show_loader,
     status_envio_pedido: state.AppReducer.status_envio_pedido,
     show_loader_categoria: state.AppReducer.show_loader_categoria,
-    categoria_carregada_falha: state.AppReducer.categoria_carregada_falha
+    categoria_carregada_falha: state.AppReducer.categoria_carregada_falha,
+    resultado: state.AppReducer.resultado, 
+    txtColor: state.AppReducer.txtColor, 
+    escolhaDoComputador: state.AppReducer.escolhaDoComputador, 
+    escolhaUsuario: state.AppReducer.escolhaUsuario, 
+    showImage: state.AppReducer.showImage, 
+    imagemComputador: state.AppReducer.imagemComputador, 
+    imagemUsuario: state.AppReducer.imagemUsuario,
+    usuario: state.AppReducer.usuario,
+    n_vitorias: state.AppReducer.n_vitorias,
+    n_derrotas: state.AppReducer.n_derrotas,
+    resultado_final: state.AppReducer.resultado_final,
 });  
-const mapDispatchToProps = dispatch => bindActionCreators({ categoriasFetch,categoriasFetchInterval, showMyLoaderCategory }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ categoriasFetch,categoriasFetchInterval, showMyLoaderCategory, jogarJokenpo, setStatusCadastroUsuario }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Jokenpo);

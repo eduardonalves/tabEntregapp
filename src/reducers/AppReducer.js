@@ -60,6 +60,21 @@ const INITIAL_STATE = {
     bairro_nome:'',
     cidade_nome:'',
     is_valid_token:'',
+    iniciou_partida: false,
+    dados_partida: '',
+    dados_premio:'',
+    resultado: '', 
+    txtColor: 'red', 
+    escolhaDoComputador: '', 
+    escolhaUsuario: '', 
+    showImage: false, 
+    imagemComputador: require('../../assets/images/pedra.png'), 
+    imagemUsuario: require('../../assets/images/pedra.png'),
+    n_vitorias:0,
+    n_derrotas:0,
+    resultado_final:'',
+    saldo:0
+    
 };
 
 import {
@@ -132,12 +147,63 @@ import {
     MODIFICA_NOME_CIDADE,
     MODIFICA_NOME_BAIRRO,
     IS_VALID_TOKEN,
-
+    INICIOU_PARTIDA,
+    DADOS_PARTIDA,
+    DADOS_PREMIO,
+    RESULTADO,
+    TXTCOLOR,
+    ESCOLHA_DO_COMPUTADOR,
+    ESCOLHA_DO_USUARIO,
+    SHOW_IMAGE,
+    IMAGEM_COMPUTADOR,
+    IMAGEM_USUARIO,
+    N_VITORIAS,
+    N_DERROTAS,
+    RESULTADO_FINAL,
+    SALDO,
 } from '../actions/ActionTypes';
 
 export default (state = INITIAL_STATE, action) => {
    
     switch (action.type) {
+        case SALDO:
+            return { ...state, saldo: action.payload };
+        case N_VITORIAS:
+            return { ...state, n_vitorias: action.payload };
+        case N_DERROTAS:
+            return { ...state, n_derrotas: action.payload };
+
+        case RESULTADO_FINAL:
+            return { ...state, resultado_final: action.payload };
+
+        case RESULTADO:
+            return { ...state, resultado: action.payload };
+        
+        case RESULTADO:
+            return { ...state, resultado: action.payload };
+        
+        case RESULTADO:
+            return { ...state, resultado: action.payload };    
+            
+        case TXTCOLOR:
+            return { ...state, txtColor: action.payload };   
+        case ESCOLHA_DO_COMPUTADOR:
+            return { ...state, escolhaDoComputador: action.payload };
+        case ESCOLHA_DO_USUARIO:
+            return { ...state, escolhaUsuario: action.payload };  
+        case SHOW_IMAGE:
+            return { ...state, showImage: action.payload };   
+        case IMAGEM_COMPUTADOR:
+            return { ...state, imagemComputador: action.payload };
+        case IMAGEM_USUARIO:
+            return { ...state, imagemUsuario: action.payload };    
+        case DADOS_PREMIO:
+            return { ...state, dados_premio: action.payload };
+        case INICIOU_PARTIDA:
+            return { ...state, iniciou_partida: action.payload };
+        case DADOS_PARTIDA:
+            return { ...state, dados_partida: action.payload };    
+
         case MODIFICA_SENHA_ANTIGA:
             return { ...state, senha_antiga: action.payload };
         case IS_VALID_TOKEN:

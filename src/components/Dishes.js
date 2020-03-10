@@ -139,6 +139,7 @@ class Dishes extends Component {
                     disponivel={item.Produto.disponivel}
                     handleNaviagation={this.handleNaviagation}
                     handleGoToLogin={this.handleGoToLogin}
+                    partida_id=''
                     
                   />
                 )}
@@ -160,7 +161,7 @@ class Dishes extends Component {
                   disponivel={item.Produto.disponivel}
                   handleNaviagation={this.handleNaviagation}
                   handleGoToLogin={this.handleGoToLogin}
-                 
+                  partida_id=''
                 />
               )}
             />

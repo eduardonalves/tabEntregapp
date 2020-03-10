@@ -66,7 +66,21 @@ import {
     MODIFICA_NOME_ESTADO,
     MODIFICA_NOME_CIDADE,
     MODIFICA_NOME_BAIRRO,
-    IS_VALID_TOKEN
+    IS_VALID_TOKEN,
+    DADOS_PREMIO,
+    INICIOU_PARTIDA,
+    DADOS_PARTIDA,
+    RESULTADO,
+    TXTCOLOR,
+    ESCOLHA_DO_COMPUTADOR,
+    ESCOLHA_DO_USUARIO,
+    SHOW_IMAGE,
+    IMAGEM_COMPUTADOR,
+    IMAGEM_USUARIO,
+    N_VITORIAS,
+    N_DERROTAS,
+    RESULTADO_FINAL,
+    SALDO
 } from './ActionTypes';
 
 import {
@@ -1556,16 +1570,263 @@ export const validaToken = (usuario,token) => {
 export const entrarJokenpo = (usuario,token) => {
     return dispatch => {
         
-        axios.get(`${APP_URL}/RestClientes/temmoedasparajogar.json?fp=${FILIAL}&lj=${EMPRESA}&clt=${usuario}&token=${token}&limit=20`)
+        let dados= {
+            fp: FILIAL.toString(),
+            lj: EMPRESA.toString(),
+            clt: usuario,
+            token: token
+        }
+        //console.log(dados);
+        dispatch({type: SHOW_LOADER, payload: true});
+        axios.post(`${APP_URL}/RestClientes/validajogos.json?`, dados)
         .then(res => {
-            
+            //console.log('res')
+            //console.log(res.data.users)
+            if(typeof res.data.users != 'undefined'){
+                if(res.data.users.resultado=='OK'){
+                    if(res.data.users.Partida == ''){
+                        dispatch({type: DADOS_PREMIO, payload: res.data.users});
+                        dispatch({type: INICIOU_PARTIDA, payload: true});
+                        dispatch({type: SALDO, payload: res.data.users.moedas});
+                        dispatch({type: DADOS_PARTIDA, payload: ''});
+                        dispatch({type: DADOS_PREMIO, payload: ''});
+                        dispatch({type: RESULTADO, payload: ''});
+                        dispatch({type: TXTCOLOR, payload: 'red'});
+                        dispatch({type: ESCOLHA_DO_USUARIO, payload: ''});
+                        dispatch({type: ESCOLHA_DO_COMPUTADOR, payload: ''});
+                        dispatch({type: SHOW_IMAGE, payload: false});
+                        dispatch({type: IMAGEM_COMPUTADOR, payload: require('../../assets/images/pedra.png')});
+                        dispatch({type: IMAGEM_USUARIO , payload: require('../../assets/images/pedra.png')});
+                        dispatch({type: N_VITORIAS, payload: 0});
+                        dispatch({type: N_DERROTAS, payload: 0});
+                        dispatch({type: RESULTADO_FINAL, payload: ''})
+                    }else{
+                       /* dispatch({type: DADOS_PREMIO, payload: res.data.users});
+                        dispatch({type: INICIOU_PARTIDA, payload: true});
+                        dispatch({type: SALDO, payload: res.data.users.moedas});
+                        //dispatch({type: DADOS_PARTIDA, payload: res.data.users.Partida});
+                        //dispatch({type: DADOS_PREMIO, payload: ''});
+                        dispatch({type: RESULTADO, payload: res.data.users.ultima_parcial});
+                        //dispatch({type: TXTCOLOR, payload: 'red'});
+                        dispatch({type: ESCOLHA_DO_USUARIO, payload: res.data.users.escolha_usuario});
+                        dispatch({type: ESCOLHA_DO_COMPUTADOR, payload: res.data.users.escolha_computador});
+                        dispatch({type: SHOW_IMAGE, payload: true});
+                        if(res.data.users.escolha_usuario=='Pedra'){
+                            dispatch({type: IMAGEM_USUARIO , payload: require('../../assets/images/pedra.png')});    
+                        }else if(res.data.users.escolha_usuario=='Teso'){
+
+                        }
+                        dispatch({type: IMAGEM_COMPUTADOR, payload: require('../../assets/images/pedra.png')});
+                        
+                        dispatch({type: N_VITORIAS,  payload: res.data.users.n_vitorias});
+                        dispatch({type: N_DERROTAS, payload: res.data.users.n_derrotas});
+                        dispatch({type: RESULTADO_FINAL, payload: res.data.users.restultado})*/
+                        dispatch({type: INICIOU_PARTIDA, payload: true});
+
+                        let resultado = res.data.users.Partida.ultima_parcial;
+                        let imagemComputador = '';
+                        let imagemUsuario = '';
+                        let txtColor='';
+                        
+                        if (res.data.users.Partida.escolha_computador == 'Pedra') {
+                            imagemComputador = require('../../assets/images/pedra.png');
+                        } else if (res.data.users.Partida.escolha_computador == 'Papel') {
+                            imagemComputador = require('../../assets/images/papel.png');
+                        } else {
+                            imagemComputador = require('../../assets/images/tesoura.png');
+                        }
+
+                        if (res.data.users.Partida.escolha_usuario == 'Pedra') {
+                            imagemUsuario = require('../../assets/images/pedra.png');
+                        } else if (res.data.users.Partida.escolha_usuario == 'Papel') {
+                            imagemUsuario = require('../../assets/images/papel.png');
+                        } else {
+                            imagemUsuario = require('../../assets/images/tesoura.png');
+                        }
+
+                        //this.setState({  showImage: true, imagemComputador: imagemComputador, imagemUsuario: imagemUsuario })
+                        
+                        if (resultado == 'Você Ganhou') {
+                            txtColor = 'green'
+                        } else if (resultado == 'Você Empatou') {
+                            txtColor = '#E1AD01'
+                        } else {
+                            txtColor = 'red'
+                        }
+                        if(res.data.users.Partida.escolha_usuario =='' || res.data.users.Partida.escolha_usuario ==null){
+                            dispatch({ type: SHOW_IMAGE, payload: false })
+                        }else{
+                            dispatch({ type: SHOW_IMAGE, payload: true })
+                        }
+                        dispatch({ type: RESULTADO, payload: resultado })
+                        
+                        dispatch({ type: IMAGEM_COMPUTADOR, payload: imagemComputador })
+                        dispatch({ type: IMAGEM_USUARIO, payload: imagemUsuario })
+                        
+                        if(res.data.users.Partida.n_vitorias != '' && res.data.users.Partida.n_vitorias != null ){
+                            dispatch({ type: N_VITORIAS, payload: res.data.users.Partida.n_vitorias })
+                        }
+                        
+                        if(res.data.users.Partida.n_derrotas != '' && res.data.users.Partida.n_derrotas != null){
+                            dispatch({ type: N_DERROTAS, payload: res.data.users.Partida.n_derrotas })
+                        }
+
+                        if(res.data.users.Partida.restultado != ''&& res.data.users.Partida.restultado != null){
+                            dispatch({ type: RESULTADO_FINAL, payload: res.data.users.Partida.restultado })
+                            dispatch({ type: INICIOU_PARTIDA, payload: false });
+                        }
+
+                        dispatch({ type: TXTCOLOR, payload: txtColor })
+                        dispatch({ type: ESCOLHA_DO_COMPUTADOR, payload: res.data.users.Partida.escolha_computador })
+                        dispatch({ type: ESCOLHA_DO_USUARIO, payload: res.data.users.Partida.escolha_usuario })
+                    }
+                    
+                    //dispatch({type: SALDO, payload: 0})
+   
+    
+
+                    //dispatch(NavigationActions.navigate({ routeName: 'Jokenpo' }))
+                    
+                }else {
+                    dispatch({type: INICIOU_PARTIDA, payload: false});
+                    dispatch({type: DADOS_PREMIO, payload:''});
+                    Alert.alert(
+                        'Mensagem',
+                        `Ops, acho que você não tem moedas suficientes para jogar.`,
+                        [
+                            {
+                                text: 'OK',
+                                style: 'OK',
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                }
+                
+            }
+            dispatch({type: SHOW_LOADER, payload: false});
         }).catch(error => {
             //console.log('errou cli');
+           // console.log(error);
+            dispatch({type: DADOS_PREMIO, payload: ''});
+            dispatch({type: INICIOU_PARTIDA, payload: false});
+            dispatch({type: SHOW_LOADER, payload: false});
         });
     }
     
 }
 
+export const jogarJokenpo = (usuario,token, escolhaUsuario) => {
+    return dispatch => {
+        
+        let dados= {
+            fp: FILIAL.toString(),
+            lj: EMPRESA.toString(),
+            clt: usuario,
+            token: token,
+            escolhaUsuario:escolhaUsuario,
+        }
+        //console.log(dados);
+        dispatch({ type: SHOW_LOADER, payload: true })
+        axios.post(`${APP_URL}/RestClientes/jogarjokenpo.json?`, dados)
+        .then(res => {
+            
+           //console.log('res');
+           //console.log(res);
+            if(typeof res.data.users !='undefined'){
+                if(res.data.users !=''){
+                    
+                    
+                    let resultado = res.data.users.Partida.ultima_parcial;
+                    let imagemComputador = '';
+                    let imagemUsuario = '';
+                    let txtColor='';
+                    
+                    if (res.data.users.Partida.escolha_computador == 'Pedra') {
+                        imagemComputador = require('../../assets/images/pedra.png');
+                    } else if (res.data.users.Partida.escolha_computador == 'Papel') {
+                        imagemComputador = require('../../assets/images/papel.png');
+                    } else {
+                        imagemComputador = require('../../assets/images/tesoura.png');
+                    }
+
+                    if (res.data.users.Partida.escolha_usuario == 'Pedra') {
+                        imagemUsuario = require('../../assets/images/pedra.png');
+                    } else if (res.data.users.Partida.escolha_usuario == 'Papel') {
+                        imagemUsuario = require('../../assets/images/papel.png');
+                    } else {
+                        imagemUsuario = require('../../assets/images/tesoura.png');
+                    }
+
+                    //this.setState({  showImage: true, imagemComputador: imagemComputador, imagemUsuario: imagemUsuario })
+                    
+                    if (resultado == 'Você Ganhou') {
+                        txtColor = 'green'
+                    } else if (resultado == 'Você Empatou') {
+                        txtColor = '#E1AD01'
+                    } else {
+                        txtColor = 'red'
+                    }
+                 
+                    dispatch({ type: RESULTADO, payload: resultado })
+                    dispatch({ type: SHOW_IMAGE, payload: true })
+                    dispatch({ type: IMAGEM_COMPUTADOR, payload: imagemComputador })
+                    dispatch({ type: IMAGEM_USUARIO, payload: imagemUsuario })
+                    
+                    if(res.data.users.Partida.n_vitorias != '' && res.data.users.Partida.n_vitorias != null ){
+                        dispatch({ type: N_VITORIAS, payload: res.data.users.Partida.n_vitorias })
+                    }
+                    
+                    if(res.data.users.Partida.n_derrotas != '' && res.data.users.Partida.n_derrotas != null){
+                        dispatch({ type: N_DERROTAS, payload: res.data.users.Partida.n_derrotas })
+                    }
+
+                    if(res.data.users.Partida.restultado != ''&& res.data.users.Partida.restultado != null){
+                        dispatch({ type: RESULTADO_FINAL, payload: res.data.users.Partida.restultado })
+                        dispatch({ type: INICIOU_PARTIDA, payload: false });
+                    }
+
+                    dispatch({ type: TXTCOLOR, payload: txtColor })
+                    dispatch({ type: ESCOLHA_DO_COMPUTADOR, payload: res.data.users.Partida.escolha_computador })
+                    dispatch({ type: ESCOLHA_DO_USUARIO, payload: res.data.users.Partida.escolha_usuario })
+                }    
+            }
+            dispatch({ type: SHOW_LOADER, payload: false })
+        }).catch(error => {
+            dispatch({ type: SHOW_LOADER, payload: false })
+        });
+    }
+    
+}
+
+export const verificasaldo = (usuario,token) => {
+    return dispatch => {
+        
+        let dados= {
+            fp: FILIAL.toString(),
+            lj: EMPRESA.toString(),
+            clt: usuario,
+            token: token,
+        }
+        //console.log(dados);
+        dispatch({ type: SHOW_LOADER, payload: true })
+        axios.post(`${APP_URL}/RestClientes/verificasaldo.json?`, dados)
+        .then(res => {
+            //console.log(res);
+            
+            if(typeof res.data.users !='undefined'){
+                if(res.data.users !=''){
+                    
+                    dispatch({ type: SALDO, payload: res.data.users })
+                }    
+            }
+            dispatch({ type: SHOW_LOADER, payload: false })
+        }).catch(error => {
+            dispatch({ type: SHOW_LOADER, payload: false })
+        });
+    }
+    
+}
 
 export const showMyLoader = (status) => {
     return dispatch => {
@@ -1591,7 +1852,7 @@ export const setStatusEnvioPedido = (status) => {
 }
 
 export const setStatusCadastroUsuario = (status) => {
-
+   // console.log('sete cadastro')
     return dispatch => {
 
         dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: status });
@@ -1640,7 +1901,9 @@ export const montaPedido = (pedido) => {
             valor_unit: v.preco_venda,
             valor_total: p_total.toFixed(2),
             obs_sis: "",
+            partida_id: v.partida_id
         });
+        
     });
     //console.log(novoPedido);
     return novoPedido;
@@ -1726,6 +1989,9 @@ export const modificaPontoReferencia = (texto) => {
         dispatch({ type: MODIFICA_PONTO_REFERENCIA, payload: texto });
     }
 }
+
+
+
 
 export const modificaEstado = (texto) => {
     return dispatch => {
@@ -1814,4 +2080,22 @@ export const modificaNomeBairro = (texto) => {
     }
 }
 
+export const modificaIniciouPartida = (status) => {
+    return dispatch => {
+        dispatch({ type: INICIOU_PARTIDA, payload: status });
+    }
+}
 
+export const modificaDadosPartida = (txt) => {
+    return dispatch => {
+        dispatch({ type: DADOS_PARTIDA, payload: txt });
+    }
+}
+export const modificaDadosJokenpo = (dados) => {
+    return dispatch => {
+        dispatch({ type: DADOS_PARTIDA, payload: txt });
+    }
+}
+
+
+    

@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
   Button,
   Platform,
-  BackHandler
+  BackHandler,
+  AsyncStorage
 } from "react-native";
 import { NavigationAction } from 'react-navigation';
 import { bindActionCreators } from 'redux';
@@ -32,13 +33,44 @@ import ListItemIos from "./ListItemIos";
 class MyGifts extends Component {
   constructor(props) {
     super(props);
-    this.props.produtosFetch(this.props.navigation.getParam('user_id'));
+    
+    
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
-  }
+    let userData = this.getToken();
+    //console.log(userData);
+    userData.then(resp => {
+        //console.log(resp);
+        if(typeof resp.token != 'undefined'){   
+            //this.props.setStatusCadastroUsuario(resp);
+            //console.log('passou aqu2');
+            this.props.produtosFetch(resp.id, resp.token);
 
+            //this.props.validaToken(res.id,res.token);
+            //this.props.navigation.navigate('Main');
+        } 
+    });
+  }
+  async storeToken(user) {
+      try {
+        await AsyncStorage.setItem("userData", JSON.stringify(user));
+      } catch (error) {
+        //console.log("Something went wrong", error);
+      }
+  }
+  async getToken() {
+      try {
+        let userData = await AsyncStorage.getItem("userData");
+        let data = JSON.parse(userData);
+        //console.log(data);
+        return data;
+      } catch (error) {
+        //console.log("Something went wrong", error);
+        return false;
+      }
+  }
   static navigationOptions = ({ navigation }) => {
     return {
-      headerTitle: "Produtos",
+      headerTitle: "Resgatar Recompensas",
       headerStyle: {
         elevation: 0,
         shadowOpacity: 0,
@@ -60,14 +92,11 @@ class MyGifts extends Component {
     this.props.navigation.navigate("MyGifts");
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
       BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 
-  componentWillUnmount() {
-      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
-  }
-
+  
   handleBackButtonClick() {
       this.props.navigation.navigate("Main");
       //NavigationAction.back();
@@ -139,6 +168,7 @@ class MyGifts extends Component {
                     disponivel={item.Produto.disponivel}
                     handleNaviagation={this.handleNaviagation}
                     handleGoToLogin={this.handleGoToLogin}
+                    partida_id={item.Produto.partida_id}
                     
                   />
                 )}
@@ -160,7 +190,7 @@ class MyGifts extends Component {
                   disponivel={item.Produto.disponivel}
                   handleNaviagation={this.handleNaviagation}
                   handleGoToLogin={this.handleGoToLogin}
-                 
+                  partida_id={item.Produto.partida_id}
                 />
               )}
             />

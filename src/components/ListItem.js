@@ -76,12 +76,16 @@ async getToken() {
       parte_compre_ganhe: '',
       qtd: this.state.qtd,
       item_id: this.props.item_id,
+      partida_id: this.props.partida_id
     }
     
     this.props.addToCart(produto, this.props.carrinho, this.props.usuario.frete_cadastro);
     this.props.updateItemId(this.props.item_id);
     //this.props.updateCart(this.props.carrinho);
     this.props.showMyLoader(false);
+    this.setState({
+      isClicked: !this.state.isClicked
+    });
   }
   
   handleClick = () => {
@@ -103,9 +107,7 @@ async getToken() {
       );/**/
     }else{
       this.props.showMyLoader(true);
-      this.setState({
-        isClicked: !this.state.isClicked
-      });
+      
       this.props.handleNaviagation();
       Alert.alert(
         'Adicionar Produto',
@@ -229,7 +231,10 @@ async getToken() {
                   </Text>
                 </View>
 
-                {<View style={{ flex: 1 , marginTop:- 9}}  >
+                {
+                this.props.pardida_id =='' ? 
+                (
+                  <View style={{ flex: 1 , marginTop:- 9}}  >
                   <Picker
                     selectedValue={this.state.qtd}
                     style={{
@@ -252,7 +257,28 @@ async getToken() {
                     <Picker.Item label="10" value="10" />
                   </Picker>
 
-                </View>}
+                </View>
+                )  :
+                (
+                  <View style={{ flex: 1 , marginTop:- 9}}  >
+                  <Picker
+                    selectedValue={this.state.qtd}
+                    style={{
+                      height: 40, width: 100
+                    }}
+                    onValueChange={(itemValue, itemIndex) =>
+                      this.setState({ qtd: itemValue })
+                    }
+                    //onPress={e => alert("Hey")}
+                /**/>
+                    <Picker.Item label="1" value="1" />
+                    
+                  </Picker>
+
+                </View>
+                )
+                
+                }
 
                 {
 
@@ -284,11 +310,11 @@ async getToken() {
                   padding: 1
                 }}>
                 <Button
-                  
+              
                   onPress={this.handleClick} 
                   color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
                   title="Adicionar"
-                  disabled={!this.props.disponivel || this.props.show_loader   }
+                  disabled={!this.props.disponivel || this.props.show_loader || (this.state.isClicked==true && this.props.partida_id != '')  }
                   style={{
                     backgroundColor: Color.button,
                     

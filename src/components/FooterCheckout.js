@@ -48,9 +48,9 @@ class FooterCheckout extends Component {
     };
   }
 
-  /*handleNaviagation = () => {
+  handleNaviagation = () => {
     this.props.navigation.navigate("Billing");
-  };*/
+  };
 
   render() {
     //console.log('this.props.navigation');
@@ -184,8 +184,7 @@ class FooterCheckout extends Component {
             title="Pagamento"
             color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
             onPress={this.props.handleNaviagation} 
-
-          />
+            />
         </View>
       </View>
     );

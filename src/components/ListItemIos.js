@@ -75,16 +75,19 @@ async getToken() {
       parte_compre_ganhe: '',
       qtd: this.state.qtd,
       item_id: this.props.item_id,
+      partida_id: this.props.partida_id,
     }
-
+    this.setState({
+      isClicked: !this.state.isClicked
+    });
     this.props.addToCart(produto, this.props.carrinho, this.props.usuario.frete_cadastro);
     this.props.updateItemId(this.props.item_id);
     //this.props.updateCart(this.props.carrinho);
     this.props.showMyLoader(false);
   }
   handleClick = () => {
-    console.log('this.props.usuario');
-    console.log(this.props.usuario);
+    //console.log('this.props.usuario');
+    //console.log(this.props.usuario);
     if(this.props.usuario ==''){
       this.props.handleGoToLogin();
       Alert.alert(
@@ -101,9 +104,7 @@ async getToken() {
       );
     }else{
       this.props.showMyLoader(true);
-      this.setState({
-        isClicked: !this.state.isClicked
-      });
+      
       this.props.handleNaviagation();
       Alert.alert(
         'Adicionar Produto',
@@ -248,7 +249,7 @@ async getToken() {
                   onPress={e => this.handleClick() }
                   color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
                   title="Adicionar"
-                  disabled={!this.props.disponivel || this.props.show_loader   }
+                  disabled={!this.props.disponivel || this.props.show_loader || (this.state.isClicked==true && this.props.partida_id != '')  }
                   style={{
                     backgroundColor: Color.button,
                     
@@ -270,30 +271,48 @@ async getToken() {
               padding: 10
               
             }}  >
+              {
+                this.props.pardida_id =='' ? (
+                  <Picker
+                    selectedValue={this.state.qtd}
+                    style={{
+                      height: 80, width: 30,
+                      alignSelf:"flex-start",
+                      marginTop: -95
+                    }}
+                    onValueChange={(itemValue, itemIndex) =>
+                      this.setState({ qtd: itemValue })
+                    }
+                                //onPress={e => alert("Hey")}
+                            /**/>
+                    <Picker.Item label="1" value="1" />
+                    <Picker.Item label="2" value="2" />
+                    <Picker.Item label="3" value="3" />
+                    <Picker.Item label="4" value="4" />
+                    <Picker.Item label="5" value="5" />
+                    <Picker.Item label="6" value="6" />
+                    <Picker.Item label="7" value="7" />
+                    <Picker.Item label="8" value="8" />
+                    <Picker.Item label="9" value="9" />
+                    <Picker.Item label="10" value="10" />
+                  </Picker>
+                ):(<Picker
+                  selectedValue={this.state.qtd}
+                  style={{
+                    height: 80, width: 30,
+                    alignSelf:"flex-start",
+                    marginTop: -95
+                  }}
+                  onValueChange={(itemValue, itemIndex) =>
+                    this.setState({ qtd: itemValue })
+                  }
+                              //onPress={e => alert("Hey")}
+                          /**/>
+                  <Picker.Item label="1" value="1" />
+                  
+                </Picker>)
+              }
               
-              <Picker
-                selectedValue={this.state.qtd}
-                style={{
-                  height: 80, width: 30,
-                  alignSelf:"flex-start",
-                  marginTop: -95
-                }}
-                onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ qtd: itemValue })
-                }
-                            //onPress={e => alert("Hey")}
-                        /**/>
-                <Picker.Item label="1" value="1" />
-                <Picker.Item label="2" value="2" />
-                <Picker.Item label="3" value="3" />
-                <Picker.Item label="4" value="4" />
-                <Picker.Item label="5" value="5" />
-                <Picker.Item label="6" value="6" />
-                <Picker.Item label="7" value="7" />
-                <Picker.Item label="8" value="8" />
-                <Picker.Item label="9" value="9" />
-                <Picker.Item label="10" value="10" />
-              </Picker>
               <Text
                   style={{
                       fontSize: 18,

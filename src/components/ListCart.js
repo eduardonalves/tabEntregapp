@@ -98,17 +98,32 @@ class ListCart extends Component {
                 //textAlign: 'center',
               }}
             >
+              {
+                this.props.price == 0 ? (
+                  <NumberFormat 
+                    value={ this.props.price } 
+                    displayType={'text'} 
+                    renderText={value => <Text>{value}</Text>}
+                    thousandSeparator={'.'}
+                    decimalScale={2} 
+                    fixedDecimalScale={true}
+                    prefix={'R$ '}
+                    decimalSeparator={','}
+                  />
+                ):(
+                  <NumberFormat 
+                    value={ this.props.price.replace(".",",") } 
+                    displayType={'text'} 
+                    renderText={value => <Text>{value}</Text>}
+                    thousandSeparator={'.'}
+                    decimalScale={2} 
+                    fixedDecimalScale={true}
+                    prefix={'R$ '}
+                    decimalSeparator={','}
+                  />
+                )
+              }
               
-              <NumberFormat 
-                value={ this.props.price.replace(".",",") } 
-                displayType={'text'} 
-                renderText={value => <Text>{value}</Text>}
-                thousandSeparator={'.'}
-                decimalScale={2} 
-                fixedDecimalScale={true}
-                prefix={'R$ '}
-                decimalSeparator={','}
-              />
             </Text>
           </View>
           <View style={{ flex: 1 }}>
