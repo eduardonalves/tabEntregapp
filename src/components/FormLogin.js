@@ -26,6 +26,7 @@ import {
     setStatusCadastroUsuario,
     limpaFormularioCadastro,
     modificaUsername,
+    validaToken
 } from '../actions/AppActions';
 import { FILIAL, EMPRESA, SALT } from '../Settings';
 
@@ -44,10 +45,13 @@ class formLogin extends Component {
         storeData.then(resp => {
             //console.log(resp);
             if(typeof resp.token != 'undefined'){
+                this.props.validaToken(resp.id,resp.token);
                 
-                this.props.setStatusCadastroUsuario(resp);
-                this.props.validaToken(res.id,res.token);
-                this.props.navigation.navigate('Main');
+                if(this.props.is_valid_token != 'NOK'){
+                    this.props.setStatusCadastroUsuario(resp);
+                    this.props.navigation.navigate('Main');
+                }
+                
             }
             
         });
@@ -61,9 +65,13 @@ class formLogin extends Component {
         if(typeof  nextProps.usuario != 'undefined') {
             if(nextProps.usuario != ''){
                 if(nextProps.usuario){
-                    this.storeToken(nextProps.usuario);
-                    this.props.setStatusCadastroUsuario(nextProps.usuario);
-                    this.props.navigation.navigate('Main');
+                    this.props.validaToken(nextProps.usuario.id, nextProps.usuario.token);
+                    if(this.props.is_valid_token != 'NOK'){
+                        this.storeToken(nextProps.usuario);
+                        this.props.setStatusCadastroUsuario(nextProps.usuario);
+                        this.props.navigation.navigate('Main');
+                    }
+                    
                 }
             }
             
@@ -259,7 +267,8 @@ const mapStateToProps = state => ({
         loadingLogin: state.AppReducer.loadingLogin,
         usuario: state.AppReducer.usuario,
         username: state.AppReducer.username,
-        show_loader: state.AppReducer.show_loader
+        show_loader: state.AppReducer.show_loader,
+        is_valid_token: state.AppReducer.is_valid_token,
 });
 export default connect(mapStateToProps, {
     modificaEmail,
@@ -268,7 +277,8 @@ export default connect(mapStateToProps, {
     setStatusCadastroUsuario,
     limpaFormularioCadastro,
     modificaUsername,
-    setStatusCadastroUsuario 
+    setStatusCadastroUsuario,
+    validaToken 
 })(formLogin);
 
 const styles = StyleSheet.create({

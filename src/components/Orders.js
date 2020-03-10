@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { pedidosFetch, showMyLoader, modificaUsuario, pedidosFetchInverval, validaToken } from '../actions/AppActions';
+import { 
+  pedidosFetch, 
+  showMyLoader, 
+  modificaUsuario, 
+  pedidosFetchInverval, 
+  validaToken } from '../actions/AppActions';
 import { AppLoading } from 'expo';
 
 
@@ -35,6 +40,7 @@ class Orders extends Component {
     
     userData.then(
       res => {
+        this.props.showMyLoader(true);
         this.props.pedidosFetch(res.id,res.token);
 
         this.interval = setInterval(() => this.props.pedidosFetchInverval(res.id,res.token), 60000);
@@ -49,37 +55,38 @@ class Orders extends Component {
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
         
-    console.log('nextProps.is_valid_token');
-        console.log(nextProps.is_valid_token);
+    //console.log('nextProps.is_valid_token');
+    //console.log(nextProps.is_valid_token);
         
     if(typeof  nextProps.is_valid_token != 'undefined') {
       if(typeof  nextProps.usuario != 'undefined') {
           if(nextProps.usuario != ''){
               if(nextProps.usuario){
                   this.props.validaToken(nextProps.usuario.id,nextProps.usuario.token);
+                  if(nextProps.is_valid_token == 'NOK' ){
+                    this.storeToken({});
+                    
+                      this.props.navigation.navigate('RoutesLogin');
+                      Alert.alert(
+                        'Mensagem',
+                        `Ops, você não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade.`,
+                        [
+                          {
+                            text: 'OK',
+                            //onPress: () => console.log('clicou'),
+                            style: 'WARNING',
+                          },
+                        ],
+                        { cancelable: true },
+                      );
+                  }
                   //this.props.setStatusCadastroUsuario(nextProps.usuario);
                   //this.props.navigation.navigate('Main');
               }
           }
       }
       
-      if(nextProps.is_valid_token == 'NOK' ){
-          this.storeToken({});
-          
-            this.props.navigation.navigate('RoutesLogin');
-            Alert.alert(
-              'Mensagem',
-              `Ops, você não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade.`,
-              [
-                {
-                  text: 'OK',
-                  //onPress: () => console.log('clicou'),
-                  style: 'WARNING',
-                },
-              ],
-              { cancelable: true },
-            );
-        }/**/
+      
         
         
     }

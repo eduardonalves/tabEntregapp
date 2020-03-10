@@ -16,11 +16,13 @@ import {
 
 
 
-export const produtosFetch = (cliente_id, token) => {
+export const produtosByRecFetch = (cliente_id, token) => {
+    
     return dispatch => {
-        console.log('passou aqui 2');
+        
         dispatch({ type: PRODUTO_CARREGADO_OK, payload: [] });
         dispatch({ type: SHOW_LOADER_PRODUTO, payload: true });
+        dispatch({ type: PRODUTO_CARREGADO_FALHA, payload: false });
         let datatosend= {
             clt: cliente_id,
             token: token,
@@ -31,18 +33,16 @@ export const produtosFetch = (cliente_id, token) => {
             .then(res => {
                 
                 if (typeof res.data.produtos != 'undefined') {
-                    console.log('res');
-                console.log(res);
+                    dispatch({ type: SHOW_LOADER_PRODUTO, payload: false });
                     dispatch({ type: PRODUTO_CARREGADO_OK, payload: res.data.produtos });
                 } else {
-                      console.log('deu erro');
-                    dispatch({ type: PRODUTO_CARREGADO_FALHA, payload: false });
-                }
-
-                dispatch({ type: SHOW_LOADER_PRODUTO, payload: false });
+                    
+                    //dispatch({ type: PRODUTO_CARREGADO_OK, payload: [] });
+                    dispatch({ type: PRODUTO_CARREGADO_FALHA, payload: true });
+                }  
             }).catch(error => {
-                //console.log('error');
-                //console.log(error);
+               
+                dispatch({ type: PRODUTO_CARREGADO_OK, payload: [] });
                 dispatch({ type: PRODUTO_CARREGADO_FALHA, payload: true });
                 dispatch({ type: SHOW_LOADER_PRODUTO, payload: false });
             });

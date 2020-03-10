@@ -31,6 +31,8 @@ class MenuReward extends Component {
                 this.props.verificasaldo(this.props.usuario.id, this.props.usuario.token );
                 //this.props.validaToken(res.id,res.token);
                 //this.props.navigation.navigate('Main');
+            }else{
+
             } 
         });
         //console.log(this.props);
@@ -172,30 +174,42 @@ class MenuReward extends Component {
 
                     )
                 }
+                
                 <View style={{flexDirection:'row'}}> 
                     <Image source={require('../../assets/images/jokenpo.png')} style={{flex:1}}/>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center'}}>
-                    <View style={{flex:1, padding:5}}> 
-                        <Text style={{fontSize:50, color:Color.text, textAlign:'center'}}>
-                            Suas Moedas
-                        </Text>
-                    </View>
-                   
-                </View>
-                <View style={{flexDirection:'row', alignItems:'center'}}>
+                <View style={{alignContent:'center', padding:20}}>
                     <View style={{flexDirection:'row', alignItems:'center'}}>
-                        <View style={{flex:1, padding:5,alignItems:'flex-end'}}> 
-                            <Text style={{fontSize:100, color:Color.text}}>
-                                {this.props.saldo}
+                        <View style={{flex:1, padding:5}}> 
+                            <Text style={{
+                                fontSize:50, 
+                                color:Color.text, 
+                                
+                                paddingLeft:30
+                                }}>
+                                Suas Moedas
                             </Text>
                         </View>
-                        <View style={{flex:1, alignItems:'flex-start'}}> 
-                            <Image style={{marginLeft:5, width:107, height:100 }} source={require('../../assets/images/PngItem_5107354.png')} />
-                        </View>
-                    </View>
                     
+                    </View>
+                    <View style={{
+                        flexDirection:'row', 
+                        alignSelf:'center', 
+                        paddingLeft:20, paddingRight:20}}>
+                        <View style={{flexDirection:'row', alignItems:'center'}}>
+                            <View style={{ padding:5, alignItems:'flex-end'}}> 
+                                <Text style={{fontSize:70, color:Color.text}}>
+                                    {this.props.saldo}
+                                </Text>
+                            </View>
+                            <View style={{ alignItems:'flex-start'}}> 
+                                <Image style={{ width:65, height:60 }} source={require('../../assets/images/PngItem_5107354.png')} />
+                            </View>
+                        </View>
+                        
+                    </View>
                 </View>
+                
                 <View style={{flexDirection:'row', alignSelf:'center'}}>
                     <View style={{padding:10}}>
                         <Button
@@ -211,6 +225,8 @@ class MenuReward extends Component {
                             }}
                         />
                     </View>
+                </View>
+                <View style={{flexDirection:'row', alignSelf:'center'}}>
                     <View style={{padding:10}}>
                         <Button
                             onPress={e => this.gotoMyGifts() } 
@@ -226,7 +242,6 @@ class MenuReward extends Component {
                             }}
                         />
                     </View>
-                
                 </View>
             </View>
             

@@ -5,6 +5,7 @@ import Restaurants from "./components/Restaurants";
 import Dishes from "./components/Dishes";
 import Cart from "./components/Cart";
 import Billing from "./components/Billing";
+import MyGifts from "./components/MyGifts";
 
 const MainNavigator = createStackNavigator(
   {
@@ -12,6 +13,7 @@ const MainNavigator = createStackNavigator(
     Dishes: { screen: Dishes },
     Cart: {screen: Cart},
     Billing: {screen: Billing},
+    MyGifts:{screen: MyGifts},
   },
   {
     initialRouteName: "Restaurants",

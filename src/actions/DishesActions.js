@@ -17,6 +17,8 @@ import {
 
 
 export const produtosFetch = (categoria_id) => {
+    //alert('aquie2');
+    //alert('vkkkkk');
     return dispatch => {
         dispatch({ type: PRODUTO_CARREGADO_OK, payload: [] });
         dispatch({ type: SHOW_LOADER_PRODUTO, payload: true });

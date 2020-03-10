@@ -17,7 +17,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import { Ionicons } from '@expo/vector-icons';
-import { produtosFetch, showMyLoaderProduct } from '../actions/MyGiftsActions';
+import { produtosByRecFetch, showMyLoaderProduct } from '../actions/MyGiftsActions';
+import{ setStatusCadastroUsuario } from '../actions/AppActions';
+
 import { HeaderBackButton } from 'react-navigation-stack';
 import Constants from "../utils/constants";
 import foodData from "../food-data.json";
@@ -33,21 +35,15 @@ import ListItemIos from "./ListItemIos";
 class MyGifts extends Component {
   constructor(props) {
     super(props);
-    
+    this.props.showMyLoaderProduct(true);
     
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     let userData = this.getToken();
     //console.log(userData);
     userData.then(resp => {
-        //console.log(resp);
-        if(typeof resp.token != 'undefined'){   
-            //this.props.setStatusCadastroUsuario(resp);
-            //console.log('passou aqu2');
-            this.props.produtosFetch(resp.id, resp.token);
-
-            //this.props.validaToken(res.id,res.token);
-            //this.props.navigation.navigate('Main');
-        } 
+        if(typeof resp != 'undefined'){   
+            this.props.produtosByRecFetch(resp.id, resp.token);
+        }
     });
   }
   async storeToken(user) {
@@ -118,7 +114,7 @@ class MyGifts extends Component {
       <View style={styles.container}>
         <CustomModal />
         {
-          this.props.produtos.length == 0  && this.props.show_loader_produto == false ? (<View style={{
+          this.props.produtos.length == 0  && this.props.produto_carregado_falha !=true && this.props.show_loader_produto == false ? (<View style={{
             opacity: 1.0,
             alignItems:'center',
             justifyContent:'center',
@@ -270,7 +266,8 @@ const mapStateToProps = state => ({
   show_loader: state.AppReducer.show_loader,
   status_envio_pedido: state.AppReducer.status_envio_pedido,
   show_loader_produto: state.MyGiftsReducer.show_loader_produto,
-  produto_carregado_falha: state.MyGiftsReducer.produto_carregado_falha
+  produto_carregado_falha: state.MyGiftsReducer.produto_carregado_falha,
+  usuario: state.AppReducer.usuario
 });
-const mapDispatchToProps = dispatch => bindActionCreators({produtosFetch, showMyLoaderProduct}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({produtosByRecFetch, showMyLoaderProduct}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(MyGifts);

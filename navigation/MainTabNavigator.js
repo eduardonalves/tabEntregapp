@@ -62,7 +62,7 @@ MenuRewardStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name={
-         Platform.OS === 'ios' ? 'ion-ios-trophy' : 'md-trophy' 
+         Platform.OS === 'ios' ? 'ios-trophy' : 'md-trophy' 
       }
      
     />

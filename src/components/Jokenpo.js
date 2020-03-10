@@ -7,7 +7,8 @@ import {
     Button,
     Platform,
     AsyncStorage,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -87,7 +88,7 @@ class Jokenpo extends Component {
         }
         
         return (
-            <View>
+            <ScrollView>
             {
           this.props.show_loader == true ? (
             <View
@@ -232,9 +233,9 @@ class Jokenpo extends Component {
                         <View></View>
                     )
                 }
-                
+                <View style={{padding:30}}></View>
 
-            </View>
+            </ScrollView>
         );
     }
 }
