@@ -35,8 +35,8 @@ class Orders extends Component {
     this.props.showMyLoader(true);
     
     
-    //this.storeToken('');
-    //this.props.setStatusCadastroUsuario('');
+   // this.storeToken('');
+   // this.props.setStatusCadastroUsuario('');
     let userData = this.getToken();
     
     userData.then(

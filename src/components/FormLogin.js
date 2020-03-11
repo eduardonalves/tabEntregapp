@@ -58,7 +58,7 @@ class formLogin extends Component {
         }).catch(error=>{
             console.log(error);
         });
-
+       // console.log(this.props);
         if(typeof  this.props.usuario != 'undefined') {
             if(this.props.usuario != ''){
                 if(this.props.usuario){
