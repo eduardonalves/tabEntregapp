@@ -39,18 +39,15 @@ class formLogin extends Component {
         //this.props.limpaFormularioCadastro();     
         //this.props.setStatusCadastroUsuario('');
         //this.storeToken('')
-        let storeData = this.getToken();
-        //console.log('storeData');
-        //console.log(storeData);
-        storeData.then(resp => {
-            //console.log('resp');
-            //console.log(resp);
-            if(resp != null && resp != ''){
-                if(typeof resp.token != 'undefined'){
-                    this.props.validaToken(resp.id,resp.token);
-                    
+        
+
+        if(typeof  this.props.usuario != 'undefined') {
+            if(this.props.usuario != ''){
+                if(this.props.usuario){
+                    this.props.validaToken(this.props.usuario.id, this.props.usuario.token);
                     if(this.props.is_valid_token == 'OK'){
-                        this.props.setStatusCadastroUsuario(resp);
+                        this.storeToken(this.props.usuario);
+                        this.props.setStatusCadastroUsuario(this.props.usuario);
                         this.props.navigation.navigate('Main');
                     }
                     
@@ -58,7 +55,7 @@ class formLogin extends Component {
             }
             
             
-        });
+        }
         
     }
 

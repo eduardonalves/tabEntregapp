@@ -85,6 +85,8 @@ export default createAppContainer(
   },
   {
     initialRouteName: "Main",
+    //initialRouteName: "RoutesLogin",
+    
     /*Transition config não é obrigatório, caso queira a animação padrão remova a linha abaixo*/
     //transitionConfig: () => flipX(),
     defaultNavigationOptions: {
