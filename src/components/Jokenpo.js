@@ -83,7 +83,7 @@ class Jokenpo extends Component {
             test = true
         }
         let btnDisabled=false;
-        if(this.props.resultado_final !=''){
+        if(this.props.resultado_final !='' || this.props.show_loader==true){
             btnDisabled=true;
         }
         
@@ -206,7 +206,7 @@ class Jokenpo extends Component {
                     
                         ):(
                             <View>
-                                <Text>''</Text>
+                                <Text></Text>
                             </View>
                             
                     )} 

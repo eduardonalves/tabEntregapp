@@ -126,6 +126,7 @@ async getToken() {
     
   };
   render() {
+    
     let preco = this.props.price.toString();
     preco = preco.replace(".", ",");
     return (
@@ -272,7 +273,7 @@ async getToken() {
               
             }}  >
               {
-                this.props.pardida_id =='' || this.props.pardida_id ==null ? (
+                this.props.partida_id =='' || this.props.partida_id ==null ? (
                   <Picker
                     selectedValue={this.state.qtd}
                     style={{

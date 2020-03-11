@@ -129,6 +129,7 @@ async getToken() {
     
   };
   render() {
+    
     let preco = this.props.price.toString();
     preco = preco.replace(".", ",");
     return (
@@ -232,7 +233,7 @@ async getToken() {
                 </View>
 
                 {
-                this.props.pardida_id =='' || this.props.pardida_id ==null ? 
+                this.props.partida_id =='' || this.props.partida_id == null ? 
                 (
                   <View style={{ flex: 1 , marginTop:- 9}}  >
                   <Picker

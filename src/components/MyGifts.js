@@ -120,7 +120,8 @@ class MyGifts extends Component {
       <View style={styles.container}>
         <CustomModal />
         {
-          this.props.produtos.length == 0   && this.props.show_loader_produto == false  ? (<View style={{
+          this.props.produtos.length == 0   && this.props.show_loader_produto != true && this.props.produto_carregado_falha==true ? (
+          <View style={{
             opacity: 1.0,
             alignItems:'center',
             justifyContent:'center',
@@ -128,10 +129,11 @@ class MyGifts extends Component {
             padding:50
             
           }} >
+            
             <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'}  size={200} color="#ef6136" />
             <Text style={{fontSize:18 , textAlign:'center'}}>Ops!</Text>
             <Text style={{fontSize:15, textAlign:'center'}}>Você não tem recompensas para resgatar.</Text>
-            
+             
           </View>):(
             <View></View>
           )

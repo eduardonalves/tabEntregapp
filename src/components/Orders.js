@@ -34,12 +34,14 @@ class Orders extends Component {
     super(props);
     this.props.showMyLoader(true);
     
-    //this.storeToken({})
-
+    
+    //this.storeToken('');
     let userData = this.getToken();
     
     userData.then(
       res => {
+        //console.log('res');
+        //console.log(res);
         if(res == null || res == ''){
                 
           this.props.showMyLoader(false);
