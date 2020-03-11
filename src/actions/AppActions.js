@@ -1798,7 +1798,11 @@ export const jogarJokenpo = (usuario,token, escolhaUsuario) => {
     }
     
 }
-
+export const modificaSaldo = (status) => {
+    return dispatch => {
+        dispatch({ type: SALDO, payload: status })
+    }
+}
 export const verificasaldo = (usuario,token) => {
     return dispatch => {
         

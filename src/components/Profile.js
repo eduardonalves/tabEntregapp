@@ -135,7 +135,7 @@ class Perfil extends Component {
               this.props.validaToken(nextProps.usuario.id,nextProps.usuario.token);
               if(nextProps.is_valid_token == 'NOK' ){
                 this.storeToken('');
-                
+                this.props.setStatusCadastroUsuario('');
                   this.props.navigation.navigate('RoutesLogin');
                   Alert.alert(
                     'Mensagem',

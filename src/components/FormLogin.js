@@ -43,13 +43,13 @@ class formLogin extends Component {
         //console.log('storeData');
         //console.log(storeData);
         storeData.then(resp => {
-            console.log('resp');
-            console.log(resp);
+            //console.log('resp');
+            //console.log(resp);
             if(resp != null && resp != ''){
                 if(typeof resp.token != 'undefined'){
                     this.props.validaToken(resp.id,resp.token);
                     
-                    if(this.props.is_valid_token != 'NOK'){
+                    if(this.props.is_valid_token == 'OK'){
                         this.props.setStatusCadastroUsuario(resp);
                         this.props.navigation.navigate('Main');
                     }
@@ -65,13 +65,13 @@ class formLogin extends Component {
     UNSAFE_componentWillReceiveProps(nextProps) {
         
 
-        console.log('nextProps');
-        console.log(nextProps);
+        //console.log('nextProps');
+        //console.log(nextProps);
         if(typeof  nextProps.usuario != 'undefined') {
             if(nextProps.usuario != ''){
                 if(nextProps.usuario){
                     this.props.validaToken(nextProps.usuario.id, nextProps.usuario.token);
-                    if(this.props.is_valid_token != 'NOK'){
+                    if(this.props.is_valid_token == 'OK'){
                         this.storeToken(nextProps.usuario);
                         this.props.setStatusCadastroUsuario(nextProps.usuario);
                         this.props.navigation.navigate('Main');
@@ -84,16 +84,19 @@ class formLogin extends Component {
         }
     }
     UNSAFE_componentWillMount(){
-        console.log('this.props.usuario');
-        console.log(this.props.usuario);
+        //console.log('this.props.usuario');
+        //console.log(this.props.usuario);
         if(this.props.usuario=='' || this.props.usuario==false ){
             
             let storeData = this.getToken();
             storeData.then(resp => {
                 if(typeof resp.token != 'undefined'){
+                    this.props.validaToken(nextProps.usuario.id, nextProps.usuario.token);
                     
-                    this.props.setStatusCadastroUsuario(resp);
-                    this.props.navigation.navigate('Main');
+                    if(this.props.is_valid_token == 'OK'){
+                        this.props.setStatusCadastroUsuario(resp);
+                        this.props.navigation.navigate('Main');
+                    }
                 }
                 
             });

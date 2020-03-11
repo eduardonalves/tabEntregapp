@@ -6,7 +6,7 @@ import {
   showMyLoader, 
   modificaUsuario, 
   pedidosFetchInverval, 
-  validaToken } from '../actions/AppActions';
+  validaToken, setStatusCadastroUsuario } from '../actions/AppActions';
 import { AppLoading } from 'expo';
 
 
@@ -36,6 +36,7 @@ class Orders extends Component {
     
     
     //this.storeToken('');
+    //this.props.setStatusCadastroUsuario('');
     let userData = this.getToken();
     
     userData.then(
@@ -87,7 +88,7 @@ class Orders extends Component {
                   this.props.validaToken(nextProps.usuario.id,nextProps.usuario.token);
                   if(nextProps.is_valid_token == 'NOK' ){
                     this.storeToken('');
-                    
+                    this.props.setStatusCadastroUsuario('');
                       this.props.navigation.navigate('RoutesLogin');
                       Alert.alert(
                         'Mensagem',
@@ -296,5 +297,5 @@ const mapStateToProps = state => ({
   is_valid_token: state.AppReducer.is_valid_token,
   usuario: state.AppReducer.usuario
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ pedidosFetch, showMyLoader, modificaUsuario,pedidosFetchInverval,validaToken }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ pedidosFetch, showMyLoader, modificaUsuario,pedidosFetchInverval,validaToken, setStatusCadastroUsuario }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);

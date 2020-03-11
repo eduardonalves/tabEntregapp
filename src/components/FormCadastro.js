@@ -47,7 +47,8 @@ import {
     limpaListaEstados,
     setStatusCadastroUsuario,
     limpaFormularioCadastro,
-    modificaUsername
+    modificaUsername,
+    validaToken
 
 } from '../actions/AppActions';
 
@@ -60,24 +61,44 @@ class FormCadastro extends Component {
         this.props.estadosFetch();
         this.props.limpaFormularioCadastro();
         
-        /*let userdata = this.getToken();
-        userData.then(data => {
-          console.log(data);
-        });*/
+        let storeData = this.getToken();
+        
+        storeData.then(resp => {
+           
+            if(resp != null && resp != ''){
+                if(typeof resp.token != 'undefined'){
+                    this.props.validaToken(resp.id,resp.token);
+                    
+                    if(this.props.is_valid_token == 'OK'){
+                        this.props.setStatusCadastroUsuario(resp);
+                        this.props.navigation.navigate('Main');
+                    }
+                    
+                }
+            }
+            
+            
+        });
     }
     UNSAFE_componentWillReceiveProps(nextProps) {
         //console.log('nextProps');
         //console.log(nextProps);
         if(typeof  nextProps.usuario != 'undefined') {
-            if(nextProps.usuario){
-                //console.log('nextProps.usuario');
-                //console.log(nextProps.usuario);
-                this.storeToken(nextProps.usuario);
-                //this.props.setStatusCadastroUsuario(false);
-                this.props.navigation.navigate('Main');
+            if(nextProps.usuario != ''){
+                if(nextProps.usuario){
+                    this.props.validaToken(nextProps.usuario.id, nextProps.usuario.token);
+                    if(this.props.is_valid_token == 'OK'){
+                        this.storeToken(nextProps.usuario);
+                        //this.props.setStatusCadastroUsuario(nextProps.usuario);
+                        this.props.navigation.navigate('Main');
+                    }
+                    
+                }
             }
             
+            
         }
+        
     }
 
     static navigationOptions = ({ navigation }) => {
@@ -612,7 +633,8 @@ export default connect(mapStateToProps, {
     cadastraUsuario,
     setStatusCadastroUsuario,
     limpaFormularioCadastro,
-    modificaUsername
+    modificaUsername,
+    validaToken
 })(FormCadastro);
 
 const styles = StyleSheet.create({

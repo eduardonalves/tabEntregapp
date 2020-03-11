@@ -158,7 +158,7 @@ class MyGifts extends Component {
             Platform.OS === 'ios' ? (
               <FlatList
                 data={this.props.produtos}
-                keyExtractor={item => item.Produto.id}
+                keyExtractor={item => item.Produto.id_sec}
                 renderItem={({ item }) => (
                   
                   <ListItemIos
@@ -180,7 +180,7 @@ class MyGifts extends Component {
             ):(
               <FlatList
               data={this.props.produtos}
-              keyExtractor={item => item.Produto.id}
+              keyExtractor={item => item.Produto.id_sec}
               renderItem={({ item }) => (
                 
                 <ListItem

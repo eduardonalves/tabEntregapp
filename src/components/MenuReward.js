@@ -13,7 +13,7 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { categoriasFetch, showMyLoader,validaToken,categoriasFetchInterval, showMyLoaderCategory, entrarJokenpo, setStatusCadastroUsuario, modificaIniciouPartida, verificasaldo } from '../actions/AppActions';
+import { categoriasFetch, showMyLoader,validaToken,categoriasFetchInterval, showMyLoaderCategory, entrarJokenpo, setStatusCadastroUsuario, modificaIniciouPartida, verificasaldo, modificaSaldo } from '../actions/AppActions';
 import CartButton from "./common/CartButton";
 import Color from "../../constants/Colors";
 import  BtnEscolha  from './Escolha';
@@ -47,6 +47,7 @@ class MenuReward extends Component {
             }else{
                 if(typeof resp.token != 'undefined'){   
                     this.props.setStatusCadastroUsuario(resp);
+                    this.props.modificaSaldo(0);
                     this.props.verificasaldo(this.props.usuario.id, this.props.usuario.token );
                     this.props.validaToken(this.props.usuario.id, this.props.usuario.token);
                     //this.props.validaToken(res.id,res.token);
@@ -67,7 +68,7 @@ class MenuReward extends Component {
                         //this.props.validaToken(nextProps.usuario.id,nextProps.usuario.token);
                         if(nextProps.is_valid_token == 'NOK' ){
                           this.storeToken('');
-                          
+                          this.props.setStatusCadastroUsuario('');
                             this.props.navigation.navigate('RoutesLogin');
                             Alert.alert(
                               'Mensagem',
@@ -339,5 +340,5 @@ const mapStateToProps = state => ({
     saldo: state.AppReducer.saldo,
     is_valid_token: state.AppReducer.is_valid_token
 });  
-const mapDispatchToProps = dispatch => bindActionCreators({ categoriasFetch,showMyLoader,validaToken,categoriasFetchInterval, showMyLoaderCategory, entrarJokenpo, setStatusCadastroUsuario, modificaIniciouPartida, verificasaldo }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ categoriasFetch,showMyLoader,validaToken,categoriasFetchInterval, showMyLoaderCategory, entrarJokenpo, setStatusCadastroUsuario, modificaIniciouPartida, verificasaldo, modificaSaldo }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(MenuReward);
