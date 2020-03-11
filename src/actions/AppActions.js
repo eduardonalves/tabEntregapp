@@ -127,6 +127,7 @@ export const autenticarUsuario = (usuario) => {
 
                         clearInterval(interval);
                         dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimopedido.Cliente });
+                        dispatch({ type: IS_VALID_TOKEN, payload: 'OK' });
                     }
 
                 }
