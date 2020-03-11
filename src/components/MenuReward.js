@@ -23,6 +23,7 @@ class MenuReward extends Component {
 
     constructor(props) {
         super(props);
+        //this.storeToken('')
         let userData = this.getToken();
         userData.then(resp => {
             //console.log(resp);

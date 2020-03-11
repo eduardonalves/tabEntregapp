@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f8cac46-5570-40f9-9e32-fced065f0116" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FormLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormLogin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Jokenpo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Jokenpo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MenuReward.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MenuReward.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,9 +16,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1533" />
+    <option name="y" value="191" />
     <option name="width" value="1382" />
     <option name="height" value="784" />
   </component>
@@ -73,7 +75,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="1533" y="191" width="1382" height="784" extended-state="0" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.16438356" />

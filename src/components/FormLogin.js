@@ -38,12 +38,13 @@ class formLogin extends Component {
         super(props);
         //this.props.limpaFormularioCadastro();     
         //this.props.setStatusCadastroUsuario('');
-        //this.storeToken({})
+        //this.storeToken('')
         let storeData = this.getToken();
         //console.log('storeData');
         //console.log(storeData);
         storeData.then(resp => {
-            //console.log(resp);
+            console.log('resp');
+            console.log(resp);
             if(resp != null && resp != ''){
                 if(typeof resp.token != 'undefined'){
                     this.props.validaToken(resp.id,resp.token);
@@ -64,7 +65,8 @@ class formLogin extends Component {
     UNSAFE_componentWillReceiveProps(nextProps) {
         
 
-        
+        console.log('nextProps');
+        console.log(nextProps);
         if(typeof  nextProps.usuario != 'undefined') {
             if(nextProps.usuario != ''){
                 if(nextProps.usuario){
@@ -82,6 +84,8 @@ class formLogin extends Component {
         }
     }
     UNSAFE_componentWillMount(){
+        console.log('this.props.usuario');
+        console.log(this.props.usuario);
         if(this.props.usuario=='' || this.props.usuario==false ){
             
             let storeData = this.getToken();
