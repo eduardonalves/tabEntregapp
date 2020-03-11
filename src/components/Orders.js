@@ -40,15 +40,35 @@ class Orders extends Component {
     
     userData.then(
       res => {
-        this.props.showMyLoader(true);
-        this.props.pedidosFetch(res.id,res.token);
+        if(res == null || res == ''){
+                
+          this.props.showMyLoader(false);
+          this.props.navigation.navigate('RoutesLogin');
+          Alert.alert(
+            'Mensagem',
+            `Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`,
+            [
+              {
+                text: 'OK',
+                //onPress: () => console.log('clicou'),
+                style: 'WARNING',
+              },
+            ],
+            { cancelable: true },
+          );
+          
+        }else{
+          this.props.showMyLoader(true);
+          this.props.pedidosFetch(res.id,res.token);
 
-        this.interval = setInterval(() => this.props.pedidosFetchInverval(res.id,res.token), 60000);
-        this.props.validaToken(res.id,res.token);
+          this.interval = setInterval(() => this.props.pedidosFetchInverval(res.id,res.token), 60000);
+          this.props.validaToken(res.id,res.token);
       
+        }
+        
       }
     ).catch(error => {
-    console.log(error);    
+    //console.log(error);    
      
     });
     //console.log(this.props);
@@ -64,7 +84,7 @@ class Orders extends Component {
               if(nextProps.usuario){
                   this.props.validaToken(nextProps.usuario.id,nextProps.usuario.token);
                   if(nextProps.is_valid_token == 'NOK' ){
-                    this.storeToken({});
+                    this.storeToken('');
                     
                       this.props.navigation.navigate('RoutesLogin');
                       Alert.alert(

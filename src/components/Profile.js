@@ -54,7 +54,8 @@ import {
   cadastraUsuarioEditComSenha,
   modificaUsuarioModificouCadastro,
   modificaCarregaEstadoFalha,
-  showMyLoader
+  showMyLoader,
+  validaToken
 
 } from '../actions/AppActions';
 
@@ -70,7 +71,9 @@ class Perfil extends Component {
    // console.log(userData);
     userData.then(
       res => {
-        if(typeof res.token == 'undefined'){
+        //console.log('res');
+        //console.log(res);
+        if(res == null || res == '' ){
                 
           this.props.showMyLoader(false);
           this.props.navigation.navigate('RoutesLogin');
@@ -88,6 +91,7 @@ class Perfil extends Component {
           );
           
         }else{
+          this.props.validaToken(res.id, res.token);
           this.props.modificaCarregaEstadoFalha(false);
           this.props.modificaIdUsuario(res.id);
           this.props.modificaEmail(res.email);
@@ -113,6 +117,7 @@ class Perfil extends Component {
       }
       
     ).catch(error => {
+      
       this.props.showMyLoader(false);
     });
 
@@ -123,6 +128,34 @@ class Perfil extends Component {
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     
+    if(typeof  nextProps.is_valid_token != 'undefined') {
+      if(typeof  nextProps.usuario != 'undefined') {
+          if(nextProps.usuario != ''){
+             
+              this.props.validaToken(nextProps.usuario.id,nextProps.usuario.token);
+              if(nextProps.is_valid_token == 'NOK' ){
+                this.storeToken('');
+                
+                  this.props.navigation.navigate('RoutesLogin');
+                  Alert.alert(
+                    'Mensagem',
+                    `Ops, você não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade.`,
+                    [
+                      {
+                        text: 'OK',
+                        //onPress: () => console.log('clicou'),
+                        style: 'WARNING',
+                      },
+                    ],
+                    { cancelable: true },
+                  );
+              }
+              //this.props.setStatusCadastroUsuario(nextProps.usuario);
+              //this.props.navigation.navigate('Main');
+          
+          }
+      }  
+    }
     if (nextProps.usuario_atualizou_cadastro == true) {
       //console.log('this.props.usuario component will update');
       //console.log(this.props.usuario);
@@ -133,6 +166,7 @@ class Perfil extends Component {
         //this.props.estadosFetch();
       }
     }
+    
   }
 
 
@@ -715,6 +749,7 @@ const mapStateToProps = state => ({
   usuario_id: state.AppReducer.usuario_id,
   senha_antiga: state.AppReducer.senha_antiga,
   usuario_atualizou_cadastro: state.AppReducer.usuario_atualizou_cadastro,
+  is_valid_token:state.AppReducer.is_valid_token
 });
 
 export default connect(mapStateToProps, {
@@ -748,7 +783,8 @@ export default connect(mapStateToProps, {
   cadastraUsuarioEditComSenha,
   modificaUsuarioModificouCadastro,
   modificaCarregaEstadoFalha,
-  showMyLoader
+  showMyLoader,
+  validaToken
 })(Perfil);
 
 const styles = StyleSheet.create({

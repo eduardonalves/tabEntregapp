@@ -42,7 +42,10 @@ class MyGifts extends Component {
     //console.log(userData);
     userData.then(resp => {
         if(typeof resp != 'undefined'){   
+          if(resp.id !='' && resp.token !=''){
             this.props.produtosByRecFetch(resp.id, resp.token);
+          }
+            
         }
     });
   }
@@ -109,12 +112,15 @@ class MyGifts extends Component {
   
   render() {
     
-
+    //console.log('tamanho produto');
+    //console.log(this.props.produtos.length);
+    //console.log(' produto');
+    //console.log(this.props.produtos);
     return (
       <View style={styles.container}>
         <CustomModal />
         {
-          this.props.produtos.length == 0  && this.props.produto_carregado_falha !=true && this.props.show_loader_produto == false ? (<View style={{
+          this.props.produtos.length == 0   && this.props.show_loader_produto == false  ? (<View style={{
             opacity: 1.0,
             alignItems:'center',
             justifyContent:'center',
@@ -124,7 +130,7 @@ class MyGifts extends Component {
           }} >
             <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'}  size={200} color="#ef6136" />
             <Text style={{fontSize:18 , textAlign:'center'}}>Ops!</Text>
-            <Text style={{fontSize:15, textAlign:'center'}}>Não existem produtos cadastrados nesta categoria.</Text>
+            <Text style={{fontSize:15, textAlign:'center'}}>Você não tem recompensas para resgatar.</Text>
             
           </View>):(
             <View></View>

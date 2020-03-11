@@ -44,15 +44,18 @@ class formLogin extends Component {
         //console.log(storeData);
         storeData.then(resp => {
             //console.log(resp);
-            if(typeof resp.token != 'undefined'){
-                this.props.validaToken(resp.id,resp.token);
-                
-                if(this.props.is_valid_token != 'NOK'){
-                    this.props.setStatusCadastroUsuario(resp);
-                    this.props.navigation.navigate('Main');
+            if(resp != null && resp != ''){
+                if(typeof resp.token != 'undefined'){
+                    this.props.validaToken(resp.id,resp.token);
+                    
+                    if(this.props.is_valid_token != 'NOK'){
+                        this.props.setStatusCadastroUsuario(resp);
+                        this.props.navigation.navigate('Main');
+                    }
+                    
                 }
-                
             }
+            
             
         });
         

@@ -272,7 +272,7 @@ async getToken() {
               
             }}  >
               {
-                this.props.pardida_id =='' ? (
+                this.props.pardida_id =='' || this.props.pardida_id ==null ? (
                   <Picker
                     selectedValue={this.state.qtd}
                     style={{

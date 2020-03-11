@@ -13,7 +13,7 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { categoriasFetch,categoriasFetchInterval, showMyLoaderCategory, entrarJokenpo, setStatusCadastroUsuario, modificaIniciouPartida, verificasaldo } from '../actions/AppActions';
+import { categoriasFetch, showMyLoader,validaToken,categoriasFetchInterval, showMyLoaderCategory, entrarJokenpo, setStatusCadastroUsuario, modificaIniciouPartida, verificasaldo } from '../actions/AppActions';
 import CartButton from "./common/CartButton";
 import Color from "../../constants/Colors";
 import  BtnEscolha  from './Escolha';
@@ -26,20 +26,67 @@ class MenuReward extends Component {
         let userData = this.getToken();
         userData.then(resp => {
             //console.log(resp);
-            if(typeof resp.token != 'undefined'){   
-                this.props.setStatusCadastroUsuario(resp);
-                this.props.verificasaldo(this.props.usuario.id, this.props.usuario.token );
-                //this.props.validaToken(res.id,res.token);
-                //this.props.navigation.navigate('Main');
+            if(resp == null || resp == ''){
+                
+                this.props.showMyLoader(false);
+                this.props.navigation.navigate('RoutesLogin');
+                Alert.alert(
+                  'Mensagem',
+                  `Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`,
+                  [
+                    {
+                      text: 'OK',
+                      //onPress: () => console.log('clicou'),
+                      style: 'WARNING',
+                    },
+                  ],
+                  { cancelable: true },
+                );
+                
             }else{
-
-            } 
+                if(typeof resp.token != 'undefined'){   
+                    this.props.setStatusCadastroUsuario(resp);
+                    this.props.verificasaldo(this.props.usuario.id, this.props.usuario.token );
+                    this.props.validaToken(this.props.usuario.id, this.props.usuario.token);
+                    //this.props.validaToken(res.id,res.token);
+                    //this.props.navigation.navigate('Main');
+                }    
+            }
+             
         });
         //console.log(this.props);
         
     }
     UNSAFE_componentWillReceiveProps(nextProps) {
-        //console.log(nextProps);
+      //  console.log(nextProps);
+        if(typeof  nextProps.is_valid_token != 'undefined') {
+            if(typeof  nextProps.usuario != 'undefined') {
+                if(nextProps.usuario != ''){
+                    if(nextProps.usuario){
+                        //this.props.validaToken(nextProps.usuario.id,nextProps.usuario.token);
+                        if(nextProps.is_valid_token == 'NOK' ){
+                          this.storeToken('');
+                          
+                            this.props.navigation.navigate('RoutesLogin');
+                            Alert.alert(
+                              'Mensagem',
+                              `Ops, você não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade.`,
+                              [
+                                {
+                                  text: 'OK',
+                                  //onPress: () => console.log('clicou'),
+                                  style: 'WARNING',
+                                },
+                              ],
+                              { cancelable: true },
+                            );
+                        }
+                        //this.props.setStatusCadastroUsuario(nextProps.usuario);
+                        //this.props.navigation.navigate('Main');
+                    }
+                }
+            }  
+          }
         if(typeof  nextProps.iniciou_partida != 'undefined') {
             if(nextProps.iniciou_partida == true){
                 this.props.navigation.navigate("Jokenpo");
@@ -288,7 +335,8 @@ const mapStateToProps = state => ({
     dados_premio: state.AppReducer.dados_premio,
     iniciou_partida: state.AppReducer.iniciou_partida,
     usuario: state.AppReducer.usuario,
-    saldo: state.AppReducer.saldo
+    saldo: state.AppReducer.saldo,
+    is_valid_token: state.AppReducer.is_valid_token
 });  
-const mapDispatchToProps = dispatch => bindActionCreators({ categoriasFetch,categoriasFetchInterval, showMyLoaderCategory, entrarJokenpo, setStatusCadastroUsuario, modificaIniciouPartida, verificasaldo }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ categoriasFetch,showMyLoader,validaToken,categoriasFetchInterval, showMyLoaderCategory, entrarJokenpo, setStatusCadastroUsuario, modificaIniciouPartida, verificasaldo }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(MenuReward);

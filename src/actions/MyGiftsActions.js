@@ -31,15 +31,15 @@ export const produtosByRecFetch = (cliente_id, token) => {
         }
         axios.post(`${APP_URL}/RestProdutos/prodsmobilebyrec.json`, datatosend)
             .then(res => {
-                
+                console.log('res');
+                console.log(res);    
                 if (typeof res.data.produtos != 'undefined') {
-                    dispatch({ type: SHOW_LOADER_PRODUTO, payload: false });
+                        
                     dispatch({ type: PRODUTO_CARREGADO_OK, payload: res.data.produtos });
-                } else {
-                    
-                    //dispatch({ type: PRODUTO_CARREGADO_OK, payload: [] });
-                    dispatch({ type: PRODUTO_CARREGADO_FALHA, payload: true });
                 }  
+                setTimeout(function(){
+                    dispatch({ type: SHOW_LOADER_PRODUTO, payload: false });
+                },2000);
             }).catch(error => {
                
                 dispatch({ type: PRODUTO_CARREGADO_OK, payload: [] });
