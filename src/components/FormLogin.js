@@ -36,7 +36,9 @@ class formLogin extends Component {
 
     constructor(props) {
         super(props);
-        
+       
+        let storeData = this.getToken();
+      
         storeData.then(resp => {
             console.log('resp');
             console.log(resp);
