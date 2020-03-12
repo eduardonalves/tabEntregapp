@@ -195,30 +195,48 @@ async getToken() {
                     // width: "100%",
                   }}
                 >
-                  <Text
+                   {
+                    this.props.partida_id =='' || this.props.partida_id == null ? (
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: "bold",
+                          color: "#ef6136"
+                        }}
+                      >
+                        {this.props.disponivel == 1? (
+                        <NumberFormat 
+                            value={preco } 
+                            displayType={'text'} 
+                            renderText={value => <Text>{value}</Text>}
+                            thousandSeparator={'.'}
+                            decimalScale={2} 
+                            fixedDecimalScale={true}
+                            prefix={'R$ '}
+                            decimalSeparator={','}
+                        
+                        />
+                      ):(
+                        'N/D'
+                      )}
+
+                      </Text>
+                    ):(
+                      <Text
                       style={{
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: "bold",
-                        color: "#ef6136"
+                        color: "#ef6136",
+                        marginBottom:5,
+                        textAlign:'center'
                       }}
                     >
-                      {this.props.disponivel == 1? (
-                      <NumberFormat 
-                          value={preco } 
-                          displayType={'text'} 
-                          renderText={value => <Text>{value}</Text>}
-                          thousandSeparator={'.'}
-                          decimalScale={2} 
-                          fixedDecimalScale={true}
-                          prefix={'R$ '}
-                          decimalSeparator={','}
-                      
-                      />
-                    ):(
-                      'N/D'
+                      Validade  {this.props.data_validade}
+                        
+                        
+                      </Text>
                     )}
-
-                    </Text>
+                  
 
                     
                 </View>
@@ -297,21 +315,7 @@ async getToken() {
                     <Picker.Item label="9" value="9" />
                     <Picker.Item label="10" value="10" />
                   </Picker>
-                ):(<Picker
-                  selectedValue={this.state.qtd}
-                  style={{
-                    height: 80, width: 30,
-                    alignSelf:"flex-start",
-                    marginTop: -95
-                  }}
-                  onValueChange={(itemValue, itemIndex) =>
-                    this.setState({ qtd: itemValue })
-                  }
-                              //onPress={e => alert("Hey")}
-                          /**/>
-                  <Picker.Item label="1" value="1" />
-                  
-                </Picker>)
+                ):(<View></View>)
               }
               
               <Text

@@ -204,32 +204,50 @@ async getToken() {
                 }}
               >
                 <View style={{ flex: 1 }}>
-                  
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: "bold",
-                      color: "#ef6136"
-                    }}
-                  >
-                    {this.props.disponivel == 1? (
-                      <NumberFormat 
-                          value={preco } 
-                          displayType={'text'} 
-                          renderText={value => <Text>{value}</Text>}
-                          thousandSeparator={'.'}
-                          decimalScale={2} 
-                          fixedDecimalScale={true}
-                          prefix={'R$ '}
-                          decimalSeparator={','}
-                      
-                      />
+                  {
+                    this.props.partida_id =='' || this.props.partida_id == null ? (
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          fontWeight: "bold",
+                          color: "#ef6136"
+                        }}
+                      >
+                        {this.props.disponivel == 1? (
+                          <NumberFormat 
+                              value={preco } 
+                              displayType={'text'} 
+                              renderText={value => <Text>{value}</Text>}
+                              thousandSeparator={'.'}
+                              decimalScale={2} 
+                              fixedDecimalScale={true}
+                              prefix={'R$ '}
+                              decimalSeparator={','}
+                          
+                          />
+                        ):(
+                          'N/D'
+                        )}
+                        
+                        
+                      </Text>
                     ):(
-                      'N/D'
-                    )}
-                    
-                    
-                  </Text>
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          fontWeight: "bold",
+                          color: "#ef6136",
+                          marginBottom:5,
+                          textAlign:'center'
+                        }}
+                      >
+                      Validade  {this.props.data_validade}
+                        
+                        
+                      </Text>
+                    )
+                  }
+                  
                 </View>
 
                 {
@@ -261,20 +279,8 @@ async getToken() {
                 </View>
                 )  :
                 (
-                  <View style={{ flex: 1 , marginTop:- 9}}  >
-                  <Picker
-                    selectedValue={this.state.qtd}
-                    style={{
-                      height: 40, width: 100
-                    }}
-                    onValueChange={(itemValue, itemIndex) =>
-                      this.setState({ qtd: itemValue })
-                    }
-                    //onPress={e => alert("Hey")}
-                /**/>
-                    <Picker.Item label="1" value="1" />
-                    
-                  </Picker>
+                <View  >
+                
 
                 </View>
                 )

@@ -173,6 +173,7 @@ class MyGifts extends Component {
                     handleNaviagation={this.handleNaviagation}
                     handleGoToLogin={this.handleGoToLogin}
                     partida_id={item.Produto.partida_id}
+                    data_validade={item.Produto.data_validade}
                     
                   />
                 )}
@@ -195,6 +196,7 @@ class MyGifts extends Component {
                   handleNaviagation={this.handleNaviagation}
                   handleGoToLogin={this.handleGoToLogin}
                   partida_id={item.Produto.partida_id}
+                  data_validade={item.Produto.data_validade}
                 />
               )}
             />

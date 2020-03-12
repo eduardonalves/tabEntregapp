@@ -165,14 +165,31 @@ class Jokenpo extends Component {
                 }
                 <View style={{ padding: 5 }}>
                     {this.props.resultado_final == '' ? (
-                        <Text style={{
-                            fontSize: 25,
-                            textAlign: 'center',
-                            color: '#E1AD01',
-                            fontWeight: 'bold'
-                        }}>
-                            Placar Parcial
-                        </Text>
+                        <View>
+                            { test==true? (
+                                <Text style={{
+                                    fontSize: 25,
+                                    textAlign: 'center',
+                                    color: '#E1AD01',
+                                    fontWeight: 'bold'
+                                }}>
+                                    Escolha outra vez!
+                                </Text>
+                            ):(
+                                <Text></Text>
+
+                            ) }
+                            
+                            <Text style={{
+                                fontSize: 25,
+                                textAlign: 'center',
+                                color: '#E1AD01',
+                                fontWeight: 'bold'
+                            }}>
+                                Placar Parcial
+                            </Text>
+                        </View>
+                        
                     ) : (
                             <Text style={{
                                 fontSize: 25,

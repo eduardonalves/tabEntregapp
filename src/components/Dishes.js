@@ -140,6 +140,7 @@ class Dishes extends Component {
                     handleNaviagation={this.handleNaviagation}
                     handleGoToLogin={this.handleGoToLogin}
                     partida_id=''
+                    data_validade=''
                     
                   />
                 )}
@@ -162,6 +163,7 @@ class Dishes extends Component {
                   handleNaviagation={this.handleNaviagation}
                   handleGoToLogin={this.handleGoToLogin}
                   partida_id=''
+                  data_validade=''
                 />
               )}
             />
