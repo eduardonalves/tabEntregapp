@@ -1815,10 +1815,11 @@ export const verificasaldo = (usuario,token) => {
         }
         //console.log(dados);
         dispatch({ type: SHOW_LOADER, payload: true })
-        axios.post(`${APP_URL}/RestClientes/verificasaldo.json?`, dados)
+        axios.post(`${APP_URL}/RestClientes/verificasaldo.json`, dados)
         .then(res => {
+            //console.log('res saldo');
             //console.log(res);
-            
+            //console.log(dados);
             if(typeof res.data.users !='undefined'){
                 if(res.data.users !=''){
                     

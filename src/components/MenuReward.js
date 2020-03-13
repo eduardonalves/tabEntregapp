@@ -8,7 +8,8 @@ import {
     Button,
     AsyncStorage,
     Alert,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -173,7 +174,7 @@ class MenuReward extends Component {
         
 
         return (
-            <View >
+            <ScrollView >
                 {
                 this.props.show_loader == true ? (
                     <View
@@ -234,7 +235,8 @@ class MenuReward extends Component {
                                 fontSize:50, 
                                 color:Color.text, 
                                 
-                                paddingLeft:30
+                                paddingLeft:30,
+                                textAlign:'center'
                                 }}>
                                 Suas Moedas
                             </Text>
@@ -292,7 +294,8 @@ class MenuReward extends Component {
                         />
                     </View>
                 </View>
-            </View>
+                <View style={{padding:30}}></View>
+            </ScrollView>
             
         );
     }
