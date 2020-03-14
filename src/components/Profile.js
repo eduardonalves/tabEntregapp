@@ -619,6 +619,7 @@ class Perfil extends Component {
                       containerStyle={styles._bodyInputText}
                       onChangeText={texto => this.props.modificaUsername(texto)}
                       label='Nome de Usuário'
+                      disabled={true}
                     />
 
                     <Input
@@ -711,6 +712,7 @@ class Perfil extends Component {
               </View>
             )
         }
+        <View style={{padding:20}}></View>
       </ScrollView>
       </KeyboardAwareScrollView>
     );
