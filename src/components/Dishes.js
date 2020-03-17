@@ -59,12 +59,12 @@ class Dishes extends Component {
   handleNaviagation = () => {
     this.props.navigation.navigate("Dishes");
   };
-
-  componentWillMount() {
+  
+  UNSAFE_componentWillMount() {
       BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
       BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 
@@ -125,7 +125,7 @@ class Dishes extends Component {
             Platform.OS === 'ios' ? (
               <FlatList
                 data={this.props.produtos}
-                keyExtractor={item => item.Produto.id}
+                keyExtractor={item => item.Produto.id_sec.toString()}
                 renderItem={({ item }) => (
                   
                   <ListItemIos
@@ -148,7 +148,7 @@ class Dishes extends Component {
             ):(
               <FlatList
               data={this.props.produtos}
-              keyExtractor={item => item.Produto.id}
+              keyExtractor={item => item.Produto.id_sec.toString()}
               renderItem={({ item }) => (
                 
                 <ListItem
