@@ -256,7 +256,7 @@ async getToken() {
                   title="Detalhes"
                   style={{
                     backgroundColor: Color.button,
-                    
+                    flex:1,
                     //paddingLeft: 16,
                     //paddingRight: 16,
                     //paddingTop: 8,
@@ -271,7 +271,7 @@ async getToken() {
                   disabled={!this.props.disponivel || this.props.show_loader || (this.state.isClicked==true && this.props.partida_id != '')  }
                   style={{
                     backgroundColor: Color.button,
-                    
+                    flex:1,
                     //paddingLeft: 16,
                     //paddingRight: 16,
                     //paddingTop: 8,
