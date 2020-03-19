@@ -245,7 +245,7 @@ async getToken() {
                   style={{
                     flex: 1,
                     flexDirection: "row",
-                    
+                    marginTop:this.props.partida_id =='' || this.props.partida_id ==null ? 15: 0,
                     //justifyContent: "center",
                     // width: "100%",
                   }}
@@ -295,7 +295,7 @@ async getToken() {
                   <Picker
                     selectedValue={this.state.qtd}
                     style={{
-                      height: 80, width: 30,
+                      height: 65, width: 30,
                       alignSelf:"flex-start",
                       marginTop: -95
                     }}
@@ -325,7 +325,7 @@ async getToken() {
                       height: 120, width: 100
                   }}
               >
-                  Und
+                  {this.props.partida_id =='' || this.props.partida_id ==null ? 'Un':''}
               </Text>
               
             </View>

@@ -10,7 +10,7 @@
       "android",
       "web"
     ],
-    "version": "1.1.2",
+    "version": "1.1.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -27,11 +27,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.rudo.geekgrill",
-      "buildNumber": "1.1.2"
+      "buildNumber": "1.1.3"
     },
 	"android": {
       "package": "com.rudo.geekgrill",
-      "versionCode": 8
+      "versionCode": 9
     }
   }
 }
