@@ -203,7 +203,7 @@ async getToken() {
                   // width: "100%",
                 }}
               >
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 2 }}>
                   {
                     this.props.partida_id =='' || this.props.partida_id == null ? (
                       <Text
@@ -257,7 +257,7 @@ async getToken() {
                   <Picker
                     selectedValue={this.state.qtd}
                     style={{
-                      height: 40, width: 100
+                      height: 40, width: 80
                     }}
                     onValueChange={(itemValue, itemIndex) =>
                       this.setState({ qtd: itemValue })
@@ -296,7 +296,8 @@ async getToken() {
                 alignSelf:'center'
               }}>
                 <View style={{
-                  padding: 1
+                  padding: 1,
+                  flex:1
                 }}>
                 <Button
                   onPress={e => this.props.setModalVisible(true, this.props.description)}
@@ -305,16 +306,17 @@ async getToken() {
                   style={{
                     backgroundColor: Color.button,
                     
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingTop: 8,
-                    paddingBottom: 8,
+                    //paddingLeft: 16,
+                    //paddingRight: 16,
+                    //paddingTop: 8,
+                    //paddingBottom: 8,
                     // flexDirection: "row",
                   }}
                 />
                 </View>
                 <View  style={{
-                  padding: 1
+                  padding: 1,
+                  flex:1
                 }}>
                 <Button
               
@@ -325,10 +327,10 @@ async getToken() {
                   style={{
                     backgroundColor: Color.button,
                     
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingTop: 8,
-                    paddingBottom: 8,
+                    //paddingLeft: 16,
+                    //paddingRight: 16,
+                    //paddingTop: 8,
+                    //paddingBottom: 8,
                     // flexDirection: "row",
                   }}
                 />
