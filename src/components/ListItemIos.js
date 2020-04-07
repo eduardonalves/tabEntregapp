@@ -31,13 +31,15 @@ class ListItemIos extends Component {
     //console.log(storeData);
     storeData.then(resp => {
         //console.log(resp);
-        if(typeof resp.token != 'undefined'){
-            
-            this.props.setStatusCadastroUsuario(resp);
-            
+        if(resp != null && resp != ''  ){
+          if(typeof resp.token != 'undefined'){
+              
+              this.props.setStatusCadastroUsuario(resp);
+              
+          }
         }
         
-        });
+      });
     this.state = {
       isClicked: false,
       qtd: 1,

@@ -80,7 +80,10 @@ import {
     N_VITORIAS,
     N_DERROTAS,
     RESULTADO_FINAL,
-    SALDO
+    SALDO,
+    NOTIFICATION,
+    MESSAGE_TEXT,
+    TOKEN_NOTIFICACAO
 } from './ActionTypes';
 
 import {
@@ -91,6 +94,23 @@ import {
     SALT
 } from '../Settings'
 
+export const modificaTokenNotificacao = (txt) => {
+    return dispatch => {
+        dispatch({ type: TOKEN_NOTIFICACAO, payload: txt })
+    }
+}
+
+export const modificaMensagem = (txt) => {
+    return dispatch => {
+        dispatch({ type: MESSAGE_TEXT, payload: txt })
+    }
+}
+
+export const modificaNotificacao = (notofication) => {
+    return dispatch => {
+        dispatch({ type: NOTIFICATION, payload: notofication })
+    }
+}
 
 export const autenticarUsuario = (usuario) => {
 
@@ -1393,7 +1413,7 @@ export const enviaPedido = (pedido) => {
     /*return dispatch => {
         dispatch({ type: PEDIDO_OK, payload: true })
     }*/
-
+    //console.log(pedido);
     return dispatch => {
         dispatch({ type: SHOW_LOADER, payload: true });
         let meuPedido = montaPedido(pedido);

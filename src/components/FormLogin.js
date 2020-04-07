@@ -40,9 +40,10 @@ class formLogin extends Component {
         let storeData = this.getToken();
       
         storeData.then(resp => {
-            //console.log('resp');
-            //console.log(resp);
+            
             if(resp != null && resp != ''){
+                console.log('resp');
+            console.log(resp);
                 if(typeof resp.token != 'undefined'){
                     this.props.validaToken(resp.id,resp.token);
                     

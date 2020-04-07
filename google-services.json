@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "121380937596",
+    "firebase_url": "https://geek-grill.firebaseio.com",
+    "project_id": "geek-grill",
+    "storage_bucket": "geek-grill.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121380937596:android:e1e69046a8afc28aaa8ef9",
+        "android_client_info": {
+          "package_name": "com.rudo.geekgrill"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121380937596-pr3kh4dpq8ls93uv8d6kokp0dcm6amq3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf-jd2oyoTnz153FVqnVMiZ85MXSzf5ho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121380937596-pr3kh4dpq8ls93uv8d6kokp0dcm6amq3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -73,8 +73,11 @@ const INITIAL_STATE = {
     n_vitorias:0,
     n_derrotas:0,
     resultado_final:'',
-    saldo:0
-    
+    saldo:0,
+    notification:null,
+    messageText: '',
+    token_notificacao:'',
+    estado_do_app:'',
 };
 
 import {
@@ -161,11 +164,20 @@ import {
     N_DERROTAS,
     RESULTADO_FINAL,
     SALDO,
+    NOTIFICATION,
+    MESSAGE_TEXT,
+    TOKEN_NOTIFICACAO,
 } from '../actions/ActionTypes';
 
 export default (state = INITIAL_STATE, action) => {
    
     switch (action.type) {
+        case TOKEN_NOTIFICACAO:
+            return { ...state, token_notificacao: action.payload };
+        case NOTIFICATION:
+            return { ...state, notification: action.payload };
+        case MESSAGE_TEXT:
+            return { ...state, messageText: action.payload };    
         case SALDO:
             return { ...state, saldo: action.payload };
         case N_VITORIAS:

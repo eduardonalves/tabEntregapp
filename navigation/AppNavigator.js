@@ -22,6 +22,7 @@ import ViewOrder from '../src/components/ViewOrder';
 import Color from '../constants/Colors';
 import MyGifts from '../src/components/MyGifts';
 
+
 const Routes = createStackNavigator(
   {
     Dishes: { screen: Dishes },
@@ -54,7 +55,7 @@ const RoutesLogin = createStackNavigator(
   {
     FormLogin: { screen: FormLogin },
     FormCadastro: { screen: FormCadastro },
-    FormRecover: { screen: FormRecover} 
+    FormRecover: { screen: FormRecover} , 
   },
   {
     initialRouteName: "FormLogin",

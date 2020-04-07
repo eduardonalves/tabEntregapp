@@ -10,11 +10,11 @@ import { Ionicons } from '@expo/vector-icons';
 import reducers from './src/reducers';
 
 import AppNavigator from './navigation/AppNavigator';
+import MyNotifications from './src/components/Notifications';
+import { NavigationContainer } from '@react-navigation/native';
+import { navigationRef } from './src/components//RootNavigation';
 
-
-
-
-export default function App(props) {
+export default function App(props) {  
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   
@@ -33,7 +33,10 @@ export default function App(props) {
       <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))} >
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
+          <NavigationContainer ref={navigationRef}>
+            <AppNavigator />
+          </NavigationContainer>
+          <MyNotifications />
         </View>
       </Provider>
     );

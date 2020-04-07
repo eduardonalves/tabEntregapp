@@ -32,11 +32,14 @@ class ListItem extends Component {
     //console.log(this.props.usuario);
     storeData.then(resp => {
       //console.log(resp);
-      if(typeof resp.token != 'undefined'){
-          
-          this.props.setStatusCadastroUsuario(resp);
-          
+      if(resp != null){
+        if(typeof resp.token != 'undefined'){
+            
+            this.props.setStatusCadastroUsuario(resp);
+            
+        }
       }
+      
     
     });
     this.state = {

@@ -118,6 +118,7 @@ class Billing extends Component {
                         cidade_nome: this.props.usuario.cidade_nome,
                         estado_nome: this.props.usuario.estado_nome,
                         ponto_referencia: this.props.usuario.ponto_referencia,
+                        ptk: this.props.token_notificacao,
                     }
                 );/**/
             }
@@ -332,7 +333,8 @@ const mapStateToProps = state => ({
     obs_pedido: state.AppReducer.obs_pedido,
     status_envio_pedido: state.AppReducer.status_envio_pedido,
     usuario: state.AppReducer.usuario,
-    pedido: state.AppReducer.pedido
+    pedido: state.AppReducer.pedido,
+    token_notificacao: state.AppReducer.token_notificacao
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ atualizaFormaDePagamento, atualizaTroco, tiposPagamentoFetch, enviaPedido, setStatusEnvioPedido, limpaCarrinho, showMyLoader }, dispatch);

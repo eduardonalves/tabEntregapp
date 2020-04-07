@@ -132,3 +132,7 @@ export const N_VITORIAS ='n_vitorias';
 export const N_DERROTAS ='n_derrotas';
 export const RESULTADO_FINAL ='resultado_final';
 export const SALDO ='saldo';
+export const MESSAGE_TEXT = 'message_text';
+export const NOTIFICATION='notification';
+export const TOKEN_NOTIFICACAO='token_notificacao';
+export const REDIRECIONAR_NOTIFICACAO = 'redirecionar_notificacao';
