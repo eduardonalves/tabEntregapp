@@ -1499,11 +1499,11 @@ export const enviaPedido = (pedido) => {
                 
                 dispatch({ type: SHOW_LOADER, payload: false });
                 
-               // console.log('res');
+                //console.log('res');
                 //console.log(res);  
             }).catch(error => {
-               // console.log('error');
-               // console.log(error);
+                //console.log('error');
+                //console.log(error);
                // dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
                 //dispatch({ type: SHOW_LOADER, payload: false });
                 //dispatch({ type: PEDIDO_NAO_OK, payload: false });
@@ -1914,6 +1914,7 @@ export const montaPedido = (pedido) => {
             cidade_nome: pedido.cidade_nome,
             estado_nome: pedido.estado_nome,
             ponto_referencia: pedido.ponto_referencia,
+            ptk: pedido.ptk
         },
         Itensdepedido: [],
         

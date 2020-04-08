@@ -25,7 +25,7 @@ class Billing extends Component {
     constructor(props) {
         super(props);
         this.props.tiposPagamentoFetch();
-        //console.log(this.props.usuario);
+        //console.log(this.props.token_notificacao);
 
     }
     static navigationOptions = ({ navigation }) => {
