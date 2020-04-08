@@ -14,7 +14,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "notification": {
-      "icon": "./assets/images/logo_notificacao.png"
+      "icon": "./assets/images/logonotificacao.png"
     },
     "splash": {
       "image": "./assets/images/splash.png",

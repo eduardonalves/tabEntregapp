@@ -66,7 +66,7 @@ class Notification extends Component {
     if(typeof notification.origin != 'undefined'){
       if(notification.origin == 'selected'){
         console.log('redirecionou novo');
-        RootNavigation.navigate('ViewOrder', { Atendimento_id: 6 });  
+        RootNavigation.navigate('ViewOrder', { Atendimento_id: notification.data.atendimento_id });  
       }
     }
     //this.setState({ notification: notification });
