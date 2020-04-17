@@ -11,13 +11,11 @@ import reducers from './src/reducers';
 
 import AppNavigator from './navigation/AppNavigator';
 import MyNotifications from './src/components/Notifications';
-import { NavigationContainer } from '@react-navigation/native';
-import { navigationRef } from './src/components//RootNavigation';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import NavigationService from './NavigationService';
 
 export default function App(props) {  
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-
-  
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -33,10 +31,14 @@ export default function App(props) {
       <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))} >
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <NavigationContainer ref={navigationRef}>
-            <AppNavigator />
-          </NavigationContainer>
-          <MyNotifications />
+         
+            <AppNavigator 
+              ref={navigatorRef => {
+                NavigationService.setTopLevelNavigator(navigatorRef);
+              }} />
+            <MyNotifications />
+          
+          
         </View>
       </Provider>
     );

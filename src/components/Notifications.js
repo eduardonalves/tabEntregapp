@@ -9,12 +9,14 @@ import Constants from 'expo-constants';
 import { modificaTokenNotificacao, modificaNotificacao } from '../actions/AppActions';
 
 
-import * as RootNavigation from './RootNavigation';
+
+import NavigationService from '../../NavigationService';
 
 class Notification extends Component {
   constructor(props) {
     super(props);
-    
+    //console.log('props notification');
+    //console.log(this.props);
   }
   
 
@@ -36,7 +38,7 @@ class Notification extends Component {
       }
       let token = await Notifications.getExpoPushTokenAsync();
       if(token){
-        console.log(token);
+        //console.log(token);
         //console.log(this.props.token_notificacao);
         this.props.modificaTokenNotificacao(token);
         //this.setState({expoPushToken: token});
@@ -58,15 +60,18 @@ class Notification extends Component {
     this._notificationSubscription = Notifications.addListener(
       this._handleNotification
     );
+   
   }
 
   _handleNotification = notification => {
     Vibration.vibrate();
     this.props.modificaNotificacao(notification);
+   
     if(typeof notification.origin != 'undefined'){
       if(notification.origin == 'selected'){
-        console.log('redirecionou novo');
-        RootNavigation.navigate('ViewOrder', { Atendimento_id: notification.data.atendimento_id });  
+        //this.props.modificaNotificacao(notification);
+        NavigationService.navigate('ViewOrder', { Atendimento_id: notification.data.atendimento_id });
+          
       }
     }
     //this.setState({ notification: notification });
@@ -74,9 +79,9 @@ class Notification extends Component {
 
   // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/dashboard/notifications
   sendPushNotification = async () => {
-    //console.log('this.props.token_notificacao');
-    //console.log(this.props.token_notificacao);
-    const message = {
+    
+     
+    /*const message = {
       to: this.props.token_notificacao,
       sound: 'default',
       title: 'Original Title',
@@ -99,12 +104,12 @@ class Notification extends Component {
     }).catch(error =>{
       //console.log('error');
       //console.log(error);
-    });/**/
+    });*/
     
   }
   render() {
     return (null);
-  }
+  }/**/
   /*render() {
     return (
       <View

@@ -38,7 +38,9 @@ class ViewOrder extends Component {
     userData.then(
       res => {
 
-        this.props.pedidosViewFetch(res.id,res.token,this.props.navigation.getParam('Atendimento_id'))
+        this.props.pedidosViewFetch(res.id,res.token,this.props.navigation.getParam('Atendimento_id'));
+        //console.log('Atendimento_id');
+        //console.log(this.props.navigation.getParam('Atendimento_id'));
         this.interval = setInterval(() => this.props.pedidosViewFetchInterval(res.id,res.token,this.props.navigation.getParam('Atendimento_id')), 60000);
       }
     ).catch(error => {
