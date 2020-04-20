@@ -31,7 +31,7 @@ class ViewOrder extends Component {
   
   constructor(props) {
     super(props);
-    //console.log(props.pedido);
+    console.log(props.pedido);
     
     let userData = this.getToken();
     //console.log(userData);
@@ -453,6 +453,7 @@ class ViewOrder extends Component {
                 </View>
                 <View style={styles.container3} >
                     <View >
+                        
                         <Text style={{
                             fontSize: 16,
                             fontWeight:'bold',
@@ -527,12 +528,20 @@ class ViewOrder extends Component {
                            {this.props.pedido.Pedido[0].ponto_referencia != '' && this.props.pedido.Pedido[0].ponto_referencia != null  ? '' + this.props.pedido.Pedido[0].ponto_referencia :''}
                         </Text>
                         <Text style={{
+                                fontSize: 16,
+                                fontWeight:'bold',
+                                textAlign:'center',
+                                marginBottom:5, 
+                            }}>
+                          Tempo estimado de espera  {this.props.pedido.Filial.tempo_atendimento}
+                        </Text>
+                        <Text style={{
                             fontSize: 16,
                             fontWeight:'bold',
                             textAlign:'center',
                             marginBottom:5, 
                         }}>
-                            {this.props.pedido.Filial.nome} - Dúvidas e Informações 
+                            {this.props.pedido.Filial.nome} - Dúvidas e informações 
                         </Text>
                         <Text style={{
                             fontSize: 16,
