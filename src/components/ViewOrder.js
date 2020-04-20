@@ -527,14 +527,17 @@ class ViewOrder extends Component {
                         }}>
                            {this.props.pedido.Pedido[0].ponto_referencia != '' && this.props.pedido.Pedido[0].ponto_referencia != null  ? '' + this.props.pedido.Pedido[0].ponto_referencia :''}
                         </Text>
-                        <Text style={{
-                                fontSize: 16,
-                                fontWeight:'bold',
-                                textAlign:'center',
-                                marginBottom:5, 
-                            }}>
+                        {this.props.pedido.Pedido[0].status !='Entregue' &&  this.props.pedido.Pedido[0].status !='Cancelado' ? (
+                          <Text style={{
+                            fontSize: 16,
+                            fontWeight:'bold',
+                            textAlign:'center',
+                            marginBottom:5, 
+                        }}>
                           Tempo estimado de espera  {this.props.pedido.Filial.tempo_atendimento}
                         </Text>
+                        ):(<View></View>)}
+                        
                         <Text style={{
                             fontSize: 16,
                             fontWeight:'bold',
