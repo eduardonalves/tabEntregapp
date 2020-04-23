@@ -67,7 +67,7 @@ class Billing extends Component {
 
             Alert.alert(
                 'Mensagem',
-                `Vai precisar de troco? Por faor, se precisar de troco, diga para quanto quer, caso contrário, informe que não que não!`,
+                `Vai precisar de troco? Por favor, se precisar, diga para quanto quer, caso contrário, informe que não!`,
                 [
                     {
                         text: 'OK',
