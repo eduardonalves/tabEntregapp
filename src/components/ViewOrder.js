@@ -527,7 +527,7 @@ class ViewOrder extends Component {
                         }}>
                            {this.props.pedido.Pedido[0].ponto_referencia != '' && this.props.pedido.Pedido[0].ponto_referencia != null  ? '' + this.props.pedido.Pedido[0].ponto_referencia :''}
                         </Text>
-                        {this.props.pedido.Pedido[0].status !='Entregue' &&  this.props.pedido.Pedido[0].status !='Cancelado' ? (
+                        {this.props.pedido.Pedido[0].status !='Entregue' &&  this.props.pedido.Pedido[0].status !='Cancelado' &&  this.props.pedido.Pedido[0].status !='' ? (
                           <Text style={{
                             fontSize: 16,
                             fontWeight:'bold',
