@@ -314,7 +314,7 @@ class MenuReward extends Component {
                                 textAlign:'center'
                                 }}>
                                 
-                                * Fique atento! Ganhando ou perdendo a partida, será disponibilizada uma recompensa no final da mesma. Então aproveite!
+                                * Fique atento(a)! Ganhando ou perdendo a partida, será disponibilizada uma recompensa no final da mesma. Então aproveite!
                                 {'\n'}
                                
                                 ** Fique atento(a) quanto a validade do resgate da sua recompensa, pois após a este prazo a mesma não estará mais disponível para o resgate.
