@@ -78,6 +78,7 @@ export const FINALIZA_PEDIDO= 'finaliza_pedido';
 export const PEDIDO_OK = 'pedido_ok';
 export const STATUS_ENVIO_PEDIDO = 'status_envio_pedido';
 export const PEDIDO_NAO_OK = 'pedido_nao_ok';
+export const VALOR_FRETE = 'valor_frete';
 
 //tipos de pagamento
 export const CARREGA_TIPOS_PAGAMENTO_OK = 'carrega_tipos_pagamento_ok';

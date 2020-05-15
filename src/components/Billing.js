@@ -16,7 +16,7 @@ import { Input } from 'react-native-elements';
 import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { atualizaFormaDePagamento, atualizaTroco, tiposPagamentoFetch, enviaPedido, setStatusEnvioPedido, limpaCarrinho, showMyLoader } from '../actions/AppActions';
+import { atualizaFormaDePagamento, atualizaTroco, tiposPagamentoFetch, enviaPedido, setStatusEnvioPedido, limpaCarrinho, showMyLoader, freteFetch } from '../actions/AppActions';
 import CartButton from "./common/CartButton";
 import Color from "../../constants/Colors";
 
@@ -25,7 +25,9 @@ class Billing extends Component {
     constructor(props) {
         super(props);
         this.props.tiposPagamentoFetch();
-        //console.log(this.props.token_notificacao);
+        this.props.freteFetch(this.props.usuario.id);
+        console.log('this.props.valor_frete');
+        console.log(this.props.valor_frete);
 
     }
     static navigationOptions = ({ navigation }) => {
@@ -62,7 +64,7 @@ class Billing extends Component {
         this.props.atualizaTroco(event);
     }
     handleSendOrder() {
-
+        this.props.freteFetch(this.props.usuario.id);
         if (this.props.forma_pagamento == 1 && this.props.troco_pedido == '') {
 
             Alert.alert(
@@ -104,7 +106,7 @@ class Billing extends Component {
                         token: this.props.usuario.token,
                         obs: this.props.obs_pedido,
                         pagamento_id: this.props.forma_pagamento,
-                        entrega_valor: this.props.usuario.frete_cadastro,
+                        entrega_valor: this.props.valor_frete,
                         logradouro: this.props.usuario.logradouro,
                         numero: this.props.usuario.numero,
                         ponto_referencia: this.props.usuario.ponto_referencia,
@@ -334,8 +336,9 @@ const mapStateToProps = state => ({
     status_envio_pedido: state.AppReducer.status_envio_pedido,
     usuario: state.AppReducer.usuario,
     pedido: state.AppReducer.pedido,
-    token_notificacao: state.AppReducer.token_notificacao
+    token_notificacao: state.AppReducer.token_notificacao,
+    valor_frete: state.AppReducer.valor_frete
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ atualizaFormaDePagamento, atualizaTroco, tiposPagamentoFetch, enviaPedido, setStatusEnvioPedido, limpaCarrinho, showMyLoader }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ atualizaFormaDePagamento, atualizaTroco, tiposPagamentoFetch, enviaPedido, setStatusEnvioPedido, limpaCarrinho, showMyLoader, freteFetch }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Billing);

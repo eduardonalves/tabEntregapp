@@ -83,7 +83,8 @@ import {
     SALDO,
     NOTIFICATION,
     MESSAGE_TEXT,
-    TOKEN_NOTIFICACAO
+    TOKEN_NOTIFICACAO,
+    VALOR_FRETE
 } from './ActionTypes';
 
 import {
@@ -1257,6 +1258,65 @@ export const categoriasFetchInterval = () => {
                 //dispatch({ type: CATEGORIA_CARREGADA_FALHA, payload: true });
                 //dispatch({ type: SHOW_LOADER_CATEGORIA, payload: false });
             });
+    }
+}
+
+export const freteFetch = (id) => {
+    return dispatch => {
+        let loadError = false;
+        let interval;
+        dispatch({ type: SHOW_LOADER, payload: true });
+        axios.get(`${APP_URL}/RestClientes/getfrete.json?fp=${FILIAL}&id=${id}`)
+            .then(res => {
+                clearInterval(interval);
+                console.log(`${APP_URL}/RestClientes/getfrete.json?fp=${FILIAL}&id=${id}`);
+               
+
+                if (typeof res.data.frete != 'undefined') {
+                    //console.log('res.data.frete');
+                    //console.log(res.data.frete);
+                    dispatch({ type: VALOR_FRETE, payload: res.data.frete });
+                } else {
+
+                    dispatch({ type: VALOR_FRETE, payload: 0 });
+                }
+
+                dispatch({ type: SHOW_LOADER, payload: false });
+            }).catch(error => {
+                clearInterval(interval);
+                loadError = true;
+
+                if (loadError == true) {
+                    interval = setInterval(() => {
+                        freteFetch();
+                    }, 10000);
+                }
+            });
+        if (loadError == false) {
+            interval = setInterval(() => {
+                axios.get(`${APP_URL}/RestClientes/getfrete.json?fp=${FILIAL}&id=${id}`)
+                    .then(res => {
+                        clearInterval(interval);
+                        if (typeof res.data.pagamentos != 'undefined') {
+                            dispatch({ type: VALOR_FRETE, payload: res.data.frete });
+                        } else {
+
+                            dispatch({ type: VALOR_FRETE, payload: 0});
+                        }
+
+                        dispatch({ type: SHOW_LOADER, payload: false });
+                    }).catch(error => {
+                        clearInterval(interval);
+                        loadError = true;
+
+                        if (loadError == true) {
+                            interval = setInterval(() => {
+                                freteFetch();
+                            }, 10000);
+                        }
+                    });
+            }, 10000);
+        }
     }
 }
 

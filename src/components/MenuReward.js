@@ -317,7 +317,7 @@ class MenuReward extends Component {
                                 * Fique atento(a)! Ganhando ou perdendo a partida, será disponibilizada uma recompensa ao final da mesma. Então aproveite!
                                 {'\n'}
                                
-                                ** Fique atento(a)! Observe a data de validade do resgate da sua recompensa, após a este prazo, a mesma não estará mais disponível para o resgate!
+                                ** Observe a data de validade da sua recompensa, após a este prazo, a mesma não estará mais disponível para o resgate!
                                 {'\n'}
                                 *** A cada R$ 25,00 em compras por este aplicativo, você ganha uma moeda. O limite máximo acumulativo, é de 10 moedas, quando se atinge este limite, as mesmas não são mais somadas à sua conta e também não se acumula mais saldo de compras.
                                 {'\n'}

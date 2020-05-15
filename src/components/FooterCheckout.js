@@ -13,7 +13,7 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
-import { atualizaObs } from '../actions/AppActions';
+import { atualizaObs, freteFetch } from '../actions/AppActions';
 import Constants from "../utils/constants";
 import foodData from "../food-data.json";
 import ListCart from "./ListCart";
@@ -27,7 +27,8 @@ class FooterCheckout extends Component {
   constructor(props) {
     super(props);
     //console.log(props);
-
+    this.props.freteFetch(this.props.usuario.id);
+    
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -55,7 +56,7 @@ class FooterCheckout extends Component {
   render() {
     //console.log('this.props.navigation');
     //console.log(this.props.navigation);
-    let valorFrete = parseFloat(this.props.usuario.frete_cadastro);
+    let valorFrete = parseFloat(this.props.valor_frete);
     valorFrete = valorFrete.toFixed(2);
     valorFrete = valorFrete.toString();
     return (
@@ -222,7 +223,8 @@ const mapStateToProps = state => ({
   obs_pedido: state.AppReducer.obs_pedido,
   show_loader: state.AppReducer.show_loader,
   usuario: state.AppReducer.usuario,
+  valor_frete: state.AppReducer.valor_frete,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ atualizaObs }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ atualizaObs, freteFetch }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(FooterCheckout);

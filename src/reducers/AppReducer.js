@@ -78,6 +78,7 @@ const INITIAL_STATE = {
     messageText: '',
     token_notificacao:'',
     estado_do_app:'',
+    valor_frete: 0,
 };
 
 import {
@@ -167,6 +168,7 @@ import {
     NOTIFICATION,
     MESSAGE_TEXT,
     TOKEN_NOTIFICACAO,
+    VALOR_FRETE,
 } from '../actions/ActionTypes';
 
 export default (state = INITIAL_STATE, action) => {
@@ -174,6 +176,9 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case TOKEN_NOTIFICACAO:
             return { ...state, token_notificacao: action.payload };
+        case VALOR_FRETE:
+            console.log('passou aqui')
+            return { ...state, valor_frete: action.payload };    
         case NOTIFICATION:
             return { ...state, notification: action.payload };
         case MESSAGE_TEXT:
