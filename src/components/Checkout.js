@@ -55,7 +55,7 @@ class Checkout extends Component {
           elevation={2}
           style={{
             flexDirection: "row",
-            backgroundColor: '#ffffff' ,
+            backgroundColor: Color.checkoutContainerBackground,
             padding:10,
             
             //marginHorizontal: 24,
@@ -81,7 +81,7 @@ class Checkout extends Component {
             <Text
               style={{
                 fontSize: 16,
-                color: "#000000",
+                color: Color.checkoutConteinerTextColor,
                 fontWeight: "bold",
                 //textAlign: 'center',
               }}
@@ -95,7 +95,7 @@ class Checkout extends Component {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#000000",
+                color: Color.checkoutConteinerTextColor,
                 //textAlign: 'center',
               }}
             >
@@ -108,7 +108,7 @@ class Checkout extends Component {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#000000",
+                color: Color.checkoutConteinerTextColor,
                 //textAlign: 'center',
               }}
             >
@@ -120,7 +120,7 @@ class Checkout extends Component {
               style={{
                 fontSize: 16,
                 fontWeight: "bold",
-                color: "#000000",
+                color: Color.checkoutConteinerTextColor,
                 //textAlign: 'center',
               }}
             >

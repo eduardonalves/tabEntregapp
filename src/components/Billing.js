@@ -26,8 +26,8 @@ class Billing extends Component {
         super(props);
         this.props.tiposPagamentoFetch();
         this.props.freteFetch(this.props.usuario.id);
-        console.log('this.props.valor_frete');
-        console.log(this.props.valor_frete);
+        //console.log('this.props.valor_frete');
+        //console.log(this.props.valor_frete);
 
     }
     static navigationOptions = ({ navigation }) => {
@@ -175,7 +175,7 @@ class Billing extends Component {
                     <View>
                         <Text style={{
                             textAlign: "center", fontSize: 18, textAlign: "center", flex: 1,
-                            color: "#333"
+                            color: Color.textFormaPagamento
                         }}>Forma de Pagamento</Text>
                         <Picker
                             selectedValue={this.props.forma_pagamento}
@@ -255,7 +255,7 @@ class Billing extends Component {
                                 position: 'absolute',
                             }}
                         >
-                            <ActivityIndicator size="large" color="#4099ff"
+                            <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                                 animating={true}
                                 hidesWhenStopped={true}
@@ -271,7 +271,7 @@ class Billing extends Component {
                                     position: 'absolute',
                                 }}
                             >
-                                <ActivityIndicator size="large" color="#4099ff"
+                                <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                                     animating={true}
                                     hidesWhenStopped={true}
@@ -313,8 +313,8 @@ const styles = StyleSheet.create({
         padding: 16,
     },
     button: {
-        backgroundColor: "#4099ff",
-        color: "#fff",
+        backgroundColor: Color.button,
+        color: Color.buttonText,
         paddingLeft: 16,
         paddingRight: 16,
         paddingTop: 8,

@@ -35,7 +35,7 @@ class Cart extends Component {
         shadowOpacity: 0,
         backgroundColor: Color.headerBar,
       },
-      headerLeft: <HeaderBackButton onPress={() => navigation.navigate("Main")}  tintColor="#fff"  />,
+      headerLeft: <HeaderBackButton onPress={() => navigation.navigate("Main")}  tintColor={Color.headerBarTitle}  />,
       headerRight: (
         <CartButton
           onPress={() => {

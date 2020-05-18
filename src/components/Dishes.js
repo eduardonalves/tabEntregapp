@@ -45,7 +45,7 @@ class Dishes extends Component {
         backgroundColor:Color.headerBar
       },
       //headerLeft: <TouchableOpacity onPress={() => navigation.navigate("Main") }><Image source={require('react-navigation-stack/src/views/assets/back-icon.png')} style={{marginTop: 10, marginLeft:10}} /></TouchableOpacity>,
-      headerLeft: <HeaderBackButton onPress={() => navigation.navigate("Main")}  tintColor="#fff"  />,
+      headerLeft: <HeaderBackButton onPress={() => navigation.navigate("Main")}  tintColor={Color.headerBarTitle}  />,
       headerRight: (
         <CartButton
           onPress={() => {
@@ -97,7 +97,7 @@ class Dishes extends Component {
             padding:50
             
           }} >
-            <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'}  size={200} color="#ef6136" />
+            <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'}  size={200} color={Color.tintColor} />
             <Text style={{fontSize:18 , textAlign:'center'}}>Ops!</Text>
             <Text style={{fontSize:15, textAlign:'center'}}>Não existem produtos cadastrados nesta categoria.</Text>
             
@@ -115,7 +115,7 @@ class Dishes extends Component {
               padding:50
               
             }} >
-              <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'} size={200} color="#ef6136" />
+              <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'} size={200} color={Color.tintColor} />
               <Text style={{fontSize:18}}>Ops!</Text>
               <Text style={{fontSize:15}}>Houve uma falha ao carregar o menu.</Text>
               <Text style={{fontSize:15}}>Tente novamente mais tarde!</Text>
@@ -187,7 +187,7 @@ class Dishes extends Component {
                   marginTop: '50%'
                 }}
               >
-                <ActivityIndicator size="large" color="#4099ff"
+                <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                   animating={true}
                   hidesWhenStopped={true}
@@ -208,7 +208,7 @@ class Dishes extends Component {
                   marginTop: '50%'
                 }}
               >
-                <ActivityIndicator size="large" color="#4099ff"
+                <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                   animating={true}
                   hidesWhenStopped={true}

@@ -117,7 +117,7 @@ class FormRecover extends Component {
                                             position: 'absolute',
                                         }}
                                     >
-                                        <ActivityIndicator size="large" color="#4099ff"
+                                        <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                                             animating={true}
                                             hidesWhenStopped={true}
@@ -134,7 +134,7 @@ class FormRecover extends Component {
                                                 position: 'absolute',
                                             }}
                                         >
-                                            <ActivityIndicator size="large" color="#4099ff"
+                                            <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                                                 animating={true}
                                                 hidesWhenStopped={true}

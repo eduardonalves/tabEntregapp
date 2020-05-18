@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 
 import { removeFromCart, updateCart } from '../actions/AppActions';
 import NumberFormat from 'react-number-format';
+import Color from "../../constants/Colors";
 
 class ItemOrder extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class ItemOrder extends Component {
         
       },
       headerTitleStyle: {
-        color: '#fff',
+        color: Color.headerBarTitle,
         fontWeight:'bold'
       },
       headerRight: (
@@ -83,7 +84,7 @@ class ItemOrder extends Component {
           elevation={2}
           style={{
             flexDirection: "row",
-            backgroundColor: this.props.linha % 2 ? '#ffffff' : "#d2d2d2",
+            backgroundColor: this.props.linha % 2 ? Color.itemBackgroudColorpar : Color.itemBackgroudColorimpar,
             padding:10,
             /*marginHorizontal: 24,
             marginVertical: 8,

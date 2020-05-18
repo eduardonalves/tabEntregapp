@@ -494,7 +494,7 @@ class Perfil extends Component {
                   padding: 50
 
                 }} >
-                  <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'}  size={200} color="#ef6136" />
+                  <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'}  size={200} color={Color.tintColor} />
                   <Text style={{ fontSize: 18 }}>Ops!</Text>
                   <Text style={{ fontSize: 15 }}>Houve uma falha ao carregar seu cadastro.</Text>
                   <Text style={{ fontSize: 15 }}>Tente novamente mais tarde!</Text>
@@ -565,7 +565,7 @@ class Perfil extends Component {
 
                       <Text style={{
                         fontSize: 16, flex: 1,
-                        color: "#7b7b7b"
+                        color: Color.formCadastroSelect
                       }}>Estado</Text>
 
                       <Picker
@@ -582,7 +582,7 @@ class Perfil extends Component {
                     <View style={{ flexDirection: 'row', padding: 10 }}>
                       <Text style={{
                         fontSize: 16, flex: 1,
-                        color: "#7b7b7b"
+                        color: Color.formCadastroSelect
                       }}>Cidade</Text>
 
                       <Picker
@@ -598,7 +598,7 @@ class Perfil extends Component {
                     <View style={{ flexDirection: 'row', padding: 10 }}>
                       <Text style={{
                         fontSize: 16, flex: 1,
-                        color: "#7b7b7b"
+                        color: Color.formCadastroSelect
                       }}>Bairro</Text>
 
                       <Picker
@@ -676,7 +676,7 @@ class Perfil extends Component {
                 alignItems: 'center',
               }}
             >
-              <ActivityIndicator style={{ flex: 1, alignItems: 'center' }} size="large" color="#4099ff"
+              <ActivityIndicator style={{ flex: 1, alignItems: 'center' }} size="large" color={Color.ActivityIndicator}
 
                 animating={true}
                 hidesWhenStopped={true}
@@ -703,7 +703,7 @@ class Perfil extends Component {
 
                 }}
               >
-                <ActivityIndicator style={{ flex: 1, alignItems: 'center' }} size="large" color="#4099ff"
+                <ActivityIndicator style={{ flex: 1, alignItems: 'center' }} size="large" color={Color.ActivityIndicator}
 
                   animating={true}
                   hidesWhenStopped={true}

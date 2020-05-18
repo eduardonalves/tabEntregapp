@@ -42,9 +42,9 @@ class Jokenpo extends Component {
                 shadowOpacity: 0,
                 backgroundColor: Color.headerBar
             },
-            headerLeft: <HeaderBackButton onPress={() => navigation.navigate("MenuRewardStack")} tintColor="#fff" />,
+            headerLeft: <HeaderBackButton onPress={() => navigation.navigate("MenuRewardStack")} tintColor={Color.headerBarTitle} />,
             headerTitleStyle: {
-                color: '#fff',
+                color: Color.headerBarTitle,
                 fontWeight: 'bold'
             },
 
@@ -104,7 +104,7 @@ class Jokenpo extends Component {
                                 marginTop: '50%'
                             }}
                         >
-                            <ActivityIndicator size="large" color="#4099ff"
+                            <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                                 animating={true}
                                 hidesWhenStopped={true}
@@ -126,7 +126,7 @@ class Jokenpo extends Component {
                                     marginTop: '50%'
                                 }}
                             >
-                                <ActivityIndicator size="large" color="#4099ff"
+                                <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                                     animating={true}
                                     hidesWhenStopped={true}
@@ -170,7 +170,7 @@ class Jokenpo extends Component {
                                 <Text style={{
                                     fontSize: 25,
                                     textAlign: 'center',
-                                    color: '#E1AD01',
+                                    color: Color.jokenpoEscolhaText,
                                     fontWeight: 'bold'
                                 }}>
                                     Escolha outra vez!
@@ -183,7 +183,7 @@ class Jokenpo extends Component {
                             <Text style={{
                                 fontSize: 25,
                                 textAlign: 'center',
-                                color: '#E1AD01',
+                                color: Color.jokenpoEscolhaText,
                                 fontWeight: 'bold'
                             }}>
                                 Placar Parcial

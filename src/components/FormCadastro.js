@@ -390,7 +390,7 @@ class FormCadastro extends Component {
                                     marginTop: '50%'
                                     }}
                                 >
-                                    <ActivityIndicator size="large" color="#4099ff"
+                                    <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                                     animating={true}
                                     hidesWhenStopped={true}
@@ -411,7 +411,7 @@ class FormCadastro extends Component {
                                     marginTop: '50%'
                                     }}
                                 >
-                                    <ActivityIndicator size="large" color="#4099ff"
+                                    <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                                     animating={true}
                                     hidesWhenStopped={true}
@@ -483,7 +483,7 @@ class FormCadastro extends Component {
                         
                             <Text style={{
                                  fontSize: 16,  flex: 1,
-                                color: "#7b7b7b"
+                                color: Color.formCadastroSelect
                             }}>Estado</Text>
 
                             <Picker
@@ -501,7 +501,7 @@ class FormCadastro extends Component {
                         <View style={{flexDirection:'row', padding:10 , marginTop: Platform.OS === 'ios' ? 60:0 }}>
                             <Text style={{
                                 fontSize: 16, flex: 1,
-                                color: "#7b7b7b"
+                                color: Color.formCadastroSelect
                             }}>Cidade</Text>
 
                             <Picker
@@ -517,7 +517,7 @@ class FormCadastro extends Component {
                         <View style={{flexDirection:'row', padding:10 , marginTop: Platform.OS === 'ios' ? 60:0 }}>
                             <Text style={{
                                 fontSize: 16,  flex: 1,
-                                color: "#7b7b7b"
+                                color: Color.formCadastroSelect
                             }}>Bairro</Text>
 
                             <Picker

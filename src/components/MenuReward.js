@@ -118,7 +118,7 @@ class MenuReward extends Component {
                 />
             ),
             headerTitleStyle: {
-                color: '#fff',
+                color: Color.headerBarTitle,
                 fontWeight:'bold'
               },
             
@@ -190,7 +190,7 @@ class MenuReward extends Component {
                         marginTop: '50%'
                     }}
                     >
-                    <ActivityIndicator size="large" color="#4099ff"
+                    <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                         animating={true}
                         hidesWhenStopped={true}
@@ -212,7 +212,7 @@ class MenuReward extends Component {
                         marginTop: '50%'
                         }}
                     >
-                        <ActivityIndicator size="large" color="#4099ff"
+                        <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                         animating={true}
                         hidesWhenStopped={true}

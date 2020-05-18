@@ -76,7 +76,7 @@ class MyGifts extends Component {
         backgroundColor:Color.headerBar
       },
       //headerLeft: <TouchableOpacity onPress={() => navigation.navigate("Main") }><Image source={require('react-navigation-stack/src/views/assets/back-icon.png')} style={{marginTop: 10, marginLeft:10}} /></TouchableOpacity>,
-      headerLeft: <HeaderBackButton onPress={() => navigation.navigate("MenuRewardStack")}  tintColor="#fff"  />,
+      headerLeft: <HeaderBackButton onPress={() => navigation.navigate("MenuRewardStack")}  tintColor={Color.headerBarTitle}  />,
       headerRight: (
         <CartButton
           onPress={() => {
@@ -130,7 +130,7 @@ class MyGifts extends Component {
             
           }} >
             
-            <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'}  size={200} color="#ef6136" />
+            <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'}  size={200} color={Color.tintColor} />
             <Text style={{fontSize:18 , textAlign:'center'}}>Ops!</Text>
             <Text style={{fontSize:15, textAlign:'center'}}>Você não tem recompensas para resgatar.</Text>
              
@@ -148,7 +148,7 @@ class MyGifts extends Component {
               padding:50
               
             }} >
-              <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'} size={200} color="#ef6136" />
+              <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'} size={200} color={Color.tintColor} />
               <Text style={{fontSize:18}}>Ops!</Text>
               <Text style={{fontSize:15}}>Houve uma falha ao carregar o menu.</Text>
               <Text style={{fontSize:15}}>Tente novamente mais tarde!</Text>
@@ -220,7 +220,7 @@ class MyGifts extends Component {
                   marginTop: '50%'
                 }}
               >
-                <ActivityIndicator size="large" color="#4099ff"
+                <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                   animating={true}
                   hidesWhenStopped={true}
@@ -241,7 +241,7 @@ class MyGifts extends Component {
                   marginTop: '50%'
                 }}
               >
-                <ActivityIndicator size="large" color="#4099ff"
+                <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                   animating={true}
                   hidesWhenStopped={true}

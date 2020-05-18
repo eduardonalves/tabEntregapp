@@ -14,6 +14,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
 import { removeFromCart, updateCart } from '../actions/AppActions';
+import Color from "../../constants/Colors";
 
 class ListCart extends Component {
   constructor(props) {
@@ -57,7 +58,7 @@ class ListCart extends Component {
           elevation={2}
           style={{
             flexDirection: "row",
-            backgroundColor: this.props.linha % 2 ? '#ffffff' : "#d2d2d2" ,
+            backgroundColor: this.props.linha % 2 ? Color.itemBackgroudColorpar : Color.itemBackgroudColorimpar ,
             //marginHorizontal: 24,
             //marginVertical: 8,
             //borderRadius: 4,
@@ -80,7 +81,7 @@ class ListCart extends Component {
             <Text
               style={{
                 fontSize: 16,
-                color: "#333",
+                color: Color.textFormaPagamento,
                 //textAlign: 'center',
               }}
             >

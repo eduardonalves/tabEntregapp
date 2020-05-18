@@ -140,7 +140,7 @@ async getToken() {
               //flex: 1,
               flexDirection: "row",
               padding: 10,
-              backgroundColor: "#ffffff",
+              backgroundColor: Color.checkoutContainerBackground,
               marginHorizontal: 10,
               marginVertical: 5,
               borderRadius: 4,
@@ -181,7 +181,7 @@ async getToken() {
                 <Text
                   style={{
                     fontSize: 18,
-                    color: "#333",
+                    color: Color.textFormaPagamento,
                     width: "100%"
                   }}
                 >
@@ -203,7 +203,7 @@ async getToken() {
                         style={{
                           fontSize: 16,
                           fontWeight: "bold",
-                          color: "#ef6136"
+                          color: Color.tintColor
                         }}
                       >
                         {this.props.disponivel == 1? (
@@ -228,7 +228,7 @@ async getToken() {
                       style={{
                         fontSize: 18,
                         fontWeight: "bold",
-                        color: "#ef6136",
+                        color: Color.tintColor,
                         marginBottom:5,
                         textAlign:'center'
                       }}
@@ -323,7 +323,7 @@ async getToken() {
               <Text
                   style={{
                       fontSize: 18,
-                      color: "#333",
+                      color: Color.textFormaPagamento,
                       height: 120, width: 100
                   }}
               >

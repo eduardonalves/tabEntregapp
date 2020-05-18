@@ -128,7 +128,7 @@ class formLogin extends Component {
                 shadowOpacity: 0,
                 backgroundColor: Color.headerBar
             },
-            headerLeft: <HeaderBackButton onPress={() => navigation.navigate("Main")}  tintColor="#fff"  />,
+            headerLeft: <HeaderBackButton onPress={() => navigation.navigate("Main")}  tintColor={Color.headerBarTitle}  />,
         };
     }
 
@@ -204,7 +204,7 @@ class formLogin extends Component {
                                     position: 'absolute',
                                 }}
                             >
-                                <ActivityIndicator size="large" color="#4099ff"
+                                <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                                 animating={true}
                                 hidesWhenStopped={true}
@@ -221,7 +221,7 @@ class formLogin extends Component {
                                     position: 'absolute',
                                 }}
                             >
-                                <ActivityIndicator size="large" color="#4099ff"
+                                <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                                 animating={true}
                                 hidesWhenStopped={true}

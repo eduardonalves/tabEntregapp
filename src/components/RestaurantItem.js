@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import Color from "../../constants/Colors";
 //import CustomText from "../components/common/CustomText";
 //import Constants from "../utils/constants";
 import { categoriasFetch } from '../actions/AppActions';
@@ -45,7 +45,7 @@ import { categoriasFetch } from '../actions/AppActions';
         >
           <Image
             style={{
-              backgroundColor: "#ccc",
+              backgroundColor: Color.tabIconDefault,
               flex: 1,
               position: "absolute",
               width: "100%",
@@ -74,7 +74,7 @@ import { categoriasFetch } from '../actions/AppActions';
               style={{
                 fontSize: 32,
                 fontWeight: "700",
-                color: "#ffffff"
+                color: Color.checkoutContainerBackground
               }}
             >
               {this.props.name}
@@ -83,7 +83,7 @@ import { categoriasFetch } from '../actions/AppActions';
             <Text
               style={{
                 fontSize: 14,
-                color: "#ffffff"
+                color: Color.checkoutContainerBackground
               }}
             >
               Categoria

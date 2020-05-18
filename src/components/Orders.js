@@ -128,7 +128,7 @@ class Orders extends Component {
         
       },
       headerTitleStyle: {
-        color: '#fff',
+        color: Color.headerBarTitle,
         fontWeight:'bold'
       },
       headerRight: (
@@ -177,7 +177,7 @@ class Orders extends Component {
             padding:50
             
           }} >
-            <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'} size={200} color="#ef6136" />
+            <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'} size={200} color={Color.tintColor} />
             <Text style={{fontSize:18 , textAlign:'center'}}>Ops!</Text>
             <Text style={{fontSize:15, textAlign:'center'}}>Não encontramos pedidos cadastrados.</Text>
             
@@ -208,7 +208,7 @@ class Orders extends Component {
               padding:50
               
             }} >
-              <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'} size={200} color="#ef6136" />
+              <Ionicons name={Platform.OS === 'ios' ? 'ios-sad': 'md-sad'} size={200} color={Color.tintColor} />
               <Text style={{fontSize:18}}>Ops!</Text>
               <Text style={{fontSize:15}}>Houve uma falha ao carregar os pedidos.</Text>
               <Text style={{fontSize:15}}>Tente novamente mais tarde!</Text>
@@ -230,7 +230,7 @@ class Orders extends Component {
                 marginTop: '50%'
               }}
             >
-              <ActivityIndicator size="large" color="#4099ff"
+              <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                 animating={true}
                 hidesWhenStopped={true}
@@ -252,7 +252,7 @@ class Orders extends Component {
                   marginTop: '50%'
                 }}
               >
-                <ActivityIndicator size="large" color="#4099ff"
+                <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                   animating={true}
                   hidesWhenStopped={true}

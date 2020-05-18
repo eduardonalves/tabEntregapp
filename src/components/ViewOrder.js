@@ -60,7 +60,7 @@ class ViewOrder extends Component {
         shadowOpacity: 0,
         backgroundColor: Color.headerBar
       },
-      headerLeft: <HeaderBackButton onPress={() => navigation.navigate("LinksStack")}  tintColor="#fff"  />,
+      headerLeft: <HeaderBackButton onPress={() => navigation.navigate("LinksStack")}  tintColor={Color.headerBarTitle}  />,
       headerRight: (
         <CartButton
           onPress={() => {
@@ -298,7 +298,7 @@ class ViewOrder extends Component {
                   elevation={2}
                   style={{
                     flexDirection: "row",
-                    backgroundColor: "#ffffff",
+                    backgroundColor: Color.checkoutContainerBackground,
                     padding:10,
                     marginTop:10,
                     /*marginHorizontal: 24,
@@ -322,7 +322,7 @@ class ViewOrder extends Component {
                     <Text
                       style={{
                         fontSize: 16,
-                        color: "#000000",
+                        color: Color.checkoutConteinerTextColor,
                         fontWeight: "bold",
                       }}
                     >
@@ -335,7 +335,7 @@ class ViewOrder extends Component {
                     <Text
                       style={{
                         fontSize: 16,
-                        color: "#000000",
+                        color: Color.checkoutConteinerTextColor,
                         fontWeight: "bold",
                       }}
                     >
@@ -348,7 +348,7 @@ class ViewOrder extends Component {
                     <Text
                       style={{
                         fontSize: 16,
-                        color: "#000000",
+                        color: Color.checkoutConteinerTextColor,
                         fontWeight: "bold",
                       }}
                     >
@@ -359,7 +359,7 @@ class ViewOrder extends Component {
                     <Text
                       style={{
                         fontSize: 16,
-                        color: "#000000",
+                        color: Color.checkoutConteinerTextColor,
                         fontWeight: "bold",
                       }}
                     >
@@ -574,7 +574,7 @@ class ViewOrder extends Component {
                   marginTop: '50%',
                 }}
               >
-                <ActivityIndicator size="large" color="#4099ff"
+                <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                   animating={true}
                   hidesWhenStopped={true}
@@ -599,7 +599,7 @@ class ViewOrder extends Component {
                   marginTop: '50%'
                 }}
               >
-                <ActivityIndicator size="large" color="#4099ff"
+                <ActivityIndicator size="large" color={Color.ActivityIndicator}
 
                   animating={true}
                   hidesWhenStopped={true}
@@ -643,7 +643,7 @@ const styles = StyleSheet.create({
     alignItems:"center"
   },
   button: {
-    backgroundColor: "#4099ff",
+    backgroundColor: Color.ActivityIndicator,
     color: "#fff",
     paddingLeft: 16,
     paddingRight: 16,

@@ -12,7 +12,7 @@ import {
 import { Overlay } from 'react-native-elements';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import Color from '../../constants/Colors';
 import { removeFromCart, updateCart } from '../actions/AppActions';
 import NumberFormat from 'react-number-format';
 
@@ -38,7 +38,7 @@ class ListOrder extends Component {
         
       },
       headerTitleStyle: {
-        color: '#fff',
+        color: Color.textFormaPagamento,
         fontWeight:'bold'
       },
       headerRight: (
@@ -82,7 +82,7 @@ class ListOrder extends Component {
           elevation={2}
           style={{
             flexDirection: "row",
-            backgroundColor: this.props.linha % 2 ? "#d2d2d2":  '#ffffff' ,
+            backgroundColor: this.props.linha % 2 ? Color.itemBackgroudColorimpar:  Color.itemBackgroudColorpar ,
             padding:10,
             /*marginHorizontal: 24,
             
