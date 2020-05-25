@@ -10,6 +10,8 @@ npm-debug.*
 web-build/
 web-report/
 google-services.json
+google-services-teste.json
+google-services-producao.json
 # macOS
 .DS_Store
 .idea
