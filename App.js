@@ -36,7 +36,10 @@ export default function App(props) {
               ref={navigatorRef => {
                 NavigationService.setTopLevelNavigator(navigatorRef);
               }} />
-            <MyNotifications />
+             {
+              Platform.OS === 'ios' || Platform.OS === 'android' ?  (<MyNotifications />): (<View></View>)
+             } 
+            
           
           
         </View>

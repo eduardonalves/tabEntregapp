@@ -14,7 +14,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   BackHandler,
-  Alert
+  Alert,
+  Platform
 } from "react-native";
 //import restaurantsData from "../api/restaurants.json";
 import RestaurantItem from "./RestaurantItem";

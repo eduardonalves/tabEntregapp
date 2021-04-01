@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f8cac46-5570-40f9-9e32-fced065f0116" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/navigation/AppNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/navigation/AppNavigator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/DishesActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/DishesActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dishes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dishes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ListItemIos.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListItemIos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/ActionTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/ActionTypes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Restaurants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Restaurants.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,18 +44,18 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="100" y="100" width="1166" height="528" key="AVDManager" timestamp="1617280514643">
+    <state x="100" y="100" width="1166" height="528" key="AVDManager" timestamp="1617300968791">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="100" y="100" width="1166" height="528" key="AVDManager/0.0.1366.728@0.0.1366.728" timestamp="1617280514643" />
+    <state x="100" y="100" width="1166" height="528" key="AVDManager/0.0.1366.728@0.0.1366.728" timestamp="1617300968791" />
     <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1616504876733">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1616504876733" />
-    <state x="184" y="8" key="SettingsEditor" timestamp="1616507830783">
+    <state x="184" y="8" key="SettingsEditor" timestamp="1617300968368">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="8" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1616507830783" />
+    <state x="184" y="8" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1617300968368" />
   </component>
   <component name="masterDetails">
     <states>
