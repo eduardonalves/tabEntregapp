@@ -16,7 +16,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import { Ionicons } from '@expo/vector-icons';
-import { produtosFetch, showMyLoaderProduct } from '../actions/DishesActions';
+import { adicionalFetch, showMyLoaderProduct } from '../actions/DishesActions';
 import { HeaderBackButton } from 'react-navigation-stack';
 import Constants from "../utils/constants";
 import foodData from "../food-data.json";
@@ -29,16 +29,17 @@ import ListItemIos from "./ListItemIos";
 
 
 
-class Dishes extends Component {
+class DishesAdc extends Component {
   constructor(props) {
     super(props);
-    this.props.produtosFetch(this.props.navigation.getParam('categoria_id'));
+    this.props.adicionalFetch();
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+    //alert(this.props.navigation.getParam('categoria_id'));
   }
 
   static navigationOptions = ({ navigation }) => {
     return {
-      headerTitle: "Produtos",
+      headerTitle: "Adicionais",
       headerStyle: {
         elevation: 0,
         shadowOpacity: 0,
@@ -57,7 +58,7 @@ class Dishes extends Component {
   };
 
   handleNaviagation = () => {
-    this.props.navigation.navigate("Dishes");
+    this.props.navigation.navigate("DishesAdc");
   };
   
   UNSAFE_componentWillMount() {
@@ -80,13 +81,15 @@ class Dishes extends Component {
     //NavigationAction.back();
     //return true;
   }
-  handleGoToDishesAdc  = () => {
+
+  handleGoToDishes  = () => {
     //alert('dsfda');
-    this.props.navigation.navigate("DishesAdc",{ categoria_id: this.props.navigation.getParam('categoria_id') });
+    this.props.navigation.navigate("Main");
     
     //NavigationAction.back();
     //return true;
   }
+
   
   render() {
     
@@ -145,7 +148,6 @@ class Dishes extends Component {
                     disponivel={item.Produto.disponivel}
                     handleNaviagation={this.handleNaviagation}
                     handleGoToLogin={this.handleGoToLogin}
-                    handleGoToDishesAdc={this.handleGoToDishesAdc}
                     partida_id=''
                     data_validade=''
                     tem_adicional={item.Produto.tem_adicional}
@@ -169,7 +171,6 @@ class Dishes extends Component {
                   disponivel={item.Produto.disponivel}
                   handleNaviagation={this.handleNaviagation}
                   handleGoToLogin={this.handleGoToLogin}
-                  handleGoToDishesAdc={this.handleGoToDishesAdc}
                   partida_id=''
                   data_validade=''
                   tem_adicional={item.Produto.tem_adicional}
@@ -254,5 +255,5 @@ const mapStateToProps = state => ({
   show_loader_produto: state.DishesReducer.show_loader_produto,
   produto_carregado_falha: state.DishesReducer.produto_carregado_falha
 });
-const mapDispatchToProps = dispatch => bindActionCreators({produtosFetch, showMyLoaderProduct}, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(Dishes);
+const mapDispatchToProps = dispatch => bindActionCreators({adicionalFetch, showMyLoaderProduct}, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(DishesAdc);

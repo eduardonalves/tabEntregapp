@@ -3,7 +3,7 @@
     "name": "Geek Grill",
     "slug": "geek-grill",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
+    "sdkVersion": "37.0.0",
     "owner":"eduardonalves",
     "platforms": [
       "ios",

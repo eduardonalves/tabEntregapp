@@ -40,6 +40,31 @@ export const produtosFetch = (categoria_id) => {
     }
 }
 
+export const adicionalFetch = () => {
+    //alert('aquie2');
+    //alert('vkkkkk');
+    return dispatch => {
+        dispatch({ type: PRODUTO_CARREGADO_OK, payload: [] });
+        dispatch({ type: SHOW_LOADER_PRODUTO, payload: true });
+        axios.get(`${APP_URL}/RestProdutos/prodsmobilebyadc.json?fp=${FILIAL}`)
+            .then(res => {
+               // console.log(`${APP_URL}/RestProdutos/prodsmobilebyadc.json?fp=${FILIAL}`);
+               // console.log(res.data.produtos );
+                if (typeof res.data.produtos != 'undefined') {
+                    dispatch({ type: PRODUTO_CARREGADO_OK, payload: res.data.produtos });
+                } else {
+                    //  console.log('deu erro');
+                    dispatch({ type: PRODUTO_CARREGADO_FALHA, payload: false });
+                }
+
+                dispatch({ type: SHOW_LOADER_PRODUTO, payload: false });
+            }).catch(error => {
+                dispatch({ type: PRODUTO_CARREGADO_FALHA, payload: true });
+                dispatch({ type: SHOW_LOADER_PRODUTO, payload: false });
+            });
+    }
+}
+
 export const showMyLoaderProduct = (status) => {
     return dispatch => {
         dispatch({ type: SHOW_LOADER_PRODUTO, payload: status })

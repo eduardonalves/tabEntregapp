@@ -9,6 +9,7 @@ import {
 
 import MainTabNavigator from './MainTabNavigator';
 import Dishes from '../src/components/Dishes';
+import DishesAdc from '../src/components/DishesAdc';
 import Cart from '../src/components/Cart';
 import Billing from '../src/components/Billing';
 import Restaurants from '../src/components/Restaurants';
@@ -26,6 +27,7 @@ import MyGifts from '../src/components/MyGifts';
 const Routes = createStackNavigator(
   {
     Dishes: { screen: Dishes },
+    DishesAdc: { screen: DishesAdc },
     Cart: {screen: Cart},
     Billing: {screen: Billing},
     Restaurants:{screen: Restaurants},

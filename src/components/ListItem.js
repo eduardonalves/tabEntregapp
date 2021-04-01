@@ -89,6 +89,10 @@ async getToken() {
     this.setState({
       isClicked: !this.state.isClicked
     });
+    if(this.props.tem_adicional==true){
+      
+      this.props.handleGoToDishesAdc();
+    }
   }
   
   handleClick = () => {
@@ -110,7 +114,7 @@ async getToken() {
       );/**/
     }else{
       this.props.showMyLoader(true);
-      
+      //console.log(this.props);
       this.props.handleNaviagation();
       Alert.alert(
         'Adicionar Produto',

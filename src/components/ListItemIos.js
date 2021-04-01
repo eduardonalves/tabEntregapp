@@ -86,6 +86,9 @@ async getToken() {
     this.props.updateItemId(this.props.item_id);
     //this.props.updateCart(this.props.carrinho);
     this.props.showMyLoader(false);
+    if(this.props.tem_adicional==true){
+      this.props.handleGoToDishesAdc();
+    }
   }
   handleClick = () => {
     //console.log('this.props.usuario');
