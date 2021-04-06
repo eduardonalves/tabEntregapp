@@ -177,7 +177,7 @@ export default (state = INITIAL_STATE, action) => {
         case TOKEN_NOTIFICACAO:
             return { ...state, token_notificacao: action.payload };
         case VALOR_FRETE:
-            console.log('passou aqui')
+            //console.log('passou aqui')
             return { ...state, valor_frete: action.payload };    
         case NOTIFICATION:
             return { ...state, notification: action.payload };

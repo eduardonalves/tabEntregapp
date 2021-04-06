@@ -32,7 +32,8 @@ import ListItemIos from "./ListItemIos";
 class DishesAdc extends Component {
   constructor(props) {
     super(props);
-    this.props.adicionalFetch();
+    
+    this.props.adicionalFetch(this.props.navigation.getParam('produto_id'));
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     //alert(this.props.navigation.getParam('categoria_id'));
   }
