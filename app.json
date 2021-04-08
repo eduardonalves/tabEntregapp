@@ -3,14 +3,13 @@
     "name": "Geek Grill",
     "slug": "geek-grill",
     "privacy": "public",
-    "sdkVersion": "37.0.0",
-    "owner":"eduardonalves",
+    "owner": "eduardonalves",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "version": "1.1.9",
+    "version": "1.1.12",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "notification": {
@@ -30,12 +29,12 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.rudo.geekgrill",
-      "buildNumber": "1.1.9"
+      "buildNumber": "1.1.12"
     },
-	"android": {
+    "android": {
       "package": "com.rudo.geekgrill",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 14
+      "versionCode": 17
     }
   }
 }
