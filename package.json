@@ -26,6 +26,7 @@
     "expo-web-browser": "~8.0.0",
     "express": "^4.17.1",
     "link": "^0.1.5",
+    "modal-react-native-web": "^0.2.0",
     "pouchdb-react-native": "^6.4.1",
     "react": "16.9.0",
     "react-dom": "~16.9.0",

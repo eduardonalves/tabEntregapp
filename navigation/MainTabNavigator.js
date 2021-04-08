@@ -130,8 +130,8 @@ const tabNavigator = createBottomTabNavigator(
       activeTintColor:Color.tabActive,
       
       style:{
-        backgroundColor:Color.tabBar,
-        tintColor:Color.tabActive
+        backgroundColor:Color.tabBar
+        //tintColor:Color.tabActive
       },
       labelStyle: {
         fontSize: 15,

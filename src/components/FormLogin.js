@@ -128,7 +128,9 @@ class formLogin extends Component {
                 shadowOpacity: 0,
                 backgroundColor: Color.headerBar
             },
-            headerLeft: <HeaderBackButton onPress={() => navigation.navigate("Main")}  tintColor={Color.headerBarTitle}  />,
+            headerLeft: <HeaderBackButton onPress={() => navigation.navigate("Main")}  
+            //tintColor={Color.headerBarTitle} 
+            />,
         };
     }
 

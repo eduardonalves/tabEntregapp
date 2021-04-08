@@ -46,7 +46,9 @@ class DishesAdc extends Component {
         backgroundColor:Color.headerBar
       },
       //headerLeft: <TouchableOpacity onPress={() => navigation.navigate("Main") }><Image source={require('react-navigation-stack/src/views/assets/back-icon.png')} style={{marginTop: 10, marginLeft:10}} /></TouchableOpacity>,
-      headerLeft: <HeaderBackButton onPress={() => navigation.navigate("Main")}  tintColor={Color.headerBarTitle}  />,
+      headerLeft: <HeaderBackButton onPress={() => navigation.navigate("Main")}  
+      //tintColor={Color.headerBarTitle} 
+       />,
       headerRight: (
         <CartButton
           onPress={() => {

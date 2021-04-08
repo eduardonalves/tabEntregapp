@@ -93,7 +93,7 @@ class Restaurants extends Component {
     };
   };
   handleNaviagation = (categoria_id) => {
-
+    
     this.props.navigation.navigate("Dishes", { categoria_id: categoria_id });
   };
   render() {

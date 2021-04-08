@@ -8,16 +8,24 @@ import {
     View,
     Button,
 } from "react-native";
-import Modal from "react-native-modal";
+//import Modal from "react-native-modal";
+import Modal from 'modal-react-native-web';
 
 class CustomModal extends Component {
     constructor(props) {
         super(props);
     }
+    componentWillMount() {
+        Modal.setAppElement('body');
+    }
     render() {
         return (
             <View style={styles.container} >
-                <Modal isVisible={this.props.show_modal}>
+                <Modal 
+                visible={this.props.show_modal}
+                animationType="slide"
+                transparent={false}
+                >
                     <View style={styles.modalContent}>
                         <Text style={styles.title}>Ingredientes:</Text>
                         <Text style={styles.text}>{this.props.info_modal}</Text>
@@ -34,6 +42,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 22
     },
     title: {
         fontSize: 17,

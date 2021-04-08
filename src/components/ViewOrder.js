@@ -60,7 +60,9 @@ class ViewOrder extends Component {
         shadowOpacity: 0,
         backgroundColor: Color.headerBar
       },
-      headerLeft: <HeaderBackButton onPress={() => navigation.navigate("LinksStack")}  tintColor={Color.headerBarTitle}  />,
+      headerLeft: <HeaderBackButton onPress={() => navigation.navigate("LinksStack")}  
+      //tintColor={Color.headerBarTitle}  
+      />,
       headerRight: (
         <CartButton
           onPress={() => {

@@ -47,7 +47,8 @@ class ListItem extends Component {
       qtd: 1,
       modalVisible:false,
     };
-    //console.log(this.props);
+    //this.props.setModalVisible(true,'teste');
+    
   }
   async storeToken(user) {
     try {
@@ -260,7 +261,11 @@ async getToken() {
                 {
                 this.props.partida_id =='' || this.props.partida_id == null ? 
                 (
-                  <View style={{ flex: 1 , marginTop:- 9}}  >
+                  <View style={{ 
+                    //flex: 1 , 
+                    marginTop:- 9,
+                    padding: 5
+                    }}  >
                   <Picker
                     selectedValue={this.state.qtd}
                     style={{
@@ -304,7 +309,7 @@ async getToken() {
               }}>
                 <View style={{
                   padding: 1,
-                  flex:1
+                 // flex:1
                 }}>
                 <Button
                   onPress={e => this.props.setModalVisible(true, this.props.description)}
@@ -323,7 +328,7 @@ async getToken() {
                 </View>
                 <View  style={{
                   padding: 1,
-                  flex:1
+                  //flex:1
                 }}>
                 <Button
               
