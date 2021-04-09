@@ -8,10 +8,10 @@ import {
     TouchableHighlight,
     Image,
     ActivityIndicator,
-    AsyncStorage,
     ScrollView,
     Platform
 } from 'react-native';
+import AsyncStorage from '@callstack/async-storage';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import Color from "../../constants/Colors";

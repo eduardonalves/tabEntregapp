@@ -32,22 +32,15 @@ class ListCart extends Component {
       isClicked: !this.state.isClicked
     });
     //this.props.handleNaviagation();
-    Alert.alert(
-      'Remover Produto',
-      `Deseja mesmo remover o produto ${this.props.name} do seu pedido?`,
-      [
-        {
-          text: 'Sim',
-          onPress: () => this.handleRemoveFromCart(),
-        },
-        {
-          text: 'Não',
-          onPress: () => console.log('Não Pressed'),
-          style: 'cancel',
-        },
-      ],
-      { cancelable: false },
-    );
+    
+    
+    if (confirm(`Deseja mesmo remover o produto ${this.props.name} do seu pedido?`)) {
+      // Save it!
+      this.handleRemoveFromCart();
+    } else {
+      // Do nothing!
+      
+    }
   };
   render() {
     let total = this.props.price * this.props.qtd;

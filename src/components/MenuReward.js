@@ -6,11 +6,12 @@ import {
     Image,
     Platform,
     Button,
-    AsyncStorage,
     Alert,
     ActivityIndicator,
-    ScrollView
+    ScrollView,
+    Dimensions 
 } from "react-native";
+import AsyncStorage from '@callstack/async-storage';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -26,25 +27,15 @@ class MenuReward extends Component {
         super(props);
         //this.storeToken('')
         let userData = this.getToken();
+        
         userData.then(resp => {
             //console.log(resp);
             if(resp == null || resp == ''){
                 
                 this.props.showMyLoader(false);
                 this.props.navigation.navigate('RoutesLogin');
-                Alert.alert(
-                  'Mensagem',
-                  `Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`,
-                  [
-                    {
-                      text: 'OK',
-                      //onPress: () => console.log('clicou'),
-                      style: 'WARNING',
-                    },
-                  ],
-                  { cancelable: true },
-                );
                 
+                alert(`Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`);
             }else{
                 if(typeof resp.token != 'undefined'){   
                     this.props.setStatusCadastroUsuario(resp);
@@ -71,18 +62,8 @@ class MenuReward extends Component {
                           this.storeToken('');
                           this.props.setStatusCadastroUsuario('');
                             this.props.navigation.navigate('RoutesLogin');
-                            Alert.alert(
-                              'Mensagem',
-                              `Ops, você não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade.`,
-                              [
-                                {
-                                  text: 'OK',
-                                  //onPress: () => console.log('clicou'),
-                                  style: 'WARNING',
-                                },
-                              ],
-                              { cancelable: true },
-                            );
+                            
+                            alert( `Ops, você não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade.`);
                         }
                         //this.props.setStatusCadastroUsuario(nextProps.usuario);
                         //this.props.navigation.navigate('Main');
@@ -146,23 +127,14 @@ class MenuReward extends Component {
         this.props.entrarJokenpo(this.props.usuario.id, this.props.usuario.token );
     }
     gotoJokenpo(){
-        Alert.alert(
-            'Jogar',
-            `Deseja mesmo jogar uma partida de pedra, papel e tesoura? Isto poderá te custar 10 moedas.`,
-            [
-              {
-                text: 'Sim',
-                onPress: () => this.handleGotoJokenpo(),
-              },
-              {
-                text: 'Não',
-                //onPress: () => this.props.showMyLoader(false),
-                style: 'cancel',
-              },
-            ],
-            { cancelable: false },
-          );
-          
+        
+          if (confirm(`Deseja mesmo jogar uma partida de pedra, papel e tesoura? Isto poderá te custar 10 moedas.`)) {
+            // Save it!
+            this.handleGotoJokenpo();
+          } else {
+            // Do nothing!
+            this.props.showMyLoader(false);
+          }
         
     }
     gotoMyGifts(){
@@ -172,6 +144,8 @@ class MenuReward extends Component {
 
     render() {
         
+        let {width} = Dimensions.get('window');
+        let imgwidth= width * 0.5;
 
         return (
             <ScrollView >
@@ -226,7 +200,9 @@ class MenuReward extends Component {
                 }
                 
                 <View style={{flexDirection:'row'}}> 
-                    <Image source={require('../../assets/images/jokenpo.png')} style={{flex:1}}/>
+                    <Image 
+                        source={require('../../assets/images/jokenpo.png')} 
+                        style={{flex:1, height:imgwidth, height:imgwidth}}/>
                 </View>
                 <View style={{alignContent:'center', padding:20}}>
                     <View style={{flexDirection:'row', alignItems:'center'}}>

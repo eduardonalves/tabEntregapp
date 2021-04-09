@@ -9,9 +9,9 @@ import {
   Picker,
   Button,
   ActivityIndicator,
-  AsyncStorage,
   ScrollView
 } from "react-native";
+import AsyncStorage from '@callstack/async-storage';
 import { HeaderBackButton } from 'react-navigation-stack';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';

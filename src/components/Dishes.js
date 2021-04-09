@@ -75,14 +75,14 @@ class Dishes extends Component {
   }
 
   handleGoToLogin  = () => {
-    //alert('dsfda');
+    
     this.props.navigation.navigate("RoutesLogin");
     //NavigationAction.back();
     //return true;
   }
-  handleGoToDishesAdc  = () => {
-    //alert('dsfda');
-    this.props.navigation.navigate("DishesAdc",{ categoria_id: this.props.navigation.getParam('categoria_id') });
+  handleGoToDishesAdc  = (produto_id) => {
+    
+    this.props.navigation.navigate("DishesAdc",{ produto_id: produto_id });
     
     //NavigationAction.back();
     //return true;
@@ -145,7 +145,7 @@ class Dishes extends Component {
                     disponivel={item.Produto.disponivel}
                     handleNaviagation={this.handleNaviagation}
                     handleGoToLogin={this.handleGoToLogin}
-                    handleGoToDishesAdc={this.handleGoToDishesAdc}
+                    handleGoToDishesAdc={()=>this.handleGoToDishesAdc(item.Produto.id)}
                     partida_id=''
                     data_validade=''
                     tem_adicional={item.Produto.tem_adicional}
@@ -169,7 +169,7 @@ class Dishes extends Component {
                   disponivel={item.Produto.disponivel}
                   handleNaviagation={this.handleNaviagation}
                   handleGoToLogin={this.handleGoToLogin}
-                  handleGoToDishesAdc={this.handleGoToDishesAdc}
+                  handleGoToDishesAdc={()=>this.handleGoToDishesAdc(item.Produto.id)}
                   partida_id=''
                   data_validade=''
                   tem_adicional={item.Produto.tem_adicional}

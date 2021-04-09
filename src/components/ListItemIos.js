@@ -9,9 +9,9 @@ import {
   Alert,
   Picker,
   TouchableHighlight,
-  Platform,
-  AsyncStorage
+  Platform
 } from "react-native";
+import AsyncStorage from '@callstack/async-storage';
 import { Overlay } from 'react-native-elements';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -95,38 +95,21 @@ async getToken() {
     //console.log(this.props.usuario);
     if(this.props.usuario ==''){
       this.props.handleGoToLogin();
-      Alert.alert(
-        'Mensagem',
-        `Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`,
-        [
-          {
-            text: 'OK',
-            //onPress: () => console.log('clicou'),
-            style: 'WARNING',
-          },
-        ],
-        { cancelable: true },
-      );
+      
+      alert(`Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`);
     }else{
       this.props.showMyLoader(true);
       
       this.props.handleNaviagation();
-      Alert.alert(
-        'Adicionar Produto',
-        `Deseja mesmo adicionar o produto ${this.props.name} à sua sacola de pedidos?`,
-        [
-          {
-            text: 'Sim',
-            onPress: () => this.handleAddToCart(),
-          },
-          {
-            text: 'Não',
-            onPress: () => this.props.showMyLoader(false),
-            style: 'cancel',
-          },
-        ],
-        { cancelable: false },
-      );
+      
+
+      if (confirm('Are you sure you want to save this thing into the database?')) {
+        // Save it!
+        this.handleAddToCart();
+      } else {
+        // Do nothing!
+        
+      }
     }
     
   };

@@ -21,6 +21,7 @@ import { HeaderBackButton } from 'react-navigation-stack';
 import Constants from "../utils/constants";
 import foodData from "../food-data.json";
 import ListItem from "./ListItem";
+import ListItemAdc from "./ListItemAdc";
 import CartButton from "./common/CartButton";
 import CustomModal from "../components/common/CustomModal";
 import Color from "../../constants/Colors";
@@ -32,9 +33,9 @@ import ListItemIos from "./ListItemIos";
 class DishesAdc extends Component {
   constructor(props) {
     super(props);
-    this.props.adicionalFetch();
+    this.props.adicionalFetch(this.props.navigation.getParam('produto_id'));
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
-    //alert(this.props.navigation.getParam('categoria_id'));
+    
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -78,14 +79,14 @@ class DishesAdc extends Component {
   }
 
   handleGoToLogin  = () => {
-    //alert('dsfda');
+    
     this.props.navigation.navigate("RoutesLogin");
     //NavigationAction.back();
     //return true;
   }
 
   handleGoToDishes  = () => {
-    //alert('dsfda');
+    
     this.props.navigation.navigate("Main");
     
     //NavigationAction.back();
@@ -133,36 +134,12 @@ class DishesAdc extends Component {
             </View>
             
           ):(
-            Platform.OS === 'ios' ? (
-              <FlatList
-                data={this.props.produtos}
-                keyExtractor={item => item.Produto.id_sec.toString()}
-                renderItem={({ item }) => (
-                  
-                  <ListItemIos
-                    id={item.Produto.id}
-                    name={item.Produto.nome}
-                    image={item.Produto.foto}
-                    cuisine={item.Produto.nome}
-                    price={item.Produto.preco_venda}
-                    description={item.Produto.descricao}
-                    isVegetarian={item.Produto.parte_compre_ganhe}
-                    disponivel={item.Produto.disponivel}
-                    handleNaviagation={this.handleNaviagation}
-                    handleGoToLogin={this.handleGoToLogin}
-                    partida_id=''
-                    data_validade=''
-                    tem_adicional={item.Produto.tem_adicional}
-                  />
-                )}
-              />
-            ):(
-              <FlatList
+            <FlatList
               data={this.props.produtos}
               keyExtractor={item => item.Produto.id_sec.toString()}
               renderItem={({ item }) => (
                 
-                <ListItem
+                <ListItemAdc
                   id={item.Produto.id}
                   name={item.Produto.nome}
                   image={item.Produto.foto}
@@ -177,9 +154,9 @@ class DishesAdc extends Component {
                   data_validade=''
                   tem_adicional={item.Produto.tem_adicional}
                 />
-              )}
+              )
+            }
             />
-            )
              
              
           )

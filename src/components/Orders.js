@@ -18,11 +18,10 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  AsyncStorage,
   Platform,
   Alert
 } from "react-native";
-
+import AsyncStorage from '@callstack/async-storage';
 import ListOrder from "./ListOrder";
 import CartButton from "./common/CartButton";
 //import Icon from 'react-native-vector-icons/FontAwesome';
@@ -47,18 +46,7 @@ class Orders extends Component {
                 
           this.props.showMyLoader(false);
           this.props.navigation.navigate('RoutesLogin');
-          Alert.alert(
-            'Mensagem',
-            `Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`,
-            [
-              {
-                text: 'OK',
-                //onPress: () => console.log('clicou'),
-                style: 'WARNING',
-              },
-            ],
-            { cancelable: true },
-          );
+          alert(`Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`);
           
         }else{
           this.props.showMyLoader(true);
@@ -90,18 +78,7 @@ class Orders extends Component {
                     this.storeToken('');
                     this.props.setStatusCadastroUsuario('');
                       this.props.navigation.navigate('RoutesLogin');
-                      Alert.alert(
-                        'Mensagem',
-                        `Ops, você não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade.`,
-                        [
-                          {
-                            text: 'OK',
-                            //onPress: () => console.log('clicou'),
-                            style: 'WARNING',
-                          },
-                        ],
-                        { cancelable: true },
-                      );
+                      alert( `Ops, você não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade.`);
                   }
                   //this.props.setStatusCadastroUsuario(nextProps.usuario);
                   //this.props.navigation.navigate('Main');

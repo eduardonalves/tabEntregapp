@@ -133,17 +133,8 @@ export const autenticarUsuario = (usuario) => {
 
                         clearInterval(interval);
                         
-                        Alert.alert(
-                            'Mensagem',
-                            `Ops, houve um erro ao tentar te autenticar, provalvelmente seu usuário ou senha estão errados, por favor tente novamente!`,
-                            [
-                                {
-                                    text: 'OK',
-                                    style: 'OK',
-                                },
-                            ],
-                            { cancelable: false },
-                        );
+                      
+                        alert(`Ops, houve um erro ao tentar te autenticar, provalvelmente seu usuário ou senha estão errados, por favor tente novamente!`);
                     } else {
 
                         clearInterval(interval);
@@ -188,17 +179,8 @@ export const autenticarUsuario = (usuario) => {
 
                                     clearInterval(interval);
                                     clearInterval(interval);
-                                    Alert.alert(
-                                        'Mensagem',
-                                        `Ops, houve um erro ao tentar autenticar seu usuário, provalvelmente seu usuário ou senha estão errados, por favor tente novamente!`,
-                                        [
-                                            {
-                                                text: 'OK',
-                                                style: 'OK',
-                                            },
-                                        ],
-                                        { cancelable: false },
-                                    );
+                                   
+                                    alert(`Ops, houve um erro ao tentar te autenticar, provalvelmente seu usuário ou senha estão errados, por favor tente novamente!`);
                                 } else {
 
                                     clearInterval(interval);
@@ -216,17 +198,8 @@ export const autenticarUsuario = (usuario) => {
                     passouOk = true;
                     loadError = false;
                     clearInterval(interval);
-                    Alert.alert(
-                        'Mensagem',
-                        `Ops, houve um erro ao tentar ao tentar autenticar seu usuário, por favor, verifique sua internet e tente novamente, caso isto não funcione, por favor entre em contato com a loja! Obrigado ;-D`,
-                        [
-                            {
-                                text: 'OK',
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                    
+                    alert(`Ops, houve um erro ao tentar te autenticar, provalvelmente seu usuário ou senha estão errados, por favor tente novamente!`);
                 }
                 dispatch({ type: SHOW_LOADER, payload: false });
             }, 10000);
@@ -251,29 +224,11 @@ export const recuperarSenha = (usuario) => {
                 clearInterval(interval);
                 if (typeof res.data.ultimocliente != 'undefined') {
                     if (res.data.ultimocliente == 'ok') {
-                        Alert.alert(
-                            'Mensagem',
-                            `Sucesso, enviamos um link de recuperação de senha para seu e-mail cadastrado `,
-                            [
-                                {
-                                    text: 'OK',
-                                    style: 'OK',
-                                },
-                            ],
-                            { cancelable: false },
-                        );
+                        
+                        alert(`Sucesso, enviamos um link de recuperação de senha para seu e-mail cadastrado `);
                     } else {
-                        Alert.alert(
-                            'Mensagem',
-                            `Ops, não encontramos seu usuário`,
-                            [
-                                {
-                                    text: 'OK',
-                                    style: 'OK',
-                                },
-                            ],
-                            { cancelable: false },
-                        );
+                        
+                        alert( `Ops, não encontramos seu usuário`);
                     }
 
                 }
@@ -309,29 +264,11 @@ export const recuperarSenha = (usuario) => {
 
                             if (typeof res.data.ultimocliente != 'undefined') {
                                 if (res.data.ultimocliente == 'ok') {
-                                    Alert.alert(
-                                        'Mensagem',
-                                        `Sucesso, enviamos um link de recuperação de senha para seu e-mail cadastrado `,
-                                        [
-                                            {
-                                                text: 'OK',
-                                                style: 'OK',
-                                            },
-                                        ],
-                                        { cancelable: false },
-                                    );
+                                  
+                                    alert(`Sucesso, enviamos um link de recuperação de senha para seu e-mail cadastrado `);
                                 } else {
-                                    Alert.alert(
-                                        'Mensagem',
-                                        `Ops, não encontramos seu usuário`,
-                                        [
-                                            {
-                                                text: 'OK',
-                                                style: 'OK',
-                                            },
-                                        ],
-                                        { cancelable: false },
-                                    );
+                                    
+                                    alert(`Ops, não encontramos seu usuário`);
                                 }
 
                             }
@@ -356,17 +293,8 @@ export const recuperarSenha = (usuario) => {
                     loadError = false;
                     dispatch({ type: SHOW_LOADER, payload: false });
                     clearInterval(interval);
-                    Alert.alert(
-                        'Mensagem',
-                        `Ops, houve um erro ao tentar ao tentar recuperar sua senha, por favor, verifique sua internet e tente novamente, caso isto não funcione, por favor entre em contato com a loja! Obrigado ;-D`,
-                        [
-                            {
-                                text: 'OK',
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                    
+                    alert(`Ops, houve um erro ao tentar ao tentar recuperar sua senha, por favor, verifique sua internet e tente novamente, caso isto não funcione, por favor entre em contato com a loja! Obrigado ;-D`);
                 }
 
             }, 10000);
@@ -389,32 +317,14 @@ export const cadastraUsuarioEdit = (usuario) => {
             .then(res => {
 
                 if (res.data.ultimocliente == "ErroUsuarioDuplo") {
-                    Alert.alert(
-                        'Mensagem',
-                        `Ops, este nome de usuário já não está mais disponível, por favor, escolha outro nome de usuário!`,
-                        [
-                            {
-                                text: 'OK',
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                    
+                    alert(`Ops, este nome de usuário já não está mais disponível, por favor, escolha outro nome de usuário!`);
                     dispatch({ type: SHOW_LOADER, payload: false });
 
                     dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
                 } else if (res.data.ultimocliente == "Erro") {
-                    Alert.alert(
-                        'Mensagem',
-                        `Ops, houve um erro ao tentar te cadastrar, por favor, tente novamente mais tarde!`,
-                        [
-                            {
-                                text: 'OK',
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                    
+                    alert(`Ops, houve um erro ao tentar te cadastrar, por favor, tente novamente mais tarde!`);
                     dispatch({ type: SHOW_LOADER, payload: false });
 
                     dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
@@ -424,17 +334,8 @@ export const cadastraUsuarioEdit = (usuario) => {
                     dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimocliente.Cliente });
                     dispatch({ type: USUARIO_ATUALIZOU_CADASTRO, payload: true });
 
-                    Alert.alert(
-                        'Mensagem',
-                        `Parabéns, seu  cadastro foi atualizado!`,
-                        [
-                            {
-                                text: 'OK',
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                    
+                    alert(`Parabéns, seu  cadastro foi atualizado!`);
                 }
 
             }).catch(error => {
@@ -459,32 +360,14 @@ export const cadastraUsuarioEditComSenha = (usuario) => {
             .then(res => {
 
                 if (res.data.ultimocliente == "ErroUsuarioDuplo") {
-                    Alert.alert(
-                        'Mensagem',
-                        `Ops, este nome de usuário já não está mais disponível, por favor, escolha outro nome de usuário!`,
-                        [
-                            {
-                                text: 'OK',
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                    
+                    alert(`Ops, este nome de usuário já não está mais disponível, por favor, escolha outro nome de usuário!`);
                     dispatch({ type: SHOW_LOADER, payload: false });
 
                     dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
                 } else if (res.data.ultimocliente == "Erro") {
-                    Alert.alert(
-                        'Mensagem',
-                        `Ops, houve um erro ao tentar te cadastrar, por favor, tente novamente mais tarde!`,
-                        [
-                            {
-                                text: 'OK',
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                    
+                    alert(`Ops, houve um erro ao tentar te cadastrar, por favor, tente novamente mais tarde!`);
                     dispatch({ type: SHOW_LOADER, payload: false });
 
                     dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
@@ -514,17 +397,8 @@ export const cadastraUsuarioEditComSenha = (usuario) => {
                         });
 
                     //dispatch(NavigationActions.navigate({ routeName: 'RoutesLogin' }));
-                    Alert.alert(
-                        'Mensagem',
-                        `Parabéns, \n Seu cadastro foi atualizado!`,
-                        [
-                            {
-                                text: 'OK',
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                    
+                    alert(`Parabéns, \n Seu cadastro foi atualizado!`);
                 }
 
 
@@ -549,32 +423,14 @@ export const cadastraUsuario = (usuario) => {
             .then(res => {
 
                 if (res.data.ultimocliente == "ErroUsuarioDuplo") {
-                    Alert.alert(
-                        'Mensagem',
-                        `Ops, este nome de usuário já não está mais disponível, por favor, escolha outro nome de usuário!`,
-                        [
-                            {
-                                text: 'OK',
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                    
+                    alert(`Ops, este nome de usuário já não está mais disponível, por favor, escolha outro nome de usuário!`)
                     dispatch({ type: SHOW_LOADER, payload: false });
 
                     dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
                 } else if (res.data.ultimocliente == "Erro") {
-                    Alert.alert(
-                        'Mensagem',
-                        `Ops, houve um erro ao tentar te cadastrar, por favor, tente novamente mais tarde!`,
-                        [
-                            {
-                                text: 'OK',
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                    
+                    alert(`Ops, houve um erro ao tentar te cadastrar, por favor, tente novamente mais tarde!`);
                     dispatch({ type: SHOW_LOADER, payload: false });
 
                     dispatch({ type: CADASTRO_USUARIO_ERRO, payload: false });
@@ -589,7 +445,7 @@ export const cadastraUsuario = (usuario) => {
                     };
                     axios.post(`${APP_URL}/RestClientes/loginmobile.json`, dadosUsuario)
                         .then(res => {
-
+                            
                             if (typeof res.data.ultimopedido != 'undefined') {
                                 dispatch({ type: CADASTRO_USUARIO_SUCESSO, payload: res.data.ultimopedido.Cliente });
                             }
@@ -602,18 +458,9 @@ export const cadastraUsuario = (usuario) => {
                             dispatch({ type: CADASTRO_USUARIO_ERRO, payload: true });
                         });
 
-                    //dispatch(NavigationActions.navigate({ routeName: 'RoutesLogin' }));
-                    /*Alert.alert(
-                        'Mensagem',
-                        `Parabéns, \n Seu cadastro foi efetuado com sucesso! Agora você já pode fazer seus pedidos.`,
-                        [
-                        {
-                            text: 'OK',
-                            style: 'OK',
-                        },
-                        ],
-                        { cancelable: false },
-                    );*/
+                    dispatch(NavigationActions.navigate({ routeName: 'RoutesLogin' }));
+                    alert(`Usuário ${usuario.Cliente.username} cadastrado com sucesso. Por favor, volte para a página de login e entre com seu usuário e senha.`);
+                    
                 }
 
 
@@ -1438,6 +1285,7 @@ export const loadInfoModal = (content) => {
     }
 }
 export const setModalVisible = (status, content) => {
+   
     if (typeof content == 'undefined') {
         content = SEM_DESCRICAO;
     }
@@ -1492,60 +1340,20 @@ export const enviaPedido = (pedido) => {
 
 
                 if(res.data.resultados== "errolojafechada" || res.data.resultados== "" || res.data== ""){
-                    Alert.alert(
-                        'Mensagem',
-                        `Ops, no momento não conseguimos enviar seu pedido porque a loja está fechada.`,
-                        [
-                            {
-                                text: 'OK',
-                                //onPress: () => limpaCarrinho(),
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                    
+                    alert(`Ops, no momento não conseguimos enviar seu pedido porque a loja está fechada.`);
                 }else if(res.data.resultados== "erro")
                 {
-                    Alert.alert(
-                        'Mensagem',
-                        `Houve um erro ao tentar enviar seu pedido, por favor, tente novamente mais tarde. Caso o erro persista, entre em contato com a loja.`,
-                        [
-                            {
-                                text: 'OK',
-                                //onPress: () => limpaCarrinho(),
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                    
+                    alert( `Houve um erro ao tentar enviar seu pedido, por favor, tente novamente mais tarde. Caso o erro persista, entre em contato com a loja.`);
                 }else if(res.data.resultados == "erroUsuarioInativo")
                 {
-                    Alert.alert(
-                        'Mensagem',
-                        `Houve um erro inesperado ao tentar enviar seu pedido, por favor, tente novamente mais tarde. Caso o erro persista, entre em contato com a loja.`,
-                        [
-                            {
-                                text: 'OK',
-                                //onPress: () => limpaCarrinho(),
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                    
+                    alert( `Houve um erro inesperado ao tentar enviar seu pedido, por favor, tente novamente mais tarde. Caso o erro persista, entre em contato com a loja.`);
                 }else{
 
-                    Alert.alert(
-                        'Mensagem',
-                        `Pedido enviado com sucesso!`,
-                        [
-                            {
-                                text: 'OK',
-                                onPress: () => limpaCarrinho(),
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+
+                    alert(`Pedido enviado com sucesso!`);
                     dispatch({ type: PEDIDO_CARREGADO_OK, payload: res.data.resultados.Pedido });
                     dispatch({ type: LIMPA_QTD_CARRINHO, payload: 0 });
                     dispatch({ type: ATUALIZA_FORMA_PAGAMENTO, payload: '' });
@@ -1598,19 +1406,8 @@ export const enviaPedido = (pedido) => {
         
         
         
-                        Alert.alert(
-                            'Mensagem',
-                            `Pedido enviado com sucesso!`,
-                            [
-                                {
-                                    text: 'OK',
-                                    onPress: () => limpaCarrinho(),
-                                    style: 'OK',
-                                },
-                            ],
-                            { cancelable: false },
-                        );
-        
+                        
+                        alert(`Pedido enviado com sucesso!`);
                     }).catch(error => {
                        // dispatch({ type: PEDIDO_CARREGADO_OK, payload: [] });
                         //dispatch({ type: SHOW_LOADER, payload: false });
@@ -1771,17 +1568,8 @@ export const entrarJokenpo = (usuario,token) => {
                 }else {
                     dispatch({type: INICIOU_PARTIDA, payload: false});
                     dispatch({type: DADOS_PREMIO, payload:''});
-                    Alert.alert(
-                        'Mensagem',
-                        `Ops, acho que você não tem moedas suficientes para jogar.`,
-                        [
-                            {
-                                text: 'OK',
-                                style: 'OK',
-                            },
-                        ],
-                        { cancelable: false },
-                    );
+                   
+                    alert(`Ops, acho que você não tem moedas suficientes para jogar.`);
                 }
                 
             }

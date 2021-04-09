@@ -23,7 +23,7 @@ import NumberFormat from 'react-number-format';
 
 import { addToCart, updateItemId, updateCart, setModalVisible, showMyLoader, setStatusCadastroUsuario } from '../actions/AppActions';
 
-class ListItem extends Component {
+class ListItemAdc extends Component {
   constructor(props) {
     super(props);
     let storeData = this.getToken();
@@ -71,8 +71,8 @@ async getToken() {
     }
 }
   
-  handleAddToCart = () => {
-    this.props.showMyLoader(true);
+  handleAddToCartAdc = () => {
+   // this.props.showMyLoader(true);
     let produto = {
       id: this.props.id,
       nome: this.props.name,
@@ -88,41 +88,41 @@ async getToken() {
     this.props.addToCart(produto, this.props.carrinho, this.props.usuario.frete_cadastro);
     this.props.updateItemId(this.props.item_id);
     //this.props.updateCart(this.props.carrinho);
-    this.props.showMyLoader(false);
+    //this.props.showMyLoader(false);
     this.setState({
       isClicked: !this.state.isClicked
     });
-    if(this.props.tem_adicional==true){
-      
-      this.props.handleGoToDishesAdc(this.props.id);
-    }
+    
   }
   
-  handleClick = () => {
+  handleClickAdc = () => {
     
-    if(this.props.usuario==''){
-      //this.props.handleGoToLogin();
+    //if (confirm(`Deseja mesmo adicionar o produto ${this.props.name} à sua sacola de pedidos?`)) {
+      // Save it!
+     // this.handleAddToCartAdc();
+      //this.props.showMyLoader(false);
+    //} else {
+      // Do nothing!
+      //this.props.showMyLoader(false);
+    //}
+    /*setTimeout(function(){
+       alert('teste');
       
-      this.props.handleGoToLogin();
-      alert(`Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`);
-    }else{
-      this.props.showMyLoader(true);
-      //console.log(this.props);
-      //this.props.handleNaviagation();
-
-      if (confirm(`Deseja mesmo adicionar o produto ${this.props.name} à sua sacola de pedidos?`)) {
-        // Save it!
-        this.handleAddToCart();
-        this.props.showMyLoader(false);
-      } else {
-        // Do nothing!
-        this.props.showMyLoader(false);
-      }
-
-
-      
-    }
-    
+      }, 100);*/
+      setTimeout(
+        function() {
+          if (confirm(`Deseja mesmo adicionar o produto ${this.props.name} à sua sacola de pedidos?`)) {
+            // Save it!
+           this.handleAddToCartAdc();
+            //this.props.showMyLoader(false);
+          } else {
+            // Do nothing!
+            //this.props.showMyLoader(false);
+          }
+        }
+        .bind(this),
+        100
+    );
   };
   render() {
     
@@ -320,7 +320,7 @@ async getToken() {
                 }}>
                 <Button
               
-                  onPress={this.handleClick} 
+                  onPress={e => this.handleClickAdc()} 
                   color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
                   title="Adicionar"
                   disabled={!this.props.disponivel || this.props.show_loader || (this.state.isClicked==true && this.props.partida_id != '')  }
@@ -362,4 +362,4 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps = dispatch => bindActionCreators({ addToCart, updateItemId, updateCart, setModalVisible, showMyLoader, setStatusCadastroUsuario }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(ListItem);
+export default connect(mapStateToProps, mapDispatchToProps)(ListItemAdc);

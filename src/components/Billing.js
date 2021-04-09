@@ -67,33 +67,13 @@ class Billing extends Component {
         this.props.freteFetch(this.props.usuario.id);
         if (this.props.forma_pagamento == 1 && this.props.troco_pedido == '') {
 
-            Alert.alert(
-                'Mensagem',
-                `Vai precisar de troco? Por favor, se precisar, diga para quanto quer, caso contrário, informe que não!`,
-                [
-                    {
-                        text: 'OK',
-                        //onPress: () => console.log('clicou'),
-                        style: 'OK',
-                    },
-                ],
-                { cancelable: true },
-            );
+            
+            alert( `Vai precisar de troco? Por favor, se precisar, diga para quanto quer, caso contrário, informe que não!`);
         } else {
 
             if (this.props.forma_pagamento ==  '' || this.props.forma_pagamento == null) {
-                Alert.alert(
-                    'Mensagem',
-                    `Opa, faltou informar a forma de pagamento.`,
-                    [
-                        {
-                            text: 'OK',
-                            //onPress: () => console.log('clicou'),
-                            style: 'OK',
-                        },
-                    ],
-                    { cancelable: true },
-                );
+               
+                alert(`Opa, faltou informar a forma de pagamento.`);
             } else {
                 this.props.showMyLoader(true);
 

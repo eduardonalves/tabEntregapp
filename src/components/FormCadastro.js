@@ -10,10 +10,10 @@ import {
     ScrollView,
     Picker,
     Alert,
-    AsyncStorage,
     Platform, 
     Keyboard
 } from 'react-native';
+import AsyncStorage from '@callstack/async-storage';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { Text, Input } from 'react-native-elements';
@@ -109,10 +109,10 @@ class FormCadastro extends Component {
                 elevation: 0,
                 shadowOpacity: 0,
                 backgroundColor: Color.headerBar,
-                fontWeight:'bold'
+                //fontWeight:'bold'
             },
             headerTitleStyle: {
-              fontWeight: 'bold',
+              //fontWeight: 'bold',
             },
         };
     }
@@ -200,141 +200,51 @@ class FormCadastro extends Component {
     }
     _isValidUser(){
         if(this.props.username == ''){
-            Alert.alert(
-                'Mensagem',
-                `O nome de usuário não pode ficar em branco.`,
-                [
-                  {
-                    text: 'OK',
-                    //onPress: () => console.log('clicou'),
-                    style: 'WARNING',
-                  },
-                ],
-                { cancelable: true },
-              );
+           
+              alert(`O nome de usuário não pode ficar em branco.`);
               return false;
         }
 
         if(this.props.nome == ''){
-            Alert.alert(
-                'Mensagem',
-                `O nome não pode ficar em branco.`,
-                [
-                  {
-                    text: 'OK',
-                    //onPress: () => console.log('clicou'),
-                    style: 'WARNING',
-                  },
-                ],
-                { cancelable: true },
-              );
-              return false;
+            
+            alert(`O nome não pode ficar em branco.`);
+            return false;
         }
 
         if(this.props.senha == ''){
-            Alert.alert(
-                'Mensagem',
-                `A senha não pode ficar em branco.`,
-                [
-                  {
-                    text: 'OK',
-                    //onPress: () => console.log('clicou'),
-                    style: 'WARNING',
-                  },
-                ],
-                { cancelable: true },
-              );
-              return false;
+            
+            alert(`A senha não pode ficar em branco.`);
+            return false;
         }
         if (this.props.senha != this.props.confirma_senha) {
-            Alert.alert(
-              'Mensagem',
-              `Os campos senha e confirme sua senha não são iguais.`,
-              [
-                {
-                  text: 'OK',
-                  //onPress: () => console.log('clicou'),
-                  style: 'WARNING',
-                },
-              ],
-              { cancelable: true },
-            );
+            
+            alert(`Os campos senha e confirme sua senha não são iguais.`);
             return false;
         }
         if(this.props.telefone == ''){
-            Alert.alert(
-                'Mensagem',
-                `O campo telefone não pode ficar em branco.`,
-                [
-                  {
-                    text: 'OK',
-                    //onPress: () => console.log('clicou'),
-                    style: 'WARNING',
-                  },
-                ],
-                { cancelable: true },
-              );
+            
+              alert(`O campo telefone não pode ficar em branco.`);
               return false;
         }
 
         if(this.props.endereco == ''){
-            Alert.alert(
-                'Mensagem',
-                `O endereço não pode ficar em branco.`,
-                [
-                  {
-                    text: 'OK',
-                    //onPress: () => console.log('clicou'),
-                    style: 'WARNING',
-                  },
-                ],
-                { cancelable: true },
-              );
+            
+              alert(`O endereço não pode ficar em branco.`);
               return false;
         }
         if(this.props.estado == ''){
-            Alert.alert(
-                'Mensagem',
-                `O estado não pode ficar em branco.`,
-                [
-                  {
-                    text: 'OK',
-                    //onPress: () => console.log('clicou'),
-                    style: 'WARNING',
-                  },
-                ],
-                { cancelable: true },
-              );
+            
+              alert(`O estado não pode ficar em branco.`);
               return false;
         }
         if(this.props.cidade == ''){
-            Alert.alert(
-                'Mensagem',
-                `A cidade não pode ficar em branco.`,
-                [
-                  {
-                    text: 'OK',
-                    //onPress: () => console.log('clicou'),
-                    style: 'WARNING',
-                  },
-                ],
-                { cancelable: true },
-              );
+            
+              alert(`A cidade não pode ficar em branco.`);
               return false;
         }
         if(this.props.bairro == ''){
-            Alert.alert(
-                'Mensagem',
-                `O bairro não pode ficar em branco.`,
-                [
-                  {
-                    text: 'OK',
-                    //onPress: () => console.log('clicou'),
-                    style: 'WARNING',
-                  },
-                ],
-                { cancelable: true },
-              );
+           
+              alert(`O bairro não pode ficar em branco.`);
               return false;
         }
         return true;
@@ -475,7 +385,9 @@ class FormCadastro extends Component {
                             onChangeText={texto => this.props.modificaPontoReferencia(texto)} />
                         
                         <View style={{padding:10, marginTop:10}}>
-                            <Text style={{textAlign:'center', fontSize:16, fontWeight:'bold'}}>Observação:</Text>
+                            <Text style={{textAlign:'center', fontSize:16, 
+                            //fontWeight:'bold'
+                            }}>Observação:</Text>
                             <Text style={{textAlign:'center', fontSize:16}}>Só aparecerão os bairros cobertos pela entrega.</Text>  
                         </View>
                         <View style={{flexDirection:'row', padding:10, marginTop: Platform.OS === 'ios' ? 60:0 }}>
@@ -553,7 +465,7 @@ class FormCadastro extends Component {
                             secureTextEntry 
                             label="Confirme a Senha" 
                             //placeholderTextColor="#fff" 
-                            stylcontainerStylee={styles._bodyInputText} 
+                            //stylcontainerStylee={styles._bodyInputText} 
                             blurOnSubmit={false}
                             onSubmitEditing={()=> Keyboard.dismiss()}
                             onChangeText={texto => this.props.modificaConfirmaSenha(texto)} />
@@ -565,7 +477,9 @@ class FormCadastro extends Component {
                         <Button title="Cadastrar"
                             disabled={this.props.show_loader}
                             color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
-                            onPress={() => this._handleCadastraUsuario()} />
+                            onPress={() => this._handleCadastraUsuario()} 
+                            
+                            />
 
                     </View>
                     

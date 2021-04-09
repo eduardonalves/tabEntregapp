@@ -49,22 +49,14 @@ class Restaurants extends Component {
 
   handleBackButtonClick() {
       
-      Alert.alert(
-        'Sair',
-        `Deseja mesmo sair do aplicativo`,
-        [
-          {
-            text: 'Sim',
-            onPress: () =>  BackHandler.exitApp(),
-          },
-          {
-            text: 'Não',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-        ],
-        { cancelable: false },
-      );
+      
+      if (confirm(`Deseja mesmo sair do aplicativo`)) {
+        // Save it!
+        BackHandler.exitApp();
+      } else {
+        // Do nothing!
+       
+      }
       //NavigationAction.back();
       return true;
   }
@@ -212,7 +204,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 8,
     marginBottom: 8,
-
+    flex: 1,
   }
 });
 

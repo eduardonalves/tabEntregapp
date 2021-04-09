@@ -40,7 +40,7 @@ import { categoriasFetch } from '../actions/AppActions';
             marginHorizontal: 24,
             marginVertical: 8,
             borderRadius: 6,
-            height: 160
+            height: 160,
           }}
         >
           <Image

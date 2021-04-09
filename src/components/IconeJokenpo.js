@@ -1,5 +1,7 @@
 import React from 'react'
-import {Image, Text, View, StyleSheet} from 'react-native'
+import {Image, Text, View, StyleSheet,Dimensions} from 'react-native'
+let {width} = Dimensions.get('window');
+let imgwidth= width * 0.2;
 
 let styles = StyleSheet.create({
     btnEscolha: {
@@ -21,7 +23,9 @@ let styles = StyleSheet.create({
       height: 60
     },
     image:{
-        marginTop: 10
+        marginTop: 10,
+        height:imgwidth,
+        width:imgwidth,
     }
 })
 export default props => {

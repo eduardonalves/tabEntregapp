@@ -6,10 +6,10 @@ import {
     Image,
     Button,
     Platform,
-    AsyncStorage,
     ActivityIndicator,
     ScrollView
 } from "react-native";
+import AsyncStorage from '@callstack/async-storage';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { HeaderBackButton } from 'react-navigation-stack';
@@ -24,6 +24,7 @@ class Jokenpo extends Component {
     constructor(props) {
         super(props);
         let userData = this.getToken();
+       
         userData.then(resp => {
             //console.log(resp);
             if (typeof resp.token != 'undefined') {
@@ -71,7 +72,8 @@ class Jokenpo extends Component {
     jokenpo = (escolhaUsuario) => {
 
         this.props.jogarJokenpo(this.props.usuario.id, this.props.usuario.token, escolhaUsuario);
-
+        console.log('this.props');
+        console.log(this.props);
     }
     gotoMyGifts() {
 
@@ -171,7 +173,7 @@ class Jokenpo extends Component {
                                     fontSize: 25,
                                     textAlign: 'center',
                                     color: Color.jokenpoEscolhaText,
-                                    fontWeight: 'bold'
+                                   // fontWeight: 'bold'
                                 }}>
                                     Escolha outra vez!
                                 </Text>
@@ -261,7 +263,7 @@ class Jokenpo extends Component {
 let styles = StyleSheet.create({
     btnEscolha: {
         width: 90,
-        color: Platform.OS === 'ios' ? Color.buttonIos : Color.button
+        //color: Color.button
     },
     painelAcoes: {
         flexDirection: 'row',

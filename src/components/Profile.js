@@ -77,18 +77,7 @@ class Perfil extends Component {
                 
           this.props.showMyLoader(false);
           this.props.navigation.navigate('RoutesLogin');
-          Alert.alert(
-            'Mensagem',
-            `Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`,
-            [
-              {
-                text: 'OK',
-                //onPress: () => console.log('clicou'),
-                style: 'WARNING',
-              },
-            ],
-            { cancelable: true },
-          );
+          alert(`Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`);
           
         }else{
           this.props.validaToken(res.id, res.token);
@@ -137,18 +126,7 @@ class Perfil extends Component {
                 this.storeToken('');
                 this.props.setStatusCadastroUsuario('');
                   this.props.navigation.navigate('RoutesLogin');
-                  Alert.alert(
-                    'Mensagem',
-                    `Ops, você não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade.`,
-                    [
-                      {
-                        text: 'OK',
-                        //onPress: () => console.log('clicou'),
-                        style: 'WARNING',
-                      },
-                    ],
-                    { cancelable: true },
-                  );
+                  alert(`Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`);
               }
               //this.props.setStatusCadastroUsuario(nextProps.usuario);
               //this.props.navigation.navigate('Main');
@@ -305,142 +283,43 @@ class Perfil extends Component {
   }
   _isValidUser() {
     if (this.props.nome == '') {
-      Alert.alert(
-        'Mensagem',
-        `O nome não pode ficar em branco.`,
-        [
-          {
-            text: 'OK',
-            //onPress: () => console.log('clicou'),
-            style: 'WARNING',
-          },
-        ],
-        { cancelable: true },
-      );
+      alert(`O nome não pode ficar em branco.`);
       return false;
     }
     if (this.props.username == '') {
-      Alert.alert(
-        'Mensagem',
-        `O nome de usuário não pode ficar em branco.`,
-        [
-          {
-            text: 'OK',
-            //onPress: () => console.log('clicou'),
-            style: 'WARNING',
-          },
-        ],
-        { cancelable: true },
-      );
+      alert(`O nome de usuário não pode ficar em branco.`);
       return false;
     }
 
     if (this.props.telefone == '') {
-      Alert.alert(
-        'Mensagem',
-        `O telefone não pode ficar em branco.`,
-        [
-          {
-            text: 'OK',
-            //onPress: () => console.log('clicou'),
-            style: 'WARNING',
-          },
-        ],
-        { cancelable: true },
-      );
+      alert(`O telefone não pode ficar em branco.`);
       return false;
     }
 
     if (this.props.senha == '') {
-      Alert.alert(
-        'Mensagem',
-        `O campo confirme sua senha não pode ficar em branco.`,
-        [
-          {
-            text: 'OK',
-            //onPress: () => console.log('clicou'),
-            style: 'WARNING',
-          },
-        ],
-        { cancelable: true },
-      );
+      alert(`O campo confirme sua senha não pode ficar em branco.`);
       return false;
     }
 
     if (this.props.senha != this.props.confirma_senha) {
-      Alert.alert(
-        'Mensagem',
-        `Os campos senha e confirme sua senha não são iguais.`,
-        [
-          {
-            text: 'OK',
-            //onPress: () => console.log('clicou'),
-            style: 'WARNING',
-          },
-        ],
-        { cancelable: true },
-      );
+     alert(`Os campos senha e confirme sua senha não são iguais.`);
       return false;
     }
 
     if (this.props.endereco == '') {
-      Alert.alert(
-        'Mensagem',
-        `O endereço não pode ficar em branco.`,
-        [
-          {
-            text: 'OK',
-            //onPress: () => console.log('clicou'),
-            style: 'WARNING',
-          },
-        ],
-        { cancelable: true },
-      );
+     alert(`O endereço não pode ficar em branco.`);
       return false;
     }
     if (this.props.estado == '') {
-      Alert.alert(
-        'Mensagem',
-        `O estado não pode ficar em branco.`,
-        [
-          {
-            text: 'OK',
-            //onPress: () => console.log('clicou'),
-            style: 'WARNING',
-          },
-        ],
-        { cancelable: true },
-      );
+      alert(`O estado não pode ficar em branco.`);
       return false;
     }
     if (this.props.cidade == '') {
-      Alert.alert(
-        'Mensagem',
-        `A cidade não pode ficar em branco.`,
-        [
-          {
-            text: 'OK',
-            //onPress: () => console.log('clicou'),
-            style: 'WARNING',
-          },
-        ],
-        { cancelable: true },
-      );
+      alert(`A cidade não pode ficar em branco.`);
       return false;
     }
     if (this.props.bairro == '') {
-      Alert.alert(
-        'Mensagem',
-        `O bairro não pode ficar em branco.`,
-        [
-          {
-            text: 'OK',
-            //onPress: () => console.log('clicou'),
-            style: 'WARNING',
-          },
-        ],
-        { cancelable: true },
-      );
+      alert(`O bairro não pode ficar em branco.`);
       return false;
     }
     return true;

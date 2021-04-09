@@ -17,8 +17,7 @@ import {
 
 
 export const produtosFetch = (categoria_id) => {
-    //alert('aquie2');
-    //alert('vkkkkk');
+    
     return dispatch => {
         dispatch({ type: PRODUTO_CARREGADO_OK, payload: [] });
         dispatch({ type: SHOW_LOADER_PRODUTO, payload: true });
@@ -40,13 +39,12 @@ export const produtosFetch = (categoria_id) => {
     }
 }
 
-export const adicionalFetch = () => {
-    //alert('aquie2');
-    //alert('vkkkkk');
+export const adicionalFetch = (produto_id) => {
+   
     return dispatch => {
         dispatch({ type: PRODUTO_CARREGADO_OK, payload: [] });
         dispatch({ type: SHOW_LOADER_PRODUTO, payload: true });
-        axios.get(`${APP_URL}/RestProdutos/prodsmobilebyadc.json?fp=${FILIAL}`)
+        axios.get(`${APP_URL}/RestProdutos/prodsmobilebyadc.json?fp=${FILIAL}&p=${produto_id}`)
             .then(res => {
                // console.log(`${APP_URL}/RestProdutos/prodsmobilebyadc.json?fp=${FILIAL}`);
                // console.log(res.data.produtos );

@@ -57,22 +57,14 @@ class ListOrder extends Component {
       isClicked: !this.state.isClicked
     });
     //this.props.handleNaviagation();
-    Alert.alert(
-      'Remover Produto',
-      `Deseja mesmo remover o produto ${this.props.name} do seu pedido?`,
-      [
-        {
-          text: 'Sim',
-          onPress: () => this.handleNaviagation(),
-        },
-        {
-          text: 'Não',
-          onPress: () => console.log('Não Pressed'),
-          style: 'cancel',
-        },
-      ],
-      { cancelable: false },
-    );
+  
+    if (confirm(`Deseja mesmo remover o produto ${this.props.name} do seu pedido?`)) {
+      // Save it!
+      this.handleNaviagation()
+    } else {
+      // Do nothing!
+      
+    }
   };
   render() {
     

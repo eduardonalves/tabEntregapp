@@ -8,11 +8,11 @@ import {
     TouchableHighlight,
     Image,
     ActivityIndicator,
-    AsyncStorage,
     ScrollView,
     Platform,
      
 } from 'react-native';
+import AsyncStorage from '@callstack/async-storage';
 import { HeaderBackButton } from 'react-navigation-stack';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Input } from 'react-native-elements';
@@ -42,16 +42,17 @@ class formLogin extends Component {
         storeData.then(resp => {
             
             if(resp != null && resp != ''){
-                console.log('resp');
-            console.log(resp);
-                if(typeof resp.token != 'undefined'){
-                    this.props.validaToken(resp.id,resp.token);
-                    
-                    if(this.props.is_valid_token == 'OK'){
-                        this.props.setStatusCadastroUsuario(resp);
-                        this.props.navigation.navigate('Main');
+                
+                if(resp != null){
+                    if(typeof resp.token != 'undefined'){
+                        this.props.validaToken(resp.id,resp.token);
+                        
+                        if(this.props.is_valid_token == 'OK'){
+                            this.props.setStatusCadastroUsuario(resp);
+                            this.props.navigation.navigate('Main');
+                        }
+                        
                     }
-                    
                 }
             }
             
@@ -106,14 +107,18 @@ class formLogin extends Component {
             
             let storeData = this.getToken();
             storeData.then(resp => {
-                if(typeof resp.token != 'undefined'){
-                    this.props.validaToken(nextProps.usuario.id, nextProps.usuario.token);
-                    
-                    if(this.props.is_valid_token == 'OK'){
-                        this.props.setStatusCadastroUsuario(resp);
-                        this.props.navigation.navigate('Main');
+                console.log(resp);
+                if(resp != null){
+                    if(typeof resp.token != 'undefined'){
+                        this.props.validaToken(nextProps.usuario.id, nextProps.usuario.token);
+                        
+                        if(this.props.is_valid_token == 'OK'){
+                            this.props.setStatusCadastroUsuario(resp);
+                            this.props.navigation.navigate('Main');
+                        }
                     }
                 }
+                
                 
             });
         }
@@ -329,11 +334,11 @@ const styles = StyleSheet.create({
         //color: '#fff'
     },
     contentBody: {
-        flex: 2,
+       
         marginBottom:30,
     },
     contentFooter: {
-        flex: 2,
+    
         //marginTop:30
     },
     _bodyInputText: {

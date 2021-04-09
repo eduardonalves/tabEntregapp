@@ -9,9 +9,9 @@ import {
   TouchableOpacity,
   Button,
   Platform,
-  BackHandler,
-  AsyncStorage
+  BackHandler
 } from "react-native";
+import AsyncStorage from '@callstack/async-storage';
 import { NavigationAction } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
