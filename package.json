@@ -58,6 +58,7 @@
     "@babel/core": "^7.0.0",
     "babel-plugin-react-native-web": "^0.15.5",
     "babel-preset-expo": "~8.0.0",
+    "expo-cli": "^4.3.4",
     "jest-expo": "~36.0.1"
   },
   "private": true
