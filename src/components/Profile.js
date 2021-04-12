@@ -157,10 +157,10 @@ class Perfil extends Component {
         elevation: 0,
         shadowOpacity: 0,
         backgroundColor: Color.headerBar,
-        fontWeight: 'bold'
+        //fontWeight: 'bold'
       },
       headerTitleStyle: {
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
       },
     };
   }
@@ -206,7 +206,13 @@ class Perfil extends Component {
     }
 
   }
-
+  _sairDoPerfil(){
+    this.storeToken('');
+    this.props.setStatusCadastroUsuario('');
+    alert(`Você acabou de sair do seu perfil com sucesso.`);
+    this.props.navigation.navigate('Restaurants');
+    this.props.navigation.navigate('Main');
+  }
   _handleModificaCidade(cidade) {
     if (cidade != '') {
       this.props.bairroFetch(cidade);
@@ -514,17 +520,32 @@ class Perfil extends Component {
                       secureTextEntry
                       label="Confirme a Senha"
                       //placeholderTextColor="#fff" 
-                      stylcontainerStylee={styles._bodyInputText}
+                      //stylcontainerStylee={styles._bodyInputText}
                       onChangeText={texto => this.props.modificaConfirmaSenha(texto)} />
 
 
 
                     <Text style={styles.txtMsgErro}>{this.props.msgErroCadastro}</Text>
-
-                    <Button title="Cadastrar"
+                    <Text style={{padding:10}}>Salvar Perfil</Text>
+                    <Button title="Salvar"
                        color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
                       disabled={this.props.show_loader}
-                      onPress={() => this._handleCadastraUsuario()} />
+                      onPress={() => this._handleCadastraUsuario()}
+                      style={{
+                        marginTop:5,
+                        marginBottom:10,
+                      }}
+                      />
+                     <Text style={{padding:10}}>Sair do Perfil Cadastrado</Text>
+                    <Button title="Sair"
+                       color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
+                      disabled={this.props.show_loader} 
+                      style={{
+                        marginTop:5,
+                        marginBottom:10,
+
+                      }}
+                      onPress={() => this._sairDoPerfil()} />
                   </View>
 
                 )
