@@ -80,6 +80,9 @@ export const PEDIDO_OK = 'pedido_ok';
 export const STATUS_ENVIO_PEDIDO = 'status_envio_pedido';
 export const PEDIDO_NAO_OK = 'pedido_nao_ok';
 export const VALOR_FRETE = 'valor_frete';
+export const VALOR_FRETE_AUX = 'valor_frete_aux';
+export const RETIRADA_LOJA = 'retirada_loja';
+
 
 //tipos de pagamento
 export const CARREGA_TIPOS_PAGAMENTO_OK = 'carrega_tipos_pagamento_ok';

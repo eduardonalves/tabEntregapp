@@ -8,18 +8,19 @@ import {
   TouchableOpacity,
   Picker,
   Button,
-  Platform
+  Platform,
+  CheckBox
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
-import { atualizaObs, freteFetch } from '../actions/AppActions';
+import { atualizaObs, freteFetch,modificaRetiradaLoja,modificaValorFrete,atualizaTotalPedidoFrete,modificaValorFreteAux } from '../actions/AppActions';
 import Constants from "../utils/constants";
 import foodData from "../food-data.json";
 import ListCart from "./ListCart";
 import CartButton from "./common/CartButton";
 //import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input, CheckBox } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import Billing from "../components/Billing";
 import Color from "../../constants/Colors";
 
@@ -27,7 +28,9 @@ class FooterCheckout extends Component {
   constructor(props) {
     super(props);
     //console.log(props);
-    this.props.freteFetch(this.props.usuario.id);
+    if(this.props.retirada_loja==false){
+      this.props.freteFetch(this.props.usuario.id);
+    }
     
   }
 
@@ -52,11 +55,49 @@ class FooterCheckout extends Component {
   handleNaviagation = () => {
     this.props.navigation.navigate("Billing");
   };
+  totalCalculator = (carrinho, frete) => {
+    let total = frete;
+    total = parseFloat(total);
 
+    carrinho.map((item) => {
+        total += item.preco_venda * item.qtd;
+
+    });
+    return total;
+  }
+  handleModificaRetirada = (value) =>{
+  
+    this.props.modificaRetiradaLoja(value);
+    
+    if(value==true){
+      
+      //let total = this.totalCalculator(this.props.carrinho,0);
+      //this.props.atualizaTotalPedidoFrete(total);
+      this.props.modificaValorFreteAux(this.props.valor_frete);
+      this.props.modificaValorFrete(0);
+      
+    }else{
+      
+      //let total = this.totalCalculator(this.props.carrinho,this.props.valor_frete_aux);
+      //this.props.atualizaTotalPedidoFrete(total);
+      //this.props.modificaValorFrete(this.props.valor_frete_aux);
+      this.props.freteFetch(this.props.usuario.id);
+      
+    }
+    
+    
+
+    //alert(this.props.total_carrinho);
+  }
   render() {
-    //console.log('this.props.navigation');
-    //console.log(this.props.navigation);
+    //console.log('this.props');
+    //console.log(this.props);
+
+    let total = this.totalCalculator(this.props.carrinho,this.props.valor_frete);
+    this.props.atualizaTotalPedidoFrete(total);
+
     let valorFrete = parseFloat(this.props.valor_frete);
+    
     valorFrete = valorFrete.toFixed(2);
     valorFrete = valorFrete.toString();
     return (
@@ -164,14 +205,13 @@ class FooterCheckout extends Component {
               label="Observações"
               multiline={true}
               numberOfLines={4}
-              textAlignVertical="top"
+              //textAlignVertical="top"
               style={{ width: "100%", borderColor: 'gray', borderWidth: 1 }}
               onChangeText={(value) => this.props.atualizaObs(value)}
 
             />
           </View>
         </View>
-
         <View style={{
           //flexDirection: "column",
           width: "100%",
@@ -180,6 +220,23 @@ class FooterCheckout extends Component {
           //flexDirection: "row",
           padding: 20,
         }}>
+          
+        <CheckBox
+          value={this.props.retirada_loja}
+          onValueChange={(value)=>this.handleModificaRetirada(value)}
+          
+        />
+        <Text style={styles.label}>Retirar pedido na loja?</Text>
+        </View>
+        <View style={{
+          //flexDirection: "column",
+          width: "100%",
+          //marginTop: 8,
+          //marginBottom: 8,
+          //flexDirection: "row",
+          padding: 20,
+        }}>
+
           <Button
             style={styles.button}
             title="Pagamento"
@@ -224,7 +281,9 @@ const mapStateToProps = state => ({
   show_loader: state.AppReducer.show_loader,
   usuario: state.AppReducer.usuario,
   valor_frete: state.AppReducer.valor_frete,
+  valor_frete_aux: state.AppReducer.valor_frete_aux,
+  retirada_loja: state.AppReducer.retirada_loja
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ atualizaObs, freteFetch }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ atualizaObs, freteFetch,modificaRetiradaLoja,modificaValorFrete,atualizaTotalPedidoFrete,modificaValorFreteAux }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(FooterCheckout);

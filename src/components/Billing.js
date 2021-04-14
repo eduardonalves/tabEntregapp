@@ -87,6 +87,7 @@ class Billing extends Component {
                         obs: this.props.obs_pedido,
                         pagamento_id: this.props.forma_pagamento,
                         entrega_valor: this.props.valor_frete,
+                        retirada_loja: this.props.retirada_loja,
                         logradouro: this.props.usuario.logradouro,
                         numero: this.props.usuario.numero,
                         ponto_referencia: this.props.usuario.ponto_referencia,
@@ -317,7 +318,8 @@ const mapStateToProps = state => ({
     usuario: state.AppReducer.usuario,
     pedido: state.AppReducer.pedido,
     token_notificacao: state.AppReducer.token_notificacao,
-    valor_frete: state.AppReducer.valor_frete
+    valor_frete: state.AppReducer.valor_frete,
+    retirada_loja: state.AppReducer.retirada_loja
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ atualizaFormaDePagamento, atualizaTroco, tiposPagamentoFetch, enviaPedido, setStatusEnvioPedido, limpaCarrinho, showMyLoader, freteFetch }, dispatch);

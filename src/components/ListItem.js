@@ -84,8 +84,14 @@ async getToken() {
       item_id: this.props.item_id,
       partida_id: this.props.partida_id
     }
+    if(this.props.retirada_loja==false){
+      this.props.addToCart(produto, this.props.carrinho, this.props.usuario.frete_cadastro);
+    }else{
+      this.props.addToCart(produto, this.props.carrinho,0);
+    }
     
-    this.props.addToCart(produto, this.props.carrinho, this.props.usuario.frete_cadastro);
+    
+    
     this.props.updateItemId(this.props.item_id);
     //this.props.updateCart(this.props.carrinho);
     this.props.showMyLoader(false);
@@ -358,6 +364,7 @@ const mapStateToProps = state => ({
   obs_pedido: state.AppReducer.obs_pedido,
   show_loader: state.AppReducer.show_loader,
   usuario: state.AppReducer.usuario,
+  retirada_loja: state.AppReducer.retirada_loja
 });
 
 

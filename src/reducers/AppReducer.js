@@ -79,6 +79,8 @@ const INITIAL_STATE = {
     token_notificacao:'',
     estado_do_app:'',
     valor_frete: 0,
+    valor_frete_aux: 0,
+    retirada_loja:false,
 };
 
 import {
@@ -169,6 +171,8 @@ import {
     MESSAGE_TEXT,
     TOKEN_NOTIFICACAO,
     VALOR_FRETE,
+    RETIRADA_LOJA,
+    VALOR_FRETE_AUX
 } from '../actions/ActionTypes';
 
 export default (state = INITIAL_STATE, action) => {
@@ -177,8 +181,11 @@ export default (state = INITIAL_STATE, action) => {
         case TOKEN_NOTIFICACAO:
             return { ...state, token_notificacao: action.payload };
         case VALOR_FRETE:
-            console.log('passou aqui')
-            return { ...state, valor_frete: action.payload };    
+            return { ...state, valor_frete: action.payload };
+        case VALOR_FRETE_AUX:
+            return { ...state, valor_frete_aux: action.payload };
+        case RETIRADA_LOJA:
+            return { ...state, retirada_loja: action.payload };    
         case NOTIFICATION:
             return { ...state, notification: action.payload };
         case MESSAGE_TEXT:
