@@ -299,6 +299,7 @@ class FooterCheckout extends Component {
             title="Pagamento"
             color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
             onPress={this.props.handleNaviagation} 
+            disabled={this.props.show_loader}
             />
         </View>
       </View>
