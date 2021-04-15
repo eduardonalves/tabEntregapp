@@ -2006,6 +2006,8 @@ export const limpaCarrinho = () => {
         dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
         dispatch({ type: ATUALIZA_FORMA_PAGAMENTO, payload: '' });
         dispatch({ type: ATUALIZA_TROCO, payload: '' });
+        dispatch({ type: VALOR_FRETE_AUX, payload: 0 });
+        dispatch({ type: RETIRADA_LOJA, payload: false });
     }
 }
 

@@ -25,6 +25,9 @@ class Billing extends Component {
     constructor(props) {
         super(props);
         this.props.tiposPagamentoFetch();
+        if(this.props.retirada_loja==false){
+            this.props.freteFetch(this.props.usuario.id);
+        }
         
         //console.log('this.props.valor_frete');
         //console.log(this.props.valor_frete);
@@ -123,7 +126,6 @@ class Billing extends Component {
                         bairro_nome: this.props.usuario.bairro_nome,
                         cidade_nome: this.props.usuario.cidade_nome,
                         estado_nome: this.props.usuario.estado_nome,
-                        ponto_referencia: this.props.usuario.ponto_referencia,
                         ptk: this.props.token_notificacao,
                     }
                 );/**/

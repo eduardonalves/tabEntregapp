@@ -16,7 +16,7 @@ import NavigationService from './NavigationService';
 
 export default function App(props) {  
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-  //console.disableYellowBox = true;
+  console.disableYellowBox = true;
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (

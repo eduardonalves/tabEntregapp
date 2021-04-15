@@ -33,6 +33,8 @@ class FooterCheckout extends Component {
 
     if(this.props.retirada_loja==false){
       this.props.freteFetch(this.props.usuario.id);
+    }else{
+      this.props.freteFetch(0);
     }
     
   }
@@ -69,7 +71,7 @@ class FooterCheckout extends Component {
     return total;
   }
   handleModificaRetirada = (value) =>{
-    this.props.showMyLoader(true);
+    //this.props.showMyLoader(true);
     this.props.modificaRetiradaLoja(value);
     
     if(value==true){
@@ -78,14 +80,17 @@ class FooterCheckout extends Component {
       //this.props.atualizaTotalPedidoFrete(total);
       this.props.modificaValorFreteAux(this.props.valor_frete);
       this.props.modificaValorFrete(0);
-      this.props.showMyLoader(false);
+      let total = this.totalCalculator(this.props.carrinho,0);
+      this.props.atualizaTotalPedidoFrete(total);
+      
     }else{
       
       //let total = this.totalCalculator(this.props.carrinho,this.props.valor_frete_aux);
       //this.props.atualizaTotalPedidoFrete(total);
-      //this.props.modificaValorFrete(this.props.valor_frete_aux);
+      this.props.modificaValorFrete(this.props.valor_frete_aux);
       this.props.freteFetch(this.props.usuario.id);
-      this.props.showMyLoader(false);
+      let total = this.totalCalculator(this.props.carrinho,this.props.valor_frete_aux);
+      this.props.atualizaTotalPedidoFrete(total);
       
     }
     
@@ -99,8 +104,8 @@ class FooterCheckout extends Component {
     
     
 
-    let total = this.totalCalculator(this.props.carrinho,this.props.valor_frete);
-    this.props.atualizaTotalPedidoFrete(total);
+    //let total = this.totalCalculator(this.props.carrinho,this.props.valor_frete);
+    //this.props.atualizaTotalPedidoFrete(total);
 
     let valorFrete = parseFloat(this.props.valor_frete);
     valorFrete = valorFrete.toFixed(2);
