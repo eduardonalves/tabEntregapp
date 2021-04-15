@@ -9,7 +9,8 @@ import {
   Picker,
   Button,
   Platform,
-  CheckBox
+  CheckBox,
+  ActivityIndicator
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -108,6 +109,55 @@ class FooterCheckout extends Component {
       <View style={{
         //padding:10
       }}>
+        {
+          this.props.show_loader == true ? (
+            <View
+              style={{
+
+
+                opacity: 1.0,
+                width: '100%',
+
+                alignItems: 'center',
+                flex: 1,
+                position: 'absolute',
+                marginTop: '50%'
+              }}
+            >
+              <ActivityIndicator size="large" color={Color.ActivityIndicator}
+
+                animating={true}
+                hidesWhenStopped={true}
+
+              />
+            </View>
+
+          ) : (
+              <View
+                style={{
+
+
+                  opacity: 0.0,
+                  width: '100%',
+
+                  alignItems: 'center',
+                  flex: 1,
+                  position: 'absolute',
+                  marginTop: '50%'
+                }}
+              >
+                <ActivityIndicator size="large" color={Color.ActivityIndicator}
+
+                  animating={true}
+                  hidesWhenStopped={true}
+
+                />
+              </View>
+
+
+
+            )
+        }
         <View  style={{padding:10}} >
           <View style={styles.container}>
             <View style={{
@@ -245,8 +295,10 @@ class FooterCheckout extends Component {
             title="Pagamento"
             color={ Platform.OS === 'ios' ? Color.buttonIos : Color.button }
             onPress={this.props.handleNaviagation} 
+            disabled={this.props.show_loader}
             />
         </View>
+        
       </View>
     );
   }
