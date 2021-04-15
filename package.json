@@ -15,7 +15,7 @@
   "dependencies": {
     "@callstack/async-storage": "^2.0.3",
     "@expo/samples": "~36.0.0",
-    "@expo/vector-icons": "~10.0.0",
+    "@expo/vector-icons": "^10.0.0",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-navigation/native": "^5.1.4",
     "@react-navigation/web": "~1.0.0-alpha.9",

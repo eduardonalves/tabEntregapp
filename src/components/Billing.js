@@ -25,7 +25,9 @@ class Billing extends Component {
     constructor(props) {
         super(props);
         this.props.tiposPagamentoFetch();
-        this.props.freteFetch(this.props.usuario.id);
+        if(this.props.retirada_loja==false){
+            this.props.freteFetch(this.props.usuario.id);
+        }
         //console.log('this.props.valor_frete');
         //console.log(this.props.valor_frete);
 
