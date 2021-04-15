@@ -1764,7 +1764,8 @@ export const montaPedido = (pedido) => {
             cidade_nome: pedido.cidade_nome,
             estado_nome: pedido.estado_nome,
             ponto_referencia: pedido.ponto_referencia,
-            ptk: pedido.ptk
+            ptk: pedido.ptk,
+            retirada_loja:pedido.retirada_loja
         },
         Itensdepedido: [],
         
@@ -1794,6 +1795,8 @@ export const limpaCarrinho = () => {
         dispatch({ type: LIMPA_TOTAL_CARRINHO, payload: 0 });
         dispatch({ type: ATUALIZA_FORMA_PAGAMENTO, payload: '' });
         dispatch({ type: ATUALIZA_TROCO, payload: '' });
+        dispatch({ type: VALOR_FRETE_AUX, payload: 0 });
+        dispatch({ type: RETIRADA_LOJA, payload: false });
     }
 }
 

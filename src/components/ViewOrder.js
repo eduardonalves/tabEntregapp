@@ -488,8 +488,10 @@ class ViewOrder extends Component {
                           {this.props.pedido.Pedido[0].motivocancela}
                         </Text>
                         ):(<View></View>)}
-                          
-                        <Text style={{
+                        {
+                          this.props.pedido.Pedido[0].retirada_loja != true ? (
+                            <View>
+                              <Text style={{
                             fontSize: 16,
                             fontWeight:'bold',
                             textAlign:'center',
@@ -529,6 +531,20 @@ class ViewOrder extends Component {
                         }}>
                            {this.props.pedido.Pedido[0].ponto_referencia != '' && this.props.pedido.Pedido[0].ponto_referencia != null  ? '' + this.props.pedido.Pedido[0].ponto_referencia :''}
                         </Text>
+                            </View>
+                          ):(<View>
+                           <Text style={{
+                            fontSize: 16,
+                            fontWeight:'bold',
+                            textAlign:'center',
+                            marginBottom:5, 
+                            color:'#ff4d4d'
+                        }}>
+                            Atençao: O cliente solicitou a retirada do pedido na loja.
+                        </Text>
+                          </View>)
+                        } 
+                        
                         {this.props.pedido.Pedido[0].status !='Entregue' &&  this.props.pedido.Pedido[0].status !='Cancelado' &&  this.props.pedido.Pedido[0].status !='' ? (
                           <Text style={{
                             fontSize: 16,

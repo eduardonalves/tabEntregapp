@@ -9,7 +9,8 @@ import {
   Picker,
   Button,
   Platform,
-  CheckBox
+  CheckBox,
+  ActivityIndicator
 } from "react-native";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -30,8 +31,10 @@ class FooterCheckout extends Component {
     //console.log(props);
     if(this.props.retirada_loja==false){
       this.props.freteFetch(this.props.usuario.id);
+    }else{
+      this.props.freteFetch(0);
     }
-    
+   
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -75,13 +78,17 @@ class FooterCheckout extends Component {
       //this.props.atualizaTotalPedidoFrete(total);
       this.props.modificaValorFreteAux(this.props.valor_frete);
       this.props.modificaValorFrete(0);
+      let total = this.totalCalculator(this.props.carrinho,0);
+      this.props.atualizaTotalPedidoFrete(total);
       
     }else{
       
       //let total = this.totalCalculator(this.props.carrinho,this.props.valor_frete_aux);
       //this.props.atualizaTotalPedidoFrete(total);
-      //this.props.modificaValorFrete(this.props.valor_frete_aux);
+      this.props.modificaValorFrete(this.props.valor_frete_aux);
       this.props.freteFetch(this.props.usuario.id);
+      let total = this.totalCalculator(this.props.carrinho,this.props.valor_frete_aux);
+      this.props.atualizaTotalPedidoFrete(total);
       
     }
     
@@ -89,12 +96,13 @@ class FooterCheckout extends Component {
 
     //alert(this.props.total_carrinho);
   }
+ 
   render() {
     //console.log('this.props');
     //console.log(this.props);
 
-    let total = this.totalCalculator(this.props.carrinho,this.props.valor_frete);
-    this.props.atualizaTotalPedidoFrete(total);
+    //let total = this.totalCalculator(this.props.carrinho,this.props.valor_frete);
+    //this.props.atualizaTotalPedidoFrete(total);
 
     let valorFrete = parseFloat(this.props.valor_frete);
     
@@ -104,6 +112,55 @@ class FooterCheckout extends Component {
       <View style={{
         //padding:10
       }}>
+          {
+          this.props.show_loader == true ? (
+            <View
+              style={{
+
+
+                opacity: 1.0,
+                width: '100%',
+
+                alignItems: 'center',
+                flex: 1,
+                position: 'absolute',
+                marginTop: '50%'
+              }}
+            >
+              <ActivityIndicator size="large" color={Color.ActivityIndicator}
+
+                animating={true}
+                hidesWhenStopped={true}
+
+              />
+            </View>
+
+          ) : (
+              <View
+                style={{
+
+
+                  opacity: 0.0,
+                  width: '100%',
+
+                  alignItems: 'center',
+                  flex: 1,
+                  position: 'absolute',
+                  marginTop: '50%'
+                }}
+              >
+                <ActivityIndicator size="large" color={Color.ActivityIndicator}
+
+                  animating={true}
+                  hidesWhenStopped={true}
+
+                />
+              </View>
+
+
+
+            )
+        }
         <View  style={{padding:10}} >
           <View style={styles.container}>
             <View style={{
