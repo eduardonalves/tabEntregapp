@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "1.1.12",
+    "version": "1.1.15",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "notification": {
@@ -29,12 +29,12 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.rudo.geekgrill",
-      "buildNumber": "1.1.12"
+      "buildNumber": "1.1.15"
     },
     "android": {
       "package": "com.rudo.geekgrill",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 17
+      "versionCode": 19
     }
   }
 }

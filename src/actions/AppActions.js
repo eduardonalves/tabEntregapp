@@ -84,7 +84,9 @@ import {
     NOTIFICATION,
     MESSAGE_TEXT,
     TOKEN_NOTIFICACAO,
-    VALOR_FRETE
+    VALOR_FRETE,
+    RETIRADA_LOJA,
+    VALOR_FRETE_AUX
 } from './ActionTypes';
 
 import {
@@ -2183,6 +2185,26 @@ export const modificaDadosJokenpo = (dados) => {
         dispatch({ type: DADOS_PARTIDA, payload: txt });
     }
 }
+export const modificaRetiradaLoja = (status) => {
+    return dispatch => {
+        dispatch({ type: RETIRADA_LOJA, payload: status })
+    }
+}
 
+export const modificaValorFrete= (valor) => {
+    return dispatch => {
+        dispatch({ type: VALOR_FRETE, payload: valor })
+    }
+}
+export const modificaValorFreteAux= (valor) => {
+    return dispatch => {
+        dispatch({ type: VALOR_FRETE_AUX, payload: valor })
+    }
+}
+export const atualizaTotalPedidoFrete= (total) => {
+    return dispatch => {
+        dispatch({ type: ATUALIZA_TOTAL_CARRINHO, payload: total })
+    }
+}
 
     
