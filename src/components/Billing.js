@@ -102,7 +102,6 @@ class Billing extends Component {
                         bairro_nome: this.props.usuario.bairro_nome,
                         cidade_nome: this.props.usuario.cidade_nome,
                         estado_nome: this.props.usuario.estado_nome,
-                        ponto_referencia: this.props.usuario.ponto_referencia,
                         ptk: this.props.token_notificacao,
                     }
                 );/**/

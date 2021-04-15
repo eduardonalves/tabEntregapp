@@ -15,7 +15,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import NavigationService from './NavigationService';
 
 export default function App(props) {  
-  const [isLoadingComplete, setLoadingComplete] = useState(false);
+  //const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
