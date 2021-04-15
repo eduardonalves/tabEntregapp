@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { categoriasFetch,categoriasFetchInterval, showMyLoaderCategory } from '../actions/AppActions';
-import { AppLoading } from 'expo';
+import AppLoading from 'expo-app-loading';
 
 
 import {

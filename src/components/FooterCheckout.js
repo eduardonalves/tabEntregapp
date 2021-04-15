@@ -28,6 +28,8 @@ class FooterCheckout extends Component {
   constructor(props) {
     super(props);
     //console.log(props);
+    
+
     if(this.props.retirada_loja==false){
       this.props.freteFetch(this.props.usuario.id);
     }
@@ -93,6 +95,9 @@ class FooterCheckout extends Component {
   render() {
     //console.log('this.props.navigation');
     //console.log(this.props.navigation);
+    
+    
+
     let total = this.totalCalculator(this.props.carrinho,this.props.valor_frete);
     this.props.atualizaTotalPedidoFrete(total);
 

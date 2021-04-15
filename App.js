@@ -1,4 +1,4 @@
-import { AppLoading } from 'expo';
+import AppLoading from 'expo-app-loading';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState, Component } from 'react';
@@ -16,6 +16,7 @@ import NavigationService from './NavigationService';
 
 export default function App(props) {  
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+  //console.disableYellowBox = true;
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (

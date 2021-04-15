@@ -7,7 +7,7 @@ import {
   modificaUsuario, 
   pedidosFetchInverval, 
   validaToken, setStatusCadastroUsuario } from '../actions/AppActions';
-import { AppLoading } from 'expo';
+  import AppLoading from 'expo-app-loading';
 
 
 import {

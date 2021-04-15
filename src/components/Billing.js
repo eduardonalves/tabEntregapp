@@ -25,9 +25,7 @@ class Billing extends Component {
     constructor(props) {
         super(props);
         this.props.tiposPagamentoFetch();
-        if(this.props.retirada_loja==false){
-            this.props.freteFetch(this.props.usuario.id);
-        }
+        
         //console.log('this.props.valor_frete');
         //console.log(this.props.valor_frete);
 
@@ -66,7 +64,10 @@ class Billing extends Component {
         this.props.atualizaTroco(event);
     }
     handleSendOrder() {
-        this.props.freteFetch(this.props.usuario.id);
+        
+        if(this.props.retirada_loja==false){
+            this.props.freteFetch(this.props.usuario.id);
+        }
         if (this.props.forma_pagamento == 1 && this.props.troco_pedido == '') {
 
             Alert.alert(
