@@ -226,7 +226,22 @@ class Billing extends Component {
 
                 </View>
                 <View style={styles.container} >
-                    <View >
+                {
+                    this.props.retirada_loja == true ? (
+                        <View>
+                            <Text style={{
+                                fontSize: 15,
+                                fontWeight:'bold',
+                                textAlign:'center',
+                                marginBottom:5, 
+                                color:'#ff4d4d'
+                            }}>
+                                Atençao: O pedido deverá ser retirado na loja.
+                            </Text>
+                        </View>       
+                    ):(
+                        <View >
+                    
                         <Text style={{
                             fontSize: 15,
                             fontWeight: 'bold',
@@ -252,6 +267,9 @@ class Billing extends Component {
                             {this.props.usuario.ponto_referencia != '' && this.props.usuario.ponto_referencia != null ? '' + this.props.usuario.ponto_referencia : ''}
                         </Text>
                     </View>
+                    )
+                }
+                    
                     {this.props.show_loader == true ? (
                         <View
                             style={{
