@@ -212,7 +212,7 @@ class Billing extends Component {
                                 marginBottom:5, 
                                 color:'#ff4d4d'
                             }}>
-                                Atenção: O pedido deverá ser retirado na loja.
+                                Atenção: Retirada do pedido na loja.
                             </Text>
                         </View> 
                     ):(

@@ -540,7 +540,7 @@ class ViewOrder extends Component {
                             marginBottom:5, 
                             color:'#ff4d4d'
                         }}>
-                            Atenção: O cliente solicitou a retirada do pedido na loja.
+                            Atenção: Retirada do pedido na loja.
                         </Text>
                           </View>)
                         } 
