@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f8cac46-5570-40f9-9e32-fced065f0116" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Billing.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Billing.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ViewOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ViewOrder.js" afterDir="false" />
@@ -43,10 +42,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="100" y="100" width="1166" height="528" key="AVDManager" timestamp="1618573361443">
+    <state x="100" y="100" width="1166" height="528" key="AVDManager" timestamp="1618584818205">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="100" y="100" width="1166" height="528" key="AVDManager/0.0.1366.728@0.0.1366.728" timestamp="1618573361443" />
+    <state x="100" y="100" width="1166" height="528" key="AVDManager/0.0.1366.728@0.0.1366.728" timestamp="1618584818205" />
     <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1616504876733">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
