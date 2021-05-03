@@ -1963,6 +1963,7 @@ export const montaPedido = (pedido) => {
             token: pedido.token,
             obs: pedido.obs,
             entrega_valor: pedido.entrega_valor,
+            retirada_loja: pedido.retirada_loja,
             logradouro: pedido.logradouro,
             numero: pedido.numero,
             ponto_referencia: pedido.ponto_referencia,
