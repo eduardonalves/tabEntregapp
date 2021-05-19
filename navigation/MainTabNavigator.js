@@ -119,7 +119,7 @@ const tabNavigator = createBottomTabNavigator(
     HomeStack,
     LinksStack,
     
-    MenuRewardStack,
+    //MenuRewardStack,
     SettingsStack,
   },
   {

@@ -20,6 +20,7 @@ import CartButton from "./common/CartButton";
 import Color from "../../constants/Colors";
 import  BtnEscolha  from './Escolha';
 import  Icone  from './IconeJokenpo';
+import FILIAL from '../Settings';
 
 class MenuReward extends Component {
 
@@ -38,10 +39,17 @@ class MenuReward extends Component {
                 alert(`Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`);
             }else{
                 if(typeof resp.token != 'undefined'){   
-                    this.props.setStatusCadastroUsuario(resp);
-                    this.props.modificaSaldo(0);
-                    this.props.verificasaldo(this.props.usuario.id, this.props.usuario.token );
-                    this.props.validaToken(this.props.usuario.id, this.props.usuario.token);
+                    if(resp.filial_id != FILIAL){
+                        this.storeToken('');
+                        this.props.navigation.navigate('RoutesLogin');
+                         alert(`Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`);
+                    }else{
+                        this.props.setStatusCadastroUsuario(resp);
+                        this.props.modificaSaldo(0);
+                        this.props.verificasaldo(this.props.usuario.id, this.props.usuario.token );
+                        this.props.validaToken(this.props.usuario.id, this.props.usuario.token);
+                    }
+                    
                     //this.props.validaToken(res.id,res.token);
                     //this.props.navigation.navigate('Main');
                 }    

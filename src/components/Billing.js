@@ -191,7 +191,7 @@ class Billing extends Component {
                                         placeholder="Troco p/ quanto?"
                                         label="Levar Troco?"
                                         onChangeText={(event) => this.handleAtualizatroco(event)}
-                                        editable={false}
+                                        
                                         name="troco_pedido"
                                     />
                                 </View>

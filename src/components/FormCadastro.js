@@ -179,6 +179,7 @@ class FormCadastro extends Component {
                 passwordcconfirm: this.props.confirma_senha,
                 logradouro: this.props.endereco,
                 complemento: this.props.complemento,
+                ponto_referencia: this.props.ponto_referencia,
                 numero: this.props.numero,
                 uf: this.props.estado,
                 cidade: this.props.cidade,

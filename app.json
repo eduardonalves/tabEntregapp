@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Geek Grill",
-    "slug": "geek-grill",
+    "name": "Rudo App",
+    "slug": "rudo-app",
     "privacy": "public",
     "sdkVersion": "37.0.0",
     "owner":"eduardonalves",
@@ -29,11 +29,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.rudo.geekgrill",
+      "bundleIdentifier": "com.rudo.app",
       "buildNumber": "1.1.22"
     },
 	"android": {
-      "package": "com.rudo.geekgrill",
+      "package": "com.rudo.app",
       "googleServicesFile": "./google-services.json",
       "versionCode": 22
     }

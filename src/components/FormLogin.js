@@ -26,7 +26,8 @@ import {
     setStatusCadastroUsuario,
     limpaFormularioCadastro,
     modificaUsername,
-    validaToken
+    validaToken,
+    showMyLoader
 } from '../actions/AppActions';
 import { FILIAL, EMPRESA, SALT } from '../Settings';
 
@@ -48,8 +49,11 @@ class formLogin extends Component {
                         this.props.validaToken(resp.id,resp.token);
                         
                         if(this.props.is_valid_token == 'OK'){
-                            this.props.setStatusCadastroUsuario(resp);
-                            this.props.navigation.navigate('Main');
+                            if(FILIAL == resp.filial_id ){
+                                this.props.setStatusCadastroUsuario(resp);
+                                this.props.navigation.navigate('Main');
+                            }
+                            
                         }
                         
                     }
@@ -66,9 +70,11 @@ class formLogin extends Component {
                 if(this.props.usuario){
                     this.props.validaToken(this.props.usuario.id, this.props.usuario.token);
                     if(this.props.is_valid_token == 'OK'){
-                        this.storeToken(this.props.usuario);
-                        this.props.setStatusCadastroUsuario(this.props.usuario);
-                        this.props.navigation.navigate('Main');
+                        if(FILIAL == this.props.usuario.filial_id ){
+                            this.storeToken(this.props.usuario);
+                            this.props.setStatusCadastroUsuario(this.props.usuario);
+                            this.props.navigation.navigate('Main');
+                        }
                     }
                     
                 }
@@ -76,7 +82,7 @@ class formLogin extends Component {
             
             
         }
-        
+        this.props.showMyLoader(false);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -89,9 +95,11 @@ class formLogin extends Component {
                 if(nextProps.usuario){
                     this.props.validaToken(nextProps.usuario.id, nextProps.usuario.token);
                     if(this.props.is_valid_token == 'OK'){
-                        this.storeToken(nextProps.usuario);
-                        this.props.setStatusCadastroUsuario(nextProps.usuario);
-                        this.props.navigation.navigate('Main');
+                        if(FILIAL == nextProps.usuario.filial_id ){
+                            this.storeToken(nextProps.usuario);
+                            this.props.setStatusCadastroUsuario(nextProps.usuario);
+                            this.props.navigation.navigate('Main');
+                        }
                     }
                     
                 }
@@ -107,15 +115,19 @@ class formLogin extends Component {
             
             let storeData = this.getToken();
             storeData.then(resp => {
-                console.log(resp);
+               
                 if(resp != null){
                     if(typeof resp.token != 'undefined'){
-                        this.props.validaToken(nextProps.usuario.id, nextProps.usuario.token);
-                        
-                        if(this.props.is_valid_token == 'OK'){
-                            this.props.setStatusCadastroUsuario(resp);
-                            this.props.navigation.navigate('Main');
+                        if(typeof nextProps != 'undefined'){
+                            this.props.validaToken(nextProps.usuario.id, nextProps.usuario.token);
+                            if(this.props.is_valid_token == 'OK'){
+                                if(FILIAL == nextProps.usuario.filial_id ){
+                                    this.props.setStatusCadastroUsuario(resp);
+                                    this.props.navigation.navigate('Main');
+                                }
+                            }
                         }
+                        
                     }
                 }
                 
@@ -311,7 +323,8 @@ export default connect(mapStateToProps, {
     limpaFormularioCadastro,
     modificaUsername,
     setStatusCadastroUsuario,
-    validaToken 
+    validaToken,
+    showMyLoader 
 })(formLogin);
 
 const styles = StyleSheet.create({

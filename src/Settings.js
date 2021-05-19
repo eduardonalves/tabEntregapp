@@ -46,7 +46,10 @@ checkUniqueness().then((response) =>{
 });*/
 
 var request = new XMLHttpRequest();
-request.open('GET', `${APP_URL}/RestFilials/getdatafilial.json?e=geekgrill`, false);  // `false` makes the request synchronous
+
+var pathname=document.location.pathname;
+pathname= pathname.replace('/','');
+request.open('GET', `${APP_URL}/RestFilials/getdatafilial.json?e=${pathname}`, false);  // `false` makes the request synchronous
 request.send(null);
 let my_filial_id='';
 let my_empresa_id='';

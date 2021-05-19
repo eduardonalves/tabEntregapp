@@ -20,6 +20,10 @@ import CustomModal from './common/CustomModal';
 import Color  from '../../constants/Colors';
 import NumberFormat from 'react-number-format';
 
+import {
+  FILIAL
+} from '../Settings';
+
 
 import { addToCart, updateItemId, updateCart, setModalVisible, showMyLoader, setStatusCadastroUsuario } from '../actions/AppActions';
 
@@ -27,7 +31,8 @@ class ListItem extends Component {
   constructor(props) {
     super(props);
     let storeData = this.getToken();
-    //console.log('storeData');
+    console.log('FILIAL');
+    console.log(FILIAL);
     //console.log(storeData);
     //console.log('this.props.usuario');
     //console.log(this.props.usuario);
@@ -115,15 +120,23 @@ async getToken() {
       this.props.showMyLoader(true);
       //console.log(this.props);
       //this.props.handleNaviagation();
-
-      if (confirm(`Deseja mesmo adicionar o produto ${this.props.name} à sua sacola de pedidos?`)) {
-        // Save it!
-        this.handleAddToCart();
-        this.props.showMyLoader(false);
-      } else {
-        // Do nothing!
-        this.props.showMyLoader(false);
+      if(this.props.usuario.filial_id != FILIAL){
+        this.storeToken('');
+        this.props.handleGoToLogin();
+        alert(`Ops, você ainda não está autenticado neste estabelecimento, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`);
+      }else{
+        if (confirm(`Deseja mesmo adicionar o produto ${this.props.name} à sua sacola de pedidos?`)) {
+          // Save it!
+          this.handleAddToCart();
+          this.props.showMyLoader(false);
+        } else {
+          // Do nothing!
+          this.props.showMyLoader(false);
+        }
       }
+        
+      
+      
 
 
       
@@ -169,7 +182,7 @@ async getToken() {
                 alignSelf: "center"
               }}
               //source={{ uri: this.props.image }
-              source={{ uri: this.props.image.replace('http://localhost/', 'http://10.0.2.2/') }
+              source={{ uri: this.props.image.replace('http://localhost/', 'http://localhost/') }
               }
             />
             <View

@@ -131,7 +131,7 @@ export const autenticarUsuario = (usuario) => {
 
                 loadError = false;
                 if (typeof res.data.ultimopedido != 'undefined') {
-                    if (res.data.ultimopedido == 'ErroLogin') {
+                    if (res.data.ultimopedido == 'ErroLogin' || res.data.ultimopedido == '') {
 
                         clearInterval(interval);
                         

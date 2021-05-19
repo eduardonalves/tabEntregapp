@@ -571,10 +571,10 @@ class ViewOrder extends Component {
                             marginBottom:5,   
                         }}>
                                            
-                           {this.props.pedido.Filial.telefone1 != '' ? 'WhatsApp: '+ this.props.pedido.Filial.telefone1 +' ' :''} 
-                           {this.props.pedido.Filial.telefone2 != '' ? '\n'+'Telefone : '+ this.props.pedido.Filial.telefone2 +' '  :''}
-                           {this.props.pedido.Filial.telefone3 != '' ? '\n'+'Telefone : '+ this.props.pedido.Filial.telefone3 +' ' :''}
-                           {this.props.pedido.Filial.email != '' ? '\n'+'E-mail : '+ this.props.pedido.Filial.email +' ' :''} 
+                           {this.props.pedido.Filial.telefone1 != '' && this.props.pedido.Filial.telefone1 != null ? 'WhatsApp: '+ (this.props.pedido.Filial.telefone1) +' ' :''} 
+                           {this.props.pedido.Filial.telefone2 != '' && this.props.pedido.Filial.telefone2 != null ? '\n'+'Telefone : '+ this.props.pedido.Filial.telefone2 +' '  :''}
+                           {this.props.pedido.Filial.telefone3 != '' && this.props.pedido.Filial.telefone3 != null ? '\n'+'Telefone : '+ this.props.pedido.Filial.telefone3 +' ' :''}
+                           {this.props.pedido.Filial.email != '' && this.props.pedido.Filial.email != null ? '\n'+'E-mail : '+ this.props.pedido.Filial.email +' ' :''} 
                         </Text>
                     </View>
                     

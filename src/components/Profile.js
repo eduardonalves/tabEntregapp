@@ -23,7 +23,7 @@ import {
   FILIAL,
   EMPRESA,
   SALT
-} from '../Settings'
+} from '../Settings';
 import {
   modificaEmail,
   modificaSenha,
@@ -73,6 +73,9 @@ class Perfil extends Component {
       res => {
         //console.log('res');
         //console.log(res);
+        console.log('FILIAL');
+        console.log(FILIAL);
+        
         if(res == null || res == '' ){
                 
           this.props.showMyLoader(false);
@@ -80,27 +83,35 @@ class Perfil extends Component {
           alert(`Ops, você ainda não está autenticado no aplicativo, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`);
           
         }else{
-          this.props.validaToken(res.id, res.token);
-          this.props.modificaCarregaEstadoFalha(false);
-          this.props.modificaIdUsuario(res.id);
-          this.props.modificaEmail(res.email);
-          this.props.modificaSenha(res.password);
-          this.props.modificaSenhaAntiga(res.password);
-          this.props.modificaNome(res.nome);
-          this.props.modificaEndereco(res.logradouro);
-          this.props.modificaNumero(res.numero);
-          this.props.modificaComplemento(res.complemento);
-          this.props.modificaPontoReferencia(res.ponto_referencia);
-          this.props.modificaEstado(res.uf);
-          this.props.modificaCidade(res.cidade);
-          this.props.modificaBairro(res.bairro);
-          this.props.modificaTelefone(res.telefone);
-          this.props.modificaConfirmaSenha(res.password);
-          this.props.modificaUsername(res.username);
-          this.props.estadosFetch();
-          this.props.cidadesFetch(res.uf);
-          this.props.bairroFetch(res.cidade);
-          this.props.showMyLoader(false);
+
+          if(res.filial_id != FILIAL){
+            this.storeToken('');
+            this.props.navigation.navigate('RoutesLogin');
+            alert(`Ops, você ainda não está autenticado neste estabelecimento, por favor, entre com seu usuário para ter acesso a esta funcionalidade .`);
+          }else{
+            this.props.validaToken(res.id, res.token);
+            this.props.modificaCarregaEstadoFalha(false);
+            this.props.modificaIdUsuario(res.id);
+            this.props.modificaEmail(res.email);
+            this.props.modificaSenha(res.password);
+            this.props.modificaSenhaAntiga(res.password);
+            this.props.modificaNome(res.nome);
+            this.props.modificaEndereco(res.logradouro);
+            this.props.modificaNumero(res.numero);
+            this.props.modificaComplemento(res.complemento);
+            this.props.modificaPontoReferencia(res.ponto_referencia);
+            this.props.modificaEstado(res.uf);
+            this.props.modificaCidade(res.cidade);
+            this.props.modificaBairro(res.bairro);
+            this.props.modificaTelefone(res.telefone);
+            this.props.modificaConfirmaSenha(res.password);
+            this.props.modificaUsername(res.username);
+            this.props.estadosFetch();
+            this.props.cidadesFetch(res.uf);
+            this.props.bairroFetch(res.cidade);
+            this.props.showMyLoader(false);
+          }
+          
         }
         
       }

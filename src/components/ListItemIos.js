@@ -159,7 +159,7 @@ async getToken() {
                   alignSelf: "center"
                 }}
                 //source={{ uri: this.props.image }
-                source={{ uri: this.props.image.replace('http://localhost/', 'http://10.0.2.2/') }
+                source={{ uri: this.props.image.replace('http://localhost/', 'http://localhost/') }
                 }
               />
               <View
