@@ -2,8 +2,8 @@
 
 
 //export const APP_URL = 'http://10.0.2.2/entregapp_sistema';
-//export const APP_URL = 'https://sistema.rudo.com.br';
-export const APP_URL ='http://localhost:8080/entregapp_sistema';
+export const APP_URL = 'https://sistema.rudo.com.br';
+//export const APP_URL ='http://localhost:8080/entregapp_sistema';
 
 import axios from "axios";
 
@@ -58,7 +58,7 @@ let my_filial_id='';
 let my_empresa_id='';
 let my_idx='';
 if (request.status === 200) {
-    console.log(request.response);
+    //console.log(request.response);
     let obj= JSON.parse(request.response);
     //console.log(obj.resultados.Filial);
     my_filial_id=obj.resultados.Filial.id;
