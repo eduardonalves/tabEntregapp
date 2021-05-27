@@ -47,16 +47,18 @@ checkUniqueness().then((response) =>{
 
 var request = new XMLHttpRequest();
 
-var pathname=document.location.pathname;
+var pathname=document.location.search;
+
 pathname= pathname.replace('/','');
 pathname= pathname.replace('?loja=','');
+
 request.open('GET', `${APP_URL}/RestFilials/getdatafilial.json?e=${pathname}`, false);  // `false` makes the request synchronous
 request.send(null);
 let my_filial_id='';
 let my_empresa_id='';
 let my_idx='';
 if (request.status === 200) {
-    //console.log(request.response);
+    console.log(request.response);
     let obj= JSON.parse(request.response);
     //console.log(obj.resultados.Filial);
     my_filial_id=obj.resultados.Filial.id;
