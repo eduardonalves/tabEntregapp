@@ -2,8 +2,8 @@
 
 
 //export const APP_URL = 'http://10.0.2.2/entregapp_sistema';
-export const APP_URL = 'https://sistema.rudo.com.br';
-//xport const APP_URL ='http://localhost:8080/entregapp_sistema';
+//export const APP_URL = 'https://sistema.rudo.com.br';
+export const APP_URL ='http://localhost:8080/entregapp_sistema';
 
 import axios from "axios";
 
@@ -49,6 +49,7 @@ var request = new XMLHttpRequest();
 
 var pathname=document.location.pathname;
 pathname= pathname.replace('/','');
+pathname= pathname.replace('?loja=','');
 request.open('GET', `${APP_URL}/RestFilials/getdatafilial.json?e=${pathname}`, false);  // `false` makes the request synchronous
 request.send(null);
 let my_filial_id='';
